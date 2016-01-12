@@ -1,0 +1,35 @@
+#include "messageDefaults.fcl"
+
+process_name: MERGE
+
+services:
+{
+  scheduler:
+  {
+    wantSummary: false
+  }
+}
+services.message: @local::messageDefaults
+
+source:
+{
+  module_type: RootInput
+  fileNames: [ "test_fwlite3.root", "test_fwlite4.root" ]
+}
+
+physics:
+{
+  e1: [ output1 ]
+
+  end_paths: [ e1 ]
+}
+
+outputs:
+{
+  output1:
+  {
+    module_type: RootOutput
+    fileName: "test_fwlite5.root"
+    outputCommands: [ "keep *", "drop *_*_willBeDropped_*" ]
+  }
+}
