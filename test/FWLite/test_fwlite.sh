@@ -75,4 +75,7 @@ time root -b -q -l fwlite_t.C || die "fwlite_t.C " $?
 
 # Test using pyROOT
 echo Invoking python fwlite_t.py
+echo ART_INC=$ART_INC
+echo ART_DIR=$ART_DIR
+
 time python fwlite_t.py || die "fwlite_t.py " $?

@@ -14,6 +14,8 @@ foreach(fwlite_test ${fwlite_tests})
     LIBRARIES ${fwlite_tests_libraries}
   )
 endforeach()
+cet_test_env("ART_INC=${CMAKE_SOURCE_DIR}/include")
+cet_test_env("ART_DIR=${CMAKE_SOURCE_DIR}")
 
 cet_test(test_fwlite.sh PREBUILT
   DATAFILES
