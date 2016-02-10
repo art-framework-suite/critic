@@ -14,7 +14,7 @@ services.message: @local::messageDefaults
 source:
 {
   module_type: RootInput
-  fileNames: [ "test_fwlite2.root" ]
+  fileNames: [ "test_gallery2.root" ]
 }
 
 physics:
@@ -23,7 +23,7 @@ physics:
   {
     m7:
     {
-      module_type: FWLiteTestProducer
+      module_type: GalleryTestProducer
       value1: 712
       value2: 722
       value3: 732
@@ -44,6 +44,6 @@ outputs:
   output1:
   {
     module_type: RootOutput
-    fileName: "test_fwlite6.root"
+    fileName: "test_gallery6.root"
   }
 }

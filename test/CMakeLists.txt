@@ -9,4 +9,5 @@ include(CetTest)
 cet_test_env("FHICL_FILE_PATH=.")
 
 # build Persistency libraries
-add_subdirectory (FWLite)
+add_subdirectory (gallery)
+add_subdirectory (TestObjects)

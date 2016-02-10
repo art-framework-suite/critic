@@ -23,7 +23,7 @@ physics:
   {
     m1:
     {
-      module_type: FWLiteTestProducer
+      module_type: GalleryTestProducer
       value1: 111
       value2: 121
       value3: 131
@@ -33,7 +33,7 @@ physics:
     }
     m2:
     {
-      module_type: FWLiteTestProducer
+      module_type: GalleryTestProducer
       value1: 211
       value2: 221
       value3: 231
@@ -43,7 +43,7 @@ physics:
     }
     m3:
     {
-      module_type: FWLiteTestProducer
+      module_type: GalleryTestProducer
       value1: 311
       value2: 321
       value3: 331
@@ -53,7 +53,7 @@ physics:
     }
     m4:
     {
-      module_type: FWLiteTestProducer
+      module_type: GalleryTestProducer
       value1: 411
       value2: 421
       value3: 431
@@ -63,7 +63,7 @@ physics:
     }
     m5:
     {
-      module_type: FWLiteTestProducer
+      module_type: GalleryTestProducer
       value1: 511
       value2: 521
       value3: 531
@@ -73,7 +73,7 @@ physics:
     }
     m6:
     {
-      module_type: FWLiteTestProducer
+      module_type: GalleryTestProducer
       value1: 611
       value2: 621
       value3: 631
@@ -94,6 +94,6 @@ outputs:
   output1:
   {
     module_type: RootOutput
-    fileName: "test_fwlite1.root"
+    fileName: "test_gallery1.root"
   }
 }

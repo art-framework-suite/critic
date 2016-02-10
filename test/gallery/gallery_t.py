@@ -27,21 +27,21 @@ if os.getenv('FHICLCPP_INC') is not None :
 else :
   ROOT.gInterpreter.AddIncludePath(os.environ.get('FHICLCPP_DIR'))
 
-ROOT.gROOT.ProcessLine('#include "canvas/FWLite/ValidHandle.h"')
+ROOT.gROOT.ProcessLine('#include "gallery/ValidHandle.h"')
 
-ROOT.gROOT.ProcessLine('template canvas::ValidHandle<arttest::StringProduct> canvas::Event::getValidHandle<arttest::StringProduct>(canvas::InputTag const&) const;')
-ROOT.gROOT.ProcessLine('template canvas::ValidHandle<art::TriggerResults> canvas::Event::getValidHandle<art::TriggerResults>(canvas::InputTag const&) const;')
-ROOT.gROOT.ProcessLine('template canvas::ValidHandle<arttest::LitePtrTestProduct> canvas::Event::getValidHandle<arttest::LitePtrTestProduct>(canvas::InputTag const&) const;')
+ROOT.gROOT.ProcessLine('template gallery::ValidHandle<critictest::StringProduct> gallery::Event::getValidHandle<critictest::StringProduct>(gallery::InputTag const&) const;')
+ROOT.gROOT.ProcessLine('template gallery::ValidHandle<art::TriggerResults> gallery::Event::getValidHandle<art::TriggerResults>(gallery::InputTag const&) const;')
+ROOT.gROOT.ProcessLine('template gallery::ValidHandle<critictest::LitePtrTestProduct> gallery::Event::getValidHandle<critictest::LitePtrTestProduct>(gallery::InputTag const&) const;')
 
 filenames = ROOT.vector(ROOT.string)()
-filenames.push_back("test_fwlite5.root")
-filenames.push_back("test_fwlite7.root")
-ev = ROOT.canvas.Event(filenames)
+filenames.push_back("test_gallery5.root")
+filenames.push_back("test_gallery7.root")
+ev = ROOT.gallery.Event(filenames)
 
-inputTagEventID = ROOT.canvas.InputTag("m1", "eventID", "PROD1");
-inputTagTriggerResults = ROOT.canvas.InputTag("TriggerResults", "", "PROD1");
-inputTags62 = ROOT.canvas.InputTag("m6", "i2");
-inputTagPtrTest = ROOT.canvas.InputTag("ptr1");
+inputTagEventID = ROOT.gallery.InputTag("m1", "eventID", "PROD1");
+inputTagTriggerResults = ROOT.gallery.InputTag("TriggerResults", "", "PROD1");
+inputTags62 = ROOT.gallery.InputTag("m6", "i2");
+inputTagPtrTest = ROOT.gallery.InputTag("ptr1");
 
 iEvent = 1
 ev.toBegin()
@@ -52,16 +52,16 @@ while ( not ev.atEnd()) :
     iEvent = 1; # Events numbers go from 1 to 5 and repeat 1 to 5
   assert(iEvent == aux.id().event()), "Unexpected event number in EventAuxiliary"
 
-  eventIDInt = ev.getValidHandle(ROOT.arttest.IntProduct)(inputTagEventID);
+  eventIDInt = ev.getValidHandle(ROOT.critictest.IntProduct)(inputTagEventID);
   assert(eventIDInt.value == aux.id().event());
 
   triggerResults = ev.getValidHandle(ROOT.art.TriggerResults)(inputTagTriggerResults);
   print triggerResults.parameterSetID().to_string()
 
-  stringProduct62 = ev.getValidHandle(ROOT.arttest.StringProduct)(inputTags62);
+  stringProduct62 = ev.getValidHandle(ROOT.critictest.StringProduct)(inputTags62);
   assert(stringProduct62.name_ == "s621");
 
-  ptrTestProduct = ev.getValidHandle(ROOT.arttest.LitePtrTestProduct)(inputTagPtrTest);
+  ptrTestProduct = ev.getValidHandle(ROOT.critictest.LitePtrTestProduct)(inputTagPtrTest);
 
   eventInt = aux.id().event();
   value = ptrTestProduct.ptrInt1.get()[0]
