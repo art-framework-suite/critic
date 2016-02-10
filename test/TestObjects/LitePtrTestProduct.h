@@ -16,17 +16,17 @@ namespace critictest {
     art::Ptr<int> ptrInt2;
     art::Ptr<int> ptrInt3;
 
-    art::Ptr<arttest::Simple> ptrSimple1;
-    art::Ptr<arttest::Simple> ptrSimple2;
-    art::Ptr<arttest::Simple> ptrSimple3;
+    art::Ptr<critictest::Simple> ptrSimple1;
+    art::Ptr<critictest::Simple> ptrSimple2;
+    art::Ptr<critictest::Simple> ptrSimple3;
 
-    art::Ptr<arttest::SimpleDerived> ptrSimpleDerived1;
-    art::Ptr<arttest::SimpleDerived> ptrSimpleDerived2;
-    art::Ptr<arttest::SimpleDerived> ptrSimpleDerived3;
+    art::Ptr<critictest::SimpleDerived> ptrSimpleDerived1;
+    art::Ptr<critictest::SimpleDerived> ptrSimpleDerived2;
+    art::Ptr<critictest::SimpleDerived> ptrSimpleDerived3;
 
     art::PtrVector<int> ptrVectorInt;
-    art::PtrVector<arttest::Simple> ptrVectorSimple;
-    art::PtrVector<arttest::SimpleDerived> ptrVectorSimpleDerived;
+    art::PtrVector<critictest::Simple> ptrVectorSimple;
+    art::PtrVector<critictest::SimpleDerived> ptrVectorSimpleDerived;
 
     art::Ptr<int> ptrIntoContainerToBeDropped;
     art::Ptr<int> nullPtr;
