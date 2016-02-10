@@ -1,11 +1,11 @@
-#ifndef critic_test_TestObjects_classes_h
-#define critic_test_TestObjects_classes_h
+#ifndef test_CriticTestObjects_classes_h
+#define test_CriticTestObjects_classes_h
 
 #include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Persistency/Common/PtrVector.h"
 #include "canvas/Persistency/Common/Wrapper.h"
-#include "test/TestObjects/LitePtrTestProduct.h"
-#include "test/TestObjects/ToyProducts.h"
+#include "test/CriticTestObjects/LitePtrTestProduct.h"
+#include "test/CriticTestObjects/ToyProducts.h"
 
 #include <vector>
 

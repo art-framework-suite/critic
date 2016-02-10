@@ -1,9 +1,9 @@
-#ifndef test_TestObjects_LitePtrTestProduct_h
-#define test_TestObjects_LitePtrTestProduct_h
+#ifndef test_CriticTestObjects_LitePtrTestProduct_h
+#define test_CriticTestObjects_LitePtrTestProduct_h
 
 #include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Persistency/Common/PtrVector.h"
-#include "test/TestObjects/ToyProducts.h"
+#include "test/CriticTestObjects/ToyProducts.h"
 
 namespace critictest {
 
@@ -35,7 +35,7 @@ namespace critictest {
   };
 }
 
-#endif /* test_TestObjects_LitePtrTestProduct_h */
+#endif /* test_CriticTestObjects_LitePtrTestProduct_h */
 
 // Local Variables:
 // mode: c++

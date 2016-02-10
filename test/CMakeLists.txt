@@ -10,4 +10,4 @@ cet_test_env("FHICL_FILE_PATH=.")
 
 # build Persistency libraries
 add_subdirectory (gallery)
-add_subdirectory (TestObjects)
+add_subdirectory (CriticTestObjects)

@@ -1,0 +1,1 @@
+art_dictionary(DICTIONARY_LIBRARIES test_CriticTestObjects NO_INSTALL)

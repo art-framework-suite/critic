@@ -3,8 +3,8 @@
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"
 #include "art/Utilities/InputTag.h"
-#include "test/TestObjects/LitePtrTestProduct.h"
-#include "test/TestObjects/ToyProducts.h"
+#include "test/CriticTestObjects/LitePtrTestProduct.h"
+#include "test/CriticTestObjects/ToyProducts.h"
 
 #include <memory>
 #include <vector>

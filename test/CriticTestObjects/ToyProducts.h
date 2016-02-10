@@ -1,5 +1,5 @@
-#ifndef critic_test_TestObjects_ToyProducts_h
-#define critic_test_TestObjects_ToyProducts_h
+#ifndef test_CriticTestObjects_ToyProducts_h
+#define test_CriticTestObjects_ToyProducts_h
 
 // ======================================================================
 //
