@@ -10,7 +10,7 @@ namespace critictest {
   class LitePtrTestProduct {
   public:
 
-    LitePtrTestProduct() { }
+    LitePtrTestProduct();
 
     art::Ptr<int> ptrInt1;
     art::Ptr<int> ptrInt2;

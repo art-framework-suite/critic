@@ -12,20 +12,20 @@ import ROOT
 # At that point in time, the following code can be simplified
 # and the if-else blocks removed.
 
-if os.getenv('ART_INC') is not None :
-  ROOT.gInterpreter.AddIncludePath(os.environ.get('ART_INC'))
+if os.getenv('GALLERY_INC') is not None :
+  ROOT.gInterpreter.AddIncludePath(os.environ.get('GALLERY_INC'))
 else :
-  ROOT.gInterpreter.AddIncludePath(os.environ.get('ART_DIR'))
+  ROOT.gInterpreter.AddIncludePath(os.environ.get('GALLERY_DIR'))
+
+if os.getenv('CANVAS_INC') is not None :
+  ROOT.gInterpreter.AddIncludePath(os.environ.get('CANVAS_INC'))
+else :
+  ROOT.gInterpreter.AddIncludePath(os.environ.get('CANVAS_DIR'))
 
 if os.getenv('CETLIB_INC') is not None :
   ROOT.gInterpreter.AddIncludePath(os.environ.get('CETLIB_INC'))
 else :
   ROOT.gInterpreter.AddIncludePath(os.environ.get('CETLIB_DIR'))
-
-if os.getenv('FHICLCPP_INC') is not None :
-  ROOT.gInterpreter.AddIncludePath(os.environ.get('FHICLCPP_INC'))
-else :
-  ROOT.gInterpreter.AddIncludePath(os.environ.get('FHICLCPP_DIR'))
 
 ROOT.gROOT.ProcessLine('#include "gallery/ValidHandle.h"')
 

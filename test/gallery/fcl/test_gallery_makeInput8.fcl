@@ -23,7 +23,7 @@ physics:
   {
     f1:
     {
-      module_type: FailEverything
+      module_type: CriticFailEverything
     }
   }
   p1: [ f1 ]
