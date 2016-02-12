@@ -4,6 +4,7 @@ set(gallery_tests
 
 set( gallery_tests_libraries
         gallery
+        canvas_Persistency_Common
         canvas_Persistency_Provenance
         canvas_Utilities
         ${ROOT_RIO}
@@ -30,6 +31,6 @@ cet_test(test_gallery.sh PREBUILT
   gallery_t.py
 )
 
-simple_plugin(GalleryTestProducer     "module"  NO_INSTALL art_Persistency_Provenance )
+simple_plugin(GalleryTestProducer     "module"  NO_INSTALL art_Persistency_Provenance)
 simple_plugin(GalleryPtrTestProducer  "module"  NO_INSTALL art_Persistency_Provenance test_CriticTestObjects)
-simple_plugin(CriticFailEverything    "module"  NO_INSTALL art_Persistency_Provenance )
+simple_plugin(CriticFailEverything    "module"  NO_INSTALL)
