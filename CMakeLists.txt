@@ -47,6 +47,7 @@ find_ups_product( art )
 find_ups_product( gallery )
 find_ups_product (cetbuildtools )
 find_ups_root( )
+find_ups_boost()
 
 # macros for art_dictionary and simple_plugin
 include(ArtDictionary)
