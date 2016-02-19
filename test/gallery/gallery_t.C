@@ -1,13 +1,13 @@
-void fwlite_t() {
+void gallery_t() {
 
-  std::vector<std::string> filenames { "test_fwlite5.root", "test_fwlite7.root" };
+  std::vector<std::string> filenames { "test_gallery5.root", "test_gallery7.root" };
 
-  canvas::Event ev(filenames);
+  gallery::Event ev(filenames);
 
-  canvas::InputTag inputTagEventID("m1", "eventID", "PROD1");
-  canvas::InputTag inputTagTriggerResults("TriggerResults", "", "PROD1");
-  canvas::InputTag inputTags62("m6", "i2");
-  canvas::InputTag inputTagPtrTest("ptr1");
+  gallery::InputTag inputTagEventID("m1", "eventID", "PROD1");
+  gallery::InputTag inputTagTriggerResults("TriggerResults", "", "PROD1");
+  gallery::InputTag inputTags62("m6", "i2");
+  gallery::InputTag inputTagPtrTest("ptr1");
 
   unsigned int iEvent = 1;
   for(ev.toBegin(); ! ev.atEnd(); ++ev, ++iEvent) {
@@ -17,16 +17,16 @@ void fwlite_t() {
     if (iEvent == 6) iEvent = 1; // Events numbers go from 1 to 5 and repeat 1 to 5
     assert(aux.id().event() == iEvent);
 
-    auto eventIDInt = ev.getValidHandle<arttest::IntProduct>(inputTagEventID);
+    auto eventIDInt = ev.getValidHandle<critictest::IntProduct>(inputTagEventID);
     assert(static_cast<unsigned int>(eventIDInt->value) == aux.id().event());
 
     auto triggerResults = ev.getValidHandle<art::TriggerResults>(inputTagTriggerResults);
     std::cout << "psetID = " <<  triggerResults->parameterSetID().to_string() << "\n";
 
-    auto stringProduct62 = ev.getValidHandle<arttest::StringProduct>(inputTags62);
+    auto stringProduct62 = ev.getValidHandle<critictest::StringProduct>(inputTags62);
     assert(stringProduct62->name_ == "s621");
 
-    auto ptrTestProduct = ev.getValidHandle<arttest::LitePtrTestProduct>(inputTagPtrTest);
+    auto ptrTestProduct = ev.getValidHandle<critictest::LitePtrTestProduct>(inputTagPtrTest);
 
     int eventInt = static_cast<int>(aux.id().event());
     assert(*ptrTestProduct->ptrInt1 == 111 + eventInt);
@@ -89,7 +89,7 @@ void fwlite_t() {
     // I am guessing undefined behavior for null Ptrs
     //
     // This is all in the Ptr class and really has nothing to do with
-    // fwlite. The same behavior should exist in the full art framework.
+    // gallery. The same behavior should exist in the full art framework.
     
     assert(!ptrTestProduct->nullDroppedPtr &&
            !ptrTestProduct->nullDroppedPtr.isAvailable() &&

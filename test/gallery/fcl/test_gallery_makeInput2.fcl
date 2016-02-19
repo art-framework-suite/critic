@@ -14,7 +14,7 @@ services.message: @local::messageDefaults
 source:
 {
   module_type: RootInput
-  fileNames: [ "test_fwlite1.root" ]
+  fileNames: [ "test_gallery1.root" ]
 }
 
 physics:
@@ -23,7 +23,7 @@ physics:
   {
     m1:
     {
-      module_type: FWLiteTestProducer
+      module_type: GalleryTestProducer
       value1: 112
       value2: 122
       value3: 132
@@ -33,7 +33,7 @@ physics:
     }
     m2:
     {
-      module_type: FWLiteTestProducer
+      module_type: GalleryTestProducer
       value1: 212
       value2: 222
       value3: 232
@@ -43,7 +43,7 @@ physics:
     }
     m3:
     {
-      module_type: FWLiteTestProducer
+      module_type: GalleryTestProducer
       value1: 312
       value2: 322
       value3: 332
@@ -53,7 +53,7 @@ physics:
     }
     m5:
     {
-      module_type: FWLiteTestProducer
+      module_type: GalleryTestProducer
       value1: 512
       value2: 522
       value3: 532
@@ -63,7 +63,7 @@ physics:
     }
     m6:
     {
-      module_type: FWLiteTestProducer
+      module_type: GalleryTestProducer
       value1: -1
       value2: -1
       value3: -1
@@ -85,6 +85,6 @@ outputs:
   output1:
   {
     module_type: RootOutput
-    fileName: "test_fwlite2.root"
+    fileName: "test_gallery2.root"
   }
 }

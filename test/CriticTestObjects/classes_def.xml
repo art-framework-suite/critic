@@ -1,0 +1,33 @@
+<lcgdict>
+
+  <class name="critictest::IntProduct" ClassVersion="10">
+    <version ClassVersion="10" checksum="3093835560"/>
+  </class>
+  <class name="art::Wrapper<critictest::IntProduct>"/>
+
+  <class name="critictest::StringProduct" ClassVersion="10">
+    <version ClassVersion="10" checksum="740101573"/>
+  </class>
+  <class name="art::Wrapper<critictest::StringProduct>"/>
+
+  <class name="critictest::Simple" ClassVersion="10">
+    <version ClassVersion="10" checksum="436424854"/>
+  </class>
+  <class name="critictest::SimpleDerived" ClassVersion="10">
+    <version ClassVersion="10" checksum="1257977493"/>
+  </class>
+  <class name="std::vector<critictest::SimpleDerived>"/>
+  <class name="art::Wrapper<std::vector<critictest::SimpleDerived> >"/>
+
+  <class name="critictest::LitePtrTestProduct" ClassVersion="10">
+    <version ClassVersion="10" checksum="2678853457"/>
+  </class>
+  <class name="art::Wrapper<critictest::LitePtrTestProduct>"/>
+
+  <class name="art::Ptr<critictest::Simple>"/>
+  <class name="art::Ptr<critictest::SimpleDerived>"/>
+
+  <class name="art::PtrVector<critictest::Simple>"/>
+  <class name="art::PtrVector<critictest::SimpleDerived>"/>
+
+</lcgdict>

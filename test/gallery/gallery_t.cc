@@ -1,9 +1,9 @@
 
 #include "canvas/Persistency/Provenance/EventAuxiliary.h"
-#include "canvas/FWLite/Event.h"
-#include "canvas/FWLite/TypeLabelInstanceKey.h"
-#include "test/TestObjects/LitePtrTestProduct.h"
-#include "test/TestObjects/ToyProducts.h"
+#include "gallery/Event.h"
+#include "gallery/TypeLabelInstanceKey.h"
+#include "test/CriticTestObjects/LitePtrTestProduct.h"
+#include "test/CriticTestObjects/ToyProducts.h"
 #include "canvas/Persistency/Common/TriggerResults.h"
 #include "canvas/Utilities/TypeID.h"
 #include "TFile.h"
@@ -30,87 +30,87 @@
 
 int main() {
 
-  canvas::InputTag inputTagTriggerResults("TriggerResults", "", "PROD1");
-  canvas::InputTag inputTagEventID("m1", "eventID", "PROD1");
+  gallery::InputTag inputTagTriggerResults("TriggerResults", "", "PROD1");
+  gallery::InputTag inputTagEventID("m1", "eventID", "PROD1");
 
-  canvas::InputTag inputTag111(std::string("m1::PROD1"));
-  canvas::InputTag inputTag121("m1:i2:PROD1");
-  canvas::InputTag inputTag131(std::string("m1"), std::string("i3"), std::string("PROD1"));
+  gallery::InputTag inputTag111(std::string("m1::PROD1"));
+  gallery::InputTag inputTag121("m1:i2:PROD1");
+  gallery::InputTag inputTag131(std::string("m1"), std::string("i3"), std::string("PROD1"));
 
-  canvas::InputTag inputTags111("m1", "", "PROD1");
-  canvas::InputTag inputTags121("m1", "i2", "PROD1");
-  canvas::InputTag inputTags131("m1", "i3", "PROD1");
+  gallery::InputTag inputTags111("m1", "", "PROD1");
+  gallery::InputTag inputTags121("m1", "i2", "PROD1");
+  gallery::InputTag inputTags131("m1", "i3", "PROD1");
 
-  canvas::InputTag inputTag211("m2", "", "PROD1");
-  canvas::InputTag inputTag221("m2", "i2", "PROD1");
+  gallery::InputTag inputTag211("m2", "", "PROD1");
+  gallery::InputTag inputTag221("m2", "i2", "PROD1");
 
-  canvas::InputTag inputTag112("m1", "", "PROD2");
-  canvas::InputTag inputTag122("m1", "i2", "PROD2");
+  gallery::InputTag inputTag112("m1", "", "PROD2");
+  gallery::InputTag inputTag122("m1", "i2", "PROD2");
 
-  canvas::InputTag inputTag113("m1", "", "PROD3");
-  canvas::InputTag inputTag123("m1", "i2", "PROD3");
+  gallery::InputTag inputTag113("m1", "", "PROD3");
+  gallery::InputTag inputTag123("m1", "i2", "PROD3");
 
-  canvas::InputTag inputTag11("m1");
-  canvas::InputTag inputTag12("m1:i2");
+  gallery::InputTag inputTag11("m1");
+  gallery::InputTag inputTag12("m1:i2");
 
-  canvas::InputTag inputTags11("m1", "");
-  canvas::InputTag inputTags12("m1", "i2");
+  gallery::InputTag inputTags11("m1", "");
+  gallery::InputTag inputTags12("m1", "i2");
 
-  canvas::InputTag inputTag21("m2", "");
-  canvas::InputTag inputTag22("m2", "i2");
+  gallery::InputTag inputTag21("m2", "");
+  gallery::InputTag inputTag22("m2", "i2");
 
-  canvas::InputTag inputTag31("m3", "");
-  canvas::InputTag inputTag32("m3", "i2");
+  gallery::InputTag inputTag31("m3", "");
+  gallery::InputTag inputTag32("m3", "i2");
 
-  canvas::InputTag inputTag312("m3", "", "PROD2");
-  canvas::InputTag inputTag322("m3", "i2", "PROD2");
+  gallery::InputTag inputTag312("m3", "", "PROD2");
+  gallery::InputTag inputTag322("m3", "i2", "PROD2");
 
-  canvas::InputTag inputTag41("m4", "");
-  canvas::InputTag inputTag42("m4", "i2");
+  gallery::InputTag inputTag41("m4", "");
+  gallery::InputTag inputTag42("m4", "i2");
 
-  canvas::InputTag inputTag411("m4", "", "PROD1");
-  canvas::InputTag inputTag421("m4", "i2", "PROD1");
+  gallery::InputTag inputTag411("m4", "", "PROD1");
+  gallery::InputTag inputTag421("m4", "i2", "PROD1");
 
-  canvas::InputTag inputTag51("m5", "");
-  canvas::InputTag inputTag52("m5", "i2");
+  gallery::InputTag inputTag51("m5", "");
+  gallery::InputTag inputTag52("m5", "i2");
 
-  canvas::InputTag inputTags61("m6", "");
-  canvas::InputTag inputTags62("m6", "i2");
+  gallery::InputTag inputTags61("m6", "");
+  gallery::InputTag inputTags62("m6", "i2");
 
-  canvas::InputTag inputTagFile2(std::string("m0::PROD3"));
+  gallery::InputTag inputTagFile2(std::string("m0::PROD3"));
 
-  canvas::InputTag inputTagPtrTest("ptr1");
+  gallery::InputTag inputTagPtrTest("ptr1");
 
   // Test InputTag
   assert(inputTag121 != inputTags131);
   assert(inputTag121 != inputTag122);
   assert(inputTag122 != inputTag322);
-  canvas::InputTag inputTagTest("m3", "i2", "PROD2");
+  gallery::InputTag inputTagTest("m3", "i2", "PROD2");
   assert(!(inputTag322 != inputTagTest));
   std::cout << inputTagTest << std::endl;
 
   // Test TypeLabelInstance class
-  art::TypeID typeIntProduct(typeid(arttest::IntProduct));
-  art::TypeID typeStringProduct(typeid(arttest::StringProduct));
-  canvas::TypeLabelInstanceKey key1(typeIntProduct, "a", "b");
+  art::TypeID typeIntProduct(typeid(critictest::IntProduct));
+  art::TypeID typeStringProduct(typeid(critictest::StringProduct));
+  gallery::TypeLabelInstanceKey key1(typeIntProduct, "a", "b");
   assert(key1.typeID() == typeIntProduct &&
          std::string(key1.label()) == "a" &&
          std::string(key1.instance()) == "b");
-  canvas::TypeLabelInstanceKey key2(typeStringProduct, "a", "b");
-  canvas::TypeLabelInstanceKey key3(typeIntProduct, "c", "b");
-  canvas::TypeLabelInstanceKey key4(typeIntProduct, "a", "c");
+  gallery::TypeLabelInstanceKey key2(typeStringProduct, "a", "b");
+  gallery::TypeLabelInstanceKey key3(typeIntProduct, "c", "b");
+  gallery::TypeLabelInstanceKey key4(typeIntProduct, "a", "c");
   assert(key1 < key2 || key2 < key1);
   assert(key1 < key3 && key1 < key4);
 
   // Read values from a ROOT file and test that we get the correct
   // products with the arbitrary values we know were put into them.
-  std::vector<std::string> filenames {"test_fwlite8.root",
-                                      "test_fwlite5.root",
-                                      "test_fwlite8.root",
-                                      "test_fwlite7.root",
-                                      "test_fwlite8.root"};
+  std::vector<std::string> filenames {"test_gallery8.root",
+                                      "test_gallery5.root",
+                                      "test_gallery8.root",
+                                      "test_gallery7.root",
+                                      "test_gallery8.root"};
 
-  canvas::Event ev(filenames, true, 1);
+  gallery::Event ev(filenames, true, 1);
   assert(ev.numberOfEventsInFile() == 10);
 
   unsigned int iEvent = 1;
@@ -135,106 +135,106 @@ int main() {
     auto triggerResults = ev.getValidHandle<art::TriggerResults>(inputTagTriggerResults);
     std::cout << "psetID = " <<  triggerResults->parameterSetID().to_string() << "\n";
 
-    auto eventIDInt = ev.getValidHandle<arttest::IntProduct>(inputTagEventID);
+    auto eventIDInt = ev.getValidHandle<critictest::IntProduct>(inputTagEventID);
     assert(static_cast<unsigned int>(eventIDInt->value) == aux.id().event());
 
-    auto intProduct111 = ev.getValidHandle<arttest::IntProduct>(inputTag111);
+    auto intProduct111 = ev.getValidHandle<critictest::IntProduct>(inputTag111);
     assert(intProduct111->value == 111);
 
-    auto intProduct121 = ev.getValidHandle<arttest::IntProduct>(inputTag121);
+    auto intProduct121 = ev.getValidHandle<critictest::IntProduct>(inputTag121);
     assert((*intProduct121).value == 121);
 
-    auto intProduct131 = ev.getValidHandle<arttest::IntProduct>(inputTag131);
+    auto intProduct131 = ev.getValidHandle<critictest::IntProduct>(inputTag131);
     assert(intProduct131.product()->value == 131);
 
-    auto stringProduct111 = ev.getValidHandle<arttest::StringProduct>(inputTags111);
+    auto stringProduct111 = ev.getValidHandle<critictest::StringProduct>(inputTags111);
     assert(stringProduct111->name_ == "s111");
 
-    auto stringProduct121 = ev.getValidHandle<arttest::StringProduct>(inputTags121);
+    auto stringProduct121 = ev.getValidHandle<critictest::StringProduct>(inputTags121);
     assert(stringProduct121->name_ == "s121");
 
-    auto stringProduct131 = ev.getValidHandle<arttest::StringProduct>(inputTags131);
+    auto stringProduct131 = ev.getValidHandle<critictest::StringProduct>(inputTags131);
     assert(stringProduct131->name_ == "s131");
 
-    auto intProduct211 = ev.getValidHandle<arttest::IntProduct>(inputTag211);
+    auto intProduct211 = ev.getValidHandle<critictest::IntProduct>(inputTag211);
     assert(intProduct211->value == 211);
 
-    auto intProduct221 = ev.getValidHandle<arttest::IntProduct>(inputTag221);
+    auto intProduct221 = ev.getValidHandle<critictest::IntProduct>(inputTag221);
     assert(intProduct221->value == 221);
 
-    auto intProduct112 = ev.getValidHandle<arttest::IntProduct>(inputTag112);
+    auto intProduct112 = ev.getValidHandle<critictest::IntProduct>(inputTag112);
     assert(intProduct112->value == 112);
 
-    auto intProduct122 = ev.getValidHandle<arttest::IntProduct>(inputTag122);
+    auto intProduct122 = ev.getValidHandle<critictest::IntProduct>(inputTag122);
     assert(intProduct122->value == 122);
 
-    auto intProduct113 = ev.getValidHandle<arttest::IntProduct>(inputTag113);
+    auto intProduct113 = ev.getValidHandle<critictest::IntProduct>(inputTag113);
     assert(intProduct113->value == 113);
 
-    auto intProduct123 = ev.getValidHandle<arttest::IntProduct>(inputTag123);
+    auto intProduct123 = ev.getValidHandle<critictest::IntProduct>(inputTag123);
     assert(intProduct123->value == 123);
 
-    auto intProduct11 = ev.getValidHandle<arttest::IntProduct>(inputTag11);
+    auto intProduct11 = ev.getValidHandle<critictest::IntProduct>(inputTag11);
     assert(intProduct11->value == 113);
 
-    auto intProduct12 = ev.getValidHandle<arttest::IntProduct>(inputTag12);
+    auto intProduct12 = ev.getValidHandle<critictest::IntProduct>(inputTag12);
     assert(intProduct12->value == 123);
 
-    auto stringProduct11 = ev.getValidHandle<arttest::StringProduct>(inputTags11);
+    auto stringProduct11 = ev.getValidHandle<critictest::StringProduct>(inputTags11);
     assert(stringProduct11->name_ == "s113");
 
-    auto stringProduct12 = ev.getValidHandle<arttest::StringProduct>(inputTags12);
+    auto stringProduct12 = ev.getValidHandle<critictest::StringProduct>(inputTags12);
     assert(stringProduct12->name_ == "s123");
 
-    auto intProduct21 = ev.getValidHandle<arttest::IntProduct>(inputTag21);
+    auto intProduct21 = ev.getValidHandle<critictest::IntProduct>(inputTag21);
     assert(intProduct21->value == 213);
 
-    auto intProduct22 = ev.getValidHandle<arttest::IntProduct>(inputTag22);
+    auto intProduct22 = ev.getValidHandle<critictest::IntProduct>(inputTag22);
     assert(intProduct22->value == 223);
 
-    auto intProduct31 = ev.getValidHandle<arttest::IntProduct>(inputTag31);
+    auto intProduct31 = ev.getValidHandle<critictest::IntProduct>(inputTag31);
     assert(intProduct31->value == 312);
 
-    auto intProduct32 = ev.getValidHandle<arttest::IntProduct>(inputTag32);
+    auto intProduct32 = ev.getValidHandle<critictest::IntProduct>(inputTag32);
     assert(intProduct32->value == 322);
 
-    auto intProduct312 = ev.getValidHandle<arttest::IntProduct>(inputTag312);
+    auto intProduct312 = ev.getValidHandle<critictest::IntProduct>(inputTag312);
     assert(intProduct312->value == 312);
 
-    auto intProduct322 = ev.getValidHandle<arttest::IntProduct>(inputTag322);
+    auto intProduct322 = ev.getValidHandle<critictest::IntProduct>(inputTag322);
     assert(intProduct322->value == 322);
 
-    auto intProduct41 = ev.getValidHandle<arttest::IntProduct>(inputTag41);
+    auto intProduct41 = ev.getValidHandle<critictest::IntProduct>(inputTag41);
     assert(intProduct41->value == 411);
 
-    auto intProduct42 = ev.getValidHandle<arttest::IntProduct>(inputTag42);
+    auto intProduct42 = ev.getValidHandle<critictest::IntProduct>(inputTag42);
     assert(intProduct42->value == 421);
 
-    auto intProduct411 = ev.getValidHandle<arttest::IntProduct>(inputTag411);
+    auto intProduct411 = ev.getValidHandle<critictest::IntProduct>(inputTag411);
     assert(intProduct411->value == 411);
 
-    auto intProduct421 = ev.getValidHandle<arttest::IntProduct>(inputTag421);
+    auto intProduct421 = ev.getValidHandle<critictest::IntProduct>(inputTag421);
     assert(intProduct421->value == 421);
 
 
-    auto intProduct51 = ev.getValidHandle<arttest::IntProduct>(inputTag51);
+    auto intProduct51 = ev.getValidHandle<critictest::IntProduct>(inputTag51);
     assert(intProduct51->value == 512);
 
-    auto intProduct52 = ev.getValidHandle<arttest::IntProduct>(inputTag52);
+    auto intProduct52 = ev.getValidHandle<critictest::IntProduct>(inputTag52);
     assert(intProduct52->value == 522);
 
-    auto stringProduct61 = ev.getValidHandle<arttest::StringProduct>(inputTags61);
+    auto stringProduct61 = ev.getValidHandle<critictest::StringProduct>(inputTags61);
     assert(stringProduct61->name_ == "s611");
 
-    auto stringProduct62 = ev.getValidHandle<arttest::StringProduct>(inputTags62);
+    auto stringProduct62 = ev.getValidHandle<critictest::StringProduct>(inputTags62);
     assert(stringProduct62->name_ == "s621");
 
     if (counter > 9) {
-      auto intProductFile2 = ev.getValidHandle<arttest::IntProduct>(inputTagFile2);
+      auto intProductFile2 = ev.getValidHandle<critictest::IntProduct>(inputTagFile2);
       assert(intProductFile2->value == 2000);
     }
 
-    auto ptrTestProduct = ev.getValidHandle<arttest::LitePtrTestProduct>(inputTagPtrTest);
+    auto ptrTestProduct = ev.getValidHandle<critictest::LitePtrTestProduct>(inputTagPtrTest);
 
     int eventInt = static_cast<int>(aux.id().event());
     assert(*ptrTestProduct->ptrInt1 == 111 + eventInt);
@@ -294,7 +294,7 @@ int main() {
     // I am guessing undefined behavior for null Ptrs
     //
     // This is all in the Ptr class and really has nothing to do with
-    // fwlite. The same behavior should exist in the full art framework.
+    // gallery. The same behavior should exist in the full art framework.
     
     assert(!ptrTestProduct->nullDroppedPtr &&
            !ptrTestProduct->nullDroppedPtr.isAvailable() &&
