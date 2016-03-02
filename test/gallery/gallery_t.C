@@ -4,10 +4,10 @@ void gallery_t() {
 
   gallery::Event ev(filenames);
 
-  gallery::InputTag inputTagEventID("m1", "eventID", "PROD1");
-  gallery::InputTag inputTagTriggerResults("TriggerResults", "", "PROD1");
-  gallery::InputTag inputTags62("m6", "i2");
-  gallery::InputTag inputTagPtrTest("ptr1");
+  art::InputTag inputTagEventID("m1", "eventID", "PROD1");
+  art::InputTag inputTagTriggerResults("TriggerResults", "", "PROD1");
+  art::InputTag inputTags62("m6", "i2");
+  art::InputTag inputTagPtrTest("ptr1");
 
   unsigned int iEvent = 1;
   for(ev.toBegin(); ! ev.atEnd(); ++ev, ++iEvent) {

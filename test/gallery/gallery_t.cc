@@ -30,62 +30,62 @@
 
 int main() {
 
-  gallery::InputTag inputTagTriggerResults("TriggerResults", "", "PROD1");
-  gallery::InputTag inputTagEventID("m1", "eventID", "PROD1");
+  art::InputTag inputTagTriggerResults("TriggerResults", "", "PROD1");
+  art::InputTag inputTagEventID("m1", "eventID", "PROD1");
 
-  gallery::InputTag inputTag111(std::string("m1::PROD1"));
-  gallery::InputTag inputTag121("m1:i2:PROD1");
-  gallery::InputTag inputTag131(std::string("m1"), std::string("i3"), std::string("PROD1"));
+  art::InputTag inputTag111(std::string("m1::PROD1"));
+  art::InputTag inputTag121("m1:i2:PROD1");
+  art::InputTag inputTag131(std::string("m1"), std::string("i3"), std::string("PROD1"));
 
-  gallery::InputTag inputTags111("m1", "", "PROD1");
-  gallery::InputTag inputTags121("m1", "i2", "PROD1");
-  gallery::InputTag inputTags131("m1", "i3", "PROD1");
+  art::InputTag inputTags111("m1", "", "PROD1");
+  art::InputTag inputTags121("m1", "i2", "PROD1");
+  art::InputTag inputTags131("m1", "i3", "PROD1");
 
-  gallery::InputTag inputTag211("m2", "", "PROD1");
-  gallery::InputTag inputTag221("m2", "i2", "PROD1");
+  art::InputTag inputTag211("m2", "", "PROD1");
+  art::InputTag inputTag221("m2", "i2", "PROD1");
 
-  gallery::InputTag inputTag112("m1", "", "PROD2");
-  gallery::InputTag inputTag122("m1", "i2", "PROD2");
+  art::InputTag inputTag112("m1", "", "PROD2");
+  art::InputTag inputTag122("m1", "i2", "PROD2");
 
-  gallery::InputTag inputTag113("m1", "", "PROD3");
-  gallery::InputTag inputTag123("m1", "i2", "PROD3");
+  art::InputTag inputTag113("m1", "", "PROD3");
+  art::InputTag inputTag123("m1", "i2", "PROD3");
 
-  gallery::InputTag inputTag11("m1");
-  gallery::InputTag inputTag12("m1:i2");
+  art::InputTag inputTag11("m1");
+  art::InputTag inputTag12("m1:i2");
 
-  gallery::InputTag inputTags11("m1", "");
-  gallery::InputTag inputTags12("m1", "i2");
+  art::InputTag inputTags11("m1", "");
+  art::InputTag inputTags12("m1", "i2");
 
-  gallery::InputTag inputTag21("m2", "");
-  gallery::InputTag inputTag22("m2", "i2");
+  art::InputTag inputTag21("m2", "");
+  art::InputTag inputTag22("m2", "i2");
 
-  gallery::InputTag inputTag31("m3", "");
-  gallery::InputTag inputTag32("m3", "i2");
+  art::InputTag inputTag31("m3", "");
+  art::InputTag inputTag32("m3", "i2");
 
-  gallery::InputTag inputTag312("m3", "", "PROD2");
-  gallery::InputTag inputTag322("m3", "i2", "PROD2");
+  art::InputTag inputTag312("m3", "", "PROD2");
+  art::InputTag inputTag322("m3", "i2", "PROD2");
 
-  gallery::InputTag inputTag41("m4", "");
-  gallery::InputTag inputTag42("m4", "i2");
+  art::InputTag inputTag41("m4", "");
+  art::InputTag inputTag42("m4", "i2");
 
-  gallery::InputTag inputTag411("m4", "", "PROD1");
-  gallery::InputTag inputTag421("m4", "i2", "PROD1");
+  art::InputTag inputTag411("m4", "", "PROD1");
+  art::InputTag inputTag421("m4", "i2", "PROD1");
 
-  gallery::InputTag inputTag51("m5", "");
-  gallery::InputTag inputTag52("m5", "i2");
+  art::InputTag inputTag51("m5", "");
+  art::InputTag inputTag52("m5", "i2");
 
-  gallery::InputTag inputTags61("m6", "");
-  gallery::InputTag inputTags62("m6", "i2");
+  art::InputTag inputTags61("m6", "");
+  art::InputTag inputTags62("m6", "i2");
 
-  gallery::InputTag inputTagFile2(std::string("m0::PROD3"));
+  art::InputTag inputTagFile2(std::string("m0::PROD3"));
 
-  gallery::InputTag inputTagPtrTest("ptr1");
+  art::InputTag inputTagPtrTest("ptr1");
 
   // Test InputTag
   assert(inputTag121 != inputTags131);
   assert(inputTag121 != inputTag122);
   assert(inputTag122 != inputTag322);
-  gallery::InputTag inputTagTest("m3", "i2", "PROD2");
+  art::InputTag inputTagTest("m3", "i2", "PROD2");
   assert(!(inputTag322 != inputTagTest));
   std::cout << inputTagTest << std::endl;
 

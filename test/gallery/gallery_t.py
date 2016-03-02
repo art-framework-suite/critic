@@ -29,19 +29,19 @@ else :
 
 ROOT.gROOT.ProcessLine('#include "gallery/ValidHandle.h"')
 
-ROOT.gROOT.ProcessLine('template gallery::ValidHandle<critictest::StringProduct> gallery::Event::getValidHandle<critictest::StringProduct>(gallery::InputTag const&) const;')
-ROOT.gROOT.ProcessLine('template gallery::ValidHandle<art::TriggerResults> gallery::Event::getValidHandle<art::TriggerResults>(gallery::InputTag const&) const;')
-ROOT.gROOT.ProcessLine('template gallery::ValidHandle<critictest::LitePtrTestProduct> gallery::Event::getValidHandle<critictest::LitePtrTestProduct>(gallery::InputTag const&) const;')
+ROOT.gROOT.ProcessLine('template gallery::ValidHandle<critictest::StringProduct> gallery::Event::getValidHandle<critictest::StringProduct>(art::InputTag const&) const;')
+ROOT.gROOT.ProcessLine('template gallery::ValidHandle<art::TriggerResults> gallery::Event::getValidHandle<art::TriggerResults>(art::InputTag const&) const;')
+ROOT.gROOT.ProcessLine('template gallery::ValidHandle<critictest::LitePtrTestProduct> gallery::Event::getValidHandle<critictest::LitePtrTestProduct>(art::InputTag const&) const;')
 
 filenames = ROOT.vector(ROOT.string)()
 filenames.push_back("test_gallery5.root")
 filenames.push_back("test_gallery7.root")
 ev = ROOT.gallery.Event(filenames)
 
-inputTagEventID = ROOT.gallery.InputTag("m1", "eventID", "PROD1");
-inputTagTriggerResults = ROOT.gallery.InputTag("TriggerResults", "", "PROD1");
-inputTags62 = ROOT.gallery.InputTag("m6", "i2");
-inputTagPtrTest = ROOT.gallery.InputTag("ptr1");
+inputTagEventID = ROOT.art.InputTag("m1", "eventID", "PROD1");
+inputTagTriggerResults = ROOT.art.InputTag("TriggerResults", "", "PROD1");
+inputTags62 = ROOT.art.InputTag("m6", "i2");
+inputTagPtrTest = ROOT.art.InputTag("ptr1");
 
 iEvent = 1
 ev.toBegin()
