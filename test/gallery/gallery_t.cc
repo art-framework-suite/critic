@@ -31,6 +31,7 @@
 int main() {
 
   art::InputTag inputTagTriggerResults("TriggerResults", "", "PROD1");
+  art::InputTag inputTagIncorrect("IncorrectLabel", "IncorrectInstance", "PROD1");
   art::InputTag inputTagEventID("m1", "eventID", "PROD1");
 
   art::InputTag inputTag111(std::string("m1::PROD1"));
@@ -132,8 +133,31 @@ int main() {
 
     std::cout << "ProcessHistoryID: " << ev.processHistoryID() << std::endl;
 
+    gallery::Handle<art::TriggerResults> triggerResultsHandle;
+    assert(!triggerResultsHandle.isValid());
+    assert(!triggerResultsHandle.whyFailed());
+
+    assert(ev.getByLabel(inputTagTriggerResults, triggerResultsHandle));
+    assert(triggerResultsHandle.isValid());
+    assert(!triggerResultsHandle.whyFailed());
+    std::string test1 = triggerResultsHandle->parameterSetID().to_string();
+    std::string test2 = (*triggerResultsHandle).parameterSetID().to_string();
+    assert(!ev.getByLabel(inputTagIncorrect, triggerResultsHandle));
+    assert(!triggerResultsHandle.isValid());
+    assert(triggerResultsHandle.whyFailed());
+    bool exceptionWasThrown = true;
+    try {
+      triggerResultsHandle->parameterSetID().to_string();
+      exceptionWasThrown = false;
+    } catch (cet::exception const&) {
+    }
+    assert(exceptionWasThrown);
+
     auto triggerResults = ev.getValidHandle<art::TriggerResults>(inputTagTriggerResults);
     std::cout << "psetID = " <<  triggerResults->parameterSetID().to_string() << "\n";
+    std::string test3 = triggerResults->parameterSetID().to_string();
+    assert(test1 == test3);
+    assert(test2 == test3);
 
     auto eventIDInt = ev.getValidHandle<critictest::IntProduct>(inputTagEventID);
     assert(static_cast<unsigned int>(eventIDInt->value) == aux.id().event());
@@ -295,7 +319,7 @@ int main() {
     //
     // This is all in the Ptr class and really has nothing to do with
     // gallery. The same behavior should exist in the full art framework.
-    
+
     assert(!ptrTestProduct->nullDroppedPtr &&
            !ptrTestProduct->nullDroppedPtr.isAvailable() &&
            ptrTestProduct->nullDroppedPtr.isNull());
