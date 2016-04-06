@@ -66,6 +66,8 @@ physics:
     ptr1:
     {
       module_type: GalleryPtrTestProducer
+      produceAssnStringInt: false
+      produceAssnIntString: true
     }
   }
   p1: [ m0, m1, m2, m5, ptr1 ]

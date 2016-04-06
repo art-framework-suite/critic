@@ -9,6 +9,13 @@
     <version ClassVersion="10" checksum="740101573"/>
   </class>
   <class name="art::Wrapper<critictest::StringProduct>"/>
+  <class name="std::vector<critictest::StringProduct>"/>
+  <class name="art::Wrapper<std::vector<critictest::StringProduct> >"/>
+
+  <class name="cet::map_vector<critictest::StringProduct>::value_type"/>
+  <class name="cet::map_vector<critictest::StringProduct>::impl_type"/>
+  <class name="cet::map_vector<critictest::StringProduct>"/>
+  <class name="art::Wrapper<cet::map_vector<critictest::StringProduct> >"/>
 
   <class name="critictest::Simple" ClassVersion="10">
     <version ClassVersion="10" checksum="436424854"/>
@@ -29,5 +36,23 @@
 
   <class name="art::PtrVector<critictest::Simple>"/>
   <class name="art::PtrVector<critictest::SimpleDerived>"/>
+
+  <class name="critictest::LiteAssnTestData" ClassVersion="10">
+    <version ClassVersion="10" checksum="4253230781"/>
+  </class>
+  <class name="std::vector<critictest::LiteAssnTestData>"/>
+
+  <class name="art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData>"/>
+  <class name="art::Wrapper<art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData> >"/>
+
+  <class name="art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData>"/>
+  <class name="art::Wrapper<art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> >"/>
+
+  <class name="art::Assns<int, critictest::StringProduct, void>"/>
+  <class name="art::Wrapper<art::Assns<int, critictest::StringProduct, void> >"/>
+
+  <class name="art::Assns<critictest::StringProduct, int, void>"/>
+  <class name="art::Wrapper<art::Assns<critictest::StringProduct, int, void> >"/>
+
 
 </lcgdict>

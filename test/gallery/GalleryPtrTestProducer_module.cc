@@ -2,7 +2,10 @@
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"
+#include "canvas/Persistency/Common/Assns.h"
+#include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Utilities/InputTag.h"
+#include "test/CriticTestObjects/LiteAssnTestData.h"
 #include "test/CriticTestObjects/LitePtrTestProduct.h"
 #include "test/CriticTestObjects/ToyProducts.h"
 
@@ -17,14 +20,34 @@ namespace critictest {
 
   class GalleryPtrTestProducer : public art::EDProducer {
   public:
+
+    typedef art::Assns<StringProduct, int, LiteAssnTestData> AssnsAB_t;
+    typedef art::Assns<int, StringProduct, LiteAssnTestData> AssnsBA_t;
+
     explicit GalleryPtrTestProducer(fhicl::ParameterSet const &);
     virtual ~GalleryPtrTestProducer();
 
     virtual void produce(art::Event &);
+
+  private:
+
+    bool produceAssnStringInt_;
+    bool produceAssnIntString_;
   };
 
-  GalleryPtrTestProducer::GalleryPtrTestProducer(fhicl::ParameterSet const&) {
+  GalleryPtrTestProducer::GalleryPtrTestProducer(fhicl::ParameterSet const& pset) :
+    produceAssnStringInt_(pset.get<bool>("produceAssnStringInt", false)),
+    produceAssnIntString_(pset.get<bool>("produceAssnIntString", false))
+  {
     produces<LitePtrTestProduct>();
+
+    if (produceAssnStringInt_) {
+      produces<AssnsAB_t>();
+    }
+
+    if (produceAssnIntString_) {
+      produces<AssnsBA_t>();
+    }
   }
 
   GalleryPtrTestProducer::~GalleryPtrTestProducer() {
@@ -85,6 +108,23 @@ namespace critictest {
     testProduct->invalidPtr = art::Ptr<int>();
 
     event.put(std::move(testProduct));
+
+    art::Handle<std::vector<StringProduct> > hVStringProduct;
+    event.getByLabel(tagint1, hVStringProduct);
+
+    if (produceAssnStringInt_) {
+      std::unique_ptr<AssnsAB_t> assnsAB(new AssnsAB_t);
+      assnsAB->addSingle(art::Ptr<StringProduct>(hVStringProduct,0), art::Ptr<int>(hint1, 1), LiteAssnTestData(0,1,"A"));
+      assnsAB->addSingle(art::Ptr<StringProduct>(hVStringProduct,1), art::Ptr<int>(hint1, 2), LiteAssnTestData(1,2,"B"));
+      event.put(std::move(assnsAB));
+    }
+
+    if (produceAssnIntString_) {
+      std::unique_ptr<AssnsBA_t> assnsBA(new AssnsBA_t);
+      assnsBA->addSingle(art::Ptr<int>(hint1, 2), art::Ptr<StringProduct>(hVStringProduct,2), LiteAssnTestData(1,2,"C"));
+      assnsBA->addSingle(art::Ptr<int>(hint1, 1), art::Ptr<StringProduct>(hVStringProduct,0), LiteAssnTestData(1,2,"D"));
+      event.put(std::move(assnsBA));
+    }
   }
 }
 
