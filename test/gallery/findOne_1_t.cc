@@ -15,7 +15,7 @@
 
 BOOST_AUTO_TEST_CASE(testFindOneAndFindMany)
 {
-  std::vector<std::string> filenames {"../Assns_w.d/out1.root"};
+  std::vector<std::string> filenames {"../CriticAssns_w.d/out1.root"};
   gallery::Event event(filenames);
 
   std::string inputLabel("ap1");

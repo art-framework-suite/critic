@@ -31,26 +31,29 @@ cet_test(test_gallery.sh PREBUILT
   gallery_t.py
 )
 
-cet_test(Assns_w HANDBUILT
+cet_test(CriticAssns_w HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "Assns_w.fcl"
+  TEST_ARGS -- --rethrow-all -c "CriticAssns_w.fcl"
   DATAFILES
-  fcl/Assns_w.fcl
+  fcl/CriticAssns_w.fcl
 )
 
 cet_test(findOne_1_t USE_BOOST_UNIT
   LIBRARIES ${gallery_tests_libraries}
-  TEST_PROPERTIES DEPENDS Assns_w
+  TEST_PROPERTIES DEPENDS CriticAssns_w
+  REQUIRED_FILES ../CriticAssns_w.d/out1.root
 )
 
 cet_test(findOne_2_t USE_BOOST_UNIT
   LIBRARIES ${gallery_tests_libraries}
-  TEST_PROPERTIES DEPENDS Assns_w
+  TEST_PROPERTIES DEPENDS CriticAssns_w
+  REQUIRED_FILES ../CriticAssns_w.d/out1.root
 )
 
 cet_test(findOne_3_t USE_BOOST_UNIT
   LIBRARIES ${gallery_tests_libraries}
-  TEST_PROPERTIES DEPENDS Assns_w
+  TEST_PROPERTIES DEPENDS CriticAssns_w
+  REQUIRED_FILES ../CriticAssns_w.d/out1.root
 )
 
 simple_plugin(GalleryTestProducer     "module"  NO_INSTALL art_Persistency_Provenance)
