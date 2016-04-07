@@ -2,9 +2,14 @@
 #include "canvas/Persistency/Provenance/EventAuxiliary.h"
 #include "gallery/Event.h"
 #include "gallery/TypeLabelInstanceKey.h"
+#include "test/CriticTestObjects/LiteAssnTestData.h"
 #include "test/CriticTestObjects/LitePtrTestProduct.h"
 #include "test/CriticTestObjects/ToyProducts.h"
+#include "canvas/Persistency/Common/Assns.h"
+#include "canvas/Persistency/Common/FindOne.h"
+#include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Persistency/Common/TriggerResults.h"
+
 #include "canvas/Utilities/TypeID.h"
 #include "TFile.h"
 
@@ -30,62 +35,66 @@
 
 int main() {
 
-  gallery::InputTag inputTagTriggerResults("TriggerResults", "", "PROD1");
-  gallery::InputTag inputTagEventID("m1", "eventID", "PROD1");
+  art::InputTag inputTagTriggerResults("TriggerResults", "", "PROD1");
+  art::InputTag inputTagIncorrect("IncorrectLabel", "IncorrectInstance", "PROD1");
+  art::InputTag inputTagEventID("m1", "eventID", "PROD1");
 
-  gallery::InputTag inputTag111(std::string("m1::PROD1"));
-  gallery::InputTag inputTag121("m1:i2:PROD1");
-  gallery::InputTag inputTag131(std::string("m1"), std::string("i3"), std::string("PROD1"));
+  art::InputTag inputTag111(std::string("m1::PROD1"));
+  art::InputTag inputTag121("m1:i2:PROD1");
+  art::InputTag inputTag131(std::string("m1"), std::string("i3"), std::string("PROD1"));
 
-  gallery::InputTag inputTags111("m1", "", "PROD1");
-  gallery::InputTag inputTags121("m1", "i2", "PROD1");
-  gallery::InputTag inputTags131("m1", "i3", "PROD1");
+  art::InputTag inputTags111("m1", "", "PROD1");
+  art::InputTag inputTags121("m1", "i2", "PROD1");
+  art::InputTag inputTags131("m1", "i3", "PROD1");
 
-  gallery::InputTag inputTag211("m2", "", "PROD1");
-  gallery::InputTag inputTag221("m2", "i2", "PROD1");
+  art::InputTag inputTag211("m2", "", "PROD1");
+  art::InputTag inputTag221("m2", "i2", "PROD1");
 
-  gallery::InputTag inputTag112("m1", "", "PROD2");
-  gallery::InputTag inputTag122("m1", "i2", "PROD2");
+  art::InputTag inputTag112("m1", "", "PROD2");
+  art::InputTag inputTag122("m1", "i2", "PROD2");
 
-  gallery::InputTag inputTag113("m1", "", "PROD3");
-  gallery::InputTag inputTag123("m1", "i2", "PROD3");
+  art::InputTag inputTag113("m1", "", "PROD3");
+  art::InputTag inputTag123("m1", "i2", "PROD3");
 
-  gallery::InputTag inputTag11("m1");
-  gallery::InputTag inputTag12("m1:i2");
+  art::InputTag inputTag11("m1");
+  art::InputTag inputTag12("m1:i2");
 
-  gallery::InputTag inputTags11("m1", "");
-  gallery::InputTag inputTags12("m1", "i2");
+  art::InputTag inputTags11("m1", "");
+  art::InputTag inputTags12("m1", "i2");
 
-  gallery::InputTag inputTag21("m2", "");
-  gallery::InputTag inputTag22("m2", "i2");
+  art::InputTag inputTag21("m2", "");
+  art::InputTag inputTag22("m2", "i2");
 
-  gallery::InputTag inputTag31("m3", "");
-  gallery::InputTag inputTag32("m3", "i2");
+  art::InputTag inputTag31("m3", "");
+  art::InputTag inputTag32("m3", "i2");
 
-  gallery::InputTag inputTag312("m3", "", "PROD2");
-  gallery::InputTag inputTag322("m3", "i2", "PROD2");
+  art::InputTag inputTag312("m3", "", "PROD2");
+  art::InputTag inputTag322("m3", "i2", "PROD2");
 
-  gallery::InputTag inputTag41("m4", "");
-  gallery::InputTag inputTag42("m4", "i2");
+  art::InputTag inputTag41("m4", "");
+  art::InputTag inputTag42("m4", "i2");
 
-  gallery::InputTag inputTag411("m4", "", "PROD1");
-  gallery::InputTag inputTag421("m4", "i2", "PROD1");
+  art::InputTag inputTag411("m4", "", "PROD1");
+  art::InputTag inputTag421("m4", "i2", "PROD1");
 
-  gallery::InputTag inputTag51("m5", "");
-  gallery::InputTag inputTag52("m5", "i2");
+  art::InputTag inputTag51("m5", "");
+  art::InputTag inputTag52("m5", "i2");
 
-  gallery::InputTag inputTags61("m6", "");
-  gallery::InputTag inputTags62("m6", "i2");
+  art::InputTag inputTags61("m6", "");
+  art::InputTag inputTags62("m6", "i2");
 
-  gallery::InputTag inputTagFile2(std::string("m0::PROD3"));
+  art::InputTag inputTagFile2(std::string("m0::PROD3"));
 
-  gallery::InputTag inputTagPtrTest("ptr1");
+  art::InputTag inputTagPtrTest("ptr1");
+
+  art::InputTag inputTagAssnTest1("ptr1");
+  art::InputTag inputTagAssnTest2("ptr1::PROD3");
 
   // Test InputTag
   assert(inputTag121 != inputTags131);
   assert(inputTag121 != inputTag122);
   assert(inputTag122 != inputTag322);
-  gallery::InputTag inputTagTest("m3", "i2", "PROD2");
+  art::InputTag inputTagTest("m3", "i2", "PROD2");
   assert(!(inputTag322 != inputTagTest));
   std::cout << inputTagTest << std::endl;
 
@@ -108,6 +117,7 @@ int main() {
                                       "test_gallery5.root",
                                       "test_gallery8.root",
                                       "test_gallery7.root",
+                                      "test_gallery7.root",
                                       "test_gallery8.root"};
 
   gallery::Event ev(filenames, true, 1);
@@ -117,10 +127,10 @@ int main() {
   unsigned int counter = 0;
   for( ; ! ev.atEnd(); ev.next(), ++iEvent, ++counter) {
     assert(ev.isValid());
-    assert(ev.eventEntry() == counter % 10);
+    assert(ev.eventEntry() == (counter < 15 ? counter % 10 : counter % 5));
 
     if (counter / 10 == 0) assert(ev.fileEntry() == 1);
-    else assert(ev.fileEntry() == 3);
+    else assert(ev.fileEntry() == (counter < 15 ? 3 : 4));
 
     art::EventAuxiliary const& aux = ev.eventAuxiliary();
     std::cout << aux.id() << "\n";
@@ -132,8 +142,31 @@ int main() {
 
     std::cout << "ProcessHistoryID: " << ev.processHistoryID() << std::endl;
 
+    gallery::Handle<art::TriggerResults> triggerResultsHandle;
+    assert(!triggerResultsHandle.isValid());
+    assert(!triggerResultsHandle.whyFailed());
+
+    assert(ev.getByLabel(inputTagTriggerResults, triggerResultsHandle));
+    assert(triggerResultsHandle.isValid());
+    assert(!triggerResultsHandle.whyFailed());
+    std::string test1 = triggerResultsHandle->parameterSetID().to_string();
+    std::string test2 = (*triggerResultsHandle).parameterSetID().to_string();
+    assert(!ev.getByLabel(inputTagIncorrect, triggerResultsHandle));
+    assert(!triggerResultsHandle.isValid());
+    assert(triggerResultsHandle.whyFailed());
+    bool exceptionWasThrown = true;
+    try {
+      triggerResultsHandle->parameterSetID().to_string();
+      exceptionWasThrown = false;
+    } catch (cet::exception const&) {
+    }
+    assert(exceptionWasThrown);
+
     auto triggerResults = ev.getValidHandle<art::TriggerResults>(inputTagTriggerResults);
     std::cout << "psetID = " <<  triggerResults->parameterSetID().to_string() << "\n";
+    std::string test3 = triggerResults->parameterSetID().to_string();
+    assert(test1 == test3);
+    assert(test2 == test3);
 
     auto eventIDInt = ev.getValidHandle<critictest::IntProduct>(inputTagEventID);
     assert(static_cast<unsigned int>(eventIDInt->value) == aux.id().event());
@@ -295,7 +328,7 @@ int main() {
     //
     // This is all in the Ptr class and really has nothing to do with
     // gallery. The same behavior should exist in the full art framework.
-    
+
     assert(!ptrTestProduct->nullDroppedPtr &&
            !ptrTestProduct->nullDroppedPtr.isAvailable() &&
            ptrTestProduct->nullDroppedPtr.isNull());
@@ -306,7 +339,100 @@ int main() {
            !ptrTestProduct->invalidPtr.isAvailable() &&
            ptrTestProduct->invalidPtr.isNull());
 
+    gallery::Handle<art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle1;
+    ev.getByLabel(inputTagAssnTest1, assnsABHandle1);
+
+    gallery::Handle<art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle2;
+    ev.getByLabel(inputTagAssnTest2, assnsABHandle2);
+
+    gallery::Handle<art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle3;
+    ev.getByLabel(inputTagAssnTest1, assnsBAHandle3);
+
+    gallery::Handle<art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle4;
+    ev.getByLabel(inputTagAssnTest2, assnsBAHandle4);
+
+    assert(assnsABHandle1.isValid() &&
+           assnsABHandle2.isValid() &&
+           assnsBAHandle3.isValid() &&
+           assnsBAHandle4.isValid());
+
+    // handles 1 and 2 should be the same
+    // handles 3 and 4 should be the same
+    // 1 and 3 are also the same except first and second of the pair<Ptr,Ptr>
+    // stored in the Assns are reversed.
+
+    if (ev.fileEntry() == 1) {
+      assert((*assnsABHandle1)[0].first->name_ == std::string("s111"));
+      assert(*(*assnsABHandle2)[0].second == 121);
+      assert(assnsABHandle1->data(0).label == std::string("A"));
+
+      assert((*assnsABHandle1)[1].first->name_ == std::string("s121"));
+      assert(*(*assnsABHandle2)[1].second == 131);
+      assert(assnsABHandle1->data(1).label == std::string("B"));
+    } else {
+      assert(assnsABHandle1->at(0).first->name_ == std::string("s131"));
+      assert(*(*assnsABHandle2)[0].second == 131);
+      assert(assnsABHandle1->data(0).label == std::string("C"));
+
+      assert((*assnsABHandle1)[1].first->name_ == std::string("s111"));
+      assert(*(*assnsABHandle2)[1].second == 121);
+      assert(assnsABHandle1->data(1).label == std::string("D"));
+    }
+
+    if (ev.fileEntry() == 1) {
+      assert((*assnsBAHandle3)[0].second->name_ == std::string("s111"));
+      assert(*(*assnsBAHandle4)[0].first == 121);
+      assert(assnsBAHandle3->data(0).label == std::string("A"));
+
+      assert((*assnsBAHandle3)[1].second->name_ == std::string("s121"));
+      assert(*(*assnsBAHandle4)[1].first == 131);
+      assert(assnsBAHandle3->data(1).label == std::string("B"));
+    } else {
+      assert(assnsBAHandle3->at(0).second->name_ == std::string("s131"));
+      assert(*(*assnsBAHandle4)[0].first == 131);
+      assert(assnsBAHandle3->data(0).label == std::string("C"));
+
+      assert((*assnsBAHandle3)[1].second->name_ == std::string("s111"));
+      assert(*(*assnsBAHandle4)[1].first == 121);
+      assert(assnsBAHandle3->data(1).label == std::string("D"));
+    }
+
+    gallery::Handle<std::vector<critictest::StringProduct> > hVStringProduct;
+    ev.getByLabel(inputTag111, hVStringProduct);
+    assert(hVStringProduct.isValid());
+
+    art::FindOne<int, critictest::LiteAssnTestData> findOne(hVStringProduct, ev, inputTagAssnTest1);
+    assert(findOne.at(0).isValid());
+    if (ev.fileEntry() == 1) {
+      assert(findOne.at(0).ref() == 121);
+      assert(findOne.at(1).ref() == 131);
+      assert(findOne.data(0).ref().label == std::string("A"));
+      assert(findOne.data(1).ref().label == std::string("B"));
+    } else {
+      assert(findOne.at(0).ref() == 121);
+      assert(findOne.at(2).ref() == 131);
+      assert(findOne.data(0).ref().label == std::string("D"));
+      assert(findOne.data(2).ref().label == std::string("C"));
+    }
+
+    gallery::Handle<std::vector<int> > hB;
+    ev.getByLabel(inputTag111, hB);
+    assert(hB.isValid());
+
+    art::FindOne<critictest::StringProduct, critictest::LiteAssnTestData> findOneBA(hB, ev, inputTagAssnTest1);
+    assert(findOneBA.at(1).isValid());
+    if (ev.fileEntry() == 1) {
+      assert(findOneBA.at(1).ref() == critictest::StringProduct(std::string("s111")));
+      assert(findOneBA.at(2).ref() == critictest::StringProduct(std::string("s121")));
+      assert(findOneBA.data(1).ref().label == std::string("A"));
+      assert(findOneBA.data(2).ref().label == std::string("B"));
+    } else {
+      assert(findOneBA.at(1).ref() == critictest::StringProduct(std::string("s111")));
+      assert(findOneBA.at(2).ref() == critictest::StringProduct(std::string("s131")));
+      assert(findOneBA.data(1).ref().label == std::string("D"));
+      assert(findOneBA.data(2).ref().label == std::string("C"));
+    }
   }
-  assert(counter == 15u);
+  assert(counter == 20u);
   assert(!ev.isValid());
 }

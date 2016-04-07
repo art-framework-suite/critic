@@ -49,6 +49,7 @@ namespace critictest {
     produces<std::vector<int> >();
     produces<std::vector<SimpleDerived> >("SimpleDerived");
     produces<std::vector<int> >("willBeDropped");
+    produces<std::vector<StringProduct> >();
   }
 
   GalleryTestProducer::~GalleryTestProducer() {
@@ -102,6 +103,12 @@ namespace critictest {
     vecIntD->push_back(value2_);
     vecIntD->push_back(value3_);
     event.put(std::move(vecIntD), "willBeDropped");
+
+    std::unique_ptr<std::vector<StringProduct> > vecStringProduct(new std::vector<StringProduct>);
+    vecStringProduct->push_back(StringProduct(string1_));
+    vecStringProduct->push_back(StringProduct(string2_));
+    vecStringProduct->push_back(StringProduct(string3_));
+    event.put(std::move(vecStringProduct));
   }
 }
 

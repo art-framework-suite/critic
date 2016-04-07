@@ -31,6 +31,29 @@ cet_test(test_gallery.sh PREBUILT
   gallery_t.py
 )
 
+cet_test(Assns_w HANDBUILT
+  TEST_EXEC art_ut
+  TEST_ARGS -- --rethrow-all -c "Assns_w.fcl"
+  DATAFILES
+  fcl/Assns_w.fcl
+)
+
+cet_test(findOne_1_t USE_BOOST_UNIT
+  LIBRARIES ${gallery_tests_libraries}
+  TEST_PROPERTIES DEPENDS Assns_w
+)
+
+cet_test(findOne_2_t USE_BOOST_UNIT
+  LIBRARIES ${gallery_tests_libraries}
+  TEST_PROPERTIES DEPENDS Assns_w
+)
+
+cet_test(findOne_3_t USE_BOOST_UNIT
+  LIBRARIES ${gallery_tests_libraries}
+  TEST_PROPERTIES DEPENDS Assns_w
+)
+
 simple_plugin(GalleryTestProducer     "module"  NO_INSTALL art_Persistency_Provenance)
-simple_plugin(GalleryPtrTestProducer  "module"  NO_INSTALL art_Persistency_Provenance test_CriticTestObjects)
+simple_plugin(GalleryPtrTestProducer  "module"  NO_INSTALL test_CriticTestObjects art_Persistency_Provenance)
+simple_plugin(GalleryAssnsProducer    "module"  NO_INSTALL test_CriticTestObjects art_Persistency_Provenance)
 simple_plugin(CriticFailEverything    "module"  NO_INSTALL)

@@ -8,6 +8,7 @@
 // ======================================================================
 
 #include <string>
+#include <ostream>
 
 namespace critictest
 {
@@ -25,7 +26,16 @@ namespace critictest
     StringProduct() : name_() {}
     explicit StringProduct(const std::string& s) : name_(s){}
     std::string name_;
+    bool operator==(StringProduct const& r) const { return name_ == r.name_; }
+
   };
+
+  inline
+  std::ostream&
+  operator<<(std::ostream& os, const StringProduct& p) {
+    os << p.name_;
+    return os;
+  }
 
   struct Simple
   {
