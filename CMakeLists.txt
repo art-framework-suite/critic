@@ -57,8 +57,7 @@ if (NOT APPLE)
   set(RT -lrt)
 endif()
 
-# testing
-add_subdirectory(test)
+add_subdirectory(critic)
 
 # ups - table and config files
 add_subdirectory(ups)

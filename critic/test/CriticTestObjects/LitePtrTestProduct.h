@@ -3,7 +3,7 @@
 
 #include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Persistency/Common/PtrVector.h"
-#include "test/CriticTestObjects/ToyProducts.h"
+#include "critic/test/CriticTestObjects/ToyProducts.h"
 
 namespace critictest {
 

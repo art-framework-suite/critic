@@ -1,7 +1,7 @@
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
-#include "test/CriticTestObjects/ToyProducts.h"
+#include "critic/test/CriticTestObjects/ToyProducts.h"
 #include "fhiclcpp/ParameterSet.h"
 
 #include <memory>

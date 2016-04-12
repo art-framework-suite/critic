@@ -16,8 +16,8 @@
 #include "cetlib/quiet_unit_test.hpp"
 #include "gallery/Event.h"
 #include "gallery/Handle.h"
-#include "test/CriticTestObjects/LiteAssnTestData.h"
-#include "test/CriticTestObjects/ToyProducts.h"
+#include "critic/test/CriticTestObjects/LiteAssnTestData.h"
+#include "critic/test/CriticTestObjects/ToyProducts.h"
 
 #include <string>
 

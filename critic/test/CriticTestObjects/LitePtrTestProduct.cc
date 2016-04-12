@@ -1,4 +1,4 @@
-#include "test/CriticTestObjects/LitePtrTestProduct.h"
+#include "critic/test/CriticTestObjects/LitePtrTestProduct.h"
 
 namespace critictest {
 

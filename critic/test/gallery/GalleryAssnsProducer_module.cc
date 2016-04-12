@@ -18,8 +18,8 @@
 #include "art/Framework/Principal/Event.h"
 #include "canvas/Persistency/Common/Assns.h"
 #include "canvas/Persistency/Common/Ptr.h"
-#include "test/CriticTestObjects/LiteAssnTestData.h"
-#include "test/CriticTestObjects/ToyProducts.h"
+#include "critic/test/CriticTestObjects/LiteAssnTestData.h"
+#include "critic/test/CriticTestObjects/ToyProducts.h"
 
 #include "cetlib/map_vector.h"
 

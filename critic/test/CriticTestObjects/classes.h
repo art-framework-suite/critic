@@ -5,9 +5,9 @@
 #include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Persistency/Common/PtrVector.h"
 #include "canvas/Persistency/Common/Wrapper.h"
-#include "test/CriticTestObjects/LiteAssnTestData.h"
-#include "test/CriticTestObjects/LitePtrTestProduct.h"
-#include "test/CriticTestObjects/ToyProducts.h"
+#include "critic/test/CriticTestObjects/LiteAssnTestData.h"
+#include "critic/test/CriticTestObjects/LitePtrTestProduct.h"
+#include "critic/test/CriticTestObjects/ToyProducts.h"
 
 #include <string>
 #include <vector>

@@ -7,7 +7,7 @@
 #include "canvas/Persistency/Common/FindOne.h"
 #include "canvas/Persistency/Common/FindOneP.h"
 #include "gallery/Event.h"
-#include "test/gallery/TestFindOne.h"
+#include "critic/test/gallery/TestFindOne.h"
 
 #include <iostream>
 #include <string>
