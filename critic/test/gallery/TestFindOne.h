@@ -17,7 +17,7 @@
 #include "gallery/Event.h"
 #include "gallery/Handle.h"
 #include "critic/test/CriticTestObjects/LiteAssnTestData.h"
-#include "critic/test/CriticTestObjects/ToyProducts.h"
+#include "art/test/TestObjects/ToyProducts.h"
 
 #include <string>
 
@@ -49,11 +49,11 @@ namespace critictest {
 namespace {
 
   typedef int A_t;
-  typedef critictest::StringProduct B_t;
-  typedef art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData> AssnsAB_t;
-  typedef art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> AssnsBA_t;
-  typedef art::Assns<int, critictest::StringProduct> AssnsABV_t;
-  typedef art::Assns<critictest::StringProduct, int> AssnsBAV_t;
+  typedef arttest::StringProduct B_t;
+  typedef art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> AssnsAB_t;
+  typedef art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> AssnsBA_t;
+  typedef art::Assns<int, arttest::StringProduct> AssnsABV_t;
+  typedef art::Assns<arttest::StringProduct, int> AssnsBAV_t;
 
   // function template to allow us to dereference both maybe_ref<T>
   // objects and objects that have an operator*.
@@ -184,7 +184,7 @@ testOne(gallery::Event const & e) const
   auto vhAcoll = e.getValidHandle<std::vector<int> >(inputLabel_);
   // First, check we can make an FO on a non-existent label without
   // barfing immediately.
-  FO<critictest::StringProduct, critictest::LiteAssnTestData> foDead(hAcoll, e, "noModule");
+  FO<arttest::StringProduct, critictest::LiteAssnTestData> foDead(hAcoll, e, "noModule");
   BOOST_REQUIRE(!foDead.isValid());
   BOOST_REQUIRE_EXCEPTION(foDead.size(),                                \
                           art::Exception,                               \
@@ -202,7 +202,7 @@ testOne(gallery::Event const & e) const
                           });
 
   // Now do our normal checks.
-  gallery::Handle<std::vector<critictest::StringProduct> > hBcoll;
+  gallery::Handle<std::vector<arttest::StringProduct> > hBcoll;
   std::unique_ptr<FO<int, critictest::LiteAssnTestData> > foA;
   std::unique_ptr<FO<int, void> > foAV;
   if (! bCollMissing_) {
@@ -212,9 +212,9 @@ testOne(gallery::Event const & e) const
       foAV.reset(new FO<int, void>(hBcoll, e, inputLabel_));
     }
   }
-  FO<critictest::StringProduct, critictest::LiteAssnTestData> foB(hAcoll, e, inputLabel_);
-  FO<critictest::StringProduct, critictest::LiteAssnTestData> foB2(vhAcoll, e, inputLabel_);
-  FO<critictest::StringProduct, void> foBV(hAcoll, e, inputLabel_);
+  FO<arttest::StringProduct, critictest::LiteAssnTestData> foB(hAcoll, e, inputLabel_);
+  FO<arttest::StringProduct, critictest::LiteAssnTestData> foB2(vhAcoll, e, inputLabel_);
+  FO<arttest::StringProduct, void> foBV(hAcoll, e, inputLabel_);
   std::vector<art::Ptr<int> > vp;
   vp.reserve(3);
   for (size_t i = 0; i < 3; ++i) {

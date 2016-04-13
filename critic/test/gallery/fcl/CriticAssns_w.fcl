@@ -35,6 +35,6 @@ outputs:
     module_type: RootOutput
     fileName: "out2.root"
     outputCommands: [ "keep *",
-                      "drop critictest::StringProducts_*_*_*" ]
+                      "drop arttest::StringProducts_*_*_*" ]
   }
 }

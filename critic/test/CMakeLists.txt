@@ -11,5 +11,5 @@ cet_test_env("FHICL_FILE_PATH=.")
 include(ArtMake)
 
 # build Persistency libraries
-add_subdirectory (gallery)
 add_subdirectory (CriticTestObjects)
+add_subdirectory (gallery)

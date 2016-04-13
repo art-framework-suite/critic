@@ -7,42 +7,42 @@
 #include "canvas/Persistency/Common/Wrapper.h"
 #include "critic/test/CriticTestObjects/LiteAssnTestData.h"
 #include "critic/test/CriticTestObjects/LitePtrTestProduct.h"
-#include "critic/test/CriticTestObjects/ToyProducts.h"
+#include "art/test/TestObjects/ToyProducts.h"
 
 #include <string>
 #include <vector>
 
 namespace critictest {
   struct dictionary {
-    art::Wrapper<critictest::IntProduct> dummyIntProduct;
-    art::Wrapper<critictest::StringProduct> dummyStringProduct;
-    std::vector<critictest::StringProduct> dummyVStringProduct;
-    art::Wrapper<std::vector<critictest::StringProduct> > dummyWVStringProduct;
+    art::Wrapper<arttest::IntProduct> dummyIntProduct;
+    art::Wrapper<arttest::StringProduct> dummyStringProduct;
+    std::vector<arttest::StringProduct> dummyVStringProduct;
+    art::Wrapper<std::vector<arttest::StringProduct> > dummyWVStringProduct;
 
-    cet::map_vector<critictest::StringProduct>::value_type dummy1;
-    cet::map_vector<critictest::StringProduct>::impl_type dummy2;
-    cet::map_vector<critictest::StringProduct> dummy3;
-    art::Wrapper<cet::map_vector<critictest::StringProduct> > dummy4;
+    cet::map_vector<arttest::StringProduct>::value_type dummy1;
+    cet::map_vector<arttest::StringProduct>::impl_type dummy2;
+    cet::map_vector<arttest::StringProduct> dummy3;
+    art::Wrapper<cet::map_vector<arttest::StringProduct> > dummy4;
 
-    std::vector<critictest::SimpleDerived> dummyVSimpleDerived;
-    art::Wrapper<std::vector<critictest::SimpleDerived> > dummyWVSimpleDerived;
+    std::vector<arttest::SimpleDerived> dummyVSimpleDerived;
+    art::Wrapper<std::vector<arttest::SimpleDerived> > dummyWVSimpleDerived;
     art::Wrapper<critictest::LitePtrTestProduct> dummyWLitePtrTestProduct;
-    art::Ptr<critictest::Simple> dummyPtrSimple;
-    art::Ptr<critictest::SimpleDerived> dummyPtrSimpleDerived;
-    art::Ptr<critictest::Simple> dummyPtrVectorSimple;
-    art::Ptr<critictest::SimpleDerived> dummyPtrVectorSimpleDerived;
+    art::Ptr<arttest::Simple> dummyPtrSimple;
+    art::Ptr<arttest::SimpleDerived> dummyPtrSimpleDerived;
+    art::Ptr<arttest::Simple> dummyPtrVectorSimple;
+    art::Ptr<arttest::SimpleDerived> dummyPtrVectorSimpleDerived;
 
-    art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData> dummy5;
-    art::Wrapper<art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData> > dummy6;
+    art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> dummy5;
+    art::Wrapper<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> > dummy6;
 
-    art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> dummy7;
-    art::Wrapper<art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> > dummy8;
+    art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> dummy7;
+    art::Wrapper<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> > dummy8;
 
-    art::Assns<int, critictest::StringProduct, void> dummy9;
-    art::Wrapper<art::Assns<int, critictest::StringProduct, void> > dummy10;
+    art::Assns<int, arttest::StringProduct, void> dummy9;
+    art::Wrapper<art::Assns<int, arttest::StringProduct, void> > dummy10;
 
-    art::Assns<critictest::StringProduct, int, void> dummy11;
-    art::Wrapper<art::Assns<critictest::StringProduct, int, void> > dummy12;
+    art::Assns<arttest::StringProduct, int, void> dummy11;
+    art::Wrapper<art::Assns<arttest::StringProduct, int, void> > dummy12;
   };
 }
 #endif

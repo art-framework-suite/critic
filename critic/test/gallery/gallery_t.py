@@ -30,12 +30,12 @@ else :
 ROOT.gROOT.ProcessLine('#include "gallery/ValidHandle.h"')
 ROOT.gROOT.ProcessLine('#include "gallery/Handle.h"')
 
-ROOT.gROOT.ProcessLine('template gallery::ValidHandle<critictest::StringProduct> gallery::Event::getValidHandle<critictest::StringProduct>(art::InputTag const&) const;')
+ROOT.gROOT.ProcessLine('template gallery::ValidHandle<arttest::StringProduct> gallery::Event::getValidHandle<arttest::StringProduct>(art::InputTag const&) const;')
 ROOT.gROOT.ProcessLine('template gallery::ValidHandle<art::TriggerResults> gallery::Event::getValidHandle<art::TriggerResults>(art::InputTag const&) const;')
 ROOT.gROOT.ProcessLine('template gallery::ValidHandle<critictest::LitePtrTestProduct> gallery::Event::getValidHandle<critictest::LitePtrTestProduct>(art::InputTag const&) const;')
 
 ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<art::TriggerResults>(art::InputTag const&, gallery::Handle<art::TriggerResults>&) const;')
-ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> >(art::InputTag const&, gallery::Handle<art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> >&) const;')
+ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> >(art::InputTag const&, gallery::Handle<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> >&) const;')
 
 filenames = ROOT.vector(ROOT.string)()
 filenames.push_back("test_gallery5.root")
@@ -61,7 +61,7 @@ while ( not ev.atEnd()) :
     iEvent = 1; # Events numbers go from 1 to 5 and repeat 1 to 5
   assert(iEvent == aux.id().event()), "Unexpected event number in EventAuxiliary"
 
-  eventIDInt = ev.getValidHandle(ROOT.critictest.IntProduct)(inputTagEventID);
+  eventIDInt = ev.getValidHandle(ROOT.arttest.IntProduct)(inputTagEventID);
   assert(eventIDInt.value == aux.id().event());
 
   triggerResultsHandle = ROOT.gallery.Handle(ROOT.art.TriggerResults)();
@@ -87,7 +87,7 @@ while ( not ev.atEnd()) :
   assert(test1 == test3);
   assert(test2 == test3);
 
-  stringProduct62 = ev.getValidHandle(ROOT.critictest.StringProduct)(inputTags62);
+  stringProduct62 = ev.getValidHandle(ROOT.arttest.StringProduct)(inputTags62);
   assert(stringProduct62.name_ == "s621");
 
   ptrTestProduct = ev.getValidHandle(ROOT.critictest.LitePtrTestProduct)(inputTagPtrTest);
@@ -149,16 +149,16 @@ while ( not ev.atEnd()) :
 
   # This is work in progress. An attempt needs to be made to convert this
   # to python and get it working.
-  #assnsABHandle1 = ROOT.gallery.Handle(ROOT.art.Assns(ROOT.critictest.StringProduct, int, ROOT.critictest.LiteAssnTestData));
+  #assnsABHandle1 = ROOT.gallery.Handle(ROOT.art.Assns(ROOT.arttest.StringProduct, int, ROOT.critictest.LiteAssnTestData));
   #ev.getByLabel(inputTagAssnTest1, assnsABHandle1);
 
-  #gallery::Handle<art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle2;
+  #gallery::Handle<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle2;
   #ev.getByLabel(inputTagAssnTest2, assnsABHandle2);
 
-  #gallery::Handle<art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle3;
+  #gallery::Handle<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle3;
   #ev.getByLabel(inputTagAssnTest1, assnsBAHandle3);
 
-  #gallery::Handle<art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle4;
+  #gallery::Handle<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle4;
   #ev.getByLabel(inputTagAssnTest2, assnsBAHandle4);
 
   #assert(assnsABHandle1.isValid() &&
@@ -207,7 +207,7 @@ while ( not ev.atEnd()) :
   #  assert(assnsBAHandle3->data(1).label == std::string("D"));
   #}
 
-  #gallery::Handle<std::vector<critictest::StringProduct> > hVStringProduct;
+  #gallery::Handle<std::vector<arttest::StringProduct> > hVStringProduct;
   #ev.getByLabel(inputTag111, hVStringProduct);
   #assert(hVStringProduct.isValid());
 
@@ -229,16 +229,16 @@ while ( not ev.atEnd()) :
   #ev.getByLabel(inputTag111, hB);
   #assert(hB.isValid());
 
-  #art::FindOne<critictest::StringProduct, critictest::LiteAssnTestData> findOneBA(hB, ev, inputTagAssnTest1);
+  #art::FindOne<arttest::StringProduct, critictest::LiteAssnTestData> findOneBA(hB, ev, inputTagAssnTest1);
   #assert(findOneBA.at(1).isValid());
   #if (ev.fileEntry() == 1) {
-  #  assert(findOneBA.at(1).ref() == critictest::StringProduct(std::string("s111")));
-  #  assert(findOneBA.at(2).ref() == critictest::StringProduct(std::string("s121")));
+  #  assert(findOneBA.at(1).ref() == arttest::StringProduct(std::string("s111")));
+  #  assert(findOneBA.at(2).ref() == arttest::StringProduct(std::string("s121")));
   #  assert(findOneBA.data(1).ref().label == std::string("A"));
   #  assert(findOneBA.data(2).ref().label == std::string("B"));
   #} else {
-  #  assert(findOneBA.at(1).ref() == critictest::StringProduct(std::string("s111")));
-  #  assert(findOneBA.at(2).ref() == critictest::StringProduct(std::string("s131")));
+  #  assert(findOneBA.at(1).ref() == arttest::StringProduct(std::string("s111")));
+  #  assert(findOneBA.at(2).ref() == arttest::StringProduct(std::string("s131")));
   #  assert(findOneBA.data(1).ref().label == std::string("D"));
   #  assert(findOneBA.data(2).ref().label == std::string("C"));
   #}

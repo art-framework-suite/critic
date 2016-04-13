@@ -1,1 +1,1 @@
-art_make(NO_INSTALL LIB_LIBRARIES)
+art_make(NO_INSTALL REQUIRED_DICTIONARIES libart_test_TestObjects_dict)

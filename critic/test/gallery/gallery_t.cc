@@ -4,7 +4,7 @@
 #include "gallery/TypeLabelInstanceKey.h"
 #include "critic/test/CriticTestObjects/LiteAssnTestData.h"
 #include "critic/test/CriticTestObjects/LitePtrTestProduct.h"
-#include "critic/test/CriticTestObjects/ToyProducts.h"
+#include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Persistency/Common/Assns.h"
 #include "canvas/Persistency/Common/FindOne.h"
 #include "canvas/Persistency/Common/Ptr.h"
@@ -99,8 +99,8 @@ int main() {
   std::cout << inputTagTest << std::endl;
 
   // Test TypeLabelInstance class
-  art::TypeID typeIntProduct(typeid(critictest::IntProduct));
-  art::TypeID typeStringProduct(typeid(critictest::StringProduct));
+  art::TypeID typeIntProduct(typeid(arttest::IntProduct));
+  art::TypeID typeStringProduct(typeid(arttest::StringProduct));
   gallery::TypeLabelInstanceKey key1(typeIntProduct, "a", "b");
   assert(key1.typeID() == typeIntProduct &&
          std::string(key1.label()) == "a" &&
@@ -168,102 +168,102 @@ int main() {
     assert(test1 == test3);
     assert(test2 == test3);
 
-    auto eventIDInt = ev.getValidHandle<critictest::IntProduct>(inputTagEventID);
+    auto eventIDInt = ev.getValidHandle<arttest::IntProduct>(inputTagEventID);
     assert(static_cast<unsigned int>(eventIDInt->value) == aux.id().event());
 
-    auto intProduct111 = ev.getValidHandle<critictest::IntProduct>(inputTag111);
+    auto intProduct111 = ev.getValidHandle<arttest::IntProduct>(inputTag111);
     assert(intProduct111->value == 111);
 
-    auto intProduct121 = ev.getValidHandle<critictest::IntProduct>(inputTag121);
+    auto intProduct121 = ev.getValidHandle<arttest::IntProduct>(inputTag121);
     assert((*intProduct121).value == 121);
 
-    auto intProduct131 = ev.getValidHandle<critictest::IntProduct>(inputTag131);
+    auto intProduct131 = ev.getValidHandle<arttest::IntProduct>(inputTag131);
     assert(intProduct131.product()->value == 131);
 
-    auto stringProduct111 = ev.getValidHandle<critictest::StringProduct>(inputTags111);
+    auto stringProduct111 = ev.getValidHandle<arttest::StringProduct>(inputTags111);
     assert(stringProduct111->name_ == "s111");
 
-    auto stringProduct121 = ev.getValidHandle<critictest::StringProduct>(inputTags121);
+    auto stringProduct121 = ev.getValidHandle<arttest::StringProduct>(inputTags121);
     assert(stringProduct121->name_ == "s121");
 
-    auto stringProduct131 = ev.getValidHandle<critictest::StringProduct>(inputTags131);
+    auto stringProduct131 = ev.getValidHandle<arttest::StringProduct>(inputTags131);
     assert(stringProduct131->name_ == "s131");
 
-    auto intProduct211 = ev.getValidHandle<critictest::IntProduct>(inputTag211);
+    auto intProduct211 = ev.getValidHandle<arttest::IntProduct>(inputTag211);
     assert(intProduct211->value == 211);
 
-    auto intProduct221 = ev.getValidHandle<critictest::IntProduct>(inputTag221);
+    auto intProduct221 = ev.getValidHandle<arttest::IntProduct>(inputTag221);
     assert(intProduct221->value == 221);
 
-    auto intProduct112 = ev.getValidHandle<critictest::IntProduct>(inputTag112);
+    auto intProduct112 = ev.getValidHandle<arttest::IntProduct>(inputTag112);
     assert(intProduct112->value == 112);
 
-    auto intProduct122 = ev.getValidHandle<critictest::IntProduct>(inputTag122);
+    auto intProduct122 = ev.getValidHandle<arttest::IntProduct>(inputTag122);
     assert(intProduct122->value == 122);
 
-    auto intProduct113 = ev.getValidHandle<critictest::IntProduct>(inputTag113);
+    auto intProduct113 = ev.getValidHandle<arttest::IntProduct>(inputTag113);
     assert(intProduct113->value == 113);
 
-    auto intProduct123 = ev.getValidHandle<critictest::IntProduct>(inputTag123);
+    auto intProduct123 = ev.getValidHandle<arttest::IntProduct>(inputTag123);
     assert(intProduct123->value == 123);
 
-    auto intProduct11 = ev.getValidHandle<critictest::IntProduct>(inputTag11);
+    auto intProduct11 = ev.getValidHandle<arttest::IntProduct>(inputTag11);
     assert(intProduct11->value == 113);
 
-    auto intProduct12 = ev.getValidHandle<critictest::IntProduct>(inputTag12);
+    auto intProduct12 = ev.getValidHandle<arttest::IntProduct>(inputTag12);
     assert(intProduct12->value == 123);
 
-    auto stringProduct11 = ev.getValidHandle<critictest::StringProduct>(inputTags11);
+    auto stringProduct11 = ev.getValidHandle<arttest::StringProduct>(inputTags11);
     assert(stringProduct11->name_ == "s113");
 
-    auto stringProduct12 = ev.getValidHandle<critictest::StringProduct>(inputTags12);
+    auto stringProduct12 = ev.getValidHandle<arttest::StringProduct>(inputTags12);
     assert(stringProduct12->name_ == "s123");
 
-    auto intProduct21 = ev.getValidHandle<critictest::IntProduct>(inputTag21);
+    auto intProduct21 = ev.getValidHandle<arttest::IntProduct>(inputTag21);
     assert(intProduct21->value == 213);
 
-    auto intProduct22 = ev.getValidHandle<critictest::IntProduct>(inputTag22);
+    auto intProduct22 = ev.getValidHandle<arttest::IntProduct>(inputTag22);
     assert(intProduct22->value == 223);
 
-    auto intProduct31 = ev.getValidHandle<critictest::IntProduct>(inputTag31);
+    auto intProduct31 = ev.getValidHandle<arttest::IntProduct>(inputTag31);
     assert(intProduct31->value == 312);
 
-    auto intProduct32 = ev.getValidHandle<critictest::IntProduct>(inputTag32);
+    auto intProduct32 = ev.getValidHandle<arttest::IntProduct>(inputTag32);
     assert(intProduct32->value == 322);
 
-    auto intProduct312 = ev.getValidHandle<critictest::IntProduct>(inputTag312);
+    auto intProduct312 = ev.getValidHandle<arttest::IntProduct>(inputTag312);
     assert(intProduct312->value == 312);
 
-    auto intProduct322 = ev.getValidHandle<critictest::IntProduct>(inputTag322);
+    auto intProduct322 = ev.getValidHandle<arttest::IntProduct>(inputTag322);
     assert(intProduct322->value == 322);
 
-    auto intProduct41 = ev.getValidHandle<critictest::IntProduct>(inputTag41);
+    auto intProduct41 = ev.getValidHandle<arttest::IntProduct>(inputTag41);
     assert(intProduct41->value == 411);
 
-    auto intProduct42 = ev.getValidHandle<critictest::IntProduct>(inputTag42);
+    auto intProduct42 = ev.getValidHandle<arttest::IntProduct>(inputTag42);
     assert(intProduct42->value == 421);
 
-    auto intProduct411 = ev.getValidHandle<critictest::IntProduct>(inputTag411);
+    auto intProduct411 = ev.getValidHandle<arttest::IntProduct>(inputTag411);
     assert(intProduct411->value == 411);
 
-    auto intProduct421 = ev.getValidHandle<critictest::IntProduct>(inputTag421);
+    auto intProduct421 = ev.getValidHandle<arttest::IntProduct>(inputTag421);
     assert(intProduct421->value == 421);
 
 
-    auto intProduct51 = ev.getValidHandle<critictest::IntProduct>(inputTag51);
+    auto intProduct51 = ev.getValidHandle<arttest::IntProduct>(inputTag51);
     assert(intProduct51->value == 512);
 
-    auto intProduct52 = ev.getValidHandle<critictest::IntProduct>(inputTag52);
+    auto intProduct52 = ev.getValidHandle<arttest::IntProduct>(inputTag52);
     assert(intProduct52->value == 522);
 
-    auto stringProduct61 = ev.getValidHandle<critictest::StringProduct>(inputTags61);
+    auto stringProduct61 = ev.getValidHandle<arttest::StringProduct>(inputTags61);
     assert(stringProduct61->name_ == "s611");
 
-    auto stringProduct62 = ev.getValidHandle<critictest::StringProduct>(inputTags62);
+    auto stringProduct62 = ev.getValidHandle<arttest::StringProduct>(inputTags62);
     assert(stringProduct62->name_ == "s621");
 
     if (counter > 9) {
-      auto intProductFile2 = ev.getValidHandle<critictest::IntProduct>(inputTagFile2);
+      auto intProductFile2 = ev.getValidHandle<arttest::IntProduct>(inputTagFile2);
       assert(intProductFile2->value == 2000);
     }
 
@@ -339,16 +339,16 @@ int main() {
            !ptrTestProduct->invalidPtr.isAvailable() &&
            ptrTestProduct->invalidPtr.isNull());
 
-    gallery::Handle<art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle1;
+    gallery::Handle<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle1;
     ev.getByLabel(inputTagAssnTest1, assnsABHandle1);
 
-    gallery::Handle<art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle2;
+    gallery::Handle<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle2;
     ev.getByLabel(inputTagAssnTest2, assnsABHandle2);
 
-    gallery::Handle<art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle3;
+    gallery::Handle<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle3;
     ev.getByLabel(inputTagAssnTest1, assnsBAHandle3);
 
-    gallery::Handle<art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle4;
+    gallery::Handle<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle4;
     ev.getByLabel(inputTagAssnTest2, assnsBAHandle4);
 
     assert(assnsABHandle1.isValid() &&
@@ -397,7 +397,7 @@ int main() {
       assert(assnsBAHandle3->data(1).label == std::string("D"));
     }
 
-    gallery::Handle<std::vector<critictest::StringProduct> > hVStringProduct;
+    gallery::Handle<std::vector<arttest::StringProduct> > hVStringProduct;
     ev.getByLabel(inputTag111, hVStringProduct);
     assert(hVStringProduct.isValid());
 
@@ -419,16 +419,16 @@ int main() {
     ev.getByLabel(inputTag111, hB);
     assert(hB.isValid());
 
-    art::FindOne<critictest::StringProduct, critictest::LiteAssnTestData> findOneBA(hB, ev, inputTagAssnTest1);
+    art::FindOne<arttest::StringProduct, critictest::LiteAssnTestData> findOneBA(hB, ev, inputTagAssnTest1);
     assert(findOneBA.at(1).isValid());
     if (ev.fileEntry() == 1) {
-      assert(findOneBA.at(1).ref() == critictest::StringProduct(std::string("s111")));
-      assert(findOneBA.at(2).ref() == critictest::StringProduct(std::string("s121")));
+      assert(findOneBA.at(1).ref() == arttest::StringProduct(std::string("s111")));
+      assert(findOneBA.at(2).ref() == arttest::StringProduct(std::string("s121")));
       assert(findOneBA.data(1).ref().label == std::string("A"));
       assert(findOneBA.data(2).ref().label == std::string("B"));
     } else {
-      assert(findOneBA.at(1).ref() == critictest::StringProduct(std::string("s111")));
-      assert(findOneBA.at(2).ref() == critictest::StringProduct(std::string("s131")));
+      assert(findOneBA.at(1).ref() == arttest::StringProduct(std::string("s111")));
+      assert(findOneBA.at(2).ref() == arttest::StringProduct(std::string("s131")));
       assert(findOneBA.data(1).ref().label == std::string("D"));
       assert(findOneBA.data(2).ref().label == std::string("C"));
     }

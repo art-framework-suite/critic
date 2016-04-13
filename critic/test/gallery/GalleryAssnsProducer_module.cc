@@ -10,7 +10,7 @@
 //   AssnTestData -> LiteAssnTestData
 // And these changes to avoid conflicting with dictionaries in art/test
 //   size_t -> int
-//   string -> critictest::StringProduct
+//   string -> arttest::StringProduct
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/EDProducer.h"
@@ -19,7 +19,7 @@
 #include "canvas/Persistency/Common/Assns.h"
 #include "canvas/Persistency/Common/Ptr.h"
 #include "critic/test/CriticTestObjects/LiteAssnTestData.h"
-#include "critic/test/CriticTestObjects/ToyProducts.h"
+#include "art/test/TestObjects/ToyProducts.h"
 
 #include "cetlib/map_vector.h"
 
@@ -27,7 +27,7 @@
 #include <vector>
 
 using std::vector;
-using critictest::StringProduct;
+using arttest::StringProduct;
 using critictest::LiteAssnTestData;
 using std::make_unique;
 

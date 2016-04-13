@@ -1,12 +1,16 @@
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
-#include "critic/test/CriticTestObjects/ToyProducts.h"
+#include "art/test/TestObjects/ToyProducts.h"
 #include "fhiclcpp/ParameterSet.h"
 
 #include <memory>
 #include <string>
 #include <vector>
+
+using arttest::IntProduct;
+using arttest::SimpleDerived;
+using arttest::StringProduct;
 
 namespace critictest {
 

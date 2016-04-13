@@ -56,7 +56,7 @@ void gallery_t() {
     }
     if (!exceptionWasThrown) print_and_abort("111");
 
-    auto eventIDInt = ev.getValidHandle<critictest::IntProduct>(inputTagEventID);
+    auto eventIDInt = ev.getValidHandle<arttest::IntProduct>(inputTagEventID);
     if (static_cast<unsigned int>(eventIDInt->value) != aux.id().event()) print_and_abort("112");
 
     auto triggerResults = ev.getValidHandle<art::TriggerResults>(inputTagTriggerResults);
@@ -64,7 +64,7 @@ void gallery_t() {
     std::string test3 = triggerResults->parameterSetID().to_string();
     if (test1 != test3 || test2 != test3) print_and_abort("113");
 
-    auto stringProduct62 = ev.getValidHandle<critictest::StringProduct>(inputTags62);
+    auto stringProduct62 = ev.getValidHandle<arttest::StringProduct>(inputTags62);
     if (stringProduct62->name_ != "s621") print_and_abort("114");
 
     auto ptrTestProduct = ev.getValidHandle<critictest::LitePtrTestProduct>(inputTagPtrTest);
@@ -142,16 +142,16 @@ void gallery_t() {
           !ptrTestProduct->invalidPtr.isAvailable() &&
           ptrTestProduct->invalidPtr.isNull())) print_and_abort("140");
 
-    gallery::Handle<art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle1;
+    gallery::Handle<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle1;
     ev.getByLabel(inputTagAssnTest1, assnsABHandle1);
 
-    gallery::Handle<art::Assns<critictest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle2;
+    gallery::Handle<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle2;
     ev.getByLabel(inputTagAssnTest2, assnsABHandle2);
 
-    gallery::Handle<art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle3;
+    gallery::Handle<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle3;
     ev.getByLabel(inputTagAssnTest1, assnsBAHandle3);
 
-    gallery::Handle<art::Assns<int, critictest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle4;
+    gallery::Handle<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle4;
     ev.getByLabel(inputTagAssnTest2, assnsBAHandle4);
 
     if (!assnsABHandle1.isValid() ||
@@ -200,7 +200,7 @@ void gallery_t() {
       if (assnsBAHandle3->data(1).label != std::string("D")) print_and_abort("24");
     }
 
-    gallery::Handle<std::vector<critictest::StringProduct> > hVStringProduct;
+    gallery::Handle<std::vector<arttest::StringProduct> > hVStringProduct;
     ev.getByLabel(inputTag111, hVStringProduct);
     if (!hVStringProduct.isValid()) print_and_abort("25");
 
@@ -225,16 +225,16 @@ void gallery_t() {
     ev.getByLabel(inputTag111, hB);
     if (!hB.isValid()) print_and_abort("36");
 
-    art::FindOne<critictest::StringProduct, critictest::LiteAssnTestData> findOneBA(hB, ev, inputTagAssnTest1);
+    art::FindOne<arttest::StringProduct, critictest::LiteAssnTestData> findOneBA(hB, ev, inputTagAssnTest1);
     if(!findOneBA.at(1).isValid()) print_and_abort("37");
     if (ev.fileEntry() == 0) {
-      if (findOneBA.at(1).ref().name_ != critictest::StringProduct(std::string("s111")).name_) print_and_abort("38");
-      if (findOneBA.at(2).ref().name_ != critictest::StringProduct(std::string("s121")).name_) print_and_abort("39");
+      if (findOneBA.at(1).ref().name_ != arttest::StringProduct(std::string("s111")).name_) print_and_abort("38");
+      if (findOneBA.at(2).ref().name_ != arttest::StringProduct(std::string("s121")).name_) print_and_abort("39");
       if (findOneBA.data(1).ref().label != std::string("A")) print_and_abort("40");
       if (findOneBA.data(2).ref().label != std::string("B")) print_and_abort("41");
     } else {
-      if (findOneBA.at(1).ref().name_ != critictest::StringProduct(std::string("s111")).name_) print_and_abort("42");
-      if (findOneBA.at(2).ref().name_ != critictest::StringProduct(std::string("s131")).name_) print_and_abort("43");
+      if (findOneBA.at(1).ref().name_ != arttest::StringProduct(std::string("s111")).name_) print_and_abort("42");
+      if (findOneBA.at(2).ref().name_ != arttest::StringProduct(std::string("s131")).name_) print_and_abort("43");
       if (findOneBA.data(1).ref().label != std::string("D")) print_and_abort("44");
       if (findOneBA.data(2).ref().label != std::string("C")) print_and_abort("45");
     }
