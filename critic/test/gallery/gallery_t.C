@@ -6,7 +6,8 @@ void print_and_abort(std::string const& msg = std::string("")) {
 
 void gallery_t() {
 
-  std::vector<std::string> filenames { "test_gallery5.root", "test_gallery7.root" };
+  std::vector<std::string> filenames { "../gallery_makeInput5.d/test_gallery5.root",
+      "../gallery_makeInput7.d/test_gallery7.root" };
 
   gallery::Event ev(filenames);
 
@@ -131,7 +132,7 @@ void gallery_t() {
     //
     // This is all in the Ptr class and really has nothing to do with
     // gallery. The same behavior should exist in the full art framework.
-    
+
     if (!(!ptrTestProduct->nullDroppedPtr &&
           !ptrTestProduct->nullDroppedPtr.isAvailable() &&
           ptrTestProduct->nullDroppedPtr.isNull())) print_and_abort("139");

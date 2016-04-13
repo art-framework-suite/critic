@@ -1,5 +1,3 @@
-#include "messageDefaults.fcl"
-
 process_name: PROD2
 
 services:
@@ -9,7 +7,6 @@ services:
     wantSummary: false
   }
 }
-services.message: @local::messageDefaults
 
 source:
 {

@@ -1,35 +1,130 @@
-set(gallery_tests
-  gallery_t
-)
-
-set( gallery_tests_libraries
-        gallery
-        canvas_Persistency_Common
-        canvas_Persistency_Provenance
-        canvas_Utilities
-        ${ROOT_RIO}
-)
-
-foreach(gallery_test ${gallery_tests})
-  cet_test(${gallery_test} NO_AUTO
-    LIBRARIES ${gallery_tests_libraries}
+set(gallery_tests_libraries
+  gallery
+  canvas_Persistency_Common
+  canvas_Persistency_Provenance
+  canvas_Utilities
+  ${ROOT_RIO}
   )
-endforeach()
 
-cet_test(test_gallery.sh PREBUILT
+########################################################################
+# Make a hierarchy of input files in order to test gallery in C++,
+# interpreted C++ and python.
+cet_test(gallery_makeInput1 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c test_gallery_makeInput1.fcl
   DATAFILES
   fcl/test_gallery_makeInput1.fcl
+  )
+
+# Uses output from gallery_makeInput1.
+cet_test(gallery_makeInput2 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c test_gallery_makeInput2.fcl ../gallery_makeInput1.d/test_gallery1.root
+  DATAFILES
   fcl/test_gallery_makeInput2.fcl
+  REQUIRED_FILES ../gallery_makeInput1.d/test_gallery1.root
+  TEST_PROPERTIES DEPENDS gallery_makeInput1
+  )
+
+# Uses output from gallery_makeInput2.
+cet_test(gallery_makeInput3 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c test_gallery_makeInput3.fcl ../gallery_makeInput2.d/test_gallery2.root
+  DATAFILES
   fcl/test_gallery_makeInput3.fcl
+  REQUIRED_FILES ../gallery_makeInput2.d/test_gallery2.root
+  TEST_PROPERTIES DEPENDS gallery_makeInput2
+  )
+
+# Uses output from gallery_makeInput2 with a differently-configured module.
+cet_test(gallery_makeInput4 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c test_gallery_makeInput4.fcl ../gallery_makeInput2.d/test_gallery2.root
+  DATAFILES
   fcl/test_gallery_makeInput4.fcl
+  REQUIRED_FILES ../gallery_makeInput2.d/test_gallery2.root
+  TEST_PROPERTIES DEPENDS gallery_makeInput2
+  )
+
+# Uses output from gallery_makeInput3 and gallery_makeInput4.
+cet_test(gallery_makeInput5 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c test_gallery_makeInput5.fcl
+  ../gallery_makeInput3.d/test_gallery3.root
+  ../gallery_makeInput4.d/test_gallery4.root
+  DATAFILES
   fcl/test_gallery_makeInput5.fcl
+  REQUIRED_FILES ../gallery_makeInput3.d/test_gallery3.root
+  ../gallery_makeInput4.d/test_gallery4.root
+  )
+
+set_tests_properties(gallery_makeInput5 PROPERTIES DEPENDS "gallery_makeInput3;gallery_makeInput4")
+
+# Use gallery_makeInput2 to make an output incompatible with other files from the same ancestor.
+cet_test(gallery_makeInput6 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c test_gallery_makeInput6.fcl ../gallery_makeInput2.d/test_gallery2.root
+  DATAFILES
   fcl/test_gallery_makeInput6.fcl
+  REQUIRED_FILES ../gallery_makeInput2.d/test_gallery2.root
+  TEST_PROPERTIES DEPENDS gallery_makeInput2
+  )
+
+# Uses output from gallery_makeInput6
+cet_test(gallery_makeInput7 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c test_gallery_makeInput7.fcl ../gallery_makeInput6.d/test_gallery6.root
+  DATAFILES
   fcl/test_gallery_makeInput7.fcl
+  REQUIRED_FILES ../gallery_makeInput6.d/test_gallery6.root
+  TEST_PROPERTIES DEPENDS gallery_makeInput6
+  )
+
+# Uses output from gallery_makeInput7
+cet_test(gallery_makeInput8 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c test_gallery_makeInput8.fcl ../gallery_makeInput7.d/test_gallery7.root
+  DATAFILES
   fcl/test_gallery_makeInput8.fcl
-  fcl/messageDefaults.fcl
-  gallery_t.C
-  gallery_t.py
-)
+  REQUIRED_FILES ../gallery_makeInput7.d/test_gallery7.root
+  TEST_PROPERTIES DEPENDS gallery_makeInput7
+  )
+
+# Use gallery in compiled C++ to read output from gallery_makeInput5,
+# gallery_makeInput7 and gallery_makeInput8.
+cet_test(gallery_t
+  LIBRARIES ${gallery_tests_libraries}
+  ${ROOT_RIO}
+  REQUIRED_FILES ../gallery_makeInput5.d/test_gallery5.root
+  ../gallery_makeInput7.d/test_gallery7.root
+  ../gallery_makeInput8.d/test_gallery8.root
+  )
+
+set_tests_properties(gallery_t PROPERTIES
+  DEPENDS "gallery_makeInput5;gallery_makeInput7;gallery_makeInput8")
+
+# Use gallery in interpreted C++ to read output from gallery_makeInput5
+# and gallery_makeInput7.
+cet_test(gallery_t.C HANDBUILT
+  TEST_EXEC root
+  TEST_ARGS -b -q -l gallery_t.C
+  DATAFILES gallery_t.C
+  REQUIRED_FILES ../gallery_makeInput5.d/test_gallery5.root
+ ../gallery_makeInput7.d/test_gallery7.root
+  )
+
+# Use gallery in python to read output from gallery_makeInput5 and
+# gallery_makeInput7.
+cet_test(gallery_t.py HANDBUILT
+  TEST_EXEC python
+  TEST_ARGS gallery_t.py
+  DATAFILES gallery_t.py
+  REQUIRED_FILES ../gallery_makeInput5.d/test_gallery5.root
+ ../gallery_makeInput7.d/test_gallery7.root
+  )
+
+set_tests_properties(gallery_t.C gallery_t.py PROPERTIES
+  DEPENDS "gallery_makeInput5;gallery_makeInput7")
 
 cet_test(CriticAssns_w HANDBUILT
   TEST_EXEC art_ut

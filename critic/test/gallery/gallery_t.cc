@@ -113,12 +113,12 @@ int main() {
 
   // Read values from a ROOT file and test that we get the correct
   // products with the arbitrary values we know were put into them.
-  std::vector<std::string> filenames {"test_gallery8.root",
-                                      "test_gallery5.root",
-                                      "test_gallery8.root",
-                                      "test_gallery7.root",
-                                      "test_gallery7.root",
-                                      "test_gallery8.root"};
+  std::vector<std::string> filenames {"../gallery_makeInput8.d/test_gallery8.root",
+                                      "../gallery_makeInput5.d/test_gallery5.root",
+                                      "../gallery_makeInput8.d/test_gallery8.root",
+                                      "../gallery_makeInput7.d/test_gallery7.root",
+                                      "../gallery_makeInput7.d/test_gallery7.root",
+                                      "../gallery_makeInput8.d/test_gallery8.root"};
 
   gallery::Event ev(filenames, true, 1);
   assert(ev.numberOfEventsInFile() == 10);

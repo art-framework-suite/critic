@@ -38,8 +38,8 @@ ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<art::TriggerRes
 ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> >(art::InputTag const&, gallery::Handle<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> >&) const;')
 
 filenames = ROOT.vector(ROOT.string)()
-filenames.push_back("test_gallery5.root")
-filenames.push_back("test_gallery7.root")
+filenames.push_back("../gallery_makeInput5.d/test_gallery5.root")
+filenames.push_back("../gallery_makeInput7.d/test_gallery7.root")
 ev = ROOT.gallery.Event(filenames)
 
 inputTagEventID = ROOT.art.InputTag("m1", "eventID", "PROD1");
