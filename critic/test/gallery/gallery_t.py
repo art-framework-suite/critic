@@ -28,14 +28,26 @@ else :
   ROOT.gInterpreter.AddIncludePath(os.environ.get('CETLIB_DIR'))
 
 ROOT.gROOT.ProcessLine('#include "gallery/ValidHandle.h"')
-ROOT.gROOT.ProcessLine('#include "gallery/Handle.h"')
 
 ROOT.gROOT.ProcessLine('template gallery::ValidHandle<arttest::StringProduct> gallery::Event::getValidHandle<arttest::StringProduct>(art::InputTag const&) const;')
-ROOT.gROOT.ProcessLine('template gallery::ValidHandle<art::TriggerResults> gallery::Event::getValidHandle<art::TriggerResults>(art::InputTag const&) const;')
-ROOT.gROOT.ProcessLine('template gallery::ValidHandle<critictest::LitePtrTestProduct> gallery::Event::getValidHandle<critictest::LitePtrTestProduct>(art::InputTag const&) const;')
 
 ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<art::TriggerResults>(art::InputTag const&, gallery::Handle<art::TriggerResults>&) const;')
+
 ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> >(art::InputTag const&, gallery::Handle<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> >&) const;')
+
+ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> >(art::InputTag const&, gallery::Handle<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> >&) const;')
+
+ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<std::vector<arttest::StringProduct> >(art::InputTag const&, gallery::Handle<std::vector<arttest::StringProduct> >&) const;')
+
+ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<std::vector<int> >(art::InputTag const&, gallery::Handle<std::vector<int> >&) const;')
+
+ROOT.gROOT.ProcessLine('template art::FindOne<int, critictest::LiteAssnTestData> gallery::FindMaker::makeFindOne<int, critictest::LiteAssnTestData, gallery::Handle<std::vector<arttest::StringProduct> > >(gallery::Handle<std::vector<arttest::StringProduct> > const&, gallery::Event const&, art::InputTag const&);')
+
+ROOT.gROOT.ProcessLine('template art::FindOneP<int, critictest::LiteAssnTestData> gallery::FindMaker::makeFindOneP<int, critictest::LiteAssnTestData, gallery::Handle<std::vector<arttest::StringProduct> > >(gallery::Handle<std::vector<arttest::StringProduct> > const&, gallery::Event const&, art::InputTag const&);')
+
+ROOT.gROOT.ProcessLine('template art::FindMany<int, critictest::LiteAssnTestData> gallery::FindMaker::makeFindMany<int, critictest::LiteAssnTestData, gallery::Handle<std::vector<arttest::StringProduct> > >(gallery::Handle<std::vector<arttest::StringProduct> > const&, gallery::Event const&, art::InputTag const&);')
+
+ROOT.gROOT.ProcessLine('template art::FindManyP<int, critictest::LiteAssnTestData> gallery::FindMaker::makeFindManyP<int, critictest::LiteAssnTestData, gallery::Handle<std::vector<arttest::StringProduct> > >(gallery::Handle<std::vector<arttest::StringProduct> > const&, gallery::Event const&, art::InputTag const&);')
 
 filenames = ROOT.vector(ROOT.string)()
 filenames.push_back("../gallery_makeInput5.d/test_gallery5.root")
@@ -147,101 +159,137 @@ while ( not ev.atEnd()) :
          not ptrTestProduct.invalidPtr.isAvailable() and
          ptrTestProduct.invalidPtr.isNull());
 
-  # This is work in progress. An attempt needs to be made to convert this
-  # to python and get it working.
-  #assnsABHandle1 = ROOT.gallery.Handle(ROOT.art.Assns(ROOT.arttest.StringProduct, int, ROOT.critictest.LiteAssnTestData));
-  #ev.getByLabel(inputTagAssnTest1, assnsABHandle1);
+  assnsABHandle1 = ROOT.gallery.Handle(ROOT.art.Assns(ROOT.arttest.StringProduct, int, ROOT.critictest.LiteAssnTestData))();
+  ev.getByLabel(inputTagAssnTest1, assnsABHandle1);
 
-  #gallery::Handle<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> > assnsABHandle2;
-  #ev.getByLabel(inputTagAssnTest2, assnsABHandle2);
+  assnsABHandle2 = ROOT.gallery.Handle(ROOT.art.Assns(ROOT.arttest.StringProduct, int, ROOT.critictest.LiteAssnTestData))();
+  ev.getByLabel(inputTagAssnTest2, assnsABHandle2);
 
-  #gallery::Handle<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle3;
-  #ev.getByLabel(inputTagAssnTest1, assnsBAHandle3);
+  assnsBAHandle3 = ROOT.gallery.Handle(ROOT.art.Assns(int, ROOT.arttest.StringProduct, ROOT.critictest.LiteAssnTestData))();
+  ev.getByLabel(inputTagAssnTest1, assnsBAHandle3);
 
-  #gallery::Handle<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> > assnsBAHandle4;
-  #ev.getByLabel(inputTagAssnTest2, assnsBAHandle4);
+  assnsBAHandle4 = ROOT.gallery.Handle(ROOT.art.Assns(int, ROOT.arttest.StringProduct, ROOT.critictest.LiteAssnTestData))();
+  ev.getByLabel(inputTagAssnTest2, assnsBAHandle4);
 
-  #assert(assnsABHandle1.isValid() &&
-  #       assnsABHandle2.isValid() &&
-  #       assnsBAHandle3.isValid() &&
-  #       assnsBAHandle4.isValid());
+  assert(assnsABHandle1.isValid() and
+         assnsABHandle2.isValid() and
+         assnsBAHandle3.isValid() and
+         assnsBAHandle4.isValid());
 
-  #// handles 1 and 2 should be the same
-  #// handles 3 and 4 should be the same
-  #// 1 and 3 are also the same except first and second of the pair<Ptr,Ptr>
-  #// stored in the Assns are reversed.
+  # handles 1 and 2 should be the same
+  # handles 3 and 4 should be the same
+  # 1 and 3 are also the same except first and second of the pair<Ptr,Ptr>
+  # stored in the Assns are reversed.
 
-  #if (ev.fileEntry() == 1) {
-  #  assert((*assnsABHandle1)[0].first->name_ == std::string("s111"));
-  #  assert(*(*assnsABHandle2)[0].second == 121);
-  #  assert(assnsABHandle1->data(0).label == std::string("A"));
+  if (ev.fileEntry() == 0) :
+    assert(assnsABHandle1.at(0).first.name_ == "s111");
+    assert(assnsABHandle2.at(0).second.get()[0] == 121);
+    assert(assnsABHandle1.data(0).label == "A");
 
-  #  assert((*assnsABHandle1)[1].first->name_ == std::string("s121"));
-  #  assert(*(*assnsABHandle2)[1].second == 131);
-  #  assert(assnsABHandle1->data(1).label == std::string("B"));
-  #} else {
-  #  assert(assnsABHandle1->at(0).first->name_ == std::string("s131"));
-  #  assert(*(*assnsABHandle2)[0].second == 131);
-  #  assert(assnsABHandle1->data(0).label == std::string("C"));
+    assert(assnsABHandle1.at(1).first.name_ == "s121");
+    assert(assnsABHandle2.at(1).second.get()[0] == 131);
+    assert(assnsABHandle1.data(1).label == "B");
+  else :
+    assert(assnsABHandle1.at(0).first.name_ == "s131");
+    assert(assnsABHandle2.at(0).second.get()[0] == 131);
+    assert(assnsABHandle1.data(0).label == "C");
 
-  #  assert((*assnsABHandle1)[1].first->name_ == std::string("s111"));
-  #  assert(*(*assnsABHandle2)[1].second == 121);
-  #  assert(assnsABHandle1->data(1).label == std::string("D"));
-  #}
+    assert(assnsABHandle1.at(1).first.name_ == "s111");
+    assert(assnsABHandle2.at(1).second.get()[0] == 121);
+    assert(assnsABHandle1.data(1).label == "D");
 
-  #if (ev.fileEntry() == 1) {
-  #  assert((*assnsBAHandle3)[0].second->name_ == std::string("s111"));
-  #  assert(*(*assnsBAHandle4)[0].first == 121);
-  #  assert(assnsBAHandle3->data(0).label == std::string("A"));
+  if (ev.fileEntry() == 0) :
+    assert(assnsBAHandle3.at(0).second.name_ == "s111");
+    assert(assnsBAHandle4.at(0).first.get()[0] == 121);
+    assert(assnsBAHandle3.data(0).label == "A");
 
-  #  assert((*assnsBAHandle3)[1].second->name_ == std::string("s121"));
-  #  assert(*(*assnsBAHandle4)[1].first == 131);
-  #  assert(assnsBAHandle3->data(1).label == std::string("B"));
-  #} else {
-  #  assert(assnsBAHandle3->at(0).second->name_ == std::string("s131"));
-  #  assert(*(*assnsBAHandle4)[0].first == 131);
-  #  assert(assnsBAHandle3->data(0).label == std::string("C"));
+    assert(assnsBAHandle3.at(1).second.name_ == "s121");
+    assert(assnsBAHandle4.at(1).first.get()[0] == 131);
+    assert(assnsBAHandle3.data(1).label == "B");
+  else :
+    assert(assnsBAHandle3.at(0).second.name_ == "s131");
+    assert(assnsBAHandle4.at(0).first.get()[0] == 131);
+    assert(assnsBAHandle3.data(0).label == "C");
 
-  #  assert((*assnsBAHandle3)[1].second->name_ == std::string("s111"));
-  #  assert(*(*assnsBAHandle4)[1].first == 121);
-  #  assert(assnsBAHandle3->data(1).label == std::string("D"));
-  #}
+    assert(assnsBAHandle3.at(1).second.name_ == "s111");
+    assert(assnsBAHandle4.at(1).first.get()[0] == 121);
+    assert(assnsBAHandle3.data(1).label == "D");
 
-  #gallery::Handle<std::vector<arttest::StringProduct> > hVStringProduct;
-  #ev.getByLabel(inputTag111, hVStringProduct);
-  #assert(hVStringProduct.isValid());
+  hVStringProduct = ROOT.gallery.Handle(ROOT.std.vector(ROOT.arttest.StringProduct))();
+  ev.getByLabel(inputTag111, hVStringProduct);
+  assert(hVStringProduct.isValid());
 
-  #art::FindOne<int, critictest::LiteAssnTestData> findOne(hVStringProduct, ev, inputTagAssnTest1);
-  #assert(findOne.at(0).isValid());
-  #if (ev.fileEntry() == 1) {
-  #  assert(findOne.at(0).ref() == 121);
-  #  assert(findOne.at(1).ref() == 131);
-  #  assert(findOne.data(0).ref().label == std::string("A"));
-  #  assert(findOne.data(1).ref().label == std::string("B"));
-  #} else {
-  #  assert(findOne.at(0).ref() == 121);
-  #  assert(findOne.at(2).ref() == 131);
-  #  assert(findOne.data(0).ref().label == std::string("D"));
-  #  assert(findOne.data(2).ref().label == std::string("C"));
-  #}
+  findMaker = ROOT.gallery.FindMaker();
 
-  #gallery::Handle<std::vector<int> > hB;
-  #ev.getByLabel(inputTag111, hB);
-  #assert(hB.isValid());
+  findOne = findMaker.makeFindOne(int, ROOT.critictest.LiteAssnTestData, ROOT.gallery.Handle(ROOT.std.vector(ROOT.arttest.StringProduct)))(hVStringProduct, ev, inputTagAssnTest1);
+  assert(findOne.at(0).isValid());
+  if (ev.fileEntry() == 0) :
+    assert(findOne.at(0).ref() == 121);
+    assert(findOne.at(1).ref() == 131);
+    assert(findOne.data(0).ref().label == "A");
+    assert(findOne.data(1).ref().label == "B");
+  else :
+    assert(findOne.at(0).ref() == 121);
+    assert(findOne.at(2).ref() == 131);
+    assert(findOne.data(0).ref().label == "D");
+    assert(findOne.data(2).ref().label == "C");
 
-  #art::FindOne<arttest::StringProduct, critictest::LiteAssnTestData> findOneBA(hB, ev, inputTagAssnTest1);
-  #assert(findOneBA.at(1).isValid());
-  #if (ev.fileEntry() == 1) {
-  #  assert(findOneBA.at(1).ref() == arttest::StringProduct(std::string("s111")));
-  #  assert(findOneBA.at(2).ref() == arttest::StringProduct(std::string("s121")));
-  #  assert(findOneBA.data(1).ref().label == std::string("A"));
-  #  assert(findOneBA.data(2).ref().label == std::string("B"));
-  #} else {
-  #  assert(findOneBA.at(1).ref() == arttest::StringProduct(std::string("s111")));
-  #  assert(findOneBA.at(2).ref() == arttest::StringProduct(std::string("s131")));
-  #  assert(findOneBA.data(1).ref().label == std::string("D"));
-  #  assert(findOneBA.data(2).ref().label == std::string("C"));
-  #}
+  hB = ROOT.gallery.Handle(ROOT.std.vector(int))();
+  ev.getByLabel(inputTag111, hB);
+  assert(hB.isValid());
+
+  findOneBA = findMaker.makeFindOne(ROOT.arttest.StringProduct, ROOT.critictest.LiteAssnTestData, ROOT.gallery.Handle(ROOT.std.vector(int)))(hB, ev, inputTagAssnTest1);
+  assert(findOneBA.at(1).isValid());
+  if (ev.fileEntry() == 0) :
+    assert(findOneBA.at(1).ref() == ROOT.arttest.StringProduct(ROOT.std.string("s111")));
+    assert(findOneBA.at(2).ref() == ROOT.arttest.StringProduct(ROOT.std.string("s121")));
+    assert(findOneBA.data(1).ref().label == "A");
+    assert(findOneBA.data(2).ref().label == "B");
+  else :
+    assert(findOneBA.at(1).ref() == ROOT.arttest.StringProduct(ROOT.std.string("s111")));
+    assert(findOneBA.at(2).ref() == ROOT.arttest.StringProduct(ROOT.std.string("s131")));
+    assert(findOneBA.data(1).ref().label == "D");
+    assert(findOneBA.data(2).ref().label == "C");
+
+  findOneP = findMaker.makeFindOneP(int, ROOT.critictest.LiteAssnTestData, ROOT.gallery.Handle(ROOT.std.vector(ROOT.arttest.StringProduct)))(hVStringProduct, ev, inputTagAssnTest1);
+  assert(findOneP.at(0).isNonnull());
+  assert(findOneP.at(0).isAvailable());
+  if (ev.fileEntry() == 0) :
+    assert(findOneP.at(0).get()[0] == 121);
+    assert(findOneP.at(1).get()[0] == 131);
+    assert(findOneP.data(0).ref().label == "A");
+    assert(findOneP.data(1).ref().label == "B");
+  else :
+    assert(findOneP.at(0).get()[0] == 121);
+    assert(findOneP.at(2).get()[0] == 131);
+    assert(findOneP.data(0).ref().label == "D");
+    assert(findOneP.data(2).ref().label == "C");
+
+  findManyBA = findMaker.makeFindMany(ROOT.arttest.StringProduct, ROOT.critictest.LiteAssnTestData, ROOT.gallery.Handle(ROOT.std.vector(int)))(hB, ev, inputTagAssnTest1);
+  assert(findManyBA.at(1).size() == 1);
+  if (ev.fileEntry() == 0) :
+    assert(findManyBA.at(1).at(0) == ROOT.arttest.StringProduct(ROOT.std.string("s111")));
+    assert(findManyBA.at(2).at(0) == ROOT.arttest.StringProduct(ROOT.std.string("s121")));
+    assert(findManyBA.data(1).at(0).label == "A");
+    assert(findManyBA.data(2).at(0).label == "B");
+  else :
+    assert(findManyBA.at(1).at(0) == ROOT.arttest.StringProduct(ROOT.std.string("s111")));
+    assert(findManyBA.at(2).at(0) == ROOT.arttest.StringProduct(ROOT.std.string("s131")));
+    assert(findManyBA.data(1).at(0).label == "D");
+    assert(findManyBA.data(2).at(0).label == "C");
+
+  findManyP = findMaker.makeFindManyP(int, ROOT.critictest.LiteAssnTestData, ROOT.gallery.Handle(ROOT.std.vector(ROOT.arttest.StringProduct)))(hVStringProduct, ev, inputTagAssnTest1);
+  assert(findManyP.at(0).size() == 1);
+  if (ev.fileEntry() == 0) :
+    assert(findManyP.at(0).at(0).get()[0] == 121);
+    assert(findManyP.at(1).at(0).get()[0] == 131);
+    assert(findManyP.data(0).at(0).label == "A");
+    assert(findManyP.data(1).at(0).label == "B");
+  else :
+    assert(findManyP.at(0).at(0).get()[0] == 121);
+    assert(findManyP.at(2).at(0).get()[0] == 131);
+    assert(findManyP.data(0).at(0).label == "D");
+    assert(findManyP.data(2).at(0).label == "C");
 
   ev.next()
   iEvent += 1

@@ -1,6 +1,6 @@
 
 void print_and_abort(std::string const& msg = std::string("")) {
-  std::cerr << msg << std::endl;
+  std::cerr << "Test critic/test/gallery/gallery_t.C failed with code " << msg << std::endl;
   abort();
 }
 
@@ -205,9 +205,6 @@ void gallery_t() {
     ev.getByLabel(inputTag111, hVStringProduct);
     if (!hVStringProduct.isValid()) print_and_abort("25");
 
-    /*
-    DOES NOT WORK CURRENTLY DUE TO A ROOT BUG, THIS NEEDS TO BE COMMENTED BACK
-    IN AFTER THE ROOT BUG IS FIXED OR A WORK AROUND IS CREATED
     art::FindOne<int, critictest::LiteAssnTestData> findOne(hVStringProduct, ev, inputTagAssnTest1);
     if (!findOne.at(0).isValid()) print_and_abort("26");
     if (ev.fileEntry() == 0) {
@@ -239,6 +236,48 @@ void gallery_t() {
       if (findOneBA.data(1).ref().label != std::string("D")) print_and_abort("44");
       if (findOneBA.data(2).ref().label != std::string("C")) print_and_abort("45");
     }
-    */
+
+
+    art::FindOneP<int, critictest::LiteAssnTestData> findOneP(hVStringProduct, ev, inputTagAssnTest1);
+    if (!findOneP.at(0).isNonnull() || !findOneP.at(0).isAvailable()) print_and_abort("226");
+    if (ev.fileEntry() == 0) {
+      if (*findOneP.at(0) != 121) print_and_abort("227");
+      if (*findOneP.at(1) != 131) print_and_abort("228");
+      if (findOneP.data(0).ref().label != std::string("A")) print_and_abort("229");
+      if (findOneP.data(1).ref().label != std::string("B")) print_and_abort("230");
+    } else {
+      if (*findOneP.at(0) != 121) print_and_abort("231");
+      if (*findOneP.at(2) != 131) print_and_abort("232");
+      if (findOneP.data(0).ref().label != std::string("D")) print_and_abort("233");
+      if (findOneP.data(2).ref().label != std::string("C")) print_and_abort("234");
+    }
+
+    art::FindMany<int, critictest::LiteAssnTestData> findMany(hVStringProduct, ev, inputTagAssnTest1);
+    if (findMany.at(0).empty()) print_and_abort("326");
+    if (ev.fileEntry() == 0) {
+      if (*findMany.at(0).at(0) != 121) print_and_abort("327");
+      if (*findMany.at(1).at(0) != 131) print_and_abort("328");
+      if (findMany.data(0).at(0)->label != std::string("A")) print_and_abort("329");
+      if (findMany.data(1).at(0)->label != std::string("B")) print_and_abort("330");
+    } else {
+      if (*findMany.at(0).at(0) != 121) print_and_abort("331");
+      if (*findMany.at(2).at(0) != 131) print_and_abort("332");
+      if (findMany.data(0).at(0)->label != std::string("D")) print_and_abort("333");
+      if (findMany.data(2).at(0)->label != std::string("C")) print_and_abort("334");
+    }
+
+    art::FindManyP<int, critictest::LiteAssnTestData> findManyP(hVStringProduct, ev, inputTagAssnTest1);
+    if (findManyP.at(0).empty()) print_and_abort("426");
+    if (ev.fileEntry() == 0) {
+      if (*findManyP.at(0).at(0) != 121) print_and_abort("427");
+      if (*findManyP.at(1).at(0) != 131) print_and_abort("428");
+      if (findManyP.data(0).at(0)->label != std::string("A")) print_and_abort("429");
+      if (findManyP.data(1).at(0)->label != std::string("B")) print_and_abort("430");
+    } else {
+      if (*findManyP.at(0).at(0) != 121) print_and_abort("431");
+      if (*findManyP.at(2).at(0) != 131) print_and_abort("432");
+      if (findManyP.data(0).at(0)->label != std::string("D")) print_and_abort("433");
+      if (findManyP.data(2).at(0)->label != std::string("C")) print_and_abort("434");
+    }
   }
 }
