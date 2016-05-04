@@ -1,5 +1,5 @@
-#ifndef test_TestObjects_LiteAssnTestData_h
-#define test_TestObjects_LiteAssnTestData_h
+#ifndef critic_test_CriticTestObjects_LiteAssnTestData_h
+#define critic_test_CriticTestObjects_LiteAssnTestData_h
 
 #include <cstddef>
 #include <string>
@@ -16,7 +16,7 @@ struct critictest::LiteAssnTestData {
   size_t d2;
   std::string label;
 };
-#endif /* test_TestObjects_LiteAssnTestData_h */
+#endif /* critic_test_CriticTestObjects_LiteAssnTestData_h */
 
 // Local Variables:
 // mode: c++

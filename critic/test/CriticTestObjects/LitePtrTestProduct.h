@@ -1,5 +1,5 @@
-#ifndef test_CriticTestObjects_LitePtrTestProduct_h
-#define test_CriticTestObjects_LitePtrTestProduct_h
+#ifndef critic_test_CriticTestObjects_LitePtrTestProduct_h
+#define critic_test_CriticTestObjects_LitePtrTestProduct_h
 
 #include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Persistency/Common/PtrVector.h"
@@ -35,7 +35,7 @@ namespace critictest {
   };
 }
 
-#endif /* test_CriticTestObjects_LitePtrTestProduct_h */
+#endif /* critic_test_CriticTestObjects_LitePtrTestProduct_h */
 
 // Local Variables:
 // mode: c++
