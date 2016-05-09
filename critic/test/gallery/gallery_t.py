@@ -1,31 +1,7 @@
 import os
 import ROOT
 
-# Normally, when you setup a product with UPS, an environment
-# variable XX_INC (where XX is the UPS product) is defined
-# and you can use that to find the header files.
-# But at the moment when you build with mrb and run from
-# build area the XX_INC environment variables are not defined
-# and you need to check for that and use the XX_DIR variables
-# instead. This should be temporary. At some point in the future
-# the XX_INC variables should always be defined and always used.
-# At that point in time, the following code can be simplified
-# and the if-else blocks removed.
-
-if os.getenv('GALLERY_INC') is not None :
-  ROOT.gInterpreter.AddIncludePath(os.environ.get('GALLERY_INC'))
-else :
-  ROOT.gInterpreter.AddIncludePath(os.environ.get('GALLERY_DIR'))
-
-if os.getenv('CANVAS_INC') is not None :
-  ROOT.gInterpreter.AddIncludePath(os.environ.get('CANVAS_INC'))
-else :
-  ROOT.gInterpreter.AddIncludePath(os.environ.get('CANVAS_DIR'))
-
-if os.getenv('CETLIB_INC') is not None :
-  ROOT.gInterpreter.AddIncludePath(os.environ.get('CETLIB_INC'))
-else :
-  ROOT.gInterpreter.AddIncludePath(os.environ.get('CETLIB_DIR'))
+ROOT.gROOT.ProcessLine('TClass::GetClass("gallery::Event")');
 
 ROOT.gROOT.ProcessLine('#include "gallery/ValidHandle.h"')
 
