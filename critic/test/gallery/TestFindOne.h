@@ -89,11 +89,11 @@ namespace {
     D data;
     for (size_t i = 0; i < 3; ++i) {
       fA.get(i, item, data);
-      BOOST_CHECK_EQUAL(dereference(item), BI[i]);
+      BOOST_CHECK_EQUAL(dereference(item), static_cast<int>(BI[i]));
       BOOST_CHECK_EQUAL(dereference(data).d1, AI[i]);
       BOOST_CHECK_EQUAL(dereference(data).d2, i);
       fAV.get(i, item);
-      BOOST_CHECK_EQUAL(dereference(item), BI[i]);
+      BOOST_CHECK_EQUAL(dereference(item), static_cast<int>(BI[i]));
     }
   }
 
@@ -220,14 +220,14 @@ testOne(gallery::Event const & e) const
   for (size_t i = 0; i < 3; ++i) {
     vp.emplace_back(art::ProductID(), &hAcoll.product()->at(i), i);
     if (testAB_) {
-      BOOST_CHECK_EQUAL(*(*hAB)[i].first, i);
+      BOOST_CHECK_EQUAL(*(*hAB)[i].first, static_cast<int>(i));
       if (! bCollMissing_) {
         BOOST_CHECK_EQUAL(*(*hAB)[i].second, B_t(std::string(X[i])));
       }
       BOOST_CHECK_EQUAL((*hAB).data(i).d1, (*hAB)[i].first.key());
       BOOST_CHECK_EQUAL((*hAB).data(i).d2, (*hAB)[i].second.key());
       BOOST_CHECK_EQUAL((*hAB).data(i).label, std::string(A[i]));
-      BOOST_CHECK_EQUAL(*(*hABV)[i].first, i);
+      BOOST_CHECK_EQUAL(*(*hABV)[i].first, static_cast<int>(i));
       if (! bCollMissing_) {
         BOOST_CHECK_EQUAL(*(*hABV)[i].second, B_t(std::string(X[i])));
       }
@@ -236,14 +236,14 @@ testOne(gallery::Event const & e) const
       if (! bCollMissing_) {
         BOOST_CHECK_EQUAL(*(*hBA)[i].first, B_t(std::string(X[i])));
       }
-      BOOST_CHECK_EQUAL(*(*hBA)[i].second, i);
+      BOOST_CHECK_EQUAL(*(*hBA)[i].second, static_cast<int>(i));
       BOOST_CHECK_EQUAL((*hBA).data(i).d2, (*hBA)[i].first.key());
       BOOST_CHECK_EQUAL((*hBA).data(i).d1, (*hBA)[i].second.key());
       BOOST_CHECK_EQUAL((*hBA).data(i).label, std::string(A[i]));
       if (! bCollMissing_) {
         BOOST_CHECK_EQUAL(*(*hBAV)[i].first, B_t(std::string(X[i])));
       }
-      BOOST_CHECK_EQUAL(*(*hBAV)[i].second, i);
+      BOOST_CHECK_EQUAL(*(*hBAV)[i].second, static_cast<int>(i));
     }
     if (bCollMissing_) {
       BOOST_CHECK(!foBV.at(i));
@@ -251,10 +251,10 @@ testOne(gallery::Event const & e) const
     else {
       BOOST_CHECK_EQUAL(dereference(foBV.at(i)), B_t(std::string(X[AI[i]])));
       if (testBA_) {
-        BOOST_CHECK_EQUAL(dereference(foA->at(i)), BI[i]);
+        BOOST_CHECK_EQUAL(dereference(foA->at(i)), static_cast<int>(BI[i]));
         BOOST_CHECK_EQUAL(dereference(foA->data(i)).d1, AI[i]);
         BOOST_CHECK_EQUAL(dereference(foA->data(i)).d2, i);
-        BOOST_CHECK_EQUAL(dereference(foAV->at(i)), BI[i]);
+        BOOST_CHECK_EQUAL(dereference(foAV->at(i)), static_cast<int>(BI[i]));
         BOOST_CHECK_NO_THROW(check_get(*foA, *foAV));
       }
     }
