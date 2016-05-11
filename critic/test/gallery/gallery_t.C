@@ -49,6 +49,13 @@ void gallery_t() {
     if (ev.getByLabel(inputTagIncorrect, triggerResultsHandle)) print_and_abort("108");
     if (triggerResultsHandle.isValid()) print_and_abort("109");
     if (!triggerResultsHandle.whyFailed()) print_and_abort("110");
+
+    // The following check fails on OSX because the it fails to
+    // catch the exception. It would be nice to have this fixed in
+    // ROOT, but catching exceptions in a ROOT script is not something
+    // a gallery user or gallery itself needs to do. It only exists
+    // here for the purpose of testing that the exception is thrown.
+#ifdef __linux__
     bool exceptionWasThrown = true;
     try {
       triggerResultsHandle->parameterSetID().to_string();
@@ -56,6 +63,7 @@ void gallery_t() {
     } catch (cet::exception const&) {
     }
     if (!exceptionWasThrown) print_and_abort("111");
+#endif
 
     auto eventIDInt = ev.getValidHandle<arttest::IntProduct>(inputTagEventID);
     if (static_cast<unsigned int>(eventIDInt->value) != aux.id().event()) print_and_abort("112");
