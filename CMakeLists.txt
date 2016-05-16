@@ -19,16 +19,12 @@ cmake_minimum_required (VERSION 2.8)
 project(critic)
 
 # cetbuildtools contains our cmake modules
-SET ( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
-IF (NOT CETBUILDTOOLS_VERSION)
-    MESSAGE (FATAL_ERROR "ERROR: setup cetbuildtools to get the cmake modules")
-ENDIF()
-set(CMAKE_MODULE_PATH $ENV{CANVAS_DIR}/Modules 
-                      $ENV{CETBUILDTOOLS_DIR}/Modules 
-		      ${CMAKE_MODULE_PATH})
+find_package(cetbuildtools REQUIRED)
 
 include(CetCMakeEnv)
 cet_cmake_env()
+
+list(APPEND CMAKE_MODULE_PATH $ENV{ART_DIR}/Modules $ENV{CANVAS_DIR}/Modules)
 
 cet_set_compiler_flags(DIAGS VIGILANT
   WERROR
@@ -61,8 +57,7 @@ if (NOT APPLE)
   set(RT -lrt)
 endif()
 
-# testing
-add_subdirectory(test)
+add_subdirectory(critic)
 
 # ups - table and config files
 add_subdirectory(ups)
