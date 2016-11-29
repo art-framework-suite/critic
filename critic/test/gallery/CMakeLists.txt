@@ -12,6 +12,7 @@ set(gallery_tests_libraries
   canvas_Persistency_Common
   canvas_Persistency_Provenance
   canvas_Utilities
+  cetlib_except
   ${ROOT_RIO}
   )
 
@@ -164,7 +165,7 @@ cet_test(findOne_3_t USE_BOOST_UNIT
   REQUIRED_FILES ../CriticAssns_w.d/out1.root
 )
 
-simple_plugin(GalleryTestProducer     "module"  NO_INSTALL art_Persistency_Provenance)
-simple_plugin(GalleryPtrTestProducer  "module"  NO_INSTALL critic_test_CriticTestObjects art_Persistency_Provenance)
-simple_plugin(GalleryAssnsProducer    "module"  NO_INSTALL critic_test_CriticTestObjects art_Persistency_Provenance)
+simple_plugin(GalleryTestProducer     "module"  NO_INSTALL art_Persistency_Provenance cetlib_except)
+simple_plugin(GalleryPtrTestProducer  "module"  NO_INSTALL critic_test_CriticTestObjects art_Persistency_Provenance cetlib_except)
+simple_plugin(GalleryAssnsProducer    "module"  NO_INSTALL critic_test_CriticTestObjects art_Persistency_Provenance cetlib_except)
 simple_plugin(CriticFailEverything    "module"  NO_INSTALL)
