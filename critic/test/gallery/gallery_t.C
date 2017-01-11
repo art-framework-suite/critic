@@ -57,12 +57,15 @@ void gallery_t() {
     // here for the purpose of testing that the exception is thrown.
 #ifdef __linux__
     bool exceptionWasThrown = true;
+    bool exceptionWasCaught = false;
     try {
       triggerResultsHandle->parameterSetID().to_string();
       exceptionWasThrown = false;
     } catch (cet::exception const&) {
+      exceptionWasCaught = true;
     }
     if (!exceptionWasThrown) print_and_abort("111");
+    if (!exceptionWasCaught) print_and_abort("111a");
 #endif
 
     auto eventIDInt = ev.getValidHandle<arttest::IntProduct>(inputTagEventID);
