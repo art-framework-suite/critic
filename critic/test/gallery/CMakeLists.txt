@@ -10,9 +10,7 @@ endif()
 set(gallery_tests_libraries
   critic_test_CriticTestObjects
   gallery
-  canvas_Persistency_Common
-  canvas_Persistency_Provenance
-  canvas_Utilities
+  canvas
   cetlib_except
   ${ROOT_RIO}
   )
