@@ -12,7 +12,10 @@ set(gallery_tests_libraries
   canvas_Persistency_Common
   canvas_Persistency_Provenance
   canvas_Utilities
+  fhiclcpp
+  cetlib
   ${ROOT_RIO}
+  ${ROOT_CORE}
   )
 
 ########################################################################
@@ -103,7 +106,6 @@ cet_test(gallery_makeInput8 HANDBUILT
 # gallery_makeInput7 and gallery_makeInput8.
 cet_test(gallery_t
   LIBRARIES ${gallery_tests_libraries}
-  ${ROOT_RIO}
   REQUIRED_FILES ../gallery_makeInput5.d/test_gallery5.root
   ../gallery_makeInput7.d/test_gallery7.root
   ../gallery_makeInput8.d/test_gallery8.root
