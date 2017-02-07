@@ -8,10 +8,10 @@ else()
 endif()
 
 set(gallery_tests_libraries
+  critic_test_CriticTestObjects
   gallery
-  canvas_Persistency_Common
-  canvas_Persistency_Provenance
-  canvas_Utilities
+  canvas
+  cetlib_except
   ${ROOT_RIO}
   )
 
@@ -146,25 +146,15 @@ cet_test(CriticAssns_w HANDBUILT
   fcl/CriticAssns_w.fcl
 )
 
-cet_test(findOne_1_t USE_BOOST_UNIT
-  LIBRARIES ${gallery_tests_libraries}
-  TEST_PROPERTIES DEPENDS CriticAssns_w
-  REQUIRED_FILES ../CriticAssns_w.d/out1.root
-)
+foreach (num 1 2 3)
+  cet_test(findOne_${num}_t USE_BOOST_UNIT
+    LIBRARIES ${gallery_tests_libraries}
+    TEST_PROPERTIES DEPENDS CriticAssns_w
+    REQUIRED_FILES ../CriticAssns_w.d/out1.root
+    )
+endforeach()
 
-cet_test(findOne_2_t USE_BOOST_UNIT
-  LIBRARIES ${gallery_tests_libraries}
-  TEST_PROPERTIES DEPENDS CriticAssns_w
-  REQUIRED_FILES ../CriticAssns_w.d/out1.root
-)
-
-cet_test(findOne_3_t USE_BOOST_UNIT
-  LIBRARIES ${gallery_tests_libraries}
-  TEST_PROPERTIES DEPENDS CriticAssns_w
-  REQUIRED_FILES ../CriticAssns_w.d/out1.root
-)
-
-simple_plugin(GalleryTestProducer     "module"  NO_INSTALL art_Persistency_Provenance)
-simple_plugin(GalleryPtrTestProducer  "module"  NO_INSTALL critic_test_CriticTestObjects art_Persistency_Provenance)
-simple_plugin(GalleryAssnsProducer    "module"  NO_INSTALL critic_test_CriticTestObjects art_Persistency_Provenance)
+simple_plugin(GalleryTestProducer     "module"  NO_INSTALL art_Persistency_Provenance cetlib_except)
+simple_plugin(GalleryPtrTestProducer  "module"  NO_INSTALL critic_test_CriticTestObjects art_Persistency_Provenance cetlib_except)
+simple_plugin(GalleryAssnsProducer    "module"  NO_INSTALL critic_test_CriticTestObjects art_Persistency_Provenance cetlib_except)
 simple_plugin(CriticFailEverything    "module"  NO_INSTALL)
