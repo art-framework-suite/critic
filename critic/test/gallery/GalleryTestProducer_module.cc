@@ -17,7 +17,6 @@ namespace critictest {
   class GalleryTestProducer : public art::EDProducer {
   public:
     explicit GalleryTestProducer(fhicl::ParameterSet const &p);
-    virtual ~GalleryTestProducer();
 
     virtual void produce(art::Event &e);
 
@@ -54,9 +53,6 @@ namespace critictest {
     produces<std::vector<SimpleDerived> >("SimpleDerived");
     produces<std::vector<int> >("willBeDropped");
     produces<std::vector<StringProduct> >();
-  }
-
-  GalleryTestProducer::~GalleryTestProducer() {
   }
 
   void GalleryTestProducer::produce(art::Event & event) {
