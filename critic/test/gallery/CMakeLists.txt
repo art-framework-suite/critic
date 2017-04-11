@@ -161,6 +161,15 @@ cet_test(gallery_empty_file_t
   TEST_ARGS ../gallery_makeEmptyFile.d/test_gallery_empty.root
   )
 
+# Test gallery random access i/o.
+cet_test(gallery_random_io_t
+  LIBRARIES ${gallery_tests_libraries}
+  REQUIRED_FILES ../gallery_makeInput3.d/test_gallery3.root
+  TEST_PROPERTIES DEPENDS gallery_makeInput3
+  TEST_ARGS ../gallery_makeInput3.d/test_gallery3.root
+  )
+
+
 # Use gallery in interpreted C++ to read output from gallery_makeInput5
 # and gallery_makeInput7.
 cet_test(gallery_t.C HANDBUILT
