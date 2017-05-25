@@ -19,8 +19,47 @@ set(gallery_tests_libraries
   )
 
 ########################################################################
+#
+# This test suite generates a considerable number of files, in many
+# cases using one file as the basis for the generation of the next.
+# The dependencies are described below, showing which input file is used
+# to generate a specific output file. The notation [ test_name ] is used
+# to indicate that rather than going into the creation of a file, the
+# specified inputs are used to run a test named "test_name".
+#
+# empty.root is an art/ROOT file with no events.
+# [ make_empty_file_t ] -> test_gallery_empty.root
+#
+# test_gallery1.root -> test_gallery2.root
+#
+# test_gallery2.root -> test_gallery3.root
+# test_gallery2.root -> test_gallery4.root
+# test_gallery2.root -> test_gallery6.root
+#
+# test_gallery3.root + test_gallery4.root -> test_gallery5.root
+# test_gallery6.root -> test_gallery7.root
+# test_gallery7.root -> test_gallery8.root
+#
+# test_gallery5.root + test_gallery7.root + test_gallery8.root -> [ gallery_t ]
+# test_gallery5.root + test_gallery7.root -> [ gallery_t.C ]
+# test_gallery5.root + test_gallery7.root -> [ gallery_t.py ]
+#
+# out1.root -> [ findOne_1_t ]
+# out1.root -> [ findOne_2_t ]
+# out1.root -> [ findOne_3_t ]
+#
+#------------------------------------------------------------------------
+#
 # Make a hierarchy of input files in order to test gallery in C++,
 # interpreted C++ and python.
+
+cet_test(gallery_makeEmptyFile HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c test_gallery_makeEmptyFile.fcl
+  DATAFILES
+  fcl/test_gallery_makeEmptyFile.fcl
+)
+
 cet_test(gallery_makeInput1 HANDBUILT
   TEST_EXEC art
   TEST_ARGS --rethrow-all -c test_gallery_makeInput1.fcl
@@ -28,15 +67,15 @@ cet_test(gallery_makeInput1 HANDBUILT
   fcl/test_gallery_makeInput1.fcl
   )
 
-# Uses output from gallery_makeInput1.
+# Uses output from gallery_makeInput1 and gallery_makeEmptyFile
 cet_test(gallery_makeInput2 HANDBUILT
   TEST_EXEC art
   TEST_ARGS --rethrow-all -c test_gallery_makeInput2.fcl ../gallery_makeInput1.d/test_gallery1.root
   DATAFILES
   fcl/test_gallery_makeInput2.fcl
-  REQUIRED_FILES ../gallery_makeInput1.d/test_gallery1.root
-  TEST_PROPERTIES DEPENDS gallery_makeInput1
+  REQUIRED_FILES ../gallery_makeInput1.d/test_gallery1.root ../gallery_makeEmptyFile.d/test_gallery_empty.root
   )
+set_tests_properties(gallery_makeInput2 PROPERTIES DEPENDS "gallery_makeEmptyFile;gallery_makeInput1")
 
 # Uses output from gallery_makeInput2.
 cet_test(gallery_makeInput3 HANDBUILT
@@ -114,6 +153,23 @@ cet_test(gallery_t
 set_tests_properties(gallery_t PROPERTIES
   DEPENDS "gallery_makeInput5;gallery_makeInput7;gallery_makeInput8")
 
+# Use gallery to read a single file that is empty.
+cet_test(gallery_empty_file_t
+  LIBRARIES ${gallery_tests_libraries}
+  REQUIRED_FILES ../gallery_makeEmptyFile.d/test_gallery_empty.root
+  TEST_PROPERTIES DEPENDS gallery_makeEmptyFile
+  TEST_ARGS ../gallery_makeEmptyFile.d/test_gallery_empty.root
+  )
+
+# Test gallery random access i/o.
+cet_test(gallery_random_io_t
+  LIBRARIES ${gallery_tests_libraries}
+  REQUIRED_FILES ../gallery_makeInput3.d/test_gallery3.root
+  TEST_PROPERTIES DEPENDS gallery_makeInput3
+  TEST_ARGS ../gallery_makeInput3.d/test_gallery3.root
+  )
+
+
 # Use gallery in interpreted C++ to read output from gallery_makeInput5
 # and gallery_makeInput7.
 cet_test(gallery_t.C HANDBUILT
@@ -121,7 +177,7 @@ cet_test(gallery_t.C HANDBUILT
   TEST_ARGS -b -q -l gallery_t.C
   DATAFILES gallery_t.C
   REQUIRED_FILES ../gallery_makeInput5.d/test_gallery5.root
- ../gallery_makeInput7.d/test_gallery7.root
+  ../gallery_makeInput7.d/test_gallery7.root
   )
 
 set_tests_properties(gallery_t.C PROPERTIES

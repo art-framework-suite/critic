@@ -11,7 +11,7 @@ services:
 source:
 {
   module_type: RootInput
-  fileNames: [ "test_gallery1.root" ]
+  fileNames: [ "test_gallery_empty.root", "test_gallery1.root" ]
 }
 
 physics:
