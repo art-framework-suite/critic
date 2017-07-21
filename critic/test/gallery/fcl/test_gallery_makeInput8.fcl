@@ -36,6 +36,6 @@ outputs:
   {
     module_type: RootOutput
     fileName: "test_gallery8.root"
-    SelectEvents: { SelectEvents: [p1] }
+    SelectEvents: [p1]
   }
 }
