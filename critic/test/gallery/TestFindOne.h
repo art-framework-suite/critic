@@ -1,4 +1,3 @@
-
 // Started as a copy of AssnsAnalyzer_module.cc. Modified
 // to work with gallery and critic. The checks that are
 // made remain about the same. The main difference being
@@ -191,19 +190,19 @@ testOne(gallery::Event const & e) const
   // barfing immediately.
   FO<arttest::StringProduct, critictest::LiteAssnTestData> foDead(hAcoll, e, "noModule");
   BOOST_REQUIRE(!foDead.isValid());
-  BOOST_REQUIRE_EXCEPTION(foDead.size(),                                \
-                          art::Exception,                               \
-                          [](art::Exception const & e)                  \
-                          {                                             \
-                            return e.categoryCode() == art::errors::LogicError && \
-                              e.history().back() == "ProductNotFound";  \
-                          });                                           \
-  BOOST_REQUIRE_EXCEPTION(foDead.data(0),                               \
-                          art::Exception,                               \
-                          [](art::Exception const & e)                  \
-                          {                                             \
-                            return e.categoryCode() == art::errors::LogicError && \
-                              e.history().back() == "ProductNotFound";  \
+  BOOST_REQUIRE_EXCEPTION(foDead.size(),
+                          art::Exception,
+                          [](art::Exception const & e)
+                          {
+                            return e.categoryCode() == art::errors::LogicError &&
+                              e.history().back() == "ProductNotFound";
+                          });
+  BOOST_REQUIRE_EXCEPTION(foDead.data(0),
+                          art::Exception,
+                          [](art::Exception const & e)
+                          {
+                            return e.categoryCode() == art::errors::LogicError &&
+                              e.history().back() == "ProductNotFound";
                           });
 
   // Now do our normal checks.
@@ -313,19 +312,19 @@ testMany(gallery::Event const & e) const
   // barfing immediately.
   FM<B_t, critictest::LiteAssnTestData> fmDead(hAcoll, e, "noModule");
   BOOST_REQUIRE(!fmDead.isValid());
-  BOOST_REQUIRE_EXCEPTION(fmDead.size(),                                \
-                          art::Exception,                               \
-                          [](art::Exception const & e)                  \
-                          {                                             \
-                            return e.categoryCode() == art::errors::LogicError && \
-                              e.history().back() == "ProductNotFound";  \
-                          });                                           \
-  BOOST_REQUIRE_EXCEPTION(fmDead.data(0),                               \
-                          art::Exception,                               \
-                          [](art::Exception const & e)                  \
-                          {                                             \
-                            return e.categoryCode() == art::errors::LogicError && \
-                              e.history().back() == "ProductNotFound";  \
+  BOOST_REQUIRE_EXCEPTION(fmDead.size(),
+                          art::Exception,
+                          [](art::Exception const & e)
+                          {
+                            return e.categoryCode() == art::errors::LogicError &&
+                              e.history().back() == "ProductNotFound";
+                          });
+  BOOST_REQUIRE_EXCEPTION(fmDead.data(0),
+                          art::Exception,
+                          [](art::Exception const & e)
+                          {
+                            return e.categoryCode() == art::errors::LogicError &&
+                              e.history().back() == "ProductNotFound";
                           });
 
   // Now do our normal checks.
