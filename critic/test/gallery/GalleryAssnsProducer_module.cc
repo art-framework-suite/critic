@@ -85,9 +85,9 @@ void critictest::GalleryAssnsProducer::produce(art::Event& e)
   (*mvs)[key_t(22)] = StringProduct{"two"};
 
   // We will need the product IDs of the data products.
-  auto const vi_pid = getProductID<intvec>();
-  auto const vs_pid = getProductID<stringvec>();
-  auto const mvs_pid = getProductID<mapvec>("mv");
+  auto const vi_pid = e.getProductID<intvec>();
+  auto const vs_pid = e.getProductID<stringvec>();
+  auto const mvs_pid = e.getProductID<mapvec>("mv");
 
   // Create the association objects.
   // Assns into vectors.
