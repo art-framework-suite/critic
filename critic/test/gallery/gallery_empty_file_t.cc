@@ -4,8 +4,9 @@
 #include <utility>
 #include <vector>
 
-
-void check_event_status(gallery::Event const& ev) {
+void
+check_event_status(gallery::Event const& ev)
+{
   // Since the Event advances to the first event, if we have no
   // events, we end up advancing past the file.
   assert(ev.eventEntry() == 0);
@@ -22,12 +23,15 @@ void check_event_status(gallery::Event const& ev) {
   assert(ev.getTTree() == nullptr);
 }
 
-int main(int argc, char* argv[])  {
+int
+main(int argc, char* argv[])
+{
 
   gallery::Event ee({});
 
-  std::vector<std::string> args(argv+1, argv+argc);
-  if (args.empty()) return 1;
+  std::vector<std::string> args(argv + 1, argv + argc);
+  if (args.empty())
+    return 1;
 
   // Create a gallery::Event from a file with no events.
   gallery::Event ev(args);
@@ -47,13 +51,27 @@ int main(int argc, char* argv[])  {
 
   // An attempt to increment an Event which is at the end of the file
   // is an error.
-  try { ev.next(); assert("Failed to throw an exception!"); }
-  catch (art::Exception const& x) { assert(x.categoryCode() == art::errors::LogicError); }
-  catch (...) { assert("Failed to throw required exception!" == nullptr); }
+  try {
+    ev.next();
+    assert("Failed to throw an exception!");
+  }
+  catch (art::Exception const& x) {
+    assert(x.categoryCode() == art::errors::LogicError);
+  }
+  catch (...) {
+    assert("Failed to throw required exception!" == nullptr);
+  }
 
   // An attempt to decrement an Event which is at the end of the file
   // is an error.
-  try { ev.previous(); assert("Failed to throw an exception!"); }
-  catch (art::Exception const& x) { assert(x.categoryCode() == art::errors::LogicError); }
-  catch (...) { assert("Failed to throw required exception!" == nullptr); }
+  try {
+    ev.previous();
+    assert("Failed to throw an exception!");
+  }
+  catch (art::Exception const& x) {
+    assert(x.categoryCode() == art::errors::LogicError);
+  }
+  catch (...) {
+    assert("Failed to throw required exception!" == nullptr);
+  }
 }

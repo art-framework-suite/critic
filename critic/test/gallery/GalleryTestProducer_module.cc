@@ -16,12 +16,11 @@ namespace critictest {
 
   class GalleryTestProducer : public art::EDProducer {
   public:
-    explicit GalleryTestProducer(fhicl::ParameterSet const &p);
+    explicit GalleryTestProducer(fhicl::ParameterSet const& p);
 
-    virtual void produce(art::Event &e);
+    virtual void produce(art::Event& e);
 
   private:
-
     int value1_;
     int value2_;
     int value3_;
@@ -31,13 +30,14 @@ namespace critictest {
     std::string string3_;
   };
 
-  GalleryTestProducer::GalleryTestProducer(fhicl::ParameterSet const& pset) :
-    value1_( pset.get<int>("value1") ),
-    value2_( pset.get<int>("value2") ),
-    value3_( pset.get<int>("value3") ),
-    string1_( pset.get<std::string>("string1") ),
-    string2_( pset.get<std::string>("string2") ),
-    string3_( pset.get<std::string>("string3") ) {
+  GalleryTestProducer::GalleryTestProducer(fhicl::ParameterSet const& pset)
+    : value1_(pset.get<int>("value1"))
+    , value2_(pset.get<int>("value2"))
+    , value3_(pset.get<int>("value3"))
+    , string1_(pset.get<std::string>("string1"))
+    , string2_(pset.get<std::string>("string2"))
+    , string3_(pset.get<std::string>("string3"))
+  {
 
     produces<IntProduct>();
     produces<IntProduct>("i2");
@@ -49,41 +49,47 @@ namespace critictest {
 
     produces<IntProduct>("eventID");
 
-    produces<std::vector<int> >();
-    produces<std::vector<SimpleDerived> >("SimpleDerived");
-    produces<std::vector<int> >("willBeDropped");
-    produces<std::vector<StringProduct> >();
+    produces<std::vector<int>>();
+    produces<std::vector<SimpleDerived>>("SimpleDerived");
+    produces<std::vector<int>>("willBeDropped");
+    produces<std::vector<StringProduct>>();
   }
 
-  void GalleryTestProducer::produce(art::Event & event) {
-    if(value1_ > 0) {
+  void
+  GalleryTestProducer::produce(art::Event& event)
+  {
+    if (value1_ > 0) {
       event.put(std::unique_ptr<IntProduct>(new IntProduct(value1_)));
     }
-    if(value2_ > 0) {
+    if (value2_ > 0) {
       event.put(std::unique_ptr<IntProduct>(new IntProduct(value2_)), "i2");
     }
-    if(value3_ > 0) {
+    if (value3_ > 0) {
       event.put(std::unique_ptr<IntProduct>(new IntProduct(value3_)), "i3");
     }
 
-    if(string1_ != "noPut") {
+    if (string1_ != "noPut") {
       event.put(std::unique_ptr<StringProduct>(new StringProduct(string1_)));
     }
-    if(string2_ != "noPut") {
-      event.put(std::unique_ptr<StringProduct>(new StringProduct(string2_)), "i2");
+    if (string2_ != "noPut") {
+      event.put(std::unique_ptr<StringProduct>(new StringProduct(string2_)),
+                "i2");
     }
-    if(string3_ != "noPut") {
-      event.put(std::unique_ptr<StringProduct>(new StringProduct(string3_)), "i3");
+    if (string3_ != "noPut") {
+      event.put(std::unique_ptr<StringProduct>(new StringProduct(string3_)),
+                "i3");
     }
-    event.put(std::unique_ptr<IntProduct>(new IntProduct(event.event())), "eventID");
+    event.put(std::unique_ptr<IntProduct>(new IntProduct(event.event())),
+              "eventID");
 
-    std::unique_ptr<std::vector<int> > vecInt(new std::vector<int>);
+    std::unique_ptr<std::vector<int>> vecInt(new std::vector<int>);
     vecInt->push_back(value1_ + event.event());
     vecInt->push_back(value2_);
     vecInt->push_back(value3_);
     event.put(std::move(vecInt));
 
-    std::unique_ptr<std::vector<SimpleDerived> > vecSimpleDerived(new std::vector<SimpleDerived>);
+    std::unique_ptr<std::vector<SimpleDerived>> vecSimpleDerived(
+      new std::vector<SimpleDerived>);
     SimpleDerived sd1;
     sd1.key = value1_;
     sd1.value = 0.0;
@@ -98,18 +104,19 @@ namespace critictest {
     vecSimpleDerived->push_back(sd3);
     event.put(std::move(vecSimpleDerived), "SimpleDerived");
 
-    std::unique_ptr<std::vector<int> > vecIntD(new std::vector<int>);
+    std::unique_ptr<std::vector<int>> vecIntD(new std::vector<int>);
     vecIntD->push_back(value1_ + event.event());
     vecIntD->push_back(value2_);
     vecIntD->push_back(value3_);
     event.put(std::move(vecIntD), "willBeDropped");
 
-    std::unique_ptr<std::vector<StringProduct> > vecStringProduct(new std::vector<StringProduct>);
+    std::unique_ptr<std::vector<StringProduct>> vecStringProduct(
+      new std::vector<StringProduct>);
     vecStringProduct->push_back(StringProduct(string1_));
     vecStringProduct->push_back(StringProduct(string2_));
     vecStringProduct->push_back(StringProduct(string3_));
     event.put(std::move(vecStringProduct));
   }
-}
+} // namespace critictest
 
 DEFINE_ART_MODULE(critictest::GalleryTestProducer)

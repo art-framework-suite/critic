@@ -1,13 +1,13 @@
-#define BOOST_TEST_MODULE ( findOne_2_t )
+#define BOOST_TEST_MODULE (findOne_2_t)
 #include "cetlib/quiet_unit_test.hpp"
 
-#include "canvas/Persistency/Provenance/EventAuxiliary.h"
 #include "canvas/Persistency/Common/FindMany.h"
 #include "canvas/Persistency/Common/FindManyP.h"
 #include "canvas/Persistency/Common/FindOne.h"
 #include "canvas/Persistency/Common/FindOneP.h"
-#include "gallery/Event.h"
+#include "canvas/Persistency/Provenance/EventAuxiliary.h"
 #include "critic/test/gallery/TestFindOne.h"
+#include "gallery/Event.h"
 
 #include <iostream>
 #include <string>
@@ -15,7 +15,7 @@
 
 BOOST_AUTO_TEST_CASE(testFindOneAndFindMany)
 {
-  std::vector<std::string> filenames {"../CriticAssns_w.d/out1.root"};
+  std::vector<std::string> filenames{"../CriticAssns_w.d/out1.root"};
   gallery::Event event(filenames);
 
   std::string inputLabel("ap1");
@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_CASE(testFindOneAndFindMany)
   bool bCollMissing = false;
   critictest::TestFindOne testFindOne("ap1", testAB, testBA, bCollMissing);
 
-  for( ; ! event.atEnd(); event.next()) {
+  for (; !event.atEnd(); event.next()) {
 
     art::EventAuxiliary const& aux = event.eventAuxiliary();
     std::cout << aux.id() << "\n";

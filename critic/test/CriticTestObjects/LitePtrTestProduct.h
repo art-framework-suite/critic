@@ -1,15 +1,14 @@
 #ifndef critic_test_CriticTestObjects_LitePtrTestProduct_h
 #define critic_test_CriticTestObjects_LitePtrTestProduct_h
 
+#include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Persistency/Common/PtrVector.h"
-#include "art/test/TestObjects/ToyProducts.h"
 
 namespace critictest {
 
   class LitePtrTestProduct {
   public:
-
     LitePtrTestProduct();
 
     art::Ptr<int> ptrInt1;
@@ -33,7 +32,7 @@ namespace critictest {
     art::Ptr<int> nullDroppedPtr;
     art::Ptr<int> invalidPtr;
   };
-}
+} // namespace critictest
 
 #endif /* critic_test_CriticTestObjects_LitePtrTestProduct_h */
 
