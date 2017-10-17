@@ -9,27 +9,25 @@ namespace art {
   class Event;
 }
 
-namespace critictest
-{
+namespace critictest {
 
-  class CriticFailEverything : public art::EDFilter
-  {
+  class CriticFailEverything : public art::EDFilter {
   public:
     explicit CriticFailEverything(fhicl::ParameterSet const&);
     virtual ~CriticFailEverything();
     virtual bool filter(art::Event&);
   };
 
-  CriticFailEverything::CriticFailEverything(fhicl::ParameterSet const&) {
-  }
+  CriticFailEverything::CriticFailEverything(fhicl::ParameterSet const&) {}
 
-  CriticFailEverything::~CriticFailEverything() {
-  }
+  CriticFailEverything::~CriticFailEverything() {}
 
-  bool CriticFailEverything::filter(art::Event&) {
+  bool
+  CriticFailEverything::filter(art::Event&)
+  {
     return false;
   }
-}
+} // namespace critictest
 
 using critictest::CriticFailEverything;
 DEFINE_ART_MODULE(CriticFailEverything)
