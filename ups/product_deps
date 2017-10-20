@@ -1,6 +1,6 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent critic	v1_03_20
+parent critic	v1_03_22
 defaultqual	e14
 #
 fcldir -
