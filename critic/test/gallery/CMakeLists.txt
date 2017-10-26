@@ -149,8 +149,9 @@ cet_test(gallery_t
   ../gallery_makeInput7.d/test_gallery7.root
   ../gallery_makeInput8.d/test_gallery8.root
   )
-
-set_tests_properties(gallery_t PROPERTIES
+# Enable plugins to access symbols exported by the exec (CMake policy CMP0065).
+set_property(TARGET gallery_t PROPERTY ENABLE_EXPORTS TRUE)
+set_property(TEST gallery_t PROPERTY
   DEPENDS "gallery_makeInput5;gallery_makeInput7;gallery_makeInput8")
 
 # Use gallery to read a single file that is empty.
