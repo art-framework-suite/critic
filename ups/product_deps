@@ -1,14 +1,14 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent critic	v1_03_27
+parent critic	v1_03_28
 defaultqual	e15
 #
 fcldir -
 perllib  product_dir
 #
 product		version
-gallery		v1_06_03
-art		v2_09_04
+gallery		v1_06_04
+art		v2_09_05
 cetbuildtools	v6_00_02	-	only_for_build
 end_product_list
 
