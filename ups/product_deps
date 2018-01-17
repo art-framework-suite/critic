@@ -9,7 +9,7 @@ perllib  product_dir
 product		version
 gallery		v1_06_04
 art		v2_09_06
-cetbuildtools	v6_00_02	-	only_for_build
+cetbuildtools	v7_00_02	-	only_for_build
 end_product_list
 
 qualifier	gallery		art		notes
@@ -21,6 +21,10 @@ e15:debug	e15:debug	e15:debug
 e15:prof	e15:prof	e15:prof
 nu:e15:debug	e15:nu:debug	e15:nu:debug
 nu:e15:prof	e15:nu:prof	e15:nu:prof
+c2:debug	c2:debug	c2:debug
+c2:prof		c2:prof		c2:prof
+nu:c2:debug	c2:nu:debug	c2:nu:debug
+nu:c2:prof	c2:nu:prof	c2:nu:prof
 end_qualifier_list
 
 # Local Variables:
