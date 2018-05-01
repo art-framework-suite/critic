@@ -9,7 +9,7 @@ perllib  product_dir
 product		version
 gallery		v1_08_01
 art		v2_11_01
-cetbuildtools	v7_03_01	-	only_for_build
+cetbuildtools	v7_03_02	-	only_for_build
 end_product_list
 
 qualifier	gallery		art		notes
