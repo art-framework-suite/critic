@@ -186,17 +186,15 @@ set_tests_properties(gallery_t.C PROPERTIES
 
 # Use gallery in python to read output from gallery_makeInput5 and
 # gallery_makeInput7.
-if (NOT CMAKE_SYSTEM_NAME MATCHES "Darwin")
-  cet_test(gallery_t.py HANDBUILT
-    TEST_EXEC python
-    TEST_ARGS gallery_t.py
-    DATAFILES gallery_t.py
-    REQUIRED_FILES ../gallery_makeInput5.d/test_gallery5.root
-    ../gallery_makeInput7.d/test_gallery7.root
-    )
+cet_test(gallery_t.py HANDBUILT
+  TEST_EXEC python
+  TEST_ARGS gallery_t.py
+  DATAFILES gallery_t.py
+  REQUIRED_FILES ../gallery_makeInput5.d/test_gallery5.root
+  ../gallery_makeInput7.d/test_gallery7.root
+  )
 set_tests_properties(gallery_t.py PROPERTIES
   DEPENDS "gallery_makeInput5;gallery_makeInput7")
-endif()
 
 cet_test(CriticAssns_w HANDBUILT
   TEST_EXEC art_ut
