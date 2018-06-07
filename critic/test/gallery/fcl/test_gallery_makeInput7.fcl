@@ -1,25 +1,13 @@
 process_name: PROD3
 
-services:
-{
-  scheduler:
-  {
-    wantSummary: false
-  }
-}
-
-source:
-{
+source: {
   module_type: RootInput
   fileNames: [ "test_gallery6.root" ]
 }
 
-physics:
-{
-  producers:
-  {
-    m0:
-    {
+physics: {
+  producers: {
+    m0: {
       module_type: GalleryTestProducer
       value1: 2000
       value2: -1
@@ -29,8 +17,7 @@ physics:
       string3: noPut
       errorOnFailureToPut: false
     }
-    m1:
-    {
+    m1: {
       module_type: GalleryTestProducer
       value1: 113
       value2: 123
@@ -39,8 +26,7 @@ physics:
       string2: s123
       string3: s133
     }
-    m2:
-    {
+    m2: {
       module_type: GalleryTestProducer
       value1: 213
       value2: 223
@@ -49,8 +35,7 @@ physics:
       string2: s223
       string3: s233
     }
-    m5:
-    {
+    m5: {
       module_type: GalleryTestProducer
       value1: -1
       value2: -1
@@ -60,8 +45,7 @@ physics:
       string3: noPut
       errorOnFailureToPut: false
     }
-    ptr1:
-    {
+    ptr1: {
       module_type: GalleryPtrTestProducer
       produceAssnStringInt: false
       produceAssnIntString: true
@@ -69,17 +53,10 @@ physics:
   }
   p1: [ m0, m1, m2, m5, ptr1 ]
   e1: [ output1 ]
-
-  trigger_paths: [ p1 ]
-  end_paths: [ e1 ]
 }
 
-outputs:
-{
-  output1:
-  {
-    module_type: RootOutput
-    fileName: "test_gallery7.root"
-    outputCommands: [ "keep *", "drop *_*_willBeDropped_*" ]
-  }
+outputs.output1: {
+  module_type: RootOutput
+  fileName: "test_gallery7.root"
+  outputCommands: [ "keep *", "drop *_*_willBeDropped_*" ]
 }

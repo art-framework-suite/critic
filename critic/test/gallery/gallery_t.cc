@@ -1,117 +1,117 @@
-
 #include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Persistency/Common/Assns.h"
 #include "canvas/Persistency/Common/FindOne.h"
 #include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Persistency/Common/TriggerResults.h"
 #include "canvas/Persistency/Provenance/EventAuxiliary.h"
+#include "canvas/Utilities/TypeID.h"
 #include "critic/test/CriticTestObjects/LiteAssnTestData.h"
 #include "critic/test/CriticTestObjects/LitePtrTestProduct.h"
 #include "gallery/Event.h"
 #include "gallery/TypeLabelInstanceKey.h"
-
-#include "TFile.h"
-#include "canvas/Utilities/TypeID.h"
 
 #include <cassert>
 #include <iostream>
 #include <string>
 #include <vector>
 
-// Here is a summary of what was written into the input
-// files. It is all arbitrary for test purposes. Here
-// we are just testing that we have read what was written.
+using namespace std::string_literals;
+
+// Here is a summary of what was written into the input files. It is
+// all arbitrary for test purposes. Here we are just testing that we
+// have read what was written.
+//
 // 1 PROD1 runs modules m1 thru m6 writing all products 5 events
 // 2 PROD2 same except m4 not run and m6 does not put its products, input from
-// PROD1 3 PROD3 same except m3, m4, and m6 not run, m5 not put, m7 added but
-// not put
-//       and also ptr1 run, input from PROD2
+//         PROD1
+// 3 PROD3 same except m3, m4, and m6 not run, m5 not put, m7 added
+//         but not put and also ptr1 run, input from PROD2
 // 4 PROD3 same as PROD3 except m7 and ptr1 write products also
 // 5 MERGE merges the output of PROD3 and PROD4 and drops one of the Ptrs in
-//       the LitePtrTestProduct
-// 6 PROD2EXTRA input from 2, runs m7, adds an extra process in its output file
-// 7 PROD3 reads input from 6, similar to 3 but adds m0 and does not have m7
-//   the purpose of 6 and 7 is to produce a second input file to test multifile
-//   input with different BranchIDLists and ProcessHistory
+//         the LitePtrTestProduct
+// 6 PROD2EXTRA input from 2, runs m7, adds an extra process in its
+//         output file
+// 7 PROD3 reads input from 6, similar to 3 but adds m0 and does not
+//         have m7 the purpose of 6 and 7 is to produce a second input
+//         file to test multifile input with different BranchIDLists
+//         and ProcessHistory
 
 int
 main()
 {
+  art::InputTag const inputTagTriggerResults{"TriggerResults", "", "PROD1"};
+  art::InputTag const inputTagIncorrect{
+    "IncorrectLabel", "IncorrectInstance", "PROD1"};
+  art::InputTag const inputTagEventID{"m1", "eventID", "PROD1"};
 
-  art::InputTag const inputTagTriggerResults("TriggerResults", "", "PROD1");
-  art::InputTag const inputTagIncorrect(
-    "IncorrectLabel", "IncorrectInstance", "PROD1");
-  art::InputTag const inputTagEventID("m1", "eventID", "PROD1");
+  art::InputTag const inputTag111{"m1::PROD1"s};
+  art::InputTag const inputTag121{"m1:i2:PROD1"};
+  art::InputTag const inputTag131{"m1"s, "i3"s, "PROD1"s};
 
-  art::InputTag const inputTag111(std::string("m1::PROD1"));
-  art::InputTag const inputTag121("m1:i2:PROD1");
-  art::InputTag const inputTag131(
-    std::string("m1"), std::string("i3"), std::string("PROD1"));
+  art::InputTag const inputTags111{"m1", "", "PROD1"};
+  art::InputTag const inputTags121{"m1", "i2", "PROD1"};
+  art::InputTag const inputTags131{"m1", "i3", "PROD1"};
 
-  art::InputTag const inputTags111("m1", "", "PROD1");
-  art::InputTag const inputTags121("m1", "i2", "PROD1");
-  art::InputTag const inputTags131("m1", "i3", "PROD1");
+  art::InputTag const inputTag211{"m2", "", "PROD1"};
+  art::InputTag const inputTag221{"m2", "i2", "PROD1"};
 
-  art::InputTag const inputTag211("m2", "", "PROD1");
-  art::InputTag const inputTag221("m2", "i2", "PROD1");
+  art::InputTag const inputTag112{"m1", "", "PROD2"};
+  art::InputTag const inputTag122{"m1", "i2", "PROD2"};
 
-  art::InputTag const inputTag112("m1", "", "PROD2");
-  art::InputTag const inputTag122("m1", "i2", "PROD2");
+  art::InputTag const inputTag113{"m1", "", "PROD3"};
+  art::InputTag const inputTag123{"m1", "i2", "PROD3"};
 
-  art::InputTag const inputTag113("m1", "", "PROD3");
-  art::InputTag const inputTag123("m1", "i2", "PROD3");
+  art::InputTag const inputTag11{"m1"};
+  art::InputTag const inputTag12{"m1:i2"};
 
-  art::InputTag const inputTag11("m1");
-  art::InputTag const inputTag12("m1:i2");
+  art::InputTag const inputTags11{"m1", ""};
+  art::InputTag const inputTags12{"m1", "i2"};
 
-  art::InputTag const inputTags11("m1", "");
-  art::InputTag const inputTags12("m1", "i2");
+  art::InputTag const inputTag21{"m2", ""};
+  art::InputTag const inputTag22{"m2", "i2"};
 
-  art::InputTag const inputTag21("m2", "");
-  art::InputTag const inputTag22("m2", "i2");
+  art::InputTag const inputTag31{"m3", ""};
+  art::InputTag const inputTag32{"m3", "i2"};
 
-  art::InputTag const inputTag31("m3", "");
-  art::InputTag const inputTag32("m3", "i2");
+  art::InputTag const inputTag312{"m3", "", "PROD2"};
+  art::InputTag const inputTag322{"m3", "i2", "PROD2"};
 
-  art::InputTag const inputTag312("m3", "", "PROD2");
-  art::InputTag const inputTag322("m3", "i2", "PROD2");
+  art::InputTag const inputTag41{"m4", ""};
+  art::InputTag const inputTag42{"m4", "i2"};
 
-  art::InputTag const inputTag41("m4", "");
-  art::InputTag const inputTag42("m4", "i2");
+  art::InputTag const inputTag411{"m4", "", "PROD1"};
+  art::InputTag const inputTag421{"m4", "i2", "PROD1"};
 
-  art::InputTag const inputTag411("m4", "", "PROD1");
-  art::InputTag const inputTag421("m4", "i2", "PROD1");
+  art::InputTag const inputTag51{"m5", ""};
+  art::InputTag const inputTag52{"m5", "i2"};
 
-  art::InputTag const inputTag51("m5", "");
-  art::InputTag const inputTag52("m5", "i2");
+  art::InputTag const inputTags61{"m6", ""};
+  art::InputTag const inputTags62{"m6", "i2"};
 
-  art::InputTag const inputTags61("m6", "");
-  art::InputTag const inputTags62("m6", "i2");
+  art::InputTag const inputTagFile2{"m0::PROD3"s};
 
-  art::InputTag const inputTagFile2(std::string("m0::PROD3"));
+  art::InputTag const inputTagPtrTest{"ptr1"};
 
-  art::InputTag const inputTagPtrTest("ptr1");
-
-  art::InputTag const inputTagAssnTest1("ptr1");
-  art::InputTag const inputTagAssnTest2("ptr1::PROD3");
+  art::InputTag const inputTagAssnTest1{"ptr1"};
+  art::InputTag const inputTagAssnTest2{"ptr1::PROD3"};
 
   // Test InputTag
   assert(inputTag121 != inputTags131);
   assert(inputTag121 != inputTag122);
   assert(inputTag122 != inputTag322);
-  art::InputTag const inputTagTest("m3", "i2", "PROD2");
+  art::InputTag const inputTagTest{"m3", "i2", "PROD2"};
   assert(!(inputTag322 != inputTagTest));
   std::cout << inputTagTest << std::endl;
 
   // Test TypeLabelInstance class
-  art::TypeID const typeIntProduct(typeid(arttest::IntProduct));
-  art::TypeID const typeStringProduct(typeid(arttest::StringProduct));
-  gallery::TypeLabelInstanceKey const key1(typeIntProduct, "a", "b");
-  assert(key1.typeID() == typeIntProduct && std::string(key1.label()) == "a" &&
+  art::TypeID const typeIntProduct{typeid(arttest::IntProduct)};
+  art::TypeID const typeStringProduct{typeid(arttest::StringProduct)};
+  gallery::TypeLabelInstanceKey const key1{typeIntProduct, "a", "b"};
+  assert(key1.typeID() == typeIntProduct && std::string{key1.label()} == "a" &&
          std::string(key1.instance()) == "b");
-  gallery::TypeLabelInstanceKey const key2(typeStringProduct, "a", "b");
-  gallery::TypeLabelInstanceKey const key3(typeIntProduct, "c", "b");
-  gallery::TypeLabelInstanceKey const key4(typeIntProduct, "a", "c");
+  gallery::TypeLabelInstanceKey const key2{typeStringProduct, "a", "b"};
+  gallery::TypeLabelInstanceKey const key3{typeIntProduct, "c", "b"};
+  gallery::TypeLabelInstanceKey const key4{typeIntProduct, "a", "c"};
   assert(key1 < key2 || key2 < key1);
   assert(key1 < key3 && key1 < key4);
 
@@ -166,12 +166,12 @@ main()
     assert(!ev.getByLabel(inputTagIncorrect, triggerResultsHandle));
     assert(!triggerResultsHandle.isValid());
     assert(triggerResultsHandle.whyFailed());
-    bool exceptionWasThrown = true;
+    bool exceptionWasThrown{true};
     try {
       triggerResultsHandle->parameterSetID().to_string();
       exceptionWasThrown = false;
     }
-    catch (cet::exception const&) {
+    catch (...) {
     }
     assert(exceptionWasThrown);
 
@@ -317,8 +317,16 @@ main()
       ev.getValidHandle<critictest::LitePtrTestProduct>(inputTagPtrTest);
 
     int const eventInt = static_cast<int>(aux.id().event());
-    assert(*ptrTestProduct->ptrInt1 == 111 + eventInt);
-    assert(ptrTestProduct->ptrInt1.isAvailable());
+    auto const& ptrInt1 = ptrTestProduct->ptrInt1;
+    assert(*ptrInt1 == 111 + eventInt);
+    assert(ptrInt1.isAvailable());
+
+    // Test getProductDescription code
+    auto const pid = ptrInt1.id();
+    auto const pd = ev.getProductDescription(pid);
+    assert(pd);
+    assert(pd->inputTag() == inputTag111);
+
     assert(*ptrTestProduct->ptrInt2 == 122);
     assert(*ptrTestProduct->ptrInt3 == 133);
 
@@ -351,13 +359,13 @@ main()
            !ptrTestProduct->ptrIntoContainerToBeDropped.isAvailable() &&
            !ptrTestProduct->ptrIntoContainerToBeDropped.isNull());
 
-    bool exceptionThrown = true;
+    bool exceptionThrown{true};
     try {
       auto const x = *ptrTestProduct->ptrIntoContainerToBeDropped;
       std::cout << x << "\n";
       exceptionThrown = false;
     }
-    catch (art::Exception const&) {
+    catch (...) {
     }
     assert(exceptionThrown);
 
@@ -373,7 +381,8 @@ main()
     // I am guessing undefined behavior for null Ptrs
     //
     // This is all in the Ptr class and really has nothing to do with
-    // gallery. The same behavior should exist in the full art framework.
+    // gallery. The same behavior should exist in the full art
+    // framework.
 
     assert(!ptrTestProduct->nullDroppedPtr &&
            !ptrTestProduct->nullDroppedPtr.isAvailable() &&
@@ -385,110 +394,87 @@ main()
            !ptrTestProduct->invalidPtr.isAvailable() &&
            ptrTestProduct->invalidPtr.isNull());
 
-    gallery::Handle<
-      art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData>>
-      assnsABHandle1;
-    ev.getByLabel(inputTagAssnTest1, assnsABHandle1);
+    using AssnsAB_t =
+      art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData>;
+    using AssnsBA_t =
+      art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData>;
+    auto const& assnsAB1 = *ev.getValidHandle<AssnsAB_t>(inputTagAssnTest1);
+    auto const& assnsAB2 = *ev.getValidHandle<AssnsAB_t>(inputTagAssnTest2);
+    auto const& assnsBA3 = *ev.getValidHandle<AssnsBA_t>(inputTagAssnTest1);
+    auto const& assnsBA4 = *ev.getValidHandle<AssnsBA_t>(inputTagAssnTest2);
 
-    gallery::Handle<
-      art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData>>
-      assnsABHandle2;
-    ev.getByLabel(inputTagAssnTest2, assnsABHandle2);
-
-    gallery::Handle<
-      art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData>>
-      assnsBAHandle3;
-    ev.getByLabel(inputTagAssnTest1, assnsBAHandle3);
-
-    gallery::Handle<
-      art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData>>
-      assnsBAHandle4;
-    ev.getByLabel(inputTagAssnTest2, assnsBAHandle4);
-
-    assert(assnsABHandle1.isValid() && assnsABHandle2.isValid() &&
-           assnsBAHandle3.isValid() && assnsBAHandle4.isValid());
-
-    // handles 1 and 2 should be the same
-    // handles 3 and 4 should be the same
+    // 1 and 2 should be the same
+    // 3 and 4 should be the same
     // 1 and 3 are also the same except first and second of the pair<Ptr,Ptr>
     // stored in the Assns are reversed.
 
     if (ev.fileEntry() == 1) {
-      assert((*assnsABHandle1)[0].first->name_ == std::string("s111"));
-      assert(*(*assnsABHandle2)[0].second == 121);
-      assert(assnsABHandle1->data(0).label == std::string("A"));
+      assert(assnsAB1[0].first->name_ == "s111"s);
+      assert(*assnsAB2[0].second == 121);
+      assert(assnsAB1.data(0).label == "A"s);
 
-      assert((*assnsABHandle1)[1].first->name_ == std::string("s121"));
-      assert(*(*assnsABHandle2)[1].second == 131);
-      assert(assnsABHandle1->data(1).label == std::string("B"));
+      assert(assnsAB1[1].first->name_ == "s121"s);
+      assert(*assnsAB2[1].second == 131);
+      assert(assnsAB1.data(1).label == "B"s);
     } else {
-      assert(assnsABHandle1->at(0).first->name_ == std::string("s131"));
-      assert(*(*assnsABHandle2)[0].second == 131);
-      assert(assnsABHandle1->data(0).label == std::string("C"));
+      assert(assnsAB1.at(0).first->name_ == "s131"s);
+      assert(*assnsAB2[0].second == 131);
+      assert(assnsAB1.data(0).label == "C"s);
 
-      assert((*assnsABHandle1)[1].first->name_ == std::string("s111"));
-      assert(*(*assnsABHandle2)[1].second == 121);
-      assert(assnsABHandle1->data(1).label == std::string("D"));
+      assert(assnsAB1[1].first->name_ == "s111"s);
+      assert(*assnsAB2[1].second == 121);
+      assert(assnsAB1.data(1).label == "D"s);
     }
 
     if (ev.fileEntry() == 1) {
-      assert((*assnsBAHandle3)[0].second->name_ == std::string("s111"));
-      assert(*(*assnsBAHandle4)[0].first == 121);
-      assert(assnsBAHandle3->data(0).label == std::string("A"));
+      assert(assnsBA3[0].second->name_ == "s111"s);
+      assert(*assnsBA4[0].first == 121);
+      assert(assnsBA3.data(0).label == "A"s);
 
-      assert((*assnsBAHandle3)[1].second->name_ == std::string("s121"));
-      assert(*(*assnsBAHandle4)[1].first == 131);
-      assert(assnsBAHandle3->data(1).label == std::string("B"));
+      assert(assnsBA3[1].second->name_ == "s121"s);
+      assert(*assnsBA4[1].first == 131);
+      assert(assnsBA3.data(1).label == "B"s);
     } else {
-      assert(assnsBAHandle3->at(0).second->name_ == std::string("s131"));
-      assert(*(*assnsBAHandle4)[0].first == 131);
-      assert(assnsBAHandle3->data(0).label == std::string("C"));
+      assert(assnsBA3.at(0).second->name_ == "s131"s);
+      assert(*assnsBA4[0].first == 131);
+      assert(assnsBA3.data(0).label == "C"s);
 
-      assert((*assnsBAHandle3)[1].second->name_ == std::string("s111"));
-      assert(*(*assnsBAHandle4)[1].first == 121);
-      assert(assnsBAHandle3->data(1).label == std::string("D"));
+      assert(assnsBA3[1].second->name_ == "s111"s);
+      assert(*assnsBA4[1].first == 121);
+      assert(assnsBA3.data(1).label == "D"s);
     }
 
-    gallery::Handle<std::vector<arttest::StringProduct>> hVStringProduct;
-    ev.getByLabel(inputTag111, hVStringProduct);
-    assert(hVStringProduct.isValid());
-
-    art::FindOne<int, critictest::LiteAssnTestData> const findOne(
-      hVStringProduct, ev, inputTagAssnTest1);
+    auto const& hVStringProduct =
+      ev.getValidHandle<std::vector<arttest::StringProduct>>(inputTag111);
+    art::FindOne<int, critictest::LiteAssnTestData> const findOne{
+      hVStringProduct, ev, inputTagAssnTest1};
     assert(findOne.at(0).isValid());
     if (ev.fileEntry() == 1) {
       assert(findOne.at(0).ref() == 121);
       assert(findOne.at(1).ref() == 131);
-      assert(findOne.data(0).ref().label == std::string("A"));
-      assert(findOne.data(1).ref().label == std::string("B"));
+      assert(findOne.data(0).ref().label == "A"s);
+      assert(findOne.data(1).ref().label == "B"s);
     } else {
       assert(findOne.at(0).ref() == 121);
       assert(findOne.at(2).ref() == 131);
-      assert(findOne.data(0).ref().label == std::string("D"));
-      assert(findOne.data(2).ref().label == std::string("C"));
+      assert(findOne.data(0).ref().label == "D"s);
+      assert(findOne.data(2).ref().label == "C"s);
     }
 
-    gallery::Handle<std::vector<int>> hB;
-    ev.getByLabel(inputTag111, hB);
-    assert(hB.isValid());
-
+    auto const& hB = ev.getValidHandle<std::vector<int>>(inputTag111);
     art::FindOne<arttest::StringProduct, critictest::LiteAssnTestData> const
-      findOneBA(hB, ev, inputTagAssnTest1);
+      findOneBA{hB, ev, inputTagAssnTest1};
     assert(findOneBA.at(1).isValid());
     if (ev.fileEntry() == 1) {
-      assert(findOneBA.at(1).ref() ==
-             arttest::StringProduct(std::string("s111")));
-      assert(findOneBA.at(2).ref() ==
-             arttest::StringProduct(std::string("s121")));
-      assert(findOneBA.data(1).ref().label == std::string("A"));
-      assert(findOneBA.data(2).ref().label == std::string("B"));
+      assert(findOneBA.at(1).ref() == arttest::StringProduct{"s111"s});
+      assert(findOneBA.at(2).ref() == arttest::StringProduct{"s121"s});
+      assert(findOneBA.data(1).ref().label == "A"s);
+      assert(findOneBA.data(2).ref().label == "B"s);
     } else {
-      assert(findOneBA.at(1).ref() ==
-             arttest::StringProduct(std::string("s111")));
-      assert(findOneBA.at(2).ref() ==
-             arttest::StringProduct(std::string("s131")));
-      assert(findOneBA.data(1).ref().label == std::string("D"));
-      assert(findOneBA.data(2).ref().label == std::string("C"));
+      assert(findOneBA.at(1).ref() == arttest::StringProduct{"s111"s});
+      assert(findOneBA.at(2).ref() == arttest::StringProduct{"s131"s});
+      assert(findOneBA.data(1).ref().label == "D"s);
+      assert(findOneBA.data(2).ref().label == "C"s);
     }
   }
   assert(counter == 20u);

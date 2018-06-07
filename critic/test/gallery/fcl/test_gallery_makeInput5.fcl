@@ -1,32 +1,14 @@
 process_name: MERGE
 
-services:
-{
-  scheduler:
-  {
-    wantSummary: false
-  }
-}
-
-source:
-{
+source: {
   module_type: RootInput
   fileNames: [ "test_gallery3.root", "test_gallery4.root" ]
 }
 
-physics:
-{
-  e1: [ output1 ]
+physics.e1: [ output1 ]
 
-  end_paths: [ e1 ]
-}
-
-outputs:
-{
-  output1:
-  {
-    module_type: RootOutput
-    fileName: "test_gallery5.root"
-    outputCommands: [ "keep *", "drop *_*_willBeDropped_*" ]
-  }
+outputs.output1: {
+  module_type: RootOutput
+  fileName: "test_gallery5.root"
+  outputCommands: [ "keep *", "drop *_*_willBeDropped_*" ]
 }
