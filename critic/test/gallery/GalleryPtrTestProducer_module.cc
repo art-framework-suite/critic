@@ -34,12 +34,31 @@ namespace critictest {
 
     bool const produceAssnStringInt_;
     bool const produceAssnIntString_;
+    art::ProductToken<std::vector<int>> const int1Token_;
+    art::ProductToken<std::vector<int>> const int2Token_;
+    art::ProductToken<std::vector<int>> const int3Token_;
+    art::ProductToken<std::vector<SimpleDerived>> const simpleDerived1Token_;
+    art::ProductToken<std::vector<SimpleDerived>> const simpleDerived2Token_;
+    art::ProductToken<std::vector<SimpleDerived>> const simpleDerived3Token_;
+    art::ProductToken<std::vector<StringProduct>> const stringProductToken_;
+    art::ProductToken<std::vector<int>> const dropToken_;
   };
 
   GalleryPtrTestProducer::GalleryPtrTestProducer(
     fhicl::ParameterSet const& pset)
     : produceAssnStringInt_(pset.get<bool>("produceAssnStringInt", false))
     , produceAssnIntString_(pset.get<bool>("produceAssnIntString", false))
+    , int1Token_{consumes<std::vector<int>>("m1::PROD1")}
+    , int2Token_{consumes<std::vector<int>>("m1::PROD2")}
+    , int3Token_{consumes<std::vector<int>>("m1::PROD3")}
+    , simpleDerived1Token_{consumes<std::vector<SimpleDerived>>(
+        "m1:SimpleDerived:PROD1")}
+    , simpleDerived2Token_{consumes<std::vector<SimpleDerived>>(
+        "m1:SimpleDerived:PROD2")}
+    , simpleDerived3Token_{consumes<std::vector<SimpleDerived>>(
+        "m1:SimpleDerived:PROD3")}
+    , stringProductToken_{consumes<std::vector<StringProduct>>("m1::PROD1")}
+    , dropToken_{consumes<std::vector<int>>("m1:willBeDropped:PROD1")}
   {
     produces<LitePtrTestProduct>();
 
@@ -57,25 +76,16 @@ namespace critictest {
   {
     auto testProduct = std::make_unique<LitePtrTestProduct>();
 
-    art::InputTag const tagint1{"m1", "", "PROD1"};
-    art::InputTag const tagint2{"m1", "", "PROD2"};
-    art::InputTag const tagint3{"m1", "", "PROD3"};
-    auto const& hint1 = event.getValidHandle<std::vector<int>>(tagint1);
-    auto const& hint2 = event.getValidHandle<std::vector<int>>(tagint2);
-    auto const& hint3 = event.getValidHandle<std::vector<int>>(tagint3);
+    auto const& hint1 = event.getValidHandle(int1Token_);
+    auto const& hint2 = event.getValidHandle(int2Token_);
+    auto const& hint3 = event.getValidHandle(int3Token_);
     testProduct->ptrInt1 = art::Ptr<int>{hint1, 0};
     testProduct->ptrInt2 = art::Ptr<int>{hint2, 1};
     testProduct->ptrInt3 = art::Ptr<int>{hint3, 2};
 
-    art::InputTag const tagSimpleDerived1{"m1", "SimpleDerived", "PROD1"};
-    art::InputTag const tagSimpleDerived2{"m1", "SimpleDerived", "PROD2"};
-    art::InputTag const tagSimpleDerived3{"m1", "SimpleDerived", "PROD3"};
-    auto const& hSimpleDerived1 =
-      event.getValidHandle<std::vector<SimpleDerived>>(tagSimpleDerived1);
-    auto const& hSimpleDerived2 =
-      event.getValidHandle<std::vector<SimpleDerived>>(tagSimpleDerived2);
-    auto const& hSimpleDerived3 =
-      event.getValidHandle<std::vector<SimpleDerived>>(tagSimpleDerived3);
+    auto const& hSimpleDerived1 = event.getValidHandle(simpleDerived1Token_);
+    auto const& hSimpleDerived2 = event.getValidHandle(simpleDerived2Token_);
+    auto const& hSimpleDerived3 = event.getValidHandle(simpleDerived3Token_);
     testProduct->ptrSimple1 = art::Ptr<Simple>{hSimpleDerived1, 0};
     testProduct->ptrSimple2 = art::Ptr<Simple>{hSimpleDerived2, 1};
     testProduct->ptrSimple3 = art::Ptr<Simple>{hSimpleDerived3, 2};
@@ -100,17 +110,15 @@ namespace critictest {
     testProduct->ptrVectorSimpleDerived.push_back(
       art::Ptr<SimpleDerived>{hSimpleDerived1, 2});
 
-    art::InputTag const tagDrop{"m1", "willBeDropped", "PROD1"};
-    auto const& hDrop = event.getValidHandle<std::vector<int>>(tagDrop);
-    testProduct->ptrIntoContainerToBeDropped = art::Ptr<int>(hDrop, 1);
-    testProduct->nullPtr = art::Ptr<int>(hint1.id());
-    testProduct->nullDroppedPtr = art::Ptr<int>(hDrop.id());
-    testProduct->invalidPtr = art::Ptr<int>();
+    auto const& hDrop = event.getValidHandle(dropToken_);
+    testProduct->ptrIntoContainerToBeDropped = art::Ptr<int>{hDrop, 1};
+    testProduct->nullPtr = art::Ptr<int>{hint1.id()};
+    testProduct->nullDroppedPtr = art::Ptr<int>{hDrop.id()};
+    testProduct->invalidPtr = art::Ptr<int>{};
 
-    event.put(std::move(testProduct));
+    event.put(move(testProduct));
 
-    auto const& hVStringProduct =
-      event.getValidHandle<std::vector<StringProduct>>(tagint1);
+    auto const& hVStringProduct = event.getValidHandle(stringProductToken_);
     if (produceAssnStringInt_) {
       auto assnsAB = std::make_unique<AssnsAB_t>();
       assnsAB->addSingle(art::Ptr<StringProduct>{hVStringProduct, 0},
