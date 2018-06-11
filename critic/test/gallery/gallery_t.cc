@@ -323,9 +323,8 @@ main()
 
     // Test getProductDescription code
     auto const pid = ptrInt1.id();
-    auto const pd = ev.getProductDescription(pid);
-    assert(pd);
-    assert(pd->inputTag() == inputTag111);
+    auto const& pd = ev.getProductDescription(pid);
+    assert(pd.inputTag() == inputTag111);
 
     assert(*ptrTestProduct->ptrInt2 == 122);
     assert(*ptrTestProduct->ptrInt3 == 133);
