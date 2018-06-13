@@ -131,16 +131,21 @@ main()
   unsigned int iEvent = 1;
   unsigned int counter = 0;
   for (; !ev.atEnd(); ev.next(), ++iEvent, ++counter) {
+
     assert(ev.isValid());
     // First non-empty file has 10 events, other non-empty file has 5 events.
     assert(ev.eventEntry() == (counter < 10 ? counter % 10 : counter % 5));
 
-    if (counter / 10 == 0) {
+    // Check that we're on the correct file.
+    if (counter < 10) {
       assert(ev.fileEntry() == 1);
+    } else if (counter < 15) {
+      assert(ev.fileEntry() == 3);
     } else {
-      assert(ev.fileEntry() == (counter < 15 ? 3 : 4));
+      assert(ev.fileEntry() == 4);
     }
 
+    // Check event numbers.
     art::EventAuxiliary const& aux = ev.eventAuxiliary();
     std::cout << aux.id() << "\n";
     if (iEvent == 6)
@@ -306,6 +311,21 @@ main()
     auto const stringProduct62 =
       ev.getValidHandle<arttest::StringProduct>(inputTags62);
     assert(stringProduct62->name_ == "s621");
+
+    // Read all StringProducts from input file.  The first non-empty
+    // file is a merged file with 10 events.  The first five events
+    // contain 36 StringProduct products.  All other events contain 39
+    // StringProduct products.  Note that test_gallery7.root has 48
+    // StringProduct branches, but since the presence bit is false for
+    // 9 of those branches, 39 products are retrieved.
+    std::vector<gallery::Handle<arttest::StringProduct>> stringProducts;
+    ev.getManyByType(stringProducts);
+    std::size_t const expectedNumber = (counter < 5 ? 36 : 39);
+    assert(expectedNumber == stringProducts.size());
+    for (auto const& h : stringProducts) {
+      assert(h.isValid());
+      assert(!h->name_.empty());
+    }
 
     if (counter > 9) {
       auto const intProductFile2 =
