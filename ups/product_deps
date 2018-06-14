@@ -1,30 +1,24 @@
 # The parent line must be the first non-comment line in the file
 # This line defines the product name and version
-parent critic	v1_03_16
-defaultqual	e14
+parent critic	v1_04_01
+defaultqual	e17
 #
 fcldir -
 perllib  product_dir
 #
 product		version
-gallery		v1_04_03
-art		v2_07_03
-cetbuildtools	v5_08_02	-	only_for_build
+gallery		v1_10_00
+art		v3_00_00
+cetbuildtools	v7_04_00	-	only_for_build
 end_product_list
 
 qualifier	gallery		art		notes
-e14:debug	e14:debug	e14:debug
-e14:prof	e14:prof	e14:prof
-nu:e14:debug	e14:nu:debug	e14:nu:debug
-nu:e14:prof	e14:nu:prof	e14:nu:prof
-e12:debug	e12:debug	e12:debug
-e12:prof	e12:prof	e12:prof
-nu:e12:debug	e12:nu:debug	e12:nu:debug
-nu:e12:prof	e12:nu:prof	e12:nu:prof
-e10:debug	e10:debug	e10:debug
-e10:prof	e10:prof	e10:prof
-nu:e10:debug	e10:nu:debug	e10:nu:debug
-nu:e10:prof	e10:nu:prof	e10:nu:prof
+e15:debug	e15:debug	e15:debug
+e15:prof	e15:prof	e15:prof
+e17:debug	e17:debug	e17:debug
+e17:prof	e17:prof	e17:prof
+c2:debug	c2:debug	c2:debug
+c2:prof		c2:prof		c2:prof
 end_qualifier_list
 
 # Local Variables:

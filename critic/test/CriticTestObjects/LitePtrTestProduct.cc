@@ -2,5 +2,5 @@
 
 namespace critictest {
 
-  LitePtrTestProduct::LitePtrTestProduct() { }
-}
+  LitePtrTestProduct::LitePtrTestProduct() {}
+} // namespace critictest

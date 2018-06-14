@@ -149,8 +149,9 @@ cet_test(gallery_t
   ../gallery_makeInput7.d/test_gallery7.root
   ../gallery_makeInput8.d/test_gallery8.root
   )
-
-set_tests_properties(gallery_t PROPERTIES
+# Enable plugins to access symbols exported by the exec (CMake policy CMP0065).
+set_property(TARGET gallery_t PROPERTY ENABLE_EXPORTS TRUE)
+set_property(TEST gallery_t PROPERTY
   DEPENDS "gallery_makeInput5;gallery_makeInput7;gallery_makeInput8")
 
 # Use gallery to read a single file that is empty.
@@ -183,18 +184,66 @@ cet_test(gallery_t.C HANDBUILT
 set_tests_properties(gallery_t.C PROPERTIES
   DEPENDS "gallery_makeInput5;gallery_makeInput7")
 
+#if($ENV{CET_SANITIZE_ADDRESS})
+#  #message(STATUS "CET_SANITIZE_ADDRESS=$ENV{CET_SANITIZE_ADDRESS}")
+#  if(NOT "$ENV{GCC_FQ_DIR}" STREQUAL "")
+#    #message(STATUS "GCC_FQ_DIR=$ENV{GCC_FQ_DIR}")
+#    find_file(ASAN_LIB libasan.so NO_DEFAULT_PATH PATHS $ENV{GCC_FQ_DIR}/lib64)
+#    if(NOT ASAN_LIB STREQUAL "ASAN_LIB-NOTFOUND")
+#      #message(STATUS "ASAN_LIB=${ASAN_LIB}")
+#    endif()
+#  endif()
+#endif()
+
+#if($ENV{CET_SANITIZE_THREAD})
+#  #message(STATUS "CET_SANITIZE_THREAD=$ENV{CET_SANITIZE_THREAD}")
+#  if(NOT "$ENV{GCC_FQ_DIR}" STREQUAL "")
+#    #message(STATUS "GCC_FQ_DIR=$ENV{GCC_FQ_DIR}")
+#    find_file(TSAN_LIB libtsan.so NO_DEFAULT_PATH PATHS $ENV{GCC_FQ_DIR}/lib64)
+#    if(NOT TSAN_LIB STREQUAL "TSAN_LIB-NOTFOUND")
+#      #message(STATUS "TSAN_LIB=${TSAN_LIB}")
+#    endif()
+#  endif()
+#endif()
+
+if($ENV{CET_SANITIZE_ADDRESS})
+  if(NOT ASAN_LIB STREQUAL "ASAN_LIB-NOTFOUND")
+  set_tests_properties(gallery_t.C PROPERTIES
+    ENVIRONMENT "LD_PRELOAD=${ASAN_LIB}")
+  endif()
+endif()
+
+if($ENV{CET_SANITIZE_THREAD})
+  if(NOT TSAN_LIB STREQUAL "TSAN_LIB-NOTFOUND")
+  set_tests_properties(gallery_t.C PROPERTIES
+    ENVIRONMENT "LD_PRELOAD=${TSAN_LIB}")
+  endif()
+endif()
+
 # Use gallery in python to read output from gallery_makeInput5 and
 # gallery_makeInput7.
-if (NOT CMAKE_SYSTEM_NAME MATCHES "Darwin")
-  cet_test(gallery_t.py HANDBUILT
-    TEST_EXEC python
-    TEST_ARGS gallery_t.py
-    DATAFILES gallery_t.py
-    REQUIRED_FILES ../gallery_makeInput5.d/test_gallery5.root
-    ../gallery_makeInput7.d/test_gallery7.root
-    )
+cet_test(gallery_t.py HANDBUILT
+  TEST_EXEC python
+  TEST_ARGS gallery_t.py
+  DATAFILES gallery_t.py
+  REQUIRED_FILES ../gallery_makeInput5.d/test_gallery5.root
+  ../gallery_makeInput7.d/test_gallery7.root
+  )
 set_tests_properties(gallery_t.py PROPERTIES
   DEPENDS "gallery_makeInput5;gallery_makeInput7")
+
+if($ENV{CET_SANITIZE_ADDRESS})
+  if(NOT ASAN_LIB STREQUAL "ASAN_LIB-NOTFOUND")
+  set_tests_properties(gallery_t.py PROPERTIES
+    ENVIRONMENT "LD_PRELOAD=${ASAN_LIB}")
+  endif()
+endif()
+
+if($ENV{CET_SANITIZE_THREAD})
+  if(NOT TSAN_LIB STREQUAL "TSAN_LIB-NOTFOUND")
+  set_tests_properties(gallery_t.py PROPERTIES
+    ENVIRONMENT "LD_PRELOAD=${TSAN_LIB}")
+  endif()
 endif()
 
 cet_test(CriticAssns_w HANDBUILT
