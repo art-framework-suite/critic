@@ -325,12 +325,19 @@ main()
     for (auto const& h : stringProducts) {
       assert(h.isValid());
       assert(!h->name_.empty());
+      auto const productID = h.id();
+      assert(productID.isValid());
+      auto const& pd = ev.getProductDescription(productID);
+      assert(pd.friendlyClassName() == "arttest::StringProduct"s);
+      assert(!pd.inputTag().empty());
     }
 
     if (counter > 9) {
       auto const intProductFile2 =
         ev.getValidHandle<arttest::IntProduct>(inputTagFile2);
       assert(intProductFile2->value == 2000);
+      auto const& pd = ev.getProductDescription(intProductFile2.id());
+      assert(pd.inputTag() == inputTagFile2);
     }
 
     auto const ptrTestProduct =
