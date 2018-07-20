@@ -38,6 +38,7 @@ cet_report_compiler_flags()
 find_package(canvas REQUIRED)
 find_package(art REQUIRED)
 find_package(gallery REQUIRED)
+find_package(canvas_root_io REQUIRED)
 find_package(ROOT REQUIRED COMPONENTS Core RIO)
 
 # macros for art_dictionary and simple_plugin
