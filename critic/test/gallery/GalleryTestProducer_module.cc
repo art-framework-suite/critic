@@ -18,27 +18,27 @@ namespace critictest {
   public:
     explicit GalleryTestProducer(fhicl::ParameterSet const& p);
 
-    virtual void produce(art::Event& e);
-
   private:
-    int value1_;
-    int value2_;
-    int value3_;
+    void produce(art::Event& e) override;
 
-    std::string string1_;
-    std::string string2_;
-    std::string string3_;
+    int const value1_;
+    int const value2_;
+    int const value3_;
+
+    std::string const string1_;
+    std::string const string2_;
+    std::string const string3_;
   };
 
   GalleryTestProducer::GalleryTestProducer(fhicl::ParameterSet const& pset)
-    : value1_(pset.get<int>("value1"))
+    : EDProducer{pset}
+    , value1_(pset.get<int>("value1"))
     , value2_(pset.get<int>("value2"))
     , value3_(pset.get<int>("value3"))
     , string1_(pset.get<std::string>("string1"))
     , string2_(pset.get<std::string>("string2"))
     , string3_(pset.get<std::string>("string3"))
   {
-
     produces<IntProduct>();
     produces<IntProduct>("i2");
     produces<IntProduct>("i3");

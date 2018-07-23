@@ -57,7 +57,8 @@ namespace {
 } // namespace
 
 critictest::GalleryAssnsProducer::GalleryAssnsProducer(
-  fhicl::ParameterSet const&)
+  fhicl::ParameterSet const& ps)
+  : EDProducer{ps}
 {
   produces<intvec>();
   produces<stringvec>();

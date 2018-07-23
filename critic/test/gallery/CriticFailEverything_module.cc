@@ -14,13 +14,11 @@ namespace critictest {
   class CriticFailEverything : public art::EDFilter {
   public:
     explicit CriticFailEverything(fhicl::ParameterSet const&);
-    virtual ~CriticFailEverything();
-    virtual bool filter(art::Event&);
+  private:
+    bool filter(art::Event&) override;
   };
 
-  CriticFailEverything::CriticFailEverything(fhicl::ParameterSet const&) {}
-
-  CriticFailEverything::~CriticFailEverything() {}
+  CriticFailEverything::CriticFailEverything(fhicl::ParameterSet const& ps) : EDFilter{ps} {}
 
   bool
   CriticFailEverything::filter(art::Event&)
