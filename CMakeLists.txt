@@ -86,10 +86,6 @@ find_ups_boost()
 include(ArtDictionary)
 include(BuildPlugins)
 
-if (NOT APPLE)
-  set(RT -lrt)
-endif()
-
 add_subdirectory(critic)
 
 # ups - table and config files
