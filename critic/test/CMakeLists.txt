@@ -12,4 +12,5 @@ include(ArtMake)
 
 # build Persistency libraries
 add_subdirectory (CriticTestObjects)
+add_subdirectory (art)
 add_subdirectory (gallery)
