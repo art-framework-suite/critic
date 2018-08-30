@@ -8,7 +8,7 @@
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"
-#include "art/test/Integration/RunTimeProduces.h"
+#include "critic/test/art/RunTimeProduces.h"
 #include "fhiclcpp/ParameterSet.h"
 
 #include <memory>

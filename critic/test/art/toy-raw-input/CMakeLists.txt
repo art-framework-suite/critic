@@ -1,3 +1,13 @@
+art_make_library(
+  LIBRARY_NAME critic_test_art_toy_input
+  SOURCE ToySource.cc
+  LIBRARIES art_Framework_IO_Sources art_Framework_Core fhiclcpp
+  NO_INSTALL)
+
+simple_plugin(ToyRawFileInput   "source" USE_BOOST_UNIT critic_test_art_toy_input NO_INSTALL)
+simple_plugin(ToyRawInput       "source" USE_BOOST_UNIT critic_test_art_toy_input NO_INSTALL)
+simple_plugin(ToyRawInputTester "module" NO_INSTALL)
+
 cet_test(ToyRawInput_w HANDBUILT
   TEST_EXEC art
   TEST_ARGS --rethrow-all -c ToyRawInput_w.fcl

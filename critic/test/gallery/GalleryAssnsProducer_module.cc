@@ -3,7 +3,7 @@
 // Module Type: producer
 // File:        GalleryAssnsProducer_module.cc
 //
-// This is started as a copy of the AssnsProducer class in art/test/Integration.
+// This is started as a copy of the AssnsProducer class in critic/test/art.
 // Initially the only differences were these name changes:
 //   AssnsProducer -> GalleryAssnsProducer
 //   arttest -> critictest

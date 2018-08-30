@@ -9,7 +9,7 @@
 #include "art/Framework/Core/InputSourceMacros.h"
 #include "art/Framework/IO/Sources/Source.h"
 #include "art/Framework/IO/Sources/SourceTraits.h"
-#include "art/test/Integration/ToySource.h"
+#include "critic/test/art/toy-raw-input/ToySource.h"
 
 namespace arttest {
   // ToyFile is the sort of class that experimenters who make use of

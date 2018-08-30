@@ -1,4 +1,4 @@
-#include "art/test/Integration/ToySource.h"
+#include "critic/test/art/toy-raw-input/ToySource.h"
 #include "art/Framework/Core/ProductRegistryHelper.h"
 #include "art/Framework/IO/Sources/SourceHelper.h"
 #include "art/Framework/IO/Sources/put_product_in_principal.h"
