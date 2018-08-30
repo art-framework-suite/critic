@@ -42,6 +42,50 @@ simple_plugin(U_S                         "module" NO_INSTALL ALLOW_UNDERSCORES)
 simple_plugin(Wanted                      "service" NO_INSTALL)
 simple_plugin(addInts                     "tool"   NO_INSTALL)
 
+###############################################################
+# The BasicOutputOptions tests should probably go back into art
+
+####################################
+# config_ref_test
+#
+# Make reference comparisons easier.
+
+macro(config_ref_test TNAME)
+  cet_test(${TNAME}_r HANDBUILT
+    TEST_EXEC diff
+    TEST_ARGS -u ${TNAME}-ref.txt
+    ../${TNAME}_w.d/config.out
+    DATAFILES ${TNAME}-ref.txt
+    TEST_PROPERTIES DEPENDS ${TNAME}_w)
+endmacro()
+
+# Should pass and provide config output file for comparison in
+# BasicOutputOptions_01_r against reference.  Use ART_DEBUG_CONFIG
+# environment variable instead of --debug-config to test its
+# functionality.
+cet_test(BasicOutputOptions_01_w HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --TFileName hist.root
+  -o out.root
+  --tmpdir /tmp
+  -c /dev/null
+  TEST_PROPERTIES ENVIRONMENT ART_DEBUG_CONFIG=config.out
+  PASS_REGULAR_EXPRESSION "\\*\\* ART_DEBUG_CONFIG is defined.*\\*\\* Config output to file")
+config_ref_test(BasicOutputOptions_01)
+
+# Specified stream name with empty outputs.
+cet_test(BasicOutputOptions_12_w HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS
+  -o myOut:out.root
+  --tmpDir /tmp
+  -c /dev/null
+  --debug-config=config.out
+  TEST_PROPERTIES
+  PASS_REGULAR_EXPRESSION "Config output to file")
+config_ref_test(BasicOutputOptions_12)
+########################################################################
+
 ########################################################################
 # Old tests converted from CMS FWCore/Framework/test
 set(test_list
@@ -357,9 +401,6 @@ cet_test(TestEmptyEventTimestampNoRSRTS_t HANDBUILT
   fcl/TestEmptyEventTimestamp_t.fcl
   fcl/TestEmptyEventTimestampNoRSRTS_t.fcl)
 
-add_subdirectory(assns-iter)
-add_subdirectory(event-processor)
-
 cet_test(NonexistentPathCheck_01_t HANDBUILT
   TEST_EXEC art
   TEST_ARGS --rethrow-all -c NonexistentPathCheck_01.fcl
@@ -385,3 +426,308 @@ cet_test(PruneConfig_t_01 HANDBUILT
   TEST_ARGS -c prune_config_t_01.fcl --prune-config
   DATAFILES fcl/prune_config_t_01.fcl
   TEST_PROPERTIES WILL_FAIL TRUE)
+
+
+add_subdirectory(assns-iter)
+add_subdirectory(assns-reader)
+add_subdirectory(event-processor)
+add_subdirectory(event-shape)
+add_subdirectory(high-memory)
+add_subdirectory(output-file-handling)
+add_subdirectory(producing-services)
+add_subdirectory(product-aggregation)
+add_subdirectory(product-mixing)
+add_subdirectory(ptr-maker)
+add_subdirectory(ptr-vector)
+add_subdirectory(random-numbers)
+add_subdirectory(range-algorithms)
+add_subdirectory(range-sets)
+add_subdirectory(sam-metadata)
+add_subdirectory(secondary-input-files)
+add_subdirectory(seek-to-event)
+add_subdirectory(toy-raw-input)
+
+cet_test(DataFlowDumper_t HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c data_flow_dumper_t.fcl -n 1
+  DATAFILES fcl/data_flow_dumper_t.fcl
+  TEST_PROPERTIES DEPENDS test_tiered_input_05d_t)
+
+cet_test(BareString_w HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c BareString_w.fcl
+  DATAFILES fcl/BareString_w.fcl)
+
+cet_test(BareString_r HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c BareString_r.fcl
+  DATAFILES fcl/BareString_r.fcl
+  REQUIRED_FILES "../BareString_w.d/out.root"
+  TEST_PROPERTIES DEPENDS BareString_w)
+
+cet_test(ValidHandleTester HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c ValidHandleTester.fcl
+  DATAFILES fcl/ValidHandleTester.fcl
+  REQUIRED_FILES "../BareString_w.d/out.root"
+  TEST_PROPERTIES DEPENDS BareString_w)
+
+cet_test(issue_0926_t.sh PREBUILT
+  DATAFILES
+  fcl/issue_0926a.fcl
+  fcl/issue_0926b.fcl
+  fcl/issue_0926c.fcl
+  fcl/messageDefaults.fcl)
+
+cet_test(outputCommand_t.sh PREBUILT
+  DATAFILES
+  fcl/outputCommand_w.fcl
+  fcl/outputCommand_r.fcl
+  fcl/messageDefaults.fcl)
+
+simple_plugin(NonPersistableProducer "module" NO_INSTALL)
+cet_test(NonPersistableProducts_t HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c non_persistable_products_t.fcl -n 1
+  DATAFILES fcl/non_persistable_products_t.fcl)
+
+cet_test(test_failingProducer_t.sh PREBUILT
+  DATAFILES
+  fcl/test_failingProducer_w.fcl
+  fcl/test_failingProducer_r.fcl
+  fcl/messageDefaults.fcl)
+
+cet_test(rename-histfile_t_w HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c rename-histfile_t.fcl
+  DATAFILES fcl/rename-histfile_t.fcl)
+
+cet_test(rename-histfile_t_check HANDBUILT
+  TEST_EXEC ls
+  TEST_ARGS -l ../rename-histfile_t_w.d/test_1_0_2_8.root
+  TEST_PROPERTIES DEPENDS rename-histfile_t_w)
+
+simple_plugin(TestMetadata "plugin" NO_INSTALL art_Framework_Core fhiclcpp ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
+cet_test(TestMetadata_plugin_t HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c TestMetadata_Plugin_t.fcl
+  DATAFILES fcl/TestMetadata_Plugin_t.fcl)
+
+cet_test(TestMetadata_verify_hr HANDBUILT
+  TEST_EXEC sam_metadata_dumper
+  TEST_ARGS -H -s ../TestMetadata_plugin_t.d/out.root
+  TEST_PROPERTIES DEPENDS TestMetadata_plugin_t
+  REF ${CMAKE_CURRENT_SOURCE_DIR}/TestMetadata_verify_hr-ref.txt)
+
+cet_test(TestMetadata_verify_JSON HANDBUILT
+  TEST_EXEC sam_metadata_dumper
+  TEST_ARGS -s ../TestMetadata_plugin_t.d/out.root
+  TEST_PROPERTIES DEPENDS TestMetadata_plugin_t
+  REF ${CMAKE_CURRENT_SOURCE_DIR}/TestMetadata_verify_JSON-ref.txt)
+
+cet_test(Assns_w HANDBUILT
+  TEST_EXEC art_ut
+  TEST_ARGS -- --rethrow-all -c "Assns_w.fcl"
+  DATAFILES fcl/Assns_w.fcl)
+
+foreach(num 1 2 3)
+  cet_test(Assns_r${num} HANDBUILT
+    TEST_EXEC art_ut
+    TEST_ARGS -- --rethrow-all -c "Assns_r${num}.fcl"
+    REQUIRED_FILES ../Assns_w.d/out.root
+    DATAFILES
+    fcl/Assns_r_inc.fcl
+    fcl/Assns_r${num}.fcl
+    TEST_PROPERTIES DEPENDS Assns_w)
+endforeach()
+
+cet_test(AssnsFastClone_w HANDBUILT
+  TEST_EXEC art_ut
+  TEST_ARGS -- -c "AssnsFastClone_w.fcl"
+  DATAFILES fcl/AssnsFastClone_w.fcl
+  TEST_PROPERTIES DEPENDS Assns_w)
+
+foreach(mode M S P)
+  cet_test(config_dumper_${mode}_t HANDBUILT
+    TEST_EXEC config_dumper
+    TEST_ARGS -${mode} ../Assns_w.d/out.root
+    REF "${CMAKE_CURRENT_SOURCE_DIR}/config_dumper_${mode}_t-ref.txt"
+    TEST_PROPERTIES
+    DEPENDS Assns_w
+    REQUIRED_FILES ../Assns_w.d/out.root)
+endforeach()
+
+cet_test(EventSelectorFromFile_w HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all --config EventSelectorFromFile_w.fcl -j 4
+  DATAFILES fcl/EventSelectorFromFile_w.fcl)
+
+set(NUM_THREADS 1 2 4 8)
+
+cet_test(EventSelectorFromFile_r1 HANDBUILT
+  TEST_EXEC art
+  PARG_J -j ${NUM_THREADS}
+  TEST_ARGS --rethrow-all --config EventSelectorFromFile_r1.fcl
+  DATAFILES fcl/EventSelectorFromFile_r1.fcl
+  TEST_PROPERTIES DEPENDS EventSelectorFromFile_w)
+
+cet_test(EventSelectorFromFile_r2 HANDBUILT
+  TEST_EXEC art
+  PARG_J -j ${NUM_THREADS}
+  TEST_ARGS --rethrow-all --config EventSelectorFromFile_r2.fcl
+  DATAFILES fcl/EventSelectorFromFile_r2.fcl
+  TEST_PROPERTIES DEPENDS EventSelectorFromFile_w)
+
+cet_test(SelectEventsFromPreviousProcess_w HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS
+  --rethrow-all
+  --config SelectEventsFromPreviousProcess_w.fcl
+  -j 4
+  -n 10
+  -o out.root
+  DATAFILES fcl/SelectEventsFromPreviousProcess_w.fcl)
+
+cet_test(SelectEventsFromPreviousProcess_t HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all --config SelectEventsFromPreviousProcess_t.fcl
+  -s ../SelectEventsFromPreviousProcess_w.d/out.root
+  -j 4
+  DATAFILES fcl/SelectEventsFromPreviousProcess_t.fcl
+  REQUIRED_FILES "../SelectEventsFromPreviousProcess_w.d/out.root"
+  TEST_PROPERTIES DEPENDS SelectEventsFromPreviousProcess_w)
+
+cet_test(SelectEventsFromPreviousProcess_EventList_t HANDBUILT
+  TEST_EXEC file_info_dumper
+  TEST_ARGS --event-list ../SelectEventsFromPreviousProcess_t.d/out.root
+  REF "${CMAKE_CURRENT_SOURCE_DIR}/SelectEventsFromPreviousProcess_t-ref.txt"
+  REQUIRED_FILES "../SelectEventsFromPreviousProcess_t.d/out.root"
+  TEST_PROPERTIES DEPENDS SelectEventsFromPreviousProcess_t)
+
+add_executable(test_dropAllEventsSubruns_verify test_dropAllEventsSubruns_verify.cxx)
+target_link_libraries(test_dropAllEventsSubruns_verify ${ROOT_CORE} ${ROOT_RIO} ${ROOT_TREE})
+
+#test_dropAllEventsSubruns_verify.cxx
+cet_test(test_dropAllEventsSubruns_t.sh PREBUILT
+  DATAFILES
+  fcl/dropAllEvents_t.fcl
+  fcl/dropAllEventsSubruns_t1.fcl
+  fcl/dropAllEventsSubruns_t2.fcl
+  fcl/dropAllEvents_r_t.fcl
+  fcl/dropAllEventsSubruns_r_t1.fcl
+  fcl/dropAllEventsSubruns_r_t2.fcl)
+
+set(testOutputRanges_dropAllEventsSubruns_FILES
+  "../test_dropAllEventsSubruns_t.sh.d/out_dropAllEvents.root"
+  "../test_dropAllEventsSubruns_t.sh.d/out_dropAllEventsSubruns1.root"
+  "../test_dropAllEventsSubruns_t.sh.d/out_dropAllEventsSubruns2.root"
+  "../test_dropAllEventsSubruns_t.sh.d/out_dropAllEvents_r.root"
+  "../test_dropAllEventsSubruns_t.sh.d/out_dropAllEventsSubruns1_r.root"
+  "../test_dropAllEventsSubruns_t.sh.d/out_dropAllEventsSubruns2_r.root")
+
+cet_test(testOutputRanges_dropAllEventsSubruns HANDBUILT
+  TEST_EXEC file_info_dumper
+  TEST_ARGS
+  --range-of-validity
+  --file-index ${testOutputRanges_dropAllEventsSubruns_FILES}
+  REQUIRED_FILES ${testOutputRanges_dropAllEventsSubruns_FILES}
+  REF "${CMAKE_CURRENT_SOURCE_DIR}/testOutputRanges_dropAllEventsSubRuns-ref.txt"
+  TEST_PROPERTIES DEPENDS test_dropAllEventsSubruns_t.sh)
+
+cet_test(test_runSubRunNoPut_t.sh PREBUILT
+  DATAFILES fcl/runSubRunNoPut_t.fcl)
+
+add_executable(test_simple_01_verify test_simple_01_verify.cxx)
+target_link_libraries(test_simple_01_verify ${ROOT_CORE} ${ROOT_RIO} ${ROOT_TREE} ${ROOT_GRAF} ${ROOT_HIST})
+
+#test_simple_01_verify.cxx
+cet_test(test_simple_01_t.sh PREBUILT
+  DATAFILES
+  fcl/test_simple_01.fcl
+  fcl/test_simple_01r.fcl
+  fcl/messageDefaults.fcl)
+
+cet_test(test_view_01_t.sh PREBUILT
+  DATAFILES
+  fcl/test_view_01a.fcl
+  fcl/test_view_01b.fcl
+  fcl/test_simple_01r.fcl
+  fcl/messageDefaults.fcl)
+
+cet_test(IntProducer_t HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS
+  --rethrow-all
+  -c IntProducer_t.fcl
+  -o out.root
+  --process-name MakeInt
+  DATAFILES fcl/IntProducer_t.fcl)
+
+add_subdirectory(kitchen-sink)
+
+cet_test(SimpleDerived_01_w HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c test_simplederived_01a.fcl --errorOnMissingConsumes
+  DATAFILES fcl/test_simplederived_01a.fcl)
+
+cet_test(SimpleDerived_01_r HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c test_simplederived_01b.fcl
+  DATAFILES fcl/test_simplederived_01b.fcl
+  REQUIRED_FILES "../SimpleDerived_01_w.d/out.root"
+  TEST_PROPERTIES DEPENDS SimpleDerived_01_w)
+
+cet_test(SimpleDerived_02_r HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c SimpleDerived_02.fcl
+  DATAFILES fcl/SimpleDerived_02.fcl
+  REQUIRED_FILES "../SimpleDerived_01_w.d/out.root"
+  TEST_PROPERTIES DEPENDS SimpleDerived_01_w)
+
+cet_test(CmdLineTmpDir_w HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c cmdLineTmpDir.fcl --tmpDir=tmp --debug-config=CmdLineTmpDir_w.out
+  DATAFILES fcl/cmdLineTmpDir.fcl)
+
+cet_test(CmdLineTmpDir_t HANDBUILT
+  TEST_EXEC diff
+  TEST_ARGS cmdLineTmpDir_t-ref.txt "../CmdLineTmpDir_w.d/CmdLineTmpDir_w.out"
+  DATAFILES cmdLineTmpDir_t-ref.txt
+  TEST_PROPERTIES DEPENDS CmdLineTmpDir_w)
+
+simple_plugin(EmptyPSetRegistryChecker "module" NO_INSTALL USE_BOOST_UNIT ALLOW_UNDERSCORES hep_concurrency)
+
+cet_test(EmptyPSetRegistryChecker_w1 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c EmptyPSetRegistryChecker_w1.fcl
+  DATAFILES fcl/EmptyPSetRegistryChecker_w1.fcl)
+
+cet_test(EmptyPSetRegistryChecker_r1 HANDBUILT
+  TEST_EXEC art_ut
+  TEST_ARGS -- --rethrow-all -c EmptyPSetRegistryChecker_r1.fcl
+  DATAFILES fcl/EmptyPSetRegistryChecker_r1.fcl
+  TEST_PROPERTIES DEPENDS EmptyPSetRegistryChecker_w1)
+
+cet_test(EmptyPSetRegistryChecker_w2 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c EmptyPSetRegistryChecker_w2.fcl
+  DATAFILES fcl/EmptyPSetRegistryChecker_w1.fcl
+  fcl/EmptyPSetRegistryChecker_w2.fcl)
+
+cet_test(EmptyPSetRegistryChecker_r2 HANDBUILT
+  TEST_EXEC art_ut
+  TEST_ARGS -- --rethrow-all -c EmptyPSetRegistryChecker_r2.fcl
+  DATAFILES fcl/EmptyPSetRegistryChecker_r1.fcl
+  fcl/EmptyPSetRegistryChecker_r2.fcl
+  TEST_PROPERTIES DEPENDS EmptyPSetRegistryChecker_w2)
+
+simple_plugin(FindManySpeedTestProducer "module" NO_INSTALL ALLOW_UNDERSCORES)
+simple_plugin(FindManySpeedTestAnalyzer "module" NO_INSTALL ALLOW_UNDERSCORES)
+
+add_subdirectory(results-products)
+
+cet_test(test_compressed_simple_01_t.sh PREBUILT
+  DATAFILES
+  fcl/test_compressed_simple_01.fcl
+  fcl/test_compressed_simple_01r.fcl
+  fcl/messageDefaults.fcl)

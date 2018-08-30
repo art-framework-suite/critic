@@ -79,6 +79,7 @@ find_ups_product(cetbuildtools)
 find_ups_product(clhep)
 find_ups_product(canvas_root_io)
 find_ups_product(hep_concurrency)
+find_ups_product(range)
 find_ups_root()
 find_ups_boost()
 
