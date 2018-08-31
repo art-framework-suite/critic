@@ -1,5 +1,5 @@
-#ifndef critic_test_art_ToySource_h
-#define critic_test_art_ToySource_h
+#ifndef critic_test_art_toy_raw_input_ToySource_h
+#define critic_test_art_toy_raw_input_ToySource_h
 
 // Our simulated input file format is:
 // A parameter in a parameter set, which contains a vector of vector of int.
@@ -58,7 +58,7 @@ protected:
 
   art::TypeLabel vtl_;
 };
-#endif /* critic_test_art_ToySource_h */
+#endif /* critic_test_art_toy_raw_input_ToySource_h */
 
 // Local Variables:
 // mode: c++

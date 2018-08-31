@@ -1,5 +1,5 @@
-#ifndef art_test_Framework_IO_Root_product_aggregation_physics_workflow_TaggedValue_h
-#define art_test_Framework_IO_Root_product_aggregation_physics_workflow_TaggedValue_h
+#ifndef critic_test_art_product_aggregation_physics_workflow_TaggedValue_h
+#define critic_test_art_product_aggregation_physics_workflow_TaggedValue_h
 
 #include "canvas/Utilities/InputTag.h"
 
@@ -15,7 +15,7 @@ namespace arttest {
   };
 }
 
-#endif /* art_test_Framework_IO_Root_product_aggregation_physics_workflow_TaggedValue_h */
+#endif /* critic_test_art_product_aggregation_physics_workflow_TaggedValue_h */
 
 // Local Variables:
 // mode: c++

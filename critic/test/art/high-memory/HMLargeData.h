@@ -1,5 +1,5 @@
-#ifndef art_test_Framework_IO_Root_high_memory_HMLargeData_h
-#define art_test_Framework_IO_Root_high_memory_HMLargeData_h
+#ifndef critic_test_art_high_memory_HMLargeData_h
+#define critic_test_art_high_memory_HMLargeData_h
 
 #include <vector>
 
@@ -68,7 +68,7 @@ arttest::HMLargeData::data() const
   return data_.data();
 }
 
-#endif /* art_test_Framework_IO_Root_high_memory_HMLargeData_h */
+#endif /* critic_test_art_high_memory_HMLargeData_h */
 
 // Local Variables:
 // mode: c++

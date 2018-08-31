@@ -9,8 +9,8 @@
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
-#include "critic/test/art/RunTimeProduces.h"
 #include "canvas/Persistency/Provenance/BranchType.h"
+#include "critic/test/art/RunTimeProduces.h"
 
 #include "fhiclcpp/types/Atom.h"
 

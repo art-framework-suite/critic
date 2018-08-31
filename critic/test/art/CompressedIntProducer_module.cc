@@ -10,8 +10,8 @@
 #include "art/Framework/Principal/Handle.h"
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
-#include "critic/test/art/RunTimeProduces.h"
 #include "canvas/Persistency/Provenance/BranchType.h"
+#include "critic/test/art/RunTimeProduces.h"
 #include "fhiclcpp/ParameterSet.h"
 
 #include "art/test/TestObjects/ToyProducts.h"

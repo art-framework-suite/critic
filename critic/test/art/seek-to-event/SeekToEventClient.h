@@ -1,5 +1,5 @@
-#ifndef art_test_Framework_IO_Root_SeekToEventClient_h
-#define art_test_Framework_IO_Root_SeekToEventClient_h
+#ifndef critic_test_art_seek_to_event_SeekToEventClient_h
+#define critic_test_art_seek_to_event_SeekToEventClient_h
 
 //===================================================================
 //
@@ -53,7 +53,7 @@ private:
 };
 
 DECLARE_ART_SERVICE(arttest::SeekToEventClient, LEGACY)
-#endif /* art_test_Framework_IO_Root_SeekToEventClient_h */
+#endif /* critic_test_art_seek_to_event_SeekToEventClient_h */
 
 // Local Variables:
 // mode: c++

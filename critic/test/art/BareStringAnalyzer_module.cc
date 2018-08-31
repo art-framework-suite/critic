@@ -4,7 +4,8 @@
 #include <string>
 
 namespace arttest {
-  using BareStringAnalyzer = GenericOneSimpleProductAnalyzer<std::string, std::string>;
+  using BareStringAnalyzer =
+    GenericOneSimpleProductAnalyzer<std::string, std::string>;
 }
 
 DEFINE_ART_MODULE(arttest::BareStringAnalyzer)

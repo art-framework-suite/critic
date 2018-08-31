@@ -1,5 +1,5 @@
-#ifndef art_test_Framework_IO_Root_product_aggregation_physics_workflow_TrackEfficiency_h
-#define art_test_Framework_IO_Root_product_aggregation_physics_workflow_TrackEfficiency_h
+#ifndef critic_test_art_product_aggregation_physics_workflow_TrackEfficiency_h
+#define critic_test_art_product_aggregation_physics_workflow_TrackEfficiency_h
 
 #include "canvas/Persistency/Provenance/IDNumber.h"
 
@@ -43,7 +43,7 @@ namespace arttest {
 
 } // namespace arttest
 
-#endif /* art_test_Framework_IO_Root_product_aggregation_physics_workflow_TrackEfficiency_h */
+#endif /* critic_test_art_product_aggregation_physics_workflow_TrackEfficiency_h */
 
 // Local variables:
 // mode: c++
