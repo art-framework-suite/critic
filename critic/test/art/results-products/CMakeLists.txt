@@ -1,4 +1,4 @@
-simple_plugin(RPTest "plugin" NO_INSTALL ALLOW_UNDERSCORES
+simple_plugin(RPTest "plugin" NO_INSTALL
   art_Framework_Core
   art_Framework_Principal
   canvas
@@ -8,7 +8,7 @@ simple_plugin(RPTest "plugin" NO_INSTALL ALLOW_UNDERSCORES
   ${Boost_FILESYSTEM_LIBRARY}
   ${Boost_SYSTEM_LIBRARY})
 
-simple_plugin(RPTestReader "plugin" NO_INSTALL ALLOW_UNDERSCORES
+simple_plugin(RPTestReader "plugin" NO_INSTALL
   art_Framework_Core
   art_Framework_Principal
   canvas

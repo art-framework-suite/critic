@@ -8,10 +8,10 @@ set_source_files_properties(MixFilterTestNoStartEvent_module.cc
   PROPERTIES COMPILE_DEFINITIONS ART_TEST_NO_STARTEVENT)
 
 simple_plugin(MixAnalyzer               "module" NO_INSTALL USE_BOOST_UNIT)
-simple_plugin(MixFilterTest             "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io)
-simple_plugin(MixFilterTestETS          "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io)
-simple_plugin(MixFilterTestETSc         "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io)
-simple_plugin(MixFilterTestNoStartEvent "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io)
+simple_plugin(MixFilterTest             "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ${ROOT_CORE})
+simple_plugin(MixFilterTestETS          "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ${ROOT_CORE})
+simple_plugin(MixFilterTestETSc         "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ${ROOT_CORE})
+simple_plugin(MixFilterTestNoStartEvent "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ${ROOT_CORE})
 simple_plugin(MixProducer               "module" NO_INSTALL)
 
 # Write the data file required for the other mixing tests.

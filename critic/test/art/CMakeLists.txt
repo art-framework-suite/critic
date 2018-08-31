@@ -1,3 +1,5 @@
+find_package(Threads REQUIRED)
+
 simple_plugin(AssnsAnalyzer               "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(AssnsProducer               "module" NO_INSTALL)
 simple_plugin(BareStringAnalyzer          "module" NO_INSTALL)
@@ -11,8 +13,6 @@ simple_plugin(DoubleTestAnalyzer          "module" NO_INSTALL)
 simple_plugin(DropTestAnalyzer            "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(DropTestParentageFaker      "module" NO_INSTALL)
 simple_plugin(FailingProducer             "module" NO_INSTALL)
-simple_plugin(IntArrayAnalyzer            "module" NO_INSTALL)
-simple_plugin(IntArrayProducer            "module" NO_INSTALL)
 simple_plugin(IntProducer                 "module" NO_INSTALL)
 simple_plugin(IntReaderThenProducer       "module" NO_INSTALL)
 simple_plugin(IntTestAnalyzer             "module" NO_INSTALL)
@@ -25,9 +25,12 @@ simple_plugin(ProductIDGetterAnalyzer     "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(PtrmvAnalyzer               "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(PtrmvProducer               "module" NO_INSTALL)
 simple_plugin(PtrVectorSimpleAnalyzer     "module" NO_INSTALL)
-simple_plugin(RandomNumberSaveTest        "module" USE_BOOST_UNIT NO_INSTALL)
+simple_plugin(RandomNumberSaveTest        "module" USE_BOOST_UNIT NO_INSTALL ${CLHEP})
 simple_plugin(RunSubRunProductProducerNoPut "module" NO_INSTALL)
-simple_plugin(SAMMetadataTest             "module" art_Framework_Services_System_FileCatalogMetadata_service NO_INSTALL)
+simple_plugin(SAMMetadataTest             "module"
+  NO_INSTALL
+  art_Framework_Services_System_FileCatalogMetadata_service
+  art_Framework_Services_Registry)
 simple_plugin(SimpleDerivedAnalyzer       "module" NO_INSTALL)
 simple_plugin(SimpleDerivedProducer       "module" NO_INSTALL)
 simple_plugin(TestFilterSpecificEvents    "module" NO_INSTALL)
@@ -39,7 +42,7 @@ simple_plugin(ValidHandleTester           "module" NO_INSTALL)
 simple_plugin(AddIntsProducer             "module" NO_INSTALL)
 simple_plugin(AssnsMultipleProduces       "module" NO_INSTALL)
 simple_plugin(AssnsWrongPut               "module" NO_INSTALL)
-simple_plugin(ConcurrentEngineRetrieval   "module" NO_INSTALL USE_BOOST_UNIT)
+simple_plugin(ConcurrentEngineRetrieval   "module" NO_INSTALL USE_BOOST_UNIT ${CLHEP})
 simple_plugin(DeferredIsReadyWithAssnsAnalyzer "module" NO_INSTALL)
 simple_plugin(DeferredIsReadyWithAssnsProducer "module" NO_INSTALL)
 simple_plugin(EventIDFilterChecker        "module" NO_INSTALL)
@@ -56,21 +59,28 @@ simple_plugin(MessagePrinter              "tool"   NO_INSTALL)
 simple_plugin(ProductIDGetterNoPut        "module" NO_INSTALL USE_BOOST_UNIT)
 simple_plugin(PtrListAnalyzer             "module" NO_INSTALL)
 simple_plugin(ReadNextArbitrator          "tool"   NO_INSTALL)
-simple_plugin(SAMMetadataConcurrentTest   "module" NO_INSTALL USE_BOOST_UNIT art_Framework_Services_System_FileCatalogMetadata_service)
+
+simple_plugin(SAMMetadataConcurrentTest   "module"
+  NO_INSTALL USE_BOOST_UNIT
+  art_Framework_Services_Registry
+  art_Framework_Services_System_TriggerNamesService_service
+  art_Framework_Services_System_FileCatalogMetadata_service
+  Threads::Threads)
+
 simple_plugin(ServiceUsing                "service" NO_INSTALL hep_concurrency)
 simple_plugin(SigIntAnalyzer              "module" NO_INSTALL)
 simple_plugin(SimpleSource                "source" NO_INSTALL)
-simple_plugin(TestAnalyzerSelect          "module" NO_INSTALL)
+simple_plugin(TestAnalyzerSelect          "module" NO_INSTALL MF_MessageLogger)
 simple_plugin(TestBitsOutput              "module" NO_INSTALL)
 simple_plugin(TestFilter                  "module" NO_INSTALL)
-simple_plugin(TestOutput                  "module" NO_INSTALL)
-simple_plugin(TestResultAnalyzer          "module" NO_INSTALL)
-simple_plugin(TestServiceUsingService     "module" NO_INSTALL USE_BOOST_UNIT)
+simple_plugin(TestOutput                  "module" NO_INSTALL MF_MessageLogger)
+simple_plugin(TestResultAnalyzer          "module" NO_INSTALL MF_MessageLogger)
+simple_plugin(TestServiceUsingService     "module" NO_INSTALL USE_BOOST_UNIT art_Framework_Services_Registry)
 simple_plugin(TestSimpleMemoryCheckProducer "module" NO_INSTALL)
 simple_plugin(TestTimeTrackerProducer     "module" NO_INSTALL)
 simple_plugin(TestTimeTrackerFilter       "module" NO_INSTALL)
 simple_plugin(TestTimeTrackerAnalyzer     "module" NO_INSTALL)
-simple_plugin(Throwing                    "service" NO_INSTALL hep_concurrency)
+simple_plugin(Throwing                    "service" NO_INSTALL hep_concurrency MF_MessageLogger)
 simple_plugin(ToyProductAnalyzer          "module" NO_INSTALL)
 simple_plugin(ToyProductFilter            "module" NO_INSTALL)
 simple_plugin(ToyProductFilterReplicated  "module" NO_INSTALL)
@@ -424,8 +434,19 @@ cet_test(MissingModuleType_t HANDBUILT
 set_source_files_properties(TestEmptyEventTimestampNoRSRTS_plugin.cc
   PROPERTIES COMPILE_DEFINITIONS TEST_USE_LAST_EVENT_TIMESTAMP)
 
-simple_plugin(TestEmptyEventTimestamp "plugin" NO_INSTALL art_Framework_Core fhiclcpp)
-simple_plugin(TestEmptyEventTimestampNoRSRTS "plugin" NO_INSTALL art_Framework_Core fhiclcpp)
+simple_plugin(TestEmptyEventTimestamp "plugin" NO_INSTALL
+  art_Framework_Core
+  art_Framework_Principal
+  fhiclcpp
+  ${Boost_FILESYSTEM_LIBRARY}
+  ${Boost_SYSTEM_LIBRARY})
+
+simple_plugin(TestEmptyEventTimestampNoRSRTS "plugin" NO_INSTALL
+  art_Framework_Core
+  art_Framework_Principal
+  fhiclcpp
+  ${Boost_FILESYSTEM_LIBRARY}
+  ${Boost_SYSTEM_LIBRARY})
 
 cet_test(TestEmptyEventTimestamp_t HANDBUILT
   TEST_EXEC art
@@ -733,7 +754,7 @@ cet_test(CmdLineTmpDir_t HANDBUILT
   DATAFILES cmdLineTmpDir_t-ref.txt
   TEST_PROPERTIES DEPENDS CmdLineTmpDir_w)
 
-simple_plugin(EmptyPSetRegistryChecker "module" NO_INSTALL USE_BOOST_UNIT ALLOW_UNDERSCORES hep_concurrency)
+simple_plugin(EmptyPSetRegistryChecker "module" NO_INSTALL USE_BOOST_UNIT hep_concurrency)
 
 cet_test(EmptyPSetRegistryChecker_w1 HANDBUILT
   TEST_EXEC art
@@ -759,8 +780,8 @@ cet_test(EmptyPSetRegistryChecker_r2 HANDBUILT
   fcl/EmptyPSetRegistryChecker_r2.fcl
   TEST_PROPERTIES DEPENDS EmptyPSetRegistryChecker_w2)
 
-simple_plugin(FindManySpeedTestProducer "module" NO_INSTALL ALLOW_UNDERSCORES)
-simple_plugin(FindManySpeedTestAnalyzer "module" NO_INSTALL ALLOW_UNDERSCORES)
+simple_plugin(FindManySpeedTestProducer "module" NO_INSTALL)
+simple_plugin(FindManySpeedTestAnalyzer "module" NO_INSTALL)
 
 add_subdirectory(results-products)
 

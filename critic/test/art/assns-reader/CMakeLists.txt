@@ -1,4 +1,4 @@
-simple_plugin(AssnsReaderTest "module" NO_INSTALL USE_BOOST_UNIT ALLOW_UNDERSCORES)
+simple_plugin(AssnsReaderTest "module" NO_INSTALL USE_BOOST_UNIT)
 
 ########################################################################
 # Description of tests

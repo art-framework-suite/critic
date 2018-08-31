@@ -1,6 +1,6 @@
 simple_plugin(ThrowingAnalyzer "module" NO_INSTALL)
 simple_plugin(ThrowingProducer "module" NO_INSTALL)
-simple_plugin(DoNothingInput   "source" NO_INSTALL)
+simple_plugin(DoNothingInput   "source" NO_INSTALL art_Framework_Services_Registry)
 
 cet_test(EP_throwing_01_t HANDBUILT
   TEST_EXEC art

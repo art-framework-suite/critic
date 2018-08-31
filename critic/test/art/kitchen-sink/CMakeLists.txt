@@ -153,7 +153,7 @@ cet_test(ProvenanceDumper_DroppedProducts_t2 HANDBUILT
   DATAFILES fcl/TestProvenanceDumper.fcl
   TEST_PROPERTIES DEPENDS DropOnOutput_wA_01)
 
-simple_plugin(TestReadImmediateControl "module" NO_INSTALL USE_BOOST_UNIT ALLOW_UNDERSCORES)
+simple_plugin(TestReadImmediateControl "module" NO_INSTALL USE_BOOST_UNIT)
 
 foreach(num 1 2 3 4 5)
   cet_test(ImmediateReadControl_${num} HANDBUILT
