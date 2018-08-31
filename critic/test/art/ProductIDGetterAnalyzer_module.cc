@@ -15,11 +15,9 @@
 #include "canvas/Persistency/Common/Ptr.h"
 #include "fhiclcpp/types/Atom.h"
 
-namespace art {
-  namespace test {
-    class ProductIDGetterAnalyzer;
-  }
-} // namespace art
+namespace art::test {
+  class ProductIDGetterAnalyzer;
+}
 
 class art::test::ProductIDGetterAnalyzer : public EDAnalyzer {
   struct Config {
@@ -33,7 +31,7 @@ public:
 private:
   void beginSubRun(SubRun const& sr) override;
   void analyze(Event const& e) override;
-  std::string input_label_;
+  std::string const input_label_;
 };
 
 art::test::ProductIDGetterAnalyzer::ProductIDGetterAnalyzer(Parameters const& p)

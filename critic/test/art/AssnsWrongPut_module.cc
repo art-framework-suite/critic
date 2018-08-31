@@ -9,11 +9,9 @@
 #include "art/Framework/Principal/Event.h"
 #include "canvas/Persistency/Common/Assns.h"
 
-namespace art {
-  namespace test {
-    class AssnsWrongPut;
-  }
-} // namespace art
+namespace art::test {
+  class AssnsWrongPut;
+}
 
 class art::test::AssnsWrongPut : public EDProducer {
 public:
@@ -26,19 +24,19 @@ private:
   void produce(art::Event&) override;
 };
 
-using std::size_t;
-using std::string;
+using product_t = art::Assns<std::size_t, std::string>;
+using partner_t = product_t::partner_t;
 
 art::test::AssnsWrongPut::AssnsWrongPut(Parameters const& ps) : EDProducer{ps}
 {
-  produces<Assns<size_t, string>>();
+  produces<product_t>();
 }
 
 void
 art::test::AssnsWrongPut::produce(Event& e)
 {
   // Put in an Assns with reversed template arguments
-  e.put(std::make_unique<Assns<string, size_t>>());
+  e.put(std::make_unique<partner_t>());
 }
 
 DEFINE_ART_MODULE(art::test::AssnsWrongPut)

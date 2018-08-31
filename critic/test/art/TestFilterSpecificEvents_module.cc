@@ -6,21 +6,17 @@
 
 #include <vector>
 
-namespace {
-  using namespace fhicl;
-  struct Config {
-    Sequence<unsigned> eventsToAccept{Name("eventsToAccept")};
-  };
-} // namespace
+using namespace fhicl;
 
-namespace art {
-  namespace test {
-    class TestFilterSpecificEvents;
-  }
-} // namespace art
+namespace art::test {
+  class TestFilterSpecificEvents;
+}
 
 class art::test::TestFilterSpecificEvents : public EDFilter {
 public:
+  struct Config {
+    Sequence<unsigned> eventsToAccept{Name("eventsToAccept")};
+  };
   using Parameters = EDFilter::Table<Config>;
 
   explicit TestFilterSpecificEvents(Parameters const& ps)

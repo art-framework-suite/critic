@@ -17,11 +17,9 @@
 
 #include <vector>
 
-namespace art {
-  namespace test {
-    class ProductIDGetter;
-  }
-} // namespace art
+namespace art::test {
+  class ProductIDGetter;
+}
 
 class art::test::ProductIDGetter : public EDProducer {
 public:

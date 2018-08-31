@@ -29,38 +29,36 @@
 #include <functional>
 #include <vector>
 
-namespace art {
-  namespace test {
+namespace art::test {
 
-    class ConcurrentEngineRetrieval : public ReplicatedAnalyzer {
-    public:
-      explicit ConcurrentEngineRetrieval(fhicl::ParameterSet const& p,
-                                         ProcessingFrame const&);
+  class ConcurrentEngineRetrieval : public ReplicatedAnalyzer {
+  public:
+    explicit ConcurrentEngineRetrieval(fhicl::ParameterSet const& p,
+                                       ProcessingFrame const&);
 
-    private:
-      void analyze(art::Event const&, art::ProcessingFrame const&) override;
-      CLHEP::RandFlat dist_;
-    };
+  private:
+    void analyze(art::Event const&, art::ProcessingFrame const&) override;
+    CLHEP::RandFlat dist_;
+  };
 
-    ConcurrentEngineRetrieval::ConcurrentEngineRetrieval(
-      fhicl::ParameterSet const& p,
-      ProcessingFrame const& frame)
-      : ReplicatedAnalyzer{p, frame}, dist_{createEngine(p.get<int>("seed"))}
-    {}
+  ConcurrentEngineRetrieval::ConcurrentEngineRetrieval(
+    fhicl::ParameterSet const& p,
+    ProcessingFrame const& frame)
+    : ReplicatedAnalyzer{p, frame}, dist_{createEngine(p.get<int>("seed"))}
+  {}
 
-    void
-    ConcurrentEngineRetrieval::analyze(art::Event const&,
-                                       art::ProcessingFrame const&)
-    {
-      std::vector<std::size_t> numbers(5);
-      std::size_t constexpr random_range{1000};
-      std::generate_n(numbers.begin(), numbers.size(), [this] {
-        return dist_.fireInt(random_range);
-      });
-      // Find way to verify this for all schedules?
-    }
+  void
+  ConcurrentEngineRetrieval::analyze(art::Event const&,
+                                     art::ProcessingFrame const&)
+  {
+    std::vector<std::size_t> numbers(5);
+    std::size_t constexpr random_range{1000};
+    std::generate_n(numbers.begin(), numbers.size(), [this] {
+      return dist_.fireInt(random_range);
+    });
+    // Find way to verify this for all schedules?
+  }
 
-  } // namespace test
-} // namespace art
+} // namespace art::test
 
 DEFINE_ART_MODULE(art::test::ConcurrentEngineRetrieval)

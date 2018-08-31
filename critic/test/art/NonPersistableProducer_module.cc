@@ -15,10 +15,8 @@
 #include <memory>
 #include <vector>
 
-namespace art {
-  namespace test {
-    class NonPersistableProducer;
-  }
+namespace art::test {
+  class NonPersistableProducer;
 }
 
 class art::test::NonPersistableProducer : public EDProducer {

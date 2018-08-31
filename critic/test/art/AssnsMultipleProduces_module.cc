@@ -9,11 +9,9 @@
 #include "art/Framework/Principal/Event.h"
 #include "canvas/Persistency/Common/Assns.h"
 
-namespace art {
-  namespace test {
-    class AssnsMultipleProduces;
-  }
-} // namespace art
+namespace art::test {
+  class AssnsMultipleProduces;
+}
 
 class art::test::AssnsMultipleProduces : public EDProducer {
 public:
@@ -26,14 +24,14 @@ private:
   void produce(art::Event&) override{};
 };
 
-using std::size_t;
-using std::string;
+using product_t = art::Assns<std::size_t, std::string>;
+using partner_t = product_t::partner_t;
 
 art::test::AssnsMultipleProduces::AssnsMultipleProduces(Parameters const& ps)
   : EDProducer{ps}
 {
-  produces<Assns<size_t, string>>();
-  produces<Assns<string, size_t>>();
+  produces<product_t>();
+  produces<partner_t>();
 }
 
 DEFINE_ART_MODULE(art::test::AssnsMultipleProduces)

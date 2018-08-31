@@ -8,10 +8,8 @@
 
 #include <memory>
 
-namespace art {
-  namespace test {
-    class IntReaderThenProducer;
-  }
+namespace art::test {
+  class IntReaderThenProducer;
 }
 
 using namespace fhicl;

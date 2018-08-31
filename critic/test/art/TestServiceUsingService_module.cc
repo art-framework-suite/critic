@@ -6,10 +6,8 @@
 #include "critic/test/art/ServiceUsing.h"
 #include "critic/test/art/Wanted.h"
 
-namespace art {
-  namespace test {
-    class TestServiceUsingService;
-  }
+namespace art::test {
+  class TestServiceUsingService;
 }
 
 class art::test::TestServiceUsingService : public EDAnalyzer {
@@ -17,19 +15,19 @@ public:
   explicit TestServiceUsingService(fhicl::ParameterSet const&);
   ~TestServiceUsingService();
 
+private:
   void analyze(art::Event const&) override;
 
   void beginJob() override;
   void endJob() override;
 
-private:
-  int debug_level_;
+  int const debug_level_;
 };
 
 art::test::TestServiceUsingService::TestServiceUsingService(
   fhicl::ParameterSet const& p)
   : EDAnalyzer{p}
-  , debug_level_{ServiceHandle<ServiceUsing const>()->getCachedValue()}
+  , debug_level_{ServiceHandle<ServiceUsing const>{}->getCachedValue()}
 {}
 
 art::test::TestServiceUsingService::~TestServiceUsingService()

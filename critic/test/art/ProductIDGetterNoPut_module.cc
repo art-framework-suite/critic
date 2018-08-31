@@ -14,11 +14,9 @@
 
 #include <vector>
 
-namespace art {
-  namespace test {
-    class ProductIDGetterNoPut;
-  }
-} // namespace art
+namespace art::test {
+  class ProductIDGetterNoPut;
+}
 
 class art::test::ProductIDGetterNoPut : public EDProducer {
 public:

@@ -6,38 +6,36 @@
 #include "art/Framework/Services/Registry/ServiceMacros.h"
 #include "critic/test/art/Wanted.h"
 
-namespace art {
-  namespace test {
+namespace art::test {
 
-    class ServiceUsing {
+  class ServiceUsing {
 
-    public:
-      ServiceUsing(fhicl::ParameterSet const&, art::ActivityRegistry&);
+  public:
+    ServiceUsing(fhicl::ParameterSet const&, art::ActivityRegistry&);
 
-      int
-      getCachedValue() const
-      {
-        return cached_value_;
-      }
+    int
+    getCachedValue() const
+    {
+      return cached_value_;
+    }
 
-      bool
-      postBeginJobCalled() const
-      {
-        return postBeginJobCalled_;
-      }
+    bool
+    postBeginJobCalled() const
+    {
+      return postBeginJobCalled_;
+    }
 
-    private:
-      void postBeginJob();
+  private:
+    void postBeginJob();
 
-      bool postBeginJobCalled_{false};
+    bool postBeginJobCalled_{false};
 
-      int cached_value_{};
+    int cached_value_{};
 
-      ServiceHandle<Wanted> wanted_{};
-    };
+    ServiceHandle<Wanted> wanted_{};
+  };
 
-  } // namespace test
-} // namespace art
+} // namespace art::test
 
 DECLARE_ART_SERVICE(art::test::ServiceUsing, LEGACY)
 

@@ -4,11 +4,9 @@
 #include "critic/test/art/event-processor/ThrowAfterConfig.h"
 #include "fhiclcpp/types/Atom.h"
 
-namespace art {
-  namespace test {
-    class ThrowingAnalyzer;
-  }
-} // namespace art
+namespace art::test {
+  class ThrowingAnalyzer;
+}
 
 class art::test::ThrowingAnalyzer : public EDAnalyzer {
   unsigned count_{};

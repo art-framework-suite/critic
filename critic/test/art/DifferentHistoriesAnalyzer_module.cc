@@ -18,11 +18,9 @@
 #include "canvas/Utilities/InputTag.h"
 #include "fhiclcpp/types/Atom.h"
 
-namespace art {
-  namespace test {
-    class DifferentHistoriesAnalyzer;
-  }
-} // namespace art
+namespace art::test {
+  class DifferentHistoriesAnalyzer;
+}
 
 class art::test::DifferentHistoriesAnalyzer : public EDAnalyzer {
   struct Config {

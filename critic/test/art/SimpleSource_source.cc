@@ -20,11 +20,9 @@
 #include <string>
 #include <vector>
 
-namespace art {
-  namespace test {
-    class SimpleSource;
-  }
-} // namespace art
+namespace art::test {
+  class SimpleSource;
+}
 
 namespace art {
   // We don't want the file services: we must say so by specializing the
