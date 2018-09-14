@@ -61,10 +61,9 @@ arttest::ToySource::readNext(art::RunPrincipal const* const inR,
 
   bool readSomething{false};
 
-  static auto const timeStamp = art::Timestamp::invalidTimestamp();
+  constexpr auto timeStamp = art::Timestamp::invalidTimestamp();
 
-  int rN, srN, eN;
-  std::tie(rN, srN, eN) = *current_;
+  auto const [rN, srN, eN] = *current_;
 
   if (rN != -1) // New run
   {

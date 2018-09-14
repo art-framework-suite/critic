@@ -119,8 +119,7 @@ art::test::SimpleSource::readNext(RunPrincipal const* const,
   if (current_ == end_)
     return false;
 
-  int r, sr, e;
-  std::tie(r, sr, e) = *current_;
+  auto const [r, sr, e] = *current_;
   ++current_;
 
   if (r != -1) // New run

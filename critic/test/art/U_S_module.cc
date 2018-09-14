@@ -9,8 +9,7 @@ namespace arttest {
 
 class arttest::U_S : public art::EDProducer {
 public:
-  struct Config {
-  };
+  struct Config {};
   using Parameters = Table<Config>;
   explicit U_S(Parameters const& ps) : EDProducer{ps}
   {

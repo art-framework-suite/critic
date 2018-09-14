@@ -23,8 +23,7 @@ namespace art::test {
 
 class art::test::ProductIDGetter : public EDProducer {
 public:
-  struct Config {
-  };
+  struct Config {};
   using Parameters = Table<Config>;
   explicit ProductIDGetter(Parameters const&);
 

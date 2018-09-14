@@ -36,8 +36,7 @@ namespace arttest {
 
   class ToyProductFilter : public EDFilter {
   public:
-    struct Config {
-    };
+    struct Config {};
     using Parameters = Table<Config>;
     explicit ToyProductFilter(Parameters const& pset);
 

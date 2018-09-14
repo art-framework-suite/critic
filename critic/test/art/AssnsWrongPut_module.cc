@@ -15,8 +15,7 @@ namespace art::test {
 
 class art::test::AssnsWrongPut : public EDProducer {
 public:
-  struct Config {
-  };
+  struct Config {};
   using Parameters = EDProducer::Table<Config>;
   explicit AssnsWrongPut(Parameters const&);
 

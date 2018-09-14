@@ -50,9 +50,7 @@ public:
       }
       RunNumber_t currentRun = -1;
       SubRunNumber_t currentSubRun = -1;
-      for (auto const& token : tokens) {
-        int newRun, newSubRun, newEvent;
-        std::tie(newRun, newSubRun, newEvent) = token;
+      for (auto const [newRun, newSubRun, newEvent] : tokens) {
         if (newRun != -1) {
           ++numRunsExpected_;
           currentRun = newRun;
