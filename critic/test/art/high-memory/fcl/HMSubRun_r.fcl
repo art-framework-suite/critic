@@ -1,25 +1,25 @@
+#include "HMParameters.fcl"
+
 process_name: HMR
 
 source: {
   module_type: RootInput
   fileNames: [ "../HMSubRun_w.d/out.root" ]
   delayedReadSubRunProducts: true
-  saveMemoryObjectThreshold: 26214400 // 25 MiB
+  saveMemoryObjectThreshold: @local::hm.twenty_five_MiB
 }
 
 outputs: {
   o1: {
     module_type: RootOutput
     fileName: "out.root"
-    compressionLevel: 0
-    saveMemoryObjectThreshold: 26214400 // 25 MiB
+    compressionLevel: @local::hm.zero
+    saveMemoryObjectThreshold: @local::hm.twenty_five_MiB
     outputCommands: [ "keep *", "drop *_srprod_*_HMSR" ]
   }
 }
 
-services: {
-  MemoryTracker: { }
-}
+services.MemoryTracker: { }
 
 physics: {
   producers: {
