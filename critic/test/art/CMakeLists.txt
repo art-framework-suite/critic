@@ -90,50 +90,6 @@ simple_plugin(U_S                         "module" NO_INSTALL ALLOW_UNDERSCORES)
 simple_plugin(Wanted                      "service" NO_INSTALL)
 simple_plugin(addInts                     "tool"   NO_INSTALL)
 
-###############################################################
-# The BasicOutputOptions tests should probably go back into art
-
-####################################
-# config_ref_test
-#
-# Make reference comparisons easier.
-
-macro(config_ref_test TNAME)
-  cet_test(${TNAME}_r HANDBUILT
-    TEST_EXEC diff
-    TEST_ARGS -u ${TNAME}-ref.txt
-    ../${TNAME}_w.d/config.out
-    DATAFILES ${TNAME}-ref.txt
-    TEST_PROPERTIES DEPENDS ${TNAME}_w)
-endmacro()
-
-# Should pass and provide config output file for comparison in
-# BasicOutputOptions_01_r against reference.  Use ART_DEBUG_CONFIG
-# environment variable instead of --debug-config to test its
-# functionality.
-cet_test(BasicOutputOptions_01_w HANDBUILT
-  TEST_EXEC art
-  TEST_ARGS --TFileName hist.root
-  -o out.root
-  --tmpdir /tmp
-  -c /dev/null
-  TEST_PROPERTIES ENVIRONMENT ART_DEBUG_CONFIG=config.out
-  PASS_REGULAR_EXPRESSION "\\*\\* ART_DEBUG_CONFIG is defined.*\\*\\* Config output to file")
-config_ref_test(BasicOutputOptions_01)
-
-# Specified stream name with empty outputs.
-cet_test(BasicOutputOptions_12_w HANDBUILT
-  TEST_EXEC art
-  TEST_ARGS
-  -o myOut:out.root
-  --tmpDir /tmp
-  -c /dev/null
-  --debug-config=config.out
-  TEST_PROPERTIES
-  PASS_REGULAR_EXPRESSION "Config output to file")
-config_ref_test(BasicOutputOptions_12)
-########################################################################
-
 ########################################################################
 # Old tests converted from CMS FWCore/Framework/test
 set(test_list
@@ -460,18 +416,6 @@ cet_test(TestEmptyEventTimestampNoRSRTS_t HANDBUILT
   fcl/TestEmptyEventTimestamp_t.fcl
   fcl/TestEmptyEventTimestampNoRSRTS_t.fcl)
 
-cet_test(NonexistentPathCheck_01_t HANDBUILT
-  TEST_EXEC art
-  TEST_ARGS --rethrow-all -c NonexistentPathCheck_01.fcl
-  DATAFILES fcl/NonexistentPathCheck_01.fcl
-  TEST_PROPERTIES PASS_REGULAR_EXPRESSION "\n  ERROR: Unknown path x1 specified by user in trigger_paths.\n")
-
-cet_test(NonexistentPathCheck_02_t HANDBUILT
-  TEST_EXEC art
-  TEST_ARGS --rethrow-all -c NonexistentPathCheck_02.fcl
-  DATAFILES fcl/NonexistentPathCheck_02.fcl
-  TEST_PROPERTIES PASS_REGULAR_EXPRESSION "\n  ERROR: Unknown path x1 specified by user in end_paths.\n  ERROR: Unknown path d6 specified by user in end_paths.\n")
-
 simple_plugin(SimpleServiceTest "service" NO_INSTALL)
 simple_plugin(SimpleServiceTestAnalyzer "module" NO_INSTALL critic_test_art_SimpleServiceTest_service)
 
@@ -479,13 +423,6 @@ cet_test(SimpleServiceTest_t HANDBUILT
   TEST_EXEC art
   TEST_ARGS --rethrow-all -c SimpleServiceTest_t.fcl
   DATAFILES fcl/SimpleServiceTest_t.fcl)
-
-cet_test(PruneConfig_t_01 HANDBUILT
-  TEST_EXEC art
-  TEST_ARGS -c prune_config_t_01.fcl --prune-config
-  DATAFILES fcl/prune_config_t_01.fcl
-  TEST_PROPERTIES WILL_FAIL TRUE)
-
 
 add_subdirectory(assns-iter)
 add_subdirectory(assns-reader)
