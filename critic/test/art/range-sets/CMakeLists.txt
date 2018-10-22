@@ -235,7 +235,7 @@ cet_test(RangeSetAggregation_p3b_w HANDBUILT
   DATAFILES fcl/rangeSetAggregation_p3b_w.fcl)
 
 SET_TESTS_PROPERTIES(RangeSetAggregation_p3b_w PROPERTIES
-  DEPENDS "RangeSetAggregation_p2a_w1;RangeSetAggregation_p2a_w2")
+  DEPENDS "RangeSetAggregation_p2b_w1;RangeSetAggregation_p2b_w2")
 
 # ====================================================================
 # The next two tests demonstrate that an attempt to read the
