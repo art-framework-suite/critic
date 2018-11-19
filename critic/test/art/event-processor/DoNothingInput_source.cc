@@ -33,7 +33,7 @@ namespace art::test {
                    SourceHelper const&)
     {}
 
-    ~DoNothingInput() { ServiceHandle<Wanted> shouldNotThrow[[maybe_unused]]; }
+    ~DoNothingInput() { ServiceHandle<Wanted> shouldNotThrow [[maybe_unused]]; }
 
     void
     readFile(std::string const&, art::FileBlock*&)

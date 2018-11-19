@@ -81,7 +81,7 @@ arttest::RPTestReader::writeResults(art::Results& res)
 }
 
 void
-arttest::RPTestReader::event(art::Event const& e[[maybe_unused]])
+arttest::RPTestReader::event(art::Event const& e [[maybe_unused]])
 {
   // NOP.
 }
