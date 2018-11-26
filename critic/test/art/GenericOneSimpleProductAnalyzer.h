@@ -45,15 +45,6 @@ namespace arttest {
       }
     };
 
-    template <typename V, typename P>
-    struct DereferenceHandle {
-      V const&
-      operator()(art::Handle<P> const& h)
-      {
-        return *h;
-      }
-    };
-
   } // namespace detail
 } // namespace arttest
 
@@ -114,17 +105,16 @@ public:
   }
 
   void
-  verify_value(art::BranchType const bt, art::Handle<P> const& h) const
+  verify_value(art::BranchType const bt [[maybe_unused]],
+               art::Handle<P> const& h) const
   {
-    std::conditional_t<detail::has_value_member<V, P>::value,
-                       detail::GetValue<V, P>,
-                       detail::DereferenceHandle<V, P>>
-      get_value;
-    if (get_value(h) != value_) {
+    if constexpr (detail::has_value_member<V, P>::value) {
+      if (h->value == value_) {
+        return;
+      }
       throw cet::exception("ValueMismatch")
         << "The value for \"" << input_label_ << "\", branchType \"" << bt
-        << "\" is " << get_value(h) << " but was supposed to be " << value_
-        << '\n';
+        << "\" is " << h->value << " but was supposed to be " << value_ << '\n';
     }
   }
 

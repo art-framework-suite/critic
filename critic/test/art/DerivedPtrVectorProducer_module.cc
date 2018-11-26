@@ -57,8 +57,7 @@ DerivedPtrVectorProducer::produce(art::Event& e)
 
   auto prod = std::make_unique<derived_t>();
   for (std::size_t k = 0; k != 16; ++k) {
-    art::Ptr<SimpleDerived> p{h, k};
-    prod->push_back(p);
+    prod->emplace_back(h, k);
   }
   auto base_prod = std::make_unique<base_t>(*prod);
   e.put(move(prod));
