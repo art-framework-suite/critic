@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import os
 import ROOT
 
@@ -44,7 +46,7 @@ iEvent = 1
 ev.toBegin()
 while ( not ev.atEnd()) :
   aux = ev.eventAuxiliary()
-  print 'Event number = {}"'.format(aux.id().event())
+  print('Event number = {}"'.format(aux.id().event()))
   if iEvent == 6 :
     iEvent = 1; # Events numbers go from 1 to 5 and repeat 1 to 5
   assert(iEvent == aux.id().event()), "Unexpected event number in EventAuxiliary"
@@ -69,7 +71,7 @@ while ( not ev.atEnd()) :
   #test4 = triggerResultsHandle.parameterSetID().to_string();
 
   triggerResults = ev.getValidHandle(ROOT.art.TriggerResults)(inputTagTriggerResults);
-  print triggerResults.parameterSetID().to_string()
+  print(triggerResults.parameterSetID().to_string())
 
   test3 = triggerResults.parameterSetID().to_string();
   assert(test1 == test3);
@@ -82,7 +84,7 @@ while ( not ev.atEnd()) :
 
   eventInt = aux.id().event();
   value = ptrTestProduct.ptrInt1.get()[0]
-  print value
+  print(value)
   assert(value == 111 + eventInt);
 
   assert(ptrTestProduct.ptrInt1.isAvailable());
@@ -91,7 +93,7 @@ while ( not ev.atEnd()) :
 
   assert(ptrTestProduct.ptrSimple1.get().key == 111);
   assert(ptrTestProduct.ptrSimple2.get().key == 122);
-  print ptrTestProduct.ptrSimple2.get().key
+  print(ptrTestProduct.ptrSimple2.get().key)
   assert(ptrTestProduct.ptrSimple3.get().key == 133);
   assert(ptrTestProduct.ptrSimple3.get().dummy() == 16.25);
 
