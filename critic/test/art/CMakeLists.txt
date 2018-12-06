@@ -504,7 +504,7 @@ cet_test(rename-histfile_t_check HANDBUILT
   TEST_ARGS -l ../rename-histfile_t_w.d/test_1_0_2_8.root
   TEST_PROPERTIES DEPENDS rename-histfile_t_w)
 
-simple_plugin(TestMetadata "plugin" NO_INSTALL art_Framework_Core fhiclcpp ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
+simple_plugin(TestMetadata "plugin" NO_INSTALL art_Framework_Core art_Utilities fhiclcpp ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 cet_test(TestMetadata_plugin_t HANDBUILT
   TEST_EXEC art
   TEST_ARGS --rethrow-all -c TestMetadata_Plugin_t.fcl
