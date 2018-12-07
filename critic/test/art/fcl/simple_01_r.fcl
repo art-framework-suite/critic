@@ -1,5 +1,3 @@
-#include "messageDefaults.fcl"
-
 services:
 {
   # Always-present services; configuration optional.
@@ -19,8 +17,6 @@ services:
   }
 }
 
-services.message: @local::messageDefaults
-
 physics:
 {
   analyzers:
@@ -34,12 +30,6 @@ physics:
   }
 
    e1: [ a1 ]
-}
-
-source:
-{
-  module_type: RootInput
-  fileNames: [ "out.root" ]
 }
 
 process_name: DEVELr

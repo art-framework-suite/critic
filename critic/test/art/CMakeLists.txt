@@ -634,21 +634,23 @@ cet_test(testOutputRanges_dropAllEventsSubruns HANDBUILT
 cet_test(test_runSubRunNoPut_t.sh PREBUILT
   DATAFILES fcl/runSubRunNoPut_t.fcl)
 
-add_executable(test_simple_01_verify test_simple_01_verify.cxx)
-target_link_libraries(test_simple_01_verify ${ROOT_CORE} ${ROOT_RIO} ${ROOT_TREE} ${ROOT_GRAF} ${ROOT_HIST})
+cet_test(simple_01_t HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --config simple_01_t.fcl
+  DATAFILES fcl/simple_01_t.fcl)
 
-#test_simple_01_verify.cxx
-cet_test(test_simple_01_t.sh PREBUILT
-  DATAFILES
-  fcl/test_simple_01.fcl
-  fcl/test_simple_01r.fcl
-  fcl/messageDefaults.fcl)
+cet_test(simple_01_r HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --config simple_01_r.fcl -s ../simple_01_t.d/out.root
+  DATAFILES fcl/simple_01_r.fcl
+  REQUIRED_FILES ../simple_01_t.d/out.root
+  TEST_PROPERTIES DEPENDS simple_01_t)
 
 cet_test(test_view_01_t.sh PREBUILT
   DATAFILES
   fcl/test_view_01a.fcl
   fcl/test_view_01b.fcl
-  fcl/test_simple_01r.fcl
+  fcl/simple_01_r.fcl
   fcl/messageDefaults.fcl)
 
 cet_test(IntProducer_t HANDBUILT
