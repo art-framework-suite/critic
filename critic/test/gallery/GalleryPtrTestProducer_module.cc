@@ -46,7 +46,8 @@ namespace critictest {
 
   GalleryPtrTestProducer::GalleryPtrTestProducer(
     fhicl::ParameterSet const& pset)
-    : produceAssnStringInt_(pset.get<bool>("produceAssnStringInt", false))
+    : EDProducer{pset}
+    , produceAssnStringInt_(pset.get<bool>("produceAssnStringInt", false))
     , produceAssnIntString_(pset.get<bool>("produceAssnIntString", false))
     , int1Token_{consumes<std::vector<int>>("m1::PROD1")}
     , int2Token_{consumes<std::vector<int>>("m1::PROD2")}

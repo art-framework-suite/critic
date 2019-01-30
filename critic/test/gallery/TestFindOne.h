@@ -1,3 +1,6 @@
+#ifndef critic_test_gallery_TestFindOne_h
+#define critic_test_gallery_TestFindOne_h
+
 // Started as a copy of AssnsAnalyzer_module.cc. Modified
 // to work with gallery and critic. The checks that are
 // made remain about the same. The main difference being
@@ -358,3 +361,9 @@ critictest::TestFindOne::testMany(gallery::Event const& e) const
   BOOST_CHECK_EQUAL(fmvBV.at(2).size(), 1ul);
   BOOST_CHECK_NO_THROW(check_get(fmB, fmBV));
 }
+
+#endif /* critic_test_gallery_TestFindOne_h */
+
+// Local Variables:
+// mode: c++
+// End:
