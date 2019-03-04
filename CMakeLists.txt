@@ -1,5 +1,8 @@
-# ======================================================================
-#  critic main build file
+#
+#  critic/CMakeLists.txt
+#  -------------------------------------------------------------------
+#
+#  CMake build file for library critic 
 #
 #  cd .../path/to/build/directory
 #  source .../path/to/critic/ups/setup_for_development
@@ -12,11 +15,10 @@
 #  make package (builds distribution tarfile)
 # ======================================================================
 
-
-# use cmake 3.11 or later
-cmake_minimum_required (VERSION 3.11)
+cmake_minimum_required(VERSION 3.11) # use cmake 3.11 or later
 
 project(critic)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # cetbuildtools contains our cmake modules
 find_package(cetbuildtools REQUIRED)
@@ -30,7 +32,8 @@ cet_set_compiler_flags(DIAGS VIGILANT
   WERROR
   NO_UNDEFINED
   EXTRA_FLAGS -pedantic
-  EXTRA_CXX_FLAGS -Wnon-virtual-dtor -Wdelete-non-virtual-dtor)
+  EXTRA_CXX_FLAGS -Wnon-virtual-dtor -Wdelete-non-virtual-dtor
+  )
 
 cet_have_qual(sse2 SSE2)
 if (SSE2)
@@ -75,23 +78,45 @@ find_ups_product(canvas)
 find_ups_product(messagefacility)
 find_ups_product(fhiclcpp)
 find_ups_product(cetlib v2_01_00)
+find_ups_product(python v3_7_2)
 find_ups_product(cetlib_except v1_01_00)
 find_ups_product(cetbuildtools)
 find_ups_product(clhep)
 find_ups_product(canvas_root_io)
 find_ups_product(hep_concurrency)
 find_ups_product(range)
+find_ups_product(sqlite)
 find_ups_root()
 find_ups_boost()
+
+# ----------------------------------------------------------------------
+# Python stuff
+
+#cet_find_library(PYTHON NAMES python2.7 PATHS ENV PYTHON_LIB NO_DEFAULT_PATH)
+cet_find_library(PYTHON NAMES python3.7 PATHS ENV PYTHON_LIB NO_DEFAULT_PATH)
+
+# ----------------------------------------------------------------------
+# SQLite
+cet_find_library(SQLITE3 NAMES sqlite3_ups PATHS ENV SQLITE_LIB NO_DEFAULT_PATH)
+
+
 
 # macros for art_dictionary and simple_plugin
 include(ArtDictionary)
 include(BuildPlugins)
 
-add_subdirectory(critic)
 
-# ups - table and config files
-add_subdirectory(ups)
+# ----------------------------------------------------------------------
+# Describe source tree layout:
 
-# packaging utility
+add_subdirectory(critic) # source
+add_subdirectory(ups) # ups - table and config files
+
+# ----------------------------------------------------------------------
+# Documentation generation:
+#find_package(Sphinx REQUIRED)
+add_subdirectory(docs)
+
+# ----------------------------------------------------------------------
+# Packaging utility
 include(UseCPack)
