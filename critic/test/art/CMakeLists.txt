@@ -1,4 +1,6 @@
 find_package(Threads REQUIRED)
+find_package(CLHEP QUIET REQUIRED COMPONENTS Random)
+find_package(ROOT QUIET REQUIRED COMPONENTS Core RIO Tree)
 
 simple_plugin(AssnsAnalyzer               "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(AssnsProducer               "module" NO_INSTALL)
@@ -26,7 +28,7 @@ simple_plugin(ProductIDGetterAnalyzer     "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(PtrmvAnalyzer               "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(PtrmvProducer               "module" NO_INSTALL)
 simple_plugin(PtrVectorSimpleAnalyzer     "module" NO_INSTALL)
-simple_plugin(RandomNumberSaveTest        "module" USE_BOOST_UNIT NO_INSTALL ${CLHEP})
+simple_plugin(RandomNumberSaveTest        "module" USE_BOOST_UNIT NO_INSTALL CLHEP::Random)
 simple_plugin(RunSubRunProductProducerNoPut "module" NO_INSTALL)
 simple_plugin(SAMMetadataTest             "module"
   NO_INSTALL
@@ -43,7 +45,7 @@ simple_plugin(ValidHandleTester           "module" NO_INSTALL)
 simple_plugin(AddIntsProducer             "module" NO_INSTALL)
 simple_plugin(AssnsMultipleProduces       "module" NO_INSTALL)
 simple_plugin(AssnsWrongPut               "module" NO_INSTALL)
-simple_plugin(ConcurrentEngineRetrieval   "module" NO_INSTALL USE_BOOST_UNIT ${CLHEP})
+simple_plugin(ConcurrentEngineRetrieval   "module" NO_INSTALL USE_BOOST_UNIT CLHEP::Random)
 simple_plugin(DeferredIsReadyWithAssnsAnalyzer "module" NO_INSTALL)
 simple_plugin(DeferredIsReadyWithAssnsProducer "module" NO_INSTALL)
 simple_plugin(EventIDFilterChecker        "module" NO_INSTALL)
@@ -601,7 +603,7 @@ cet_test(SelectEventsFromPreviousProcess_EventList_t HANDBUILT
   TEST_PROPERTIES DEPENDS SelectEventsFromPreviousProcess_t)
 
 add_executable(test_dropAllEventsSubruns_verify test_dropAllEventsSubruns_verify.cxx)
-target_link_libraries(test_dropAllEventsSubruns_verify ${ROOT_CORE} ${ROOT_RIO} ${ROOT_TREE})
+target_link_libraries(test_dropAllEventsSubruns_verify ${ROOT_Core_LIBRARY} ${ROOT_RIO_LIBRARY} ${ROOT_Tree_LIBRARY})
 
 #test_dropAllEventsSubruns_verify.cxx
 cet_test(test_dropAllEventsSubruns_t.sh PREBUILT

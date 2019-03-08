@@ -16,15 +16,13 @@
 # use cmake 3.11 or later
 cmake_minimum_required (VERSION 3.11)
 
-project(critic)
+project(critic VERSION 1.03.38 LANGUAGES CXX)
 
-# cetbuildtools contains our cmake modules
-find_package(cetbuildtools REQUIRED)
+# cetmodules contains our cmake modules
+find_package(cetmodules REQUIRED)
 
 include(CetCMakeEnv)
 cet_cmake_env()
-
-list(APPEND CMAKE_MODULE_PATH $ENV{ART_DIR}/Modules $ENV{CANVAS_ROOT_IO_DIR}/Modules)
 
 cet_set_compiler_flags(DIAGS VIGILANT
   WERROR
@@ -32,57 +30,21 @@ cet_set_compiler_flags(DIAGS VIGILANT
   EXTRA_FLAGS -pedantic
   EXTRA_CXX_FLAGS -Wnon-virtual-dtor -Wdelete-non-virtual-dtor)
 
-cet_have_qual(sse2 SSE2)
-if (SSE2)
-  cet_add_compiler_flags(CXX -msse2 -ftree-vectorizer-verbose=2)
-endif()
-
-if($ENV{CET_SANITIZE_ADDRESS})
-  if(NOT "$ENV{GCC_FQ_DIR}" STREQUAL "")
-    find_file(ASAN_LIB libasan.so NO_DEFAULT_PATH PATHS $ENV{GCC_FQ_DIR}/lib64)
-  endif()
-endif()
-
-if($ENV{CET_SANITIZE_THREAD})
-  if(NOT "$ENV{GCC_FQ_DIR}" STREQUAL "")
-    find_file(TSAN_LIB libtsan.so NO_DEFAULT_PATH PATHS $ENV{GCC_FQ_DIR}/lib64)
-  endif()
-endif()
-
-if ($ENV{CET_SANITIZE_ADDRESS})
-cet_add_compiler_flags(CXX -fsanitize=address)
-cet_add_compiler_flags(C -fsanitize=address)
-set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -fsanitize=address")
-set(CMAKE_MODULE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG} -fsanitize=address")
-set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} -fsanitize=address")
-endif()
-
-if ($ENV{CET_SANITIZE_THREAD})
-cet_add_compiler_flags(CXX -fsanitize=thread -D__SANITIZE_THREAD__)
-cet_add_compiler_flags(C -fsanitize=thread -D__SANITIZE_THREAD__)
-set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -fsanitize=thread -D__SANITIZE_THREAD__")
-set(CMAKE_MODULE_LINKER_FLAGS_DEBUG "${CMAKE_MODULE_LINKER_FLAGS_DEBUG} -fsanitize=thread -D__SANITIZE_THREAD__")
-set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} -fsanitize=thread -D__SANITIZE_THREAD__")
-endif()
-
 cet_report_compiler_flags()
 
 # these are minimum required versions, not the actual product versions
-find_ups_product(art)
-find_ups_product(art_root_io)
-find_ups_product(gallery)
-find_ups_product(canvas)
-find_ups_product(messagefacility)
-find_ups_product(fhiclcpp)
-find_ups_product(cetlib v2_01_00)
-find_ups_product(cetlib_except v1_01_00)
-find_ups_product(cetbuildtools)
-find_ups_product(clhep)
-find_ups_product(canvas_root_io)
-find_ups_product(hep_concurrency)
-find_ups_product(range)
-find_ups_root()
-find_ups_boost()
+find_package(hep_concurrency REQUIRED)
+find_package(cetlib_except REQUIRED)
+find_package(cetlib REQUIRED)
+find_package(fhiclcpp REQUIRED)
+find_package(canvas REQUIRED)
+find_package(art REQUIRED)
+find_package(art_root_io REQUIRED)
+find_package(gallery REQUIRED)
+find_package(canvas_root_io REQUIRED)
+find_package(Boost REQUIRED COMPONENTS)
+find_package(ROOT REQUIRED COMPONENTS)
+find_package(CLHEP REQUIRED COMPONENTS)
 
 # macros for art_dictionary and simple_plugin
 include(ArtDictionary)
@@ -91,7 +53,4 @@ include(BuildPlugins)
 add_subdirectory(critic)
 
 # ups - table and config files
-add_subdirectory(ups)
-
-# packaging utility
-include(UseCPack)
+add_subdirectory(cmakeConfig)

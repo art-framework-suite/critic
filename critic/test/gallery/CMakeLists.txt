@@ -1,11 +1,3 @@
-# Set the test environment so that pyROOT and interactive ROOT can find all necessary headers
-#
-if (DEFINED ENV{MRB_BUILDDIR})
-  # This first clause should be redundant when cetbuildtools goes to v6.
-  cet_test_env(ROOT_INCLUDE_PATH=$ENV{MRB_BUILDDIR}/canvas:$ENV{ROOT_INCLUDE_PATH})
-else()
-  cet_test_env(ROOT_INCLUDE_PATH=${PROJECT_SOURCE_DIR}:$ENV{ROOT_INCLUDE_PATH})
-endif()
 
 set(gallery_tests_libraries
   critic_test_CriticTestObjects
@@ -14,8 +6,8 @@ set(gallery_tests_libraries
   fhiclcpp
   cetlib
   cetlib_except
-  ${ROOT_RIO}
-  ${ROOT_CORE}
+  ${ROOT_RIO_LIBRARY}
+  ${ROOT_Core_LIBRARY}
   )
 
 ########################################################################
@@ -143,8 +135,12 @@ cet_test(gallery_makeInput8 HANDBUILT
 
 # Use gallery in compiled C++ to read output from gallery_makeInput5,
 # gallery_makeInput7 and gallery_makeInput8.
-cet_test(gallery_t
-  LIBRARIES ${gallery_tests_libraries}
+cet_make_exec(gallery_t
+  SOURCE gallery_t.cc
+  LIBRARIES ${gallery_tests_libraries})
+cet_test(gallery_t HANDBUILT
+  TEST_EXEC cet-bootstrap
+  TEST_ARGS gallery_t
   REQUIRED_FILES ../gallery_makeInput5.d/test_gallery5.root
   ../gallery_makeInput7.d/test_gallery7.root
   ../gallery_makeInput8.d/test_gallery8.root
@@ -155,27 +151,34 @@ set_property(TEST gallery_t PROPERTY
   DEPENDS "gallery_makeInput5;gallery_makeInput7;gallery_makeInput8")
 
 # Use gallery to read a single file that is empty.
-cet_test(gallery_empty_file_t
-  LIBRARIES ${gallery_tests_libraries}
+cet_make_exec(gallery_empty_file_t
+  SOURCE gallery_empty_file_t.cc
+  LIBRARIES ${gallery_tests_libraries})
+cet_test(gallery_empty_file_t HANDBUILT
+  TEST_EXEC cet-bootstrap
+  TEST_ARGS gallery_empty_file_t
   REQUIRED_FILES ../gallery_makeEmptyFile.d/test_gallery_empty.root
   TEST_PROPERTIES DEPENDS gallery_makeEmptyFile
   TEST_ARGS ../gallery_makeEmptyFile.d/test_gallery_empty.root
   )
 
 # Test gallery random access i/o.
-cet_test(gallery_random_io_t
-  LIBRARIES ${gallery_tests_libraries}
+cet_make_exec(gallery_random_io_t
+  SOURCE gallery_random_io_t.cc
+  LIBRARIES ${gallery_tests_libraries})
+cet_test(gallery_random_io_t HANDBUILT
+  TEST_EXEC cet-bootstrap
+  TEST_ARGS gallery_random_io_t
   REQUIRED_FILES ../gallery_makeInput3.d/test_gallery3.root
   TEST_PROPERTIES DEPENDS gallery_makeInput3
   TEST_ARGS ../gallery_makeInput3.d/test_gallery3.root
   )
 
-
 # Use gallery in interpreted C++ to read output from gallery_makeInput5
 # and gallery_makeInput7.
 cet_test(gallery_t.C HANDBUILT
-  TEST_EXEC root
-  TEST_ARGS -b -q -l gallery_t.C
+  TEST_EXEC cet-bootstrap
+  TEST_ARGS root -b -q -l gallery_t.C
   DATAFILES gallery_t.C
   REQUIRED_FILES ../gallery_makeInput5.d/test_gallery5.root
   ../gallery_makeInput7.d/test_gallery7.root
@@ -223,8 +226,8 @@ endif()
 # Use gallery in python to read output from gallery_makeInput5 and
 # gallery_makeInput7.
 cet_test(gallery_t.py HANDBUILT
-  TEST_EXEC python
-  TEST_ARGS gallery_t.py
+  TEST_EXEC cet-bootstrap
+  TEST_ARGS python gallery_t.py
   DATAFILES gallery_t.py
   REQUIRED_FILES ../gallery_makeInput5.d/test_gallery5.root
   ../gallery_makeInput7.d/test_gallery7.root
@@ -254,8 +257,13 @@ cet_test(CriticAssns_w HANDBUILT
 )
 
 foreach (num 1 2 3)
-  cet_test(findOne_${num}_t USE_BOOST_UNIT
+  cet_make_exec(findOne_${num}_t USE_BOOST_UNIT
+    SOURCE findOne_${num}_t.cc
     LIBRARIES ${gallery_tests_libraries}
+    )
+  cet_test(findOne_${num}_t HANDBUILT
+    TEST_EXEC cet-bootstrap
+    TEST_ARGS findOne_${num}_t
     TEST_PROPERTIES DEPENDS CriticAssns_w
     REQUIRED_FILES ../CriticAssns_w.d/out1.root
     )
