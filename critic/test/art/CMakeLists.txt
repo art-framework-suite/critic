@@ -6,6 +6,7 @@ simple_plugin(BareStringAnalyzer          "module" NO_INSTALL)
 simple_plugin(BareStringProducer          "module" NO_INSTALL)
 simple_plugin(CompressedIntProducer       "module" NO_INSTALL)
 simple_plugin(CompressedIntTestAnalyzer   "module" NO_INSTALL)
+simple_plugin(DefaultEngineTester         "module" NO_INSTALL)
 simple_plugin(DerivedPtrVectorAnalyzer    "module" NO_INSTALL)
 simple_plugin(DerivedPtrVectorProducer    "module" NO_INSTALL)
 simple_plugin(DifferentHistoriesAnalyzer  "module" USE_BOOST_UNIT NO_INSTALL)
@@ -448,6 +449,11 @@ cet_test(DataFlowDumper_t HANDBUILT
   TEST_ARGS -c data_flow_dumper_t.fcl -n 1
   DATAFILES fcl/data_flow_dumper_t.fcl
   TEST_PROPERTIES DEPENDS test_tiered_input_05d_t)
+
+cet_test(DefaultEngineTester_t HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c default_engine_t.fcl -n 1
+  DATAFILES fcl/default_engine_t.fcl)
 
 cet_test(BareString_w HANDBUILT
   TEST_EXEC art
