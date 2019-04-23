@@ -381,13 +381,18 @@ cet_test(UnusedModule_t HANDBUILT
 SET_TESTS_PROPERTIES(UnusedModule_t PROPERTIES
   FAIL_REGULAR_EXPRESSION "not assigned to any path")
 
-cet_test(MissingModuleType_t HANDBUILT
+cet_test(MissingModuleType_t1 HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c MissingModuleType_t.fcl
+  TEST_ARGS --rethrow-all -c MissingModuleType_t1.fcl
   TEST_PROPERTIES
   PASS_REGULAR_EXPRESSION
   "ERROR: Configuration of module with label BadModuleConfig encountered the following error:\n"
-  DATAFILES fcl/MissingModuleType_t.fcl)
+  DATAFILES fcl/MissingModuleType_t1.fcl)
+
+cet_test(MissingModuleType_t2 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c MissingModuleType_t2.fcl
+  DATAFILES fcl/MissingModuleType_t2.fcl)
 
 set_source_files_properties(TestEmptyEventTimestampNoRSRTS_plugin.cc
   PROPERTIES COMPILE_DEFINITIONS TEST_USE_LAST_EVENT_TIMESTAMP)
