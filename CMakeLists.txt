@@ -81,7 +81,7 @@ find_ups_product(canvas_root_io)
 find_ups_product(hep_concurrency)
 find_ups_product(range)
 find_ups_root()
-find_ups_boost()
+find_ups_boost(BOOST_TARGETS)
 
 # macros for art_dictionary and simple_plugin
 include(ArtDictionary)
