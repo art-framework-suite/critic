@@ -1,27 +1,18 @@
-process_name: PIDGNoPut02
+physics: {
+  producers: {
+    p1: {
+      module_type: ProductIDGetterNoPut
+      errorOnFailureToPut: false
+    }
+    p2: {
+      module_type: ProductIDGetterNoPut
+    }
+  }
 
-services.scheduler.errorOnFailureToPut: false
-physics:
-{
-   producers:
-   {
-      p1:
-      {
-         module_type: ProductIDGetterNoPut
-         errorOnFailureToPut: true
-      }
-      p2:
-      {
-         module_type: ProductIDGetterNoPut
-         errorOnFailureToPut: true
-      }
-   }
-
-   t1: [p1,p2]
+  t1: [p1, p2]
 }
 
-source:
-{
+source: {
    module_type: EmptyEvent
    maxEvents: 1
 }
