@@ -19,7 +19,7 @@ cmake_minimum_required (VERSION 3.11)
 project(critic)
 
 # cetbuildtools contains our cmake modules
-find_package(cetbuildtools REQUIRED)
+find_package(cetbuildtools 7.13.00 REQUIRED)
 
 include(CetCMakeEnv)
 cet_cmake_env()
@@ -76,7 +76,6 @@ find_ups_product(messagefacility)
 find_ups_product(fhiclcpp)
 find_ups_product(cetlib v2_01_00)
 find_ups_product(cetlib_except v1_01_00)
-find_ups_product(cetbuildtools)
 find_ups_product(clhep)
 find_ups_product(canvas_root_io)
 find_ups_product(hep_concurrency)
