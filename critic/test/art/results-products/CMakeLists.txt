@@ -5,7 +5,7 @@ simple_plugin(RPTest "plugin" NO_INSTALL
   cetlib_except
   art_Persistency_Provenance
   fhiclcpp
-  ${Boost_FILESYSTEM_LIBRARY})
+  Boost::filesystem)
 
 simple_plugin(RPTestReader "plugin" NO_INSTALL
   art_Framework_Core
@@ -14,7 +14,7 @@ simple_plugin(RPTestReader "plugin" NO_INSTALL
   cetlib_except
   art_Persistency_Provenance
   fhiclcpp
-  ${Boost_FILESYSTEM_LIBRARY})
+  Boost::filesystem)
 
 cet_test(RPTest_conf_err_01 HANDBUILT
   TEST_EXEC art

@@ -19,7 +19,7 @@ cmake_minimum_required (VERSION 3.11...3.14 FATAL_ERROR)
 project(critic VERSION 1.03.38 LANGUAGES CXX)
 
 # cetmodules contains our cmake modules
-find_package(cetmodules REQUIRED)
+find_package(cetmodules 1.01.01 REQUIRED)
 
 include(CetCMakeEnv)
 cet_cmake_env()
