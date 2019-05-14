@@ -14,3 +14,7 @@
 * `Depends on <depends.html>`_
 
 The critic package is a UPS umbrella product that sets up compatible versions of art, art_root_io and gallery. No additional features are provided relative to what is individually available from those packages. Although not visible to the user, critic also serves as the primary integration-testing suite for art, art_root_io, and gallery.
+
+
+.. This is a comment
+
