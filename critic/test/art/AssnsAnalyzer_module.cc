@@ -29,12 +29,12 @@
 #include <iostream>
 #include <type_traits>
 
-typedef size_t A_t;
-typedef std::string B_t;
-typedef art::Assns<A_t, B_t, arttest::AssnTestData> AssnsAB_t;
-typedef art::Assns<B_t, size_t, arttest::AssnTestData> AssnsBA_t;
-typedef art::Assns<A_t, B_t> AssnsABV_t;
-typedef art::Assns<B_t, size_t> AssnsBAV_t;
+using A_t = size_t;
+using B_t = std::string;
+using AssnsAB_t = art::Assns<A_t, B_t, arttest::AssnTestData>;
+using AssnsBA_t = art::Assns<B_t, size_t, arttest::AssnTestData>;
+using AssnsABV_t = art::Assns<A_t, B_t>;
+using AssnsBAV_t = art::Assns<B_t, size_t>;
 
 namespace arttest {
   class AssnsAnalyzer;
@@ -85,7 +85,7 @@ namespace {
 
   // maybe_ref<T>.
   template <typename T, template <typename> class WRAP>
-  std::enable_if_t<std::is_same<WRAP<T>, cet::maybe_ref<T>>::value, T const&>
+  std::enable_if_t<std::is_same_v<WRAP<T>, cet::maybe_ref<T>>, T const&>
   dereference(WRAP<T> const& wrapper)
   {
     return wrapper.ref();
@@ -127,28 +127,28 @@ namespace {
 
   // check_get specialized for FindOne
   template <typename T, typename D, template <typename, typename> class FO>
-  std::enable_if_t<std::is_same<FO<T, void>, art::FindOne<T, void>>::value>
+  std::enable_if_t<std::is_same_v<FO<T, void>, art::FindOne<T, void>>>
   check_get(FO<T, D> const& fA, FO<T, void> const& fAV)
   {
-    typedef cet::maybe_ref<typename FO<T, void>::assoc_t const> item_t;
-    typedef cet::maybe_ref<typename FO<T, D>::data_t const> data_t;
+    using item_t = cet::maybe_ref<typename FO<T, void>::assoc_t const>;
+    using data_t = cet::maybe_ref<typename FO<T, D>::data_t const>;
     check_get_one_impl<item_t, data_t>(fA, fAV);
   }
 
   // check_get specialized for FindOneP
   template <typename T, typename D, template <typename, typename> class FO>
-  std::enable_if_t<std::is_same<FO<T, void>, art::FindOneP<T, void>>::value>
+  std::enable_if_t<std::is_same_v<FO<T, void>, art::FindOneP<T, void>>>
   check_get(FO<T, D> const& fA, FO<T, void> const& fAV)
   {
-    typedef art::Ptr<typename FO<T, void>::assoc_t> item_t;
-    typedef cet::maybe_ref<typename FO<T, D>::data_t const> data_t;
+    using item_t = art::Ptr<typename FO<T, void>::assoc_t>;
+    using data_t = cet::maybe_ref<typename FO<T, D>::data_t const>;
     check_get_one_impl<item_t, data_t>(fA, fAV);
   }
 
   // check_get specialized for FindMany and FindManyP
   template <typename T, typename D, template <typename, typename> class FM>
-  std::enable_if_t<std::is_same<FM<T, void>, art::FindMany<T, void>>::value ||
-                   std::is_same<FM<T, void>, art::FindManyP<T, void>>::value>
+  std::enable_if_t<std::is_same_v<FM<T, void>, art::FindMany<T, void>> ||
+                   std::is_same_v<FM<T, void>, art::FindManyP<T, void>>>
   check_get(FM<T, D> const& fA, FM<T, void> const& fAV)
   {
     typename FM<T, void>::value_type item;
@@ -199,8 +199,8 @@ arttest::AssnsAnalyzer::testOne(art::Event const& e) const
 {
   // Behavior on missing bColl is different for FindOne vs FindOneP.
   static constexpr bool isFOP =
-    std::is_same<typename FO<B_t>::value_type,
-                 art::Ptr<typename FO<B_t>::assoc_t>>::value;
+    std::is_same_v<typename FO<B_t>::value_type,
+                   art::Ptr<typename FO<B_t>::assoc_t>>;
   bool const extendedTestsOK = isFOP || (!bCollMissing_);
   art::Handle<AssnsAB_t> hAB;
   art::Handle<AssnsBA_t> hBA;
@@ -389,9 +389,6 @@ template <template <typename, typename = void> class FM>
 void
 arttest::AssnsAnalyzer::testMany(art::Event const& e) const
 {
-  static constexpr bool isFMP [[maybe_unused]] =
-    std::is_same<typename FM<B_t>::value_type,
-                 art::Ptr<typename FM<B_t>::assoc_t>>::value;
   art::Handle<std::vector<A_t>> hAcoll;
   BOOST_REQUIRE(e.getByLabel(inputLabel_, hAcoll));
 
