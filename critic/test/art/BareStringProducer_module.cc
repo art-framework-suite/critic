@@ -34,7 +34,7 @@ public:
     , value_{p().value()}
     , branchType_{art::BranchType(p().branchType())}
   {
-    art::test::run_time_produces<std::string>(this, branchType_);
+    art::test::run_time_produces<std::string>(producesCollector(), branchType_);
   }
 
 private:

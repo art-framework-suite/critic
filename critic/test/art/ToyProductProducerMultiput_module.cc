@@ -35,7 +35,7 @@ public:
   explicit ToyProductProducerMultiput(Parameters const& p)
     : EDProducer{p}, branchType_{BranchType(p().branchType())}
   {
-    run_time_produces<IntProduct>(this, branchType_);
+    run_time_produces<IntProduct>(producesCollector(), branchType_);
   }
 
 private:
