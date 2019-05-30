@@ -9,6 +9,7 @@
 #include "canvas/Persistency/Provenance/BranchType.h"
 #include "cetlib/metaprogramming.h"
 #include "cetlib_except/exception.h"
+#include "critic/test/art/RunTimeConsumes.h"
 #include "fhiclcpp/ParameterSet.h"
 #include "fhiclcpp/types/Atom.h"
 
@@ -84,21 +85,8 @@ public:
     , branch_type_{art::BranchType(ps().branch_type())}
     , require_presence_{ps().require_presence()}
   {
-    switch (branch_type_) {
-      case art::InEvent:
-        consumes<P>(input_label_);
-        break;
-      case art::InSubRun:
-        consumes<P, art::InSubRun>(input_label_);
-        break;
-      case art::InRun:
-        consumes<P, art::InRun>(input_label_);
-        break;
-      default:
-        throw cet::exception("BranchTypeMismatch")
-          << "Branch type: " << branch_type_
-          << "not supported for this module.";
-    }
+    art::test::run_time_consumes<P>(
+      consumesCollector(), branch_type_, input_label_);
     if (require_presence_) {
       value_ = ps().expected_value();
     }
