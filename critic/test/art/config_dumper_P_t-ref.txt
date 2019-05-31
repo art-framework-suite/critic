@@ -74,6 +74,7 @@ ASSNS: {
          errorOnSIGINT: true
          num_schedules: 1
          num_threads: 1
+         pruneConfig: true
       }
    }
    source: {
