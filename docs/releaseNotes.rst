@@ -20,7 +20,7 @@ Release notes are provided only for critic versions that are distributed.
 .. 
     h3(#releases){background:darkorange}. %{color:white}&nbsp; _critic_ releases%
 
-critic 2.00.01 (2019/02/07)
+critic 2.00.06 (2019/05/29)
 ---------------------------
 * *critic* suites: critic
 
