@@ -6,6 +6,7 @@ simple_plugin(BareStringAnalyzer          "module" NO_INSTALL)
 simple_plugin(BareStringProducer          "module" NO_INSTALL)
 simple_plugin(CompressedIntProducer       "module" NO_INSTALL)
 simple_plugin(CompressedIntTestAnalyzer   "module" NO_INSTALL)
+simple_plugin(DefaultEngineTester         "module" NO_INSTALL ${CLHEP})
 simple_plugin(DerivedPtrVectorAnalyzer    "module" NO_INSTALL)
 simple_plugin(DerivedPtrVectorProducer    "module" NO_INSTALL)
 simple_plugin(DifferentHistoriesAnalyzer  "module" USE_BOOST_UNIT NO_INSTALL)
@@ -227,33 +228,16 @@ cet_test(ProductIDGetter_t HANDBUILT
   TEST_ARGS -- --rethrow-all -c "ProductIDGetter_t.fcl"
   DATAFILES fcl/ProductIDGetter_t.fcl)
 
-cet_test(ProductIDGetterNoPut_t HANDBUILT
-  TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductIDGetterNoPut_t.fcl"
-  DATAFILES fcl/ProductIDGetterNoPut_t.fcl
-  TEST_PROPERTIES
-  PASS_REGULAR_EXPRESSION "The following products have been declared with 'produces'")
-
-cet_test(ProductIDGetterNoPut_t_01a HANDBUILT
+cet_test(ProductIDGetterNoPut_t_01 HANDBUILT
   TEST_EXEC art_ut
   TEST_ARGS -- --rethrow-all -c "ProductIDGetterNoPut_t_01.fcl"
   DATAFILES fcl/ProductIDGetterNoPut_t_01.fcl
   TEST_PROPERTIES
   PASS_REGULAR_EXPRESSION "The following products have been declared with 'produces'")
 
-cet_test(ProductIDGetterNoPut_t_01b HANDBUILT
-  TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all --errorOnFailureToPut=false -c "ProductIDGetterNoPut_t_01.fcl"
-  DATAFILES fcl/ProductIDGetterNoPut_t_01.fcl)
-
-cet_test(ProductIDGetterNoPut_t_02a HANDBUILT
+cet_test(ProductIDGetterNoPut_t_02 HANDBUILT
   TEST_EXEC art_ut
   TEST_ARGS -- --rethrow-all -c "ProductIDGetterNoPut_t_02.fcl"
-  DATAFILES fcl/ProductIDGetterNoPut_t_02.fcl)
-
-cet_test(ProductIDGetterNoPut_t_02b HANDBUILT
-  TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all --errorOnFailureToPut=true -c "ProductIDGetterNoPut_t_02.fcl"
   DATAFILES fcl/ProductIDGetterNoPut_t_02.fcl
   TEST_PROPERTIES
   PASS_REGULAR_EXPRESSION "The following products have been declared with 'produces'")
@@ -380,13 +364,18 @@ cet_test(UnusedModule_t HANDBUILT
 SET_TESTS_PROPERTIES(UnusedModule_t PROPERTIES
   FAIL_REGULAR_EXPRESSION "not assigned to any path")
 
-cet_test(MissingModuleType_t HANDBUILT
+cet_test(MissingModuleType_t1 HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c MissingModuleType_t.fcl
+  TEST_ARGS --rethrow-all -c MissingModuleType_t1.fcl
   TEST_PROPERTIES
   PASS_REGULAR_EXPRESSION
   "ERROR: Configuration of module with label BadModuleConfig encountered the following error:\n"
-  DATAFILES fcl/MissingModuleType_t.fcl)
+  DATAFILES fcl/MissingModuleType_t1.fcl)
+
+cet_test(MissingModuleType_t2 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c MissingModuleType_t2.fcl
+  DATAFILES fcl/MissingModuleType_t2.fcl)
 
 set_source_files_properties(TestEmptyEventTimestampNoRSRTS_plugin.cc
   PROPERTIES COMPILE_DEFINITIONS TEST_USE_LAST_EVENT_TIMESTAMP)
@@ -448,6 +437,11 @@ cet_test(DataFlowDumper_t HANDBUILT
   TEST_ARGS -c data_flow_dumper_t.fcl -n 1
   DATAFILES fcl/data_flow_dumper_t.fcl
   TEST_PROPERTIES DEPENDS test_tiered_input_05d_t)
+
+cet_test(DefaultEngineTester_t HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c default_engine_t.fcl -n 1
+  DATAFILES fcl/default_engine_t.fcl)
 
 cet_test(BareString_w HANDBUILT
   TEST_EXEC art

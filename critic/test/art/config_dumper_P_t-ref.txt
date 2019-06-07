@@ -70,7 +70,6 @@ ASSNS: {
          IgnoreCompletely: []
          SkipEvent: []
          defaultExceptions: false
-         errorOnFailureToPut: true
          errorOnMissingConsumes: false
          errorOnSIGINT: true
          num_schedules: 1

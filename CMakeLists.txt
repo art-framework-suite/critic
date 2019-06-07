@@ -21,7 +21,7 @@ project(critic)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # cetbuildtools contains our cmake modules
-find_package(cetbuildtools REQUIRED)
+find_package(cetbuildtools 7.13.01 REQUIRED)
 
 include(CetCMakeEnv)
 cet_cmake_env()
@@ -80,14 +80,19 @@ find_ups_product(fhiclcpp)
 find_ups_product(cetlib v2_01_00)
 find_ups_product(python v3_7_2)
 find_ups_product(cetlib_except v1_01_00)
-find_ups_product(cetbuildtools)
 find_ups_product(clhep)
 find_ups_product(canvas_root_io)
 find_ups_product(hep_concurrency)
 find_ups_product(range)
 find_ups_product(sqlite)
 find_ups_root()
-find_ups_boost()
+find_ups_boost(BOOST_TARGETS)
+
+# SQLite
+cet_find_library(SQLITE3 NAMES sqlite3_ups PATHS ENV SQLITE_LIB NO_DEFAULT_PATH)
+
+# SQLite
+cet_find_library(SQLITE3 NAMES sqlite3_ups PATHS ENV SQLITE_LIB NO_DEFAULT_PATH)
 
 # ----------------------------------------------------------------------
 # Python stuff
