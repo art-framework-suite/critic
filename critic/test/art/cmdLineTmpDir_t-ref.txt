@@ -1,14 +1,4 @@
-outputs: {
-   out1: {
-      module_label: "out1"
-      module_type: "TestReadImmediateControl"
-   }
-   out2: {
-      module_label: "out2"
-      module_type: "RootOutput"
-      tmpDir: "tmp"
-   }
-}
+outputs: {}
 process_name: "ImmediateReadControl"
 services: {
    CatalogInterface: {
@@ -48,11 +38,11 @@ services: {
          option: "debug-config"
          printMode: "raw"
       }
-      errorOnFailureToPut: true
       errorOnMissingConsumes: false
       errorOnSIGINT: true
       num_schedules: 1
       num_threads: 1
+      pruneConfig: true
    }
 }
 source: {

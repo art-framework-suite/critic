@@ -228,33 +228,16 @@ cet_test(ProductIDGetter_t HANDBUILT
   TEST_ARGS -- --rethrow-all -c "ProductIDGetter_t.fcl"
   DATAFILES fcl/ProductIDGetter_t.fcl)
 
-cet_test(ProductIDGetterNoPut_t HANDBUILT
-  TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductIDGetterNoPut_t.fcl"
-  DATAFILES fcl/ProductIDGetterNoPut_t.fcl
-  TEST_PROPERTIES
-  PASS_REGULAR_EXPRESSION "The following products have been declared with 'produces'")
-
-cet_test(ProductIDGetterNoPut_t_01a HANDBUILT
+cet_test(ProductIDGetterNoPut_t_01 HANDBUILT
   TEST_EXEC art_ut
   TEST_ARGS -- --rethrow-all -c "ProductIDGetterNoPut_t_01.fcl"
   DATAFILES fcl/ProductIDGetterNoPut_t_01.fcl
   TEST_PROPERTIES
   PASS_REGULAR_EXPRESSION "The following products have been declared with 'produces'")
 
-cet_test(ProductIDGetterNoPut_t_01b HANDBUILT
-  TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all --errorOnFailureToPut=false -c "ProductIDGetterNoPut_t_01.fcl"
-  DATAFILES fcl/ProductIDGetterNoPut_t_01.fcl)
-
-cet_test(ProductIDGetterNoPut_t_02a HANDBUILT
+cet_test(ProductIDGetterNoPut_t_02 HANDBUILT
   TEST_EXEC art_ut
   TEST_ARGS -- --rethrow-all -c "ProductIDGetterNoPut_t_02.fcl"
-  DATAFILES fcl/ProductIDGetterNoPut_t_02.fcl)
-
-cet_test(ProductIDGetterNoPut_t_02b HANDBUILT
-  TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all --errorOnFailureToPut=true -c "ProductIDGetterNoPut_t_02.fcl"
   DATAFILES fcl/ProductIDGetterNoPut_t_02.fcl
   TEST_PROPERTIES
   PASS_REGULAR_EXPRESSION "The following products have been declared with 'produces'")

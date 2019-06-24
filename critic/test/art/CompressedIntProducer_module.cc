@@ -35,7 +35,8 @@ public:
     branchType_(
       art::BranchType(p.get<unsigned long>("branchType", art::InEvent)))
   {
-    art::test::run_time_produces<CompressedIntProduct>(this, branchType_);
+    art::test::run_time_produces<CompressedIntProduct>(producesCollector(),
+                                                       branchType_);
   }
 
 private:

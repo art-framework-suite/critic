@@ -50,7 +50,7 @@ IntProducer::IntProducer(Parameters const& p, art::ProcessingFrame const&)
   , value_{p().ivalue()} // enums don't usually have a conversion from string
   , branchType_{art::BranchType(p().branchType())}
 {
-  art::test::run_time_produces<IntProduct>(this, branchType_);
+  art::test::run_time_produces<IntProduct>(producesCollector(), branchType_);
   async<art::InEvent>();
 }
 

@@ -6,8 +6,8 @@
 #include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Persistency/Common/PtrVector.h"
 #include "canvas/Persistency/Common/Wrapper.h"
+#include "cetlib/map_vector.h"
 #include "critic/test/CriticTestObjects/LiteAssnTestData.h"
 #include "critic/test/CriticTestObjects/LitePtrTestProduct.h"
-#include "cetlib/map_vector.h"
 
 #include <string>
