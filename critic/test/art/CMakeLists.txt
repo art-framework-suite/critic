@@ -40,6 +40,9 @@ simple_plugin(TestProvenanceDumper        "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(ToyProductProducer          "module" NO_INSTALL)
 simple_plugin(ToyRawProductAnalyzer       "module" NO_INSTALL)
 simple_plugin(ValidHandleTester           "module" NO_INSTALL)
+simple_plugin(VerifyTransitionsLegacy     "module" USE_BOOST_UNIT NO_INSTALL)
+simple_plugin(VerifyTransitionsShared     "module" USE_BOOST_UNIT NO_INSTALL)
+simple_plugin(VerifyTransitionsReplicated "module" USE_BOOST_UNIT NO_INSTALL)
 
 simple_plugin(AddIntsProducer             "module" NO_INSTALL)
 simple_plugin(AssnsMultipleProduces       "module" NO_INSTALL)
@@ -723,3 +726,8 @@ cet_test(test_compressed_simple_01_t.sh PREBUILT
   fcl/test_compressed_simple_01.fcl
   fcl/test_compressed_simple_01r.fcl
   fcl/messageDefaults.fcl)
+
+cet_test(MultiScheduleTransitions_t HANDBUILT
+  TEST_EXEC art_ut
+  TEST_ARGS -- -c MultiScheduleTransitions_t.fcl --nschedules 2
+  DATAFILES fcl/MultiScheduleTransitions_t.fcl)
