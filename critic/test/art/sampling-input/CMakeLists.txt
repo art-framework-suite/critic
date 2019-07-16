@@ -66,6 +66,13 @@ cet_test(SamplingInput_t HANDBUILT
   TEST_ARGS -c sampling_input_t.fcl -n 20 -o out.root
   DATAFILES fcl/sampling_input_t.fcl)
 
+cet_test(SamplingInput_dropProducts_t HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c sampling_input_drop_products_t.fcl
+  DATAFILES fcl/sampling_input_drop_products_t.fcl
+  REQUIRED_FILES ../SamplingInput_w_signal.d/out.root
+  TEST_PROPERTIES DEPENDS SamplingInput_w_signal)
+
 cet_test(SamplingInput_r HANDBUILT
   TEST_EXEC art
   TEST_ARGS -c sampling_input_r.fcl
