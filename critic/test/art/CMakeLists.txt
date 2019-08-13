@@ -144,6 +144,18 @@ cet_test(GetManyByType_t1 HANDBUILT
   TEST_ARGS --rethrow-all -c getManyByType_t1.fcl
   DATAFILES fcl/getManyByType_t1.fcl)
 
+cet_test(GetProductDuplicateModuleName_w HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c getProductDuplicateModuleName_w.fcl -o out.root
+  DATAFILES fcl/getProductDuplicateModuleName_w.fcl)
+
+cet_test(GetProductDuplicateModuleName_t HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c getProductDuplicateModuleName_t.fcl
+  DATAFILES fcl/getProductDuplicateModuleName_t.fcl
+  REQUIRED_FILES ../GetProductDuplicateModuleName_w.d/out.root
+  TEST_PROPERTIES DEPENDS GetProductDuplicateModuleName_w)
+
 cet_test(ptr_list_t HANDBUILT
   TEST_EXEC art
   TEST_ARGS --rethrow-all --config ptr_list_01.fcl
