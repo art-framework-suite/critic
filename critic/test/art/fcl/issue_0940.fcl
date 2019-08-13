@@ -4,10 +4,8 @@ process_name: issue0940
 
 services:
 {
-  user:
-  {
-    Throwing: { }
-  }
+   Throwing: { }
+
 
   scheduler:  # options block in the old system
   {
