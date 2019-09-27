@@ -3,30 +3,6 @@ from __future__ import print_function
 import os
 import ROOT
 
-ROOT.gROOT.ProcessLine('TClass::GetClass("gallery::Event")');
-
-ROOT.gROOT.ProcessLine('#include "gallery/ValidHandle.h"')
-
-ROOT.gROOT.ProcessLine('template gallery::ValidHandle<arttest::StringProduct> gallery::Event::getValidHandle<arttest::StringProduct>(art::InputTag const&) const;')
-
-ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<art::TriggerResults>(art::InputTag const&, gallery::Handle<art::TriggerResults>&) const;')
-
-ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> >(art::InputTag const&, gallery::Handle<art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData> >&) const;')
-
-ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> >(art::InputTag const&, gallery::Handle<art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData> >&) const;')
-
-ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<std::vector<arttest::StringProduct> >(art::InputTag const&, gallery::Handle<std::vector<arttest::StringProduct> >&) const;')
-
-ROOT.gROOT.ProcessLine('template bool gallery::Event::getByLabel<std::vector<int> >(art::InputTag const&, gallery::Handle<std::vector<int> >&) const;')
-
-ROOT.gROOT.ProcessLine('template art::FindOne<int, critictest::LiteAssnTestData> gallery::FindMaker::makeFindOne<int, critictest::LiteAssnTestData, gallery::Handle<std::vector<arttest::StringProduct> > >(gallery::Handle<std::vector<arttest::StringProduct> > const&, gallery::Event const&, art::InputTag const&);')
-
-ROOT.gROOT.ProcessLine('template art::FindOneP<int, critictest::LiteAssnTestData> gallery::FindMaker::makeFindOneP<int, critictest::LiteAssnTestData, gallery::Handle<std::vector<arttest::StringProduct> > >(gallery::Handle<std::vector<arttest::StringProduct> > const&, gallery::Event const&, art::InputTag const&);')
-
-ROOT.gROOT.ProcessLine('template art::FindMany<int, critictest::LiteAssnTestData> gallery::FindMaker::makeFindMany<int, critictest::LiteAssnTestData, gallery::Handle<std::vector<arttest::StringProduct> > >(gallery::Handle<std::vector<arttest::StringProduct> > const&, gallery::Event const&, art::InputTag const&);')
-
-ROOT.gROOT.ProcessLine('template art::FindManyP<int, critictest::LiteAssnTestData> gallery::FindMaker::makeFindManyP<int, critictest::LiteAssnTestData, gallery::Handle<std::vector<arttest::StringProduct> > >(gallery::Handle<std::vector<arttest::StringProduct> > const&, gallery::Event const&, art::InputTag const&);')
-
 filenames = ROOT.vector(ROOT.string)()
 filenames.push_back("../gallery_makeInput5.d/test_gallery5.root")
 filenames.push_back("../gallery_makeInput7.d/test_gallery7.root")
