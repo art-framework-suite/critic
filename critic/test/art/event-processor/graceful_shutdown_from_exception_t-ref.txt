@@ -122,7 +122,7 @@ cet::exception caught in art
         Path: ProcessingStopped.
         ---- OtherArt BEGIN
           Throw from analyze.
-          cet::exception going through module ThrowingAnalyzer/a1 run: 1 subRun: 0 event: 6
+          The above exception was thrown while processing module ThrowingAnalyzer/a1 run: 1 subRun: 0 event: 6
         ---- OtherArt END
         Exception going through path end_path
       ---- ScheduleExecutionFailure END
