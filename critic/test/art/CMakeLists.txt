@@ -387,13 +387,13 @@ simple_plugin(TestEmptyEventTimestamp "plugin" NO_INSTALL
   art_Framework_Core
   art_Framework_Principal
   fhiclcpp
-  ${Boost_FILESYSTEM_LIBRARY})
+  Boost::filesystem)
 
 simple_plugin(TestEmptyEventTimestampNoRSRTS "plugin" NO_INSTALL
   art_Framework_Core
   art_Framework_Principal
   fhiclcpp
-  ${Boost_FILESYSTEM_LIBRARY})
+  Boost::filesystem)
 
 cet_test(TestEmptyEventTimestamp_t HANDBUILT
   TEST_EXEC art
@@ -500,23 +500,28 @@ cet_test(rename-histfile_t_check HANDBUILT
   TEST_ARGS -l ../rename-histfile_t_w.d/test_1_0_2_8.root
   TEST_PROPERTIES DEPENDS rename-histfile_t_w)
 
-simple_plugin(TestMetadata "plugin" NO_INSTALL art_Framework_Core art_Utilities fhiclcpp ${Boost_FILESYSTEM_LIBRARY})
-cet_test(TestMetadata_plugin_t HANDBUILT
+simple_plugin(Metadata "plugin" NO_INSTALL art_Framework_Core art_Utilities fhiclcpp MF_MessageLogger Boost::filesystem)
+cet_test(Metadata_plugin_t HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c TestMetadata_Plugin_t.fcl
-  DATAFILES fcl/TestMetadata_Plugin_t.fcl)
+  TEST_ARGS --rethrow-all -c Metadata_plugin_t.fcl
+  DATAFILES fcl/Metadata_plugin_t.fcl)
 
-cet_test(TestMetadata_verify_hr HANDBUILT
-  TEST_EXEC sam_metadata_dumper
-  TEST_ARGS -H -s ../TestMetadata_plugin_t.d/out.root
-  TEST_PROPERTIES DEPENDS TestMetadata_plugin_t
-  REF ${CMAKE_CURRENT_SOURCE_DIR}/TestMetadata_verify_hr-ref.txt)
+cet_test(Metadata_plugin_t2 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c Metadata_plugin_t2.fcl
+  DATAFILES fcl/Metadata_plugin_t2.fcl)
 
-cet_test(TestMetadata_verify_JSON HANDBUILT
+cet_test(Metadata_verify_hr HANDBUILT
   TEST_EXEC sam_metadata_dumper
-  TEST_ARGS -s ../TestMetadata_plugin_t.d/out.root
-  TEST_PROPERTIES DEPENDS TestMetadata_plugin_t
-  REF ${CMAKE_CURRENT_SOURCE_DIR}/TestMetadata_verify_JSON-ref.txt)
+  TEST_ARGS -H -s ../Metadata_plugin_t.d/out.root
+  TEST_PROPERTIES DEPENDS Metadata_plugin_t
+  REF ${CMAKE_CURRENT_SOURCE_DIR}/Metadata_verify_hr-ref.txt)
+
+cet_test(Metadata_verify_JSON HANDBUILT
+  TEST_EXEC sam_metadata_dumper
+  TEST_ARGS -s ../Metadata_plugin_t.d/out.root
+  TEST_PROPERTIES DEPENDS Metadata_plugin_t
+  REF ${CMAKE_CURRENT_SOURCE_DIR}/Metadata_verify_JSON-ref.txt)
 
 cet_test(Assns_w HANDBUILT
   TEST_EXEC art_ut
