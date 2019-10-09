@@ -27,7 +27,7 @@ outputs:
   {
      module_type: RootOutput
      fileName: "out.root"
-     FCMDPlugins: [ { plugin_type: TestMetadata } ]
+     FCMDPlugins: [ { plugin_type: Metadata } ]
   }
 }
 
