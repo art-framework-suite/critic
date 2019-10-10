@@ -2,6 +2,13 @@ simple_plugin(ThrowingAnalyzer "module" NO_INSTALL)
 simple_plugin(ThrowingProducer "module" NO_INSTALL)
 simple_plugin(DoNothingInput   "source" NO_INSTALL art_Framework_Services_Registry)
 
+cet_test(ThrowsWithModuleInfo_t HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS --rethrow-all -c throws_with_module_info_t.fcl
+  DATAFILES fcl/throws_with_module_info_t.fcl
+  TEST_PROPERTIES
+  PASS_REGULAR_EXPRESSION "while processing module ThrowingAnalyzer/p1 run: 1 subRun: 0 event: 1")
+
 cet_test(EP_throwing_01_t HANDBUILT
   TEST_EXEC art
   TEST_ARGS --rethrow-all -c test_01.fcl
