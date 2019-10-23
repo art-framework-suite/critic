@@ -512,7 +512,13 @@ cet_test(rename-histfile_t_check HANDBUILT
   TEST_ARGS -l ../rename-histfile_t_w.d/test_1_0_2_8.root
   TEST_PROPERTIES DEPENDS rename-histfile_t_w)
 
-simple_plugin(Metadata "plugin" NO_INSTALL art_Framework_Core art_Utilities fhiclcpp MF_MessageLogger Boost::filesystem)
+simple_plugin(Metadata "plugin" NO_INSTALL
+              art_Framework_Core
+              art_Utilities
+              cetlib_except
+              fhiclcpp
+              MF_MessageLogger
+              Boost::filesystem)
 cet_test(Metadata_plugin_t HANDBUILT
   TEST_EXEC art
   TEST_ARGS --rethrow-all -c Metadata_plugin_t.fcl
