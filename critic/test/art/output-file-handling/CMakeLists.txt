@@ -1,17 +1,17 @@
 # Produce outputs
 cet_test(SingleOutputProducerEmptyEvent_w HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c singleOutputProducerEmptyEvent_w.fcl
+  TEST_ARGS -c singleOutputProducerEmptyEvent_w.fcl
   DATAFILES fcl/singleOutputProducerEmptyEvent_w.fcl)
 
 cet_test(MultiOutputProducerEmptyEvent_w HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c multiOutputProducerEmptyEvent_w.fcl
+  TEST_ARGS -c multiOutputProducerEmptyEvent_w.fcl
   DATAFILES fcl/multiOutputProducerEmptyEvent_w.fcl)
 
 cet_test(MultiOutputProducerRootInput_w HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c multiOutputProducerRootInput_w.fcl -s ../SingleOutputProducerEmptyEvent_w.d/out.root
+  TEST_ARGS -c multiOutputProducerRootInput_w.fcl -s ../SingleOutputProducerEmptyEvent_w.d/out.root
   DATAFILES fcl/multiOutputProducerRootInput_w.fcl
   TEST_PROPERTIES DEPENDS SingleOutputProducerEmptyEvent_w)
 
@@ -174,7 +174,6 @@ SET(InputFilePath "${CMAKE_CURRENT_BINARY_DIR}/MultiOutputProducerRootInput_w.d"
 cet_test(MultiInputConcatenate_t HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c empty.fcl
   -o out.root
   -s ${InputFilePath}/out_r1_sr0_e1.root
@@ -206,7 +205,7 @@ cet_test(MultiInputConcatenate_FileIndexCheck_t HANDBUILT
 
 cet_test(DelaySwitchToSubRunBoundary_w HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c delaySwitchToSubRunBoundary_w.fcl
+  TEST_ARGS -c delaySwitchToSubRunBoundary_w.fcl
   DATAFILES fcl/delaySwitchToSubRunBoundary_w.fcl)
 
 cet_test(DelaySwitchToSubRunBoundary_FileIndexCheck_t HANDBUILT
@@ -225,7 +224,7 @@ cet_test(DelaySwitchToSubRunBoundary_FileIndexCheck_t HANDBUILT
 
 cet_test(SwitchOnTwoConditions_w HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c switchOnTwoConditions_w.fcl
+  TEST_ARGS -c switchOnTwoConditions_w.fcl
   DATAFILES fcl/switchOnTwoConditions_w.fcl)
 
 cet_test(SwitchOnTwoConditions_FileIndexCheck_t HANDBUILT
@@ -247,7 +246,7 @@ simple_plugin(BigProductProducer "module" NO_INSTALL)
 
 cet_test(SwitchOnFileSizeMax_w HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c switchOnFileSizeMax_w.fcl
+  TEST_ARGS -c switchOnFileSizeMax_w.fcl
   DATAFILES fcl/switchOnFileSizeMax_w.fcl)
 
 cet_test(SwitchOnFileSizeMax_r HANDBUILT

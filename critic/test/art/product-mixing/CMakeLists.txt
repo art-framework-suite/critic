@@ -17,14 +17,14 @@ simple_plugin(MixProducer               "module" NO_INSTALL)
 # Write the data file required for the other mixing tests.
 cet_test(ProductMix_w HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c "ProductMix_w.fcl"
+  TEST_ARGS -c "ProductMix_w.fcl"
   DATAFILES fcl/ProductMix_w.fcl)
 
 # Mix the events from ProductMix_w, analyzing the results and
 # writing an output file.
 cet_test(ProductMix_r1 HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductMix_r1.fcl"
+  TEST_ARGS -- -c "ProductMix_r1.fcl"
   DATAFILES fcl/ProductMix_r1.fcl
   TEST_PROPERTIES DEPENDS ProductMix_w)
 
@@ -33,7 +33,7 @@ cet_test(ProductMix_r1 HANDBUILT
 # nor output written.
 cet_test(ProductMix_r1a HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductMix_r1a.fcl"
+  TEST_ARGS -- -c "ProductMix_r1a.fcl"
   DATAFILES
   fcl/ProductMix_r1.fcl
   fcl/ProductMix_r1a.fcl
@@ -44,7 +44,7 @@ cet_test(ProductMix_r1a HANDBUILT
 # twice).
 cet_test(ProductMix_r1b HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductMix_r1b.fcl"
+  TEST_ARGS -- -c "ProductMix_r1b.fcl"
   DATAFILES
   fcl/ProductMix_r1.fcl
   fcl/ProductMix_r1b.fcl
@@ -54,7 +54,7 @@ cet_test(ProductMix_r1b HANDBUILT
 # with secondary input file wrapping and no eventsToSkip().
 cet_test(ProductMix_r1c1 HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductMix_r1c.fcl"
+  TEST_ARGS -- -c "ProductMix_r1c.fcl"
   DATAFILES
   fcl/ProductMix_r1.fcl
   fcl/ProductMix_r1c.fcl
@@ -66,7 +66,7 @@ cet_test(ProductMix_r1c1 HANDBUILT
 # eventsToSkip().
 cet_test(ProductMix_r1c2 HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductMix_r1c2.fcl"
+  TEST_ARGS -- -c "ProductMix_r1c2.fcl"
   DATAFILES
   fcl/ProductMix_r1.fcl
   fcl/ProductMix_r1c.fcl
@@ -77,7 +77,7 @@ cet_test(ProductMix_r1c2 HANDBUILT
 # with secondary input file wrapping and eventsToSkip() const.
 cet_test(ProductMix_r1c3 HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductMix_r1c3.fcl"
+  TEST_ARGS -- -c "ProductMix_r1c3.fcl"
   DATAFILES
   fcl/ProductMix_r1.fcl
   fcl/ProductMix_r1c.fcl
@@ -89,7 +89,7 @@ cet_test(ProductMix_r1c3 HANDBUILT
 # secondaries exceeds the number in the mixing file.
 cet_test(ProductMix_r1c4 HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductMix_r1c4.fcl"
+  TEST_ARGS -- -c "ProductMix_r1c4.fcl"
   DATAFILES
   fcl/ProductMix_r1.fcl
   fcl/ProductMix_r1c.fcl
@@ -102,7 +102,7 @@ cet_test(ProductMix_r1c4 HANDBUILT
 # with no startEvent function.
 cet_test(ProductMix_r1d1 HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductMix_r1d1.fcl"
+  TEST_ARGS -- -c "ProductMix_r1d1.fcl"
   DATAFILES
   fcl/ProductMix_r1.fcl
   fcl/ProductMix_r1d1.fcl
@@ -118,7 +118,7 @@ cet_test(ProductMix_r1d1 HANDBUILT
 foreach(test 1 2 3 4 5)
   cet_test(ProductMix_r1e${test} HANDBUILT
     TEST_EXEC art_ut
-    TEST_ARGS -- --rethrow-all -c "ProductMix_r1e${test}.fcl"
+    TEST_ARGS -- -c "ProductMix_r1e${test}.fcl"
     DATAFILES
     fcl/ProductMix_r1.fcl
     fcl/ProductMix_r1e.fcl
@@ -130,7 +130,7 @@ endforeach()
 # detail-object-provided function rather than from fileNames_.
 cet_test(ProductMix_r1f1 HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductMix_r1f1.fcl"
+  TEST_ARGS -- -c "ProductMix_r1f1.fcl"
   DATAFILES
   fcl/ProductMix_r1.fcl
   fcl/ProductMix_r1c.fcl
@@ -141,7 +141,7 @@ cet_test(ProductMix_r1f1 HANDBUILT
 # with the compactMissingProducts option selected.
 cet_test(ProductMix_r1g HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductMix_r1g.fcl"
+  TEST_ARGS -- -c "ProductMix_r1g.fcl"
   DATAFILES
   fcl/ProductMix_r1.fcl
   fcl/ProductMix_r1g.fcl
@@ -158,7 +158,7 @@ SET_TESTS_PROPERTIES(
 # inappropriate attempt to dereference a Ptr.
 cet_test(ProductMix_r1d HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductMix_r1d.fcl"
+  TEST_ARGS -- -c "ProductMix_r1d.fcl"
   DATAFILES
   fcl/ProductMix_r1.fcl
   fcl/ProductMix_r1d.fcl
@@ -168,6 +168,6 @@ cet_test(ProductMix_r1d HANDBUILT
 # everything works as read from an output file written post-mixing.
 cet_test(ProductMix_r2 HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "ProductMix_r2.fcl"
+  TEST_ARGS -- -c "ProductMix_r2.fcl"
   DATAFILES fcl/ProductMix_r2.fcl
   TEST_PROPERTIES DEPENDS ProductMix_r1)

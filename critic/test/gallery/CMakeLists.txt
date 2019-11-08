@@ -55,14 +55,14 @@ set(gallery_tests_libraries
 
 cet_test(gallery_makeEmptyFile HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c test_gallery_makeEmptyFile.fcl
+  TEST_ARGS -c test_gallery_makeEmptyFile.fcl
   DATAFILES
   fcl/test_gallery_makeEmptyFile.fcl
 )
 
 cet_test(gallery_makeInput1 HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c test_gallery_makeInput1.fcl
+  TEST_ARGS -c test_gallery_makeInput1.fcl
   DATAFILES
   fcl/test_gallery_makeInput1.fcl
   )
@@ -70,7 +70,7 @@ cet_test(gallery_makeInput1 HANDBUILT
 # Uses output from gallery_makeInput1 and gallery_makeEmptyFile
 cet_test(gallery_makeInput2 HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c test_gallery_makeInput2.fcl ../gallery_makeInput1.d/test_gallery1.root
+  TEST_ARGS -c test_gallery_makeInput2.fcl ../gallery_makeInput1.d/test_gallery1.root
   DATAFILES
   fcl/test_gallery_makeInput2.fcl
   REQUIRED_FILES ../gallery_makeInput1.d/test_gallery1.root ../gallery_makeEmptyFile.d/test_gallery_empty.root
@@ -80,7 +80,7 @@ set_tests_properties(gallery_makeInput2 PROPERTIES DEPENDS "gallery_makeEmptyFil
 # Uses output from gallery_makeInput2.
 cet_test(gallery_makeInput3 HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c test_gallery_makeInput3.fcl ../gallery_makeInput2.d/test_gallery2.root
+  TEST_ARGS -c test_gallery_makeInput3.fcl ../gallery_makeInput2.d/test_gallery2.root
   DATAFILES
   fcl/test_gallery_makeInput3.fcl
   REQUIRED_FILES ../gallery_makeInput2.d/test_gallery2.root
@@ -90,7 +90,7 @@ cet_test(gallery_makeInput3 HANDBUILT
 # Uses output from gallery_makeInput2 with a differently-configured module.
 cet_test(gallery_makeInput4 HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c test_gallery_makeInput4.fcl ../gallery_makeInput2.d/test_gallery2.root
+  TEST_ARGS -c test_gallery_makeInput4.fcl ../gallery_makeInput2.d/test_gallery2.root
   DATAFILES
   fcl/test_gallery_makeInput4.fcl
   REQUIRED_FILES ../gallery_makeInput2.d/test_gallery2.root
@@ -100,7 +100,7 @@ cet_test(gallery_makeInput4 HANDBUILT
 # Uses output from gallery_makeInput3 and gallery_makeInput4.
 cet_test(gallery_makeInput5 HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c test_gallery_makeInput5.fcl
+  TEST_ARGS -c test_gallery_makeInput5.fcl
   ../gallery_makeInput3.d/test_gallery3.root
   ../gallery_makeInput4.d/test_gallery4.root
   DATAFILES
@@ -114,7 +114,7 @@ set_tests_properties(gallery_makeInput5 PROPERTIES DEPENDS "gallery_makeInput3;g
 # Use gallery_makeInput2 to make an output incompatible with other files from the same ancestor.
 cet_test(gallery_makeInput6 HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c test_gallery_makeInput6.fcl ../gallery_makeInput2.d/test_gallery2.root
+  TEST_ARGS -c test_gallery_makeInput6.fcl ../gallery_makeInput2.d/test_gallery2.root
   DATAFILES
   fcl/test_gallery_makeInput6.fcl
   REQUIRED_FILES ../gallery_makeInput2.d/test_gallery2.root
@@ -124,7 +124,7 @@ cet_test(gallery_makeInput6 HANDBUILT
 # Uses output from gallery_makeInput6
 cet_test(gallery_makeInput7 HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c test_gallery_makeInput7.fcl ../gallery_makeInput6.d/test_gallery6.root
+  TEST_ARGS -c test_gallery_makeInput7.fcl ../gallery_makeInput6.d/test_gallery6.root
   DATAFILES
   fcl/test_gallery_makeInput7.fcl
   REQUIRED_FILES ../gallery_makeInput6.d/test_gallery6.root
@@ -134,7 +134,7 @@ cet_test(gallery_makeInput7 HANDBUILT
 # Uses output from gallery_makeInput7
 cet_test(gallery_makeInput8 HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c test_gallery_makeInput8.fcl ../gallery_makeInput7.d/test_gallery7.root
+  TEST_ARGS -c test_gallery_makeInput8.fcl ../gallery_makeInput7.d/test_gallery7.root
   DATAFILES
   fcl/test_gallery_makeInput8.fcl
   REQUIRED_FILES ../gallery_makeInput7.d/test_gallery7.root
@@ -248,7 +248,7 @@ endif()
 
 cet_test(CriticAssns_w HANDBUILT
   TEST_EXEC art_ut
-  TEST_ARGS -- --rethrow-all -c "CriticAssns_w.fcl"
+  TEST_ARGS -- -c "CriticAssns_w.fcl"
   DATAFILES
   fcl/CriticAssns_w.fcl
 )
