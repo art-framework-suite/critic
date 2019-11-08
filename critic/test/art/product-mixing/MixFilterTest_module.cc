@@ -6,6 +6,7 @@
 #include "art/Framework/IO/ProductMix/MixHelper.h"
 #include "art/Framework/Modules/MixFilter.h"
 #include "art/Framework/Principal/Event.h"
+#include "art/Framework/Services/Optional/RandomNumberGenerator.h"
 #include "art/Persistency/Common/CollectionUtilities.h"
 #include "art/test/TestObjects/ProductWithPtrs.h"
 #include "art/test/TestObjects/ToyProducts.h"
@@ -288,9 +289,12 @@ arttest::MixFilterTestDetail::MixFilterTestDetail(Parameters const& p,
 
   // Test createEngine when it should have already been created
   if (readMode_ > art::MixHelper::Mode::SEQUENTIAL) {
+    auto const& default_engine_kind =
+      art::ServiceHandle<art::RandomNumberGenerator const>()
+        ->defaultEngineKind();
     helper.createEngine(123456);
-    helper.createEngine(123456, "HepJamesRandom");
-    helper.createEngine(123456, "HepJamesRandom", "");
+    helper.createEngine(123456, default_engine_kind);
+    helper.createEngine(123456, default_engine_kind, "");
     // Cannot assign empty label to different type
     BOOST_REQUIRE_THROW(helper.createEngine(123456, "MTwistEngine"),
                         art::Exception);
