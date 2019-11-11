@@ -70,6 +70,7 @@ ASSNS: {
          num_schedules: 1
          num_threads: 1
          pruneConfig: true
+         reportUnused: true
       }
    }
    source: {
