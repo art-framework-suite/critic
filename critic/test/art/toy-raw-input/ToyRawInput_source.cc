@@ -24,12 +24,11 @@ namespace art {
   struct Source_wantFileServices<arttest::ToyReader> {
     static constexpr bool value = false;
   };
-} // namespace art
+}
 
 namespace arttest {
-  // ToyRawInput is an instantiation of the Source template.
-  typedef art::Source<ToyReader> ToyRawInput;
-} // namespace arttest
+  using ToyRawInput = art::Source<ToyReader>;
+}
 
 class arttest::ToyReader final : public ToySource {
 public:

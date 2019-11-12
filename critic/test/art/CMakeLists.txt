@@ -752,3 +752,8 @@ cet_test(MultiScheduleTransitions_t HANDBUILT
   TEST_EXEC art_ut
   TEST_ARGS -- -c MultiScheduleTransitions_t.fcl --nschedules 2
   DATAFILES fcl/MultiScheduleTransitions_t.fcl)
+
+cet_test(ProductsWithEmptyEventCustomSource_t HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c GeneratorSource_t.fcl
+  DATAFILES fcl/GeneratorSource_t.fcl)
