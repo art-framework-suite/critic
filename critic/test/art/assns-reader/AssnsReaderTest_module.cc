@@ -26,6 +26,7 @@
 #include "boost/type_traits.hpp"
 
 #include <iostream>
+#include <regex>
 #include <type_traits>
 
 namespace arttest {
@@ -155,6 +156,8 @@ arttest::AssnsReaderTest::analyze(art::Event const& e)
   auto const vSizeM = vSize + ((wantVoid_ == "ALL"s) ? 2ull : 1ull);
   auto const mvVSizeM = mvVSize + ((wantVoid_ != "NONE"s) ? 2ull : 1ull);
 
+  static std::regex const re{"Found 2 products rather than one which match all criteria"};
+
   // Check <A, B> and <B, A>.
   art::Handle<AssnsABV_t> hABV;
   try {
@@ -169,9 +172,7 @@ arttest::AssnsReaderTest::analyze(art::Event const& e)
       throw; // Shouldn't have gotten here.
     } else { // Expected exception.
       BOOST_REQUIRE(e.categoryCode() == art::errors::ProductNotFound);
-      BOOST_CHECK_EQUAL(
-        std::string(e.what()).substr(29, 69),
-        "getByLabel: Found 2 products rather than one which match all criteria"s);
+      BOOST_CHECK(std::regex_search(e.what(), re));
     }
   }
 
@@ -188,9 +189,7 @@ arttest::AssnsReaderTest::analyze(art::Event const& e)
       throw; // Shouldn't have gotten here.
     } else { // Expected exception.
       BOOST_REQUIRE(e.categoryCode() == art::errors::ProductNotFound);
-      BOOST_CHECK_EQUAL(
-        std::string(e.what()).substr(29, 69),
-        "getByLabel: Found 2 products rather than one which match all criteria"s);
+      BOOST_CHECK(std::regex_search(e.what(), re));
     }
   }
 

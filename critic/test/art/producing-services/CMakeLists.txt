@@ -4,7 +4,6 @@ simple_plugin(LastDoubleProducingService  "service" NO_INSTALL art_Framework_Pri
 cet_test(IntProducerRun_t HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c IntProducerRun_t.fcl
   -o out.root
   --process-name MakeInt
@@ -17,7 +16,6 @@ cet_test(IntProducerRun_t HANDBUILT
 cet_test(ProducingService_w HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c ProducingService_w.fcl
   -s ../IntProducerRun_t.d/out.root
   DATAFILES fcl/ProducingService_w.fcl
@@ -28,7 +26,6 @@ cet_test(ProducingService_w HANDBUILT
 cet_test(ProducingService_r HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c ProducingService_r.fcl
   -s ../ProducingService_w.d/out.root
   DATAFILES fcl/ProducingService_r.fcl

@@ -19,7 +19,6 @@
 #include <memory>
 
 using namespace fhicl;
-namespace {} // namespace
 
 namespace arttest {
   class IntProducer;
@@ -31,7 +30,14 @@ class arttest::IntProducer : public art::SharedProducer {
 public:
   struct Config {
     Atom<int> ivalue{Name("ivalue")};
-    Atom<unsigned long> branchType{Name("branchType"), art::InEvent};
+    Atom<unsigned long> branchType{
+      Name("branchType"),
+      Comment{"The 'branchType' argument specifies the level for which\n"
+              "the product is made.  Available options include:\n"
+              "  0 (event)\n"
+              "  1 (subrun)\n"
+              "  2 (run)\n"},
+      art::InEvent};
   };
   using Parameters = Table<Config>;
   explicit IntProducer(Parameters const& p, art::ProcessingFrame const&);

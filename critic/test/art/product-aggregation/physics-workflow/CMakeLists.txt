@@ -112,14 +112,14 @@ set(NUM_THREADS 1 2 4 8)
 cet_test(Stage1_EventGeneration_w HANDBUILT
   TEST_EXEC art
   PARG_J -j ${NUM_THREADS}
-  TEST_ARGS --rethrow-all -c eventGeneration_w.fcl
+  TEST_ARGS -c eventGeneration_w.fcl
   DATAFILES fcl/eventGeneration_w.fcl
 )
 
 cet_test(Stage2_ParticleSimulation_w HANDBUILT
   TEST_EXEC art
   PARG_J -j ${NUM_THREADS}
-  TEST_ARGS --rethrow-all -c particleSimulation_w.fcl
+  TEST_ARGS -c particleSimulation_w.fcl
     -s ../Stage1_EventGeneration_w_0.d/evtGen_1.root
     -s ../Stage1_EventGeneration_w_0.d/evtGen_2.root
     -s ../Stage1_EventGeneration_w_0.d/evtGen_3.root
@@ -135,7 +135,7 @@ set_tests_properties(Stage2_ParticleSimulation_w_3 PROPERTIES DEPENDS Stage1_Eve
 cet_test(Stage3_Reconstruction_w HANDBUILT
   TEST_EXEC art
   PARG_J -j ${NUM_THREADS}
-  TEST_ARGS --rethrow-all -c reconstruction_w.fcl
+  TEST_ARGS -c reconstruction_w.fcl
     -s "../Stage2_ParticleSimulation_w_0.d/sim_1.root"
     -s "../Stage2_ParticleSimulation_w_0.d/sim_2.root"
     -s "../Stage2_ParticleSimulation_w_0.d/sim_3.root"
@@ -153,7 +153,7 @@ set_tests_properties(Stage3_Reconstruction_w_3 PROPERTIES DEPENDS Stage2_Particl
 cet_test(Stage4_Concatenation_w HANDBUILT
   TEST_EXEC art
   PARG_J -j ${NUM_THREADS}
-  TEST_ARGS --rethrow-all -c concatenate_w.fcl
+  TEST_ARGS -c concatenate_w.fcl
     -s "../Stage3_Reconstruction_w_0.d/reco_1.root"
     -s "../Stage3_Reconstruction_w_0.d/reco_2.root"
     -s "../Stage3_Reconstruction_w_0.d/reco_3.root"

@@ -17,21 +17,21 @@
 
 cet_test(test_tiered_input_07a_t HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --config make_fA.fcl --rethrow-all
+  TEST_ARGS --config make_fA.fcl
   DATAFILES
   fcl/make_fA.fcl
   )
 
 cet_test(test_tiered_input_07b_t HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --config make_fB.fcl --rethrow-all
+  TEST_ARGS --config make_fB.fcl
   DATAFILES
   fcl/make_fB.fcl
   )
 
 cet_test(test_tiered_input_07c_t HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --config make_fC.fcl --rethrow-all
+  TEST_ARGS --config make_fC.fcl
   DATAFILES
   fcl/make_fC.fcl
   TEST_PROPERTIES
@@ -40,7 +40,7 @@ cet_test(test_tiered_input_07c_t HANDBUILT
 
 cet_test(test_tiered_input_07d_t HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --config read.fcl --rethrow-all
+  TEST_ARGS --config read.fcl
   DATAFILES
   fcl/read.fcl
   )

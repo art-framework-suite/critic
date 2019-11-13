@@ -34,7 +34,7 @@
 
 cet_test(RangeSetAggregation_p1_w HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --rethrow-all -c rangeSetAggregation_p1_w.fcl
+  TEST_ARGS -c rangeSetAggregation_p1_w.fcl
   DATAFILES fcl/rangeSetAggregation_p1_w.fcl)
 
 # Check range sets/file indexes from first process
@@ -65,7 +65,6 @@ endforeach()
 cet_test(RangeSetAggregation_p2a_w1 HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c empty.fcl
   -s "../RangeSetAggregation_p1_w.d/p_1.root"
   -s "../RangeSetAggregation_p1_w.d/p_2.root"
@@ -77,7 +76,6 @@ cet_test(RangeSetAggregation_p2a_w1 HANDBUILT
 cet_test(RangeSetAggregation_p2a_w2 HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c empty.fcl
   -s "../RangeSetAggregation_p1_w.d/p_3.root"
   -s "../RangeSetAggregation_p1_w.d/p_4.root"
@@ -105,7 +103,6 @@ endforeach()
 cet_test(RangeSetAggregation_p2b_w1 HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c empty.fcl
   -s "../RangeSetAggregation_p1_w.d/p_1.root"
   -s "../RangeSetAggregation_p1_w.d/p_3.root"
@@ -118,7 +115,6 @@ cet_test(RangeSetAggregation_p2b_w1 HANDBUILT
 cet_test(RangeSetAggregation_p2b_w2 HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c empty.fcl
   -s "../RangeSetAggregation_p1_w.d/p_2.root"
   -s "../RangeSetAggregation_p1_w.d/p_4.root"
@@ -149,7 +145,6 @@ endforeach()
 cet_test(RangeSetAggregation_p2c_w HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c empty.fcl
   -s "../RangeSetAggregation_p1_w.d/p_5.root"
   -s "../RangeSetAggregation_p1_w.d/p_3.root"
@@ -174,7 +169,6 @@ cet_test(RangeSetAggregation_p2c_r HANDBUILT
 cet_test(RangeSetAggregation_p3a_w1 HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c empty.fcl
   -s "../RangeSetAggregation_p2a_w1.d/q_1.root"
   -s "../RangeSetAggregation_p2a_w2.d/q_2.root"
@@ -185,7 +179,6 @@ cet_test(RangeSetAggregation_p3a_w1 HANDBUILT
 cet_test(RangeSetAggregation_p3a_w2 HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c empty.fcl
   -s "../RangeSetAggregation_p2b_w1.d/q_1.root"
   -s "../RangeSetAggregation_p2b_w2.d/q_2.root"
@@ -217,7 +210,6 @@ endforeach()
 cet_test(RangeSetAggregation_p3a_w3 HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c rangeSetAggregation_p3a_w3.fcl
   -s "../RangeSetAggregation_p2b_w1.d/q_1.root"
   DATAFILES fcl/rangeSetAggregation_p3a_w3.fcl
@@ -227,7 +219,6 @@ cet_test(RangeSetAggregation_p3a_w3 HANDBUILT
 cet_test(RangeSetAggregation_p3b_w HANDBUILT
   TEST_EXEC art
   TEST_ARGS
-  --rethrow-all
   -c rangeSetAggregation_p3b_w.fcl
   -o "r.root"
   -s "../RangeSetAggregation_p2b_w1.d/q_1.root"

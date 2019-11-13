@@ -2,7 +2,7 @@
 
 source.maxEvents: 1
 
-services.RandomNumberGenerator: {}
+services.RandomNumberGenerator.defaultEngineKind: "MixMaxRng"
 
 physics.end_paths: [ ]
 physics.filters.mixFilter.testEventOrdering: true

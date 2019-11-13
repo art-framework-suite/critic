@@ -65,16 +65,12 @@ ASSNS: {
          }
       }
       scheduler: {
-         FailModule: []
-         FailPath: []
-         IgnoreCompletely: []
-         SkipEvent: []
-         defaultExceptions: false
          errorOnMissingConsumes: false
          errorOnSIGINT: true
          num_schedules: 1
          num_threads: 1
          pruneConfig: true
+         reportUnused: true
       }
    }
    source: {

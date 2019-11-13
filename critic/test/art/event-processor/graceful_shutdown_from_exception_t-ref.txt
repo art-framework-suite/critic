@@ -112,22 +112,19 @@ TimeReport ---------- Time  Summary ---[sec]----
 TimeReport CPU = <duration> Real = <duration>
 
 %MSG-s ArtException:  <date-time> ModuleEndJob
-cet::exception caught in art
----- OtherArt BEGIN
+---- EventProcessorFailure BEGIN
+  EventProcessor: an exception occurred during current event processing
   ---- EventProcessorFailure BEGIN
-    EventProcessor: an exception occurred during current event processing
-    ---- EventProcessorFailure BEGIN
-      EndPathExecutor: an exception occurred during current event processing
-      ---- ScheduleExecutionFailure BEGIN
-        Path: ProcessingStopped.
-        ---- OtherArt BEGIN
-          Throw from analyze.
-          cet::exception going through module ThrowingAnalyzer/a1 run: 1 subRun: 0 event: 6
-        ---- OtherArt END
-        Exception going through path end_path
-      ---- ScheduleExecutionFailure END
-    ---- EventProcessorFailure END
+    EndPathExecutor: an exception occurred during current event processing
+    ---- ScheduleExecutionFailure BEGIN
+      Path: ProcessingStopped.
+      ---- OtherArt BEGIN
+        Throw from analyze.
+        The above exception was thrown while processing module ThrowingAnalyzer/a1 run: 1 subRun: 0 event: 6
+      ---- OtherArt END
+      Exception going through path end_path
+    ---- ScheduleExecutionFailure END
   ---- EventProcessorFailure END
----- OtherArt END
+---- EventProcessorFailure END
 %MSG
 Art has completed and will exit with status 1.

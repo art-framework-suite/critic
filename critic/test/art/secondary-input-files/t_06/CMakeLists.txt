@@ -12,21 +12,21 @@
 
 cet_test(test_tiered_input_06a_t HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --config make_fA.fcl --rethrow-all
+  TEST_ARGS --config make_fA.fcl
   DATAFILES
   fcl/make_fA.fcl
   )
 
 cet_test(test_tiered_input_06b_t HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --config make_fB.fcl --rethrow-all
+  TEST_ARGS --config make_fB.fcl
   DATAFILES
   fcl/make_fB.fcl
   )
 
 cet_test(test_tiered_input_06c_t HANDBUILT
   TEST_EXEC art
-  TEST_ARGS --config read.fcl --rethrow-all
+  TEST_ARGS --config read.fcl
   DATAFILES
   fcl/read.fcl
   )

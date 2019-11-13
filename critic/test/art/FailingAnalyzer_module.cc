@@ -23,9 +23,9 @@ arttest::FailingAnalyzer::FailingAnalyzer(fhicl::ParameterSet const& pset)
 {}
 
 void
-arttest::FailingAnalyzer::analyze(art::Event const&)
+arttest::FailingAnalyzer::analyze(art::Event const& e)
 {
-  // Nothing to do.
+  makeTrouble(e);
 }
 
 void
