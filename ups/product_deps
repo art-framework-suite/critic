@@ -7,7 +7,7 @@ fcldir -
 perllib  product_dir
 #
 product         version
-gallery         v1_13_01
+gallery         v1_14_00
 art_root_io     v1_01_04
 cetbuildtools   v7_14_00        -       only_for_build
 end_product_list
