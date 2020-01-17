@@ -45,26 +45,26 @@ void
 art::test::ProductIDGetterAnalyzer::beginSubRun(SubRun const& sr)
 {
   Handle<Ptr<int>> h;
-  BOOST_REQUIRE(sr.getByLabel(input_label_, h));
-  BOOST_REQUIRE_EQUAL(**h, 5);
+  BOOST_TEST_REQUIRE(sr.getByLabel(input_label_, h));
+  BOOST_TEST_REQUIRE(**h == 5);
   // Retrieve Ptr by its ProductID, *NOT* by the ProductID of the
   // pointed-to product.
   auto const pid = h.id();
-  BOOST_REQUIRE(sr.get(pid, h));
-  BOOST_REQUIRE_EQUAL(**h, 5);
+  BOOST_TEST_REQUIRE(sr.get(pid, h));
+  BOOST_TEST_REQUIRE(**h == 5);
 }
 
 void
 art::test::ProductIDGetterAnalyzer::analyze(Event const& e)
 {
   Handle<Ptr<int>> h;
-  BOOST_REQUIRE(e.getByLabel(input_label_, h));
-  BOOST_REQUIRE_EQUAL(**h, 4);
+  BOOST_TEST_REQUIRE(e.getByLabel(input_label_, h));
+  BOOST_TEST_REQUIRE(**h == 4);
   // Retrieve Ptr by its ProductID, *NOT* by the ProductID of the
   // pointed-to product.
   auto const pid = h.id();
-  BOOST_REQUIRE(e.get(pid, h));
-  BOOST_REQUIRE_EQUAL(**h, 4);
+  BOOST_TEST_REQUIRE(e.get(pid, h));
+  BOOST_TEST_REQUIRE(**h == 4);
 }
 
 DEFINE_ART_MODULE(art::test::ProductIDGetterAnalyzer)

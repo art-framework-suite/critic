@@ -1,11 +1,13 @@
+#include "cetlib/quiet_unit_test.hpp"
+
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Modules/ProvenanceDumper.h"
 #include "cetlib/container_algorithms.h"
 
-#include "cetlib/quiet_unit_test.hpp"
-
 #include <iostream>
 #include <set>
+
+BOOST_TEST_DONT_PRINT_LOG_VALUE(std::set<std::string>::iterator)
 
 namespace arttest {
   class PDDetail;
@@ -31,7 +33,7 @@ public:
   ~PDDetail()
   {
     // Required to be sure that we actually did the main check!
-    BOOST_CHECK(functionsCalled_.find("endJob") != functionsCalled_.end());
+    BOOST_TEST(functionsCalled_.find("endJob") != functionsCalled_.end());
   }
 
   void
@@ -46,7 +48,7 @@ public:
     functionsCalled_.insert("endJob");
     cet::copy_all(functionsCalled_,
                   std::ostream_iterator<std::string>(std::cout, "\n"));
-    BOOST_REQUIRE_EQUAL(functionsCalled_.size(), nExpected_);
+    BOOST_TEST_REQUIRE(functionsCalled_.size() == nExpected_);
   }
 
   void

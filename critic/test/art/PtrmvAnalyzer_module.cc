@@ -51,18 +51,18 @@ arttest::PtrmvAnalyzer::analyze(art::Event const& e)
 {
   // map_vector retrieval.
   art::Handle<mv_t> mv;
-  BOOST_REQUIRE(e.getByLabel(inputLabel_, mv));
+  BOOST_TEST_REQUIRE(e.getByLabel(inputLabel_, mv));
   std::string const* item;
   item = mv->getOrNull(cet::map_vector_key(0));
-  BOOST_CHECK_EQUAL(*item, "ONE");
+  BOOST_TEST(*item == "ONE");
   item = mv->getOrNull(cet::map_vector_key(3));
-  BOOST_CHECK_EQUAL(*item, "TWO");
+  BOOST_TEST(*item == "TWO");
   item = mv->getOrNull(cet::map_vector_key(5));
-  BOOST_CHECK_EQUAL(*item, "THREE");
+  BOOST_TEST(*item == "THREE");
   item = mv->getOrNull(cet::map_vector_key(7));
-  BOOST_CHECK_EQUAL(*item, "FOUR");
+  BOOST_TEST(*item == "FOUR");
   item = mv->getOrNull(cet::map_vector_key(9));
-  BOOST_CHECK(item == nullptr); // Not using EQUAL to avoid stream badness.
+  BOOST_TEST(item == nullptr);
 
   // Ptr<std::string> retrieval.
   art::Handle<art::Ptr<std::string>> ptr;
@@ -71,29 +71,29 @@ arttest::PtrmvAnalyzer::analyze(art::Event const& e)
 
   // PtrVector<std::string> retrieval.
   art::Handle<art::PtrVector<std::string>> pv;
-  BOOST_REQUIRE(e.getByLabel(inputLabel_, pv));
-  BOOST_CHECK_EQUAL(*(*pv)[0], "THREE");
-  BOOST_CHECK_EQUAL(*(*pv)[1], "ONE");
-  BOOST_CHECK_EQUAL(*(*pv)[2], "FOUR");
-  BOOST_CHECK_EQUAL(*(*pv)[3], "TWO");
+  BOOST_TEST_REQUIRE(e.getByLabel(inputLabel_, pv));
+  BOOST_TEST(*(*pv)[0] == "THREE");
+  BOOST_TEST(*(*pv)[1] == "ONE");
+  BOOST_TEST(*(*pv)[2] == "FOUR");
+  BOOST_TEST(*(*pv)[3] == "TWO");
 
   // Ptr<std::string> retrieval.
   art::Handle<art::Ptr<mvp_t>> ptr_p;
-  BOOST_REQUIRE(e.getByLabel(inputLabel_, ptr_p));
-  BOOST_CHECK_EQUAL((*ptr_p)->first, cet::map_vector_key(3));
-  BOOST_CHECK_EQUAL((*ptr_p)->second, "TWO");
+  BOOST_TEST_REQUIRE(e.getByLabel(inputLabel_, ptr_p));
+  BOOST_TEST((*ptr_p)->first == cet::map_vector_key(3));
+  BOOST_TEST((*ptr_p)->second == "TWO");
 
   // PtrVector<std::string> retrieval.
   art::Handle<art::PtrVector<mvp_t>> pvp;
-  BOOST_REQUIRE(e.getByLabel(inputLabel_, pvp));
-  BOOST_CHECK_EQUAL((*pvp)[0]->first, cet::map_vector_key(5));
-  BOOST_CHECK_EQUAL((*pvp)[0]->second, "THREE");
-  BOOST_CHECK_EQUAL((*pvp)[1]->first, cet::map_vector_key(0));
-  BOOST_CHECK_EQUAL((*pvp)[1]->second, "ONE");
-  BOOST_CHECK_EQUAL((*pvp)[2]->first, cet::map_vector_key(7));
-  BOOST_CHECK_EQUAL((*pvp)[2]->second, "FOUR");
-  BOOST_CHECK_EQUAL((*pvp)[3]->first, cet::map_vector_key(3));
-  BOOST_CHECK_EQUAL((*pvp)[3]->second, "TWO");
+  BOOST_TEST_REQUIRE(e.getByLabel(inputLabel_, pvp));
+  BOOST_TEST((*pvp)[0]->first == cet::map_vector_key(5));
+  BOOST_TEST((*pvp)[0]->second == "THREE");
+  BOOST_TEST((*pvp)[1]->first == cet::map_vector_key(0));
+  BOOST_TEST((*pvp)[1]->second == "ONE");
+  BOOST_TEST((*pvp)[2]->first == cet::map_vector_key(7));
+  BOOST_TEST((*pvp)[2]->second == "FOUR");
+  BOOST_TEST((*pvp)[3]->first == cet::map_vector_key(3));
+  BOOST_TEST((*pvp)[3]->second == "TWO");
 }
 
 DEFINE_ART_MODULE(arttest::PtrmvAnalyzer)

@@ -1,9 +1,10 @@
+#include "cetlib/quiet_unit_test.hpp"
+
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
 #include "canvas/Persistency/Provenance/RangeSet.h"
-#include "cetlib/quiet_unit_test.hpp"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 
 namespace fhicl {

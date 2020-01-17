@@ -7,6 +7,8 @@
 // from cetlib version v1_15_01.
 ////////////////////////////////////////////////////////////////////////
 
+#include "cetlib/quiet_unit_test.hpp"
+
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
@@ -14,7 +16,6 @@
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
 #include "canvas/Utilities/InputTag.h"
-#include "cetlib/quiet_unit_test.hpp"
 #include "fhiclcpp/ParameterSet.h"
 #include "fhiclcpp/ParameterSetRegistry.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
@@ -65,7 +66,7 @@ void
 arttest::EmptyPSetRegistryChecker::respondToOpenInputFile(art::FileBlock const&)
 {
   fhicl::ParameterSetRegistry::stageIn(); // Load everything in from DB.
-  BOOST_REQUIRE_EQUAL(fhicl::ParameterSetRegistry::size(), registrySize_);
+  BOOST_TEST_REQUIRE(fhicl::ParameterSetRegistry::size() == registrySize_);
 }
 
 DEFINE_ART_MODULE(arttest::EmptyPSetRegistryChecker)

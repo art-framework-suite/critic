@@ -69,9 +69,9 @@ namespace {
     // Geometry check
     auto const& geomH = r.getValidHandle<arttest::Geometry>(geomTag_);
     auto const& geomRef = RangeSet::forRun(r.id());
-    BOOST_CHECK(
+    BOOST_TEST(
       art::same_ranges(geomH.provenance()->rangeOfValidity(), geomRef));
-    BOOST_CHECK_EQUAL(geomH->run(), r.run());
+    BOOST_TEST(geomH->run() == r.run());
 
     // nPOTs check
     RangeSet nPotsRef{r.run()};
@@ -79,9 +79,9 @@ namespace {
     nPotsRef.emplace_range(1, 1, 101);
     nPotsRef.collapse();
     auto const& npotsH = r.getValidHandle<unsigned>(potsTag_);
-    BOOST_CHECK(
+    BOOST_TEST(
       art::same_ranges(npotsH.provenance()->rangeOfValidity(), nPotsRef));
-    BOOST_CHECK_EQUAL(*npotsH, 200u);
+    BOOST_TEST(*npotsH == 200u);
   }
 
   void
@@ -90,14 +90,14 @@ namespace {
     // CalibConstants check
     auto const& calRef = RangeSet::forSubRun(sr.id());
     auto const& calH = sr.getValidHandle<arttest::CalibConstants>(calibTag_);
-    BOOST_CHECK(art::same_ranges(calH.provenance()->rangeOfValidity(), calRef));
+    BOOST_TEST(art::same_ranges(calH.provenance()->rangeOfValidity(), calRef));
 
     // TrackEfficiency check
     RangeSet trkEffRef{sr.run()};
     trkEffRef.emplace_range(sr.subRun(), 1, 101);
     auto const& trkEffH =
       sr.getValidHandle<arttest::TrackEfficiency>(trkEffRef_.tag_);
-    BOOST_CHECK(
+    BOOST_TEST(
       art::same_ranges(trkEffH.provenance()->rangeOfValidity(), trkEffRef));
 
     BOOST_CHECK_CLOSE_FRACTION(
@@ -105,7 +105,7 @@ namespace {
 
     // nParticles and TrackEfficiency RangeSet check
     auto const& nParticlesH = sr.getValidHandle<unsigned>(nParticlesTag_);
-    BOOST_CHECK(art::same_ranges(trkEffH, nParticlesH));
+    BOOST_TEST(art::same_ranges(trkEffH, nParticlesH));
   }
 
 } // namespace

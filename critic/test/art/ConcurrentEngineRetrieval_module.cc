@@ -21,7 +21,6 @@
 #include "art/Utilities/ScheduleID.h"
 #include "art/Utilities/ScheduleIteration.h"
 #include "cetlib/SimultaneousFunctionSpawner.h"
-#include "cetlib/test_macros.h"
 
 #include "CLHEP/Random/RandFlat.h"
 

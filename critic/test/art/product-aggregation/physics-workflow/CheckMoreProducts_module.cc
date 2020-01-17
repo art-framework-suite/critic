@@ -71,7 +71,7 @@ namespace {
     auto const& trkEffH =
       sr.getValidHandle<arttest::TrackEfficiency>(trkEffTag_);
     auto const& trkEffValueH = sr.getValidHandle<Fraction>(trkEffValueTag_);
-    BOOST_CHECK(art::same_ranges(trkEffH, trkEffValueH));
+    BOOST_TEST(art::same_ranges(trkEffH, trkEffValueH));
     BOOST_CHECK_CLOSE_FRACTION(
       trkEffH->efficiency(), trkEffValueH->value(), tolerance);
 
@@ -80,14 +80,14 @@ namespace {
     auto const nParticles = sr.getByLabel<unsigned>(nParticlesRef_.tag_);
     auto const& particleRatioH =
       sr.getValidHandle<Fraction>(particleRatioRef_.tag_);
-    BOOST_CHECK_EQUAL(seenParticles, seenParticlesRef_.value_);
-    BOOST_CHECK_EQUAL(nParticles, nParticlesRef_.value_);
+    BOOST_TEST(seenParticles == seenParticlesRef_.value_);
+    BOOST_TEST(nParticles == nParticlesRef_.value_);
     BOOST_CHECK_CLOSE_FRACTION(particleRatioH->value(),
                                particleRatioRef_.value_,
                                0.01); // 1% tolerance
-    BOOST_CHECK(art::same_ranges(particleRatioH, trkEffValueH));
-    BOOST_CHECK(!art::disjoint_ranges(particleRatioH, trkEffValueH));
-    BOOST_CHECK(art::overlapping_ranges(particleRatioH, trkEffValueH));
+    BOOST_TEST(art::same_ranges(particleRatioH, trkEffValueH));
+    BOOST_TEST(!art::disjoint_ranges(particleRatioH, trkEffValueH));
+    BOOST_TEST(art::overlapping_ranges(particleRatioH, trkEffValueH));
   }
 
 } // namespace

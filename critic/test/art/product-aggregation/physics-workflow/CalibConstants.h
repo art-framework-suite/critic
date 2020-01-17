@@ -24,7 +24,8 @@ namespace arttest {
 
 } // namespace arttest
 
-#endif /* critic_test_art_product_aggregation_physics_workflow_CalibConstants_h */
+#endif /* critic_test_art_product_aggregation_physics_workflow_CalibConstants_h \
+        */
 
 // Local variables:
 // mode: c++

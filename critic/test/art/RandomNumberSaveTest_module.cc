@@ -98,7 +98,7 @@ arttest::RandomNumberSaveTest::produce(art::Event& e)
   if (e.getByLabel(myLabel_, hp)) {
     std::cerr << "(*hp): " << *hp << "\n";
     // Reading.
-    BOOST_REQUIRE((*hp) == nums);
+    BOOST_TEST_REQUIRE((*hp) == nums);
     if (genUnsaved_) {
       // Intentionally attempt to throw the sequence off for the next event.
       dist_.fireInt(random_range);
