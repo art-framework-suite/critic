@@ -14,8 +14,8 @@ set(gallery_tests_libraries
   fhiclcpp
   cetlib
   cetlib_except
-  ${ROOT_RIO}
-  ${ROOT_CORE}
+  ROOT::RIO
+  ROOT::Core
   )
 
 ########################################################################

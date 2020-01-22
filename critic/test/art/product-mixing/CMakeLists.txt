@@ -12,10 +12,10 @@ simple_plugin(MixFilterTest             "module" NO_INSTALL USE_BOOST_UNIT
               art_Framework_IO_ProductMix
               art_Framework_Services_Registry
               art_root_io
-              ${ROOT_CORE})
-simple_plugin(MixFilterTestETS          "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ${ROOT_CORE})
-simple_plugin(MixFilterTestETSc         "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ${ROOT_CORE})
-simple_plugin(MixFilterTestNoStartEvent "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ${ROOT_CORE})
+              ROOT::Core)
+simple_plugin(MixFilterTestETS          "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ROOT::Core)
+simple_plugin(MixFilterTestETSc         "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ROOT::Core)
+simple_plugin(MixFilterTestNoStartEvent "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ROOT::Core)
 simple_plugin(MixProducer               "module" NO_INSTALL)
 
 # Write the data file required for the other mixing tests.
