@@ -47,21 +47,20 @@ void
 art::test::TestServiceUsingService::beginJob()
 {
   ServiceHandle<ServiceUsing const> sus;
-  BOOST_CHECK_EQUAL(debug_level_, sus->getCachedValue());
-  BOOST_CHECK_EQUAL(ServiceHandle<Wanted const> {}->getCachedValue(),
-                    sus->getCachedValue());
+  BOOST_TEST(debug_level_ == sus->getCachedValue());
+  BOOST_TEST(ServiceHandle<Wanted const> {}->getCachedValue() ==
+             sus->getCachedValue());
 }
 
 void
 art::test::TestServiceUsingService::endJob()
 {
   ServiceHandle<ServiceUsing const> sus;
-  BOOST_CHECK(sus->postBeginJobCalled());
+  BOOST_TEST(sus->postBeginJobCalled());
 
   int const current_value{sus->getCachedValue()};
-  BOOST_CHECK_NE(debug_level_, current_value);
-  BOOST_CHECK_EQUAL(ServiceHandle<Wanted const> {}->getCachedValue(),
-                    current_value);
+  BOOST_TEST(debug_level_ != current_value);
+  BOOST_TEST(ServiceHandle<Wanted const> {}->getCachedValue() == current_value);
 }
 
 DEFINE_ART_MODULE(art::test::TestServiceUsingService)

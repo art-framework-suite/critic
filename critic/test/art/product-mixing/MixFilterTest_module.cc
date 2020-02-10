@@ -259,9 +259,9 @@ template <typename COLL>
 inline void
 arttest::MixFilterTestDetail::verifyInSize(COLL const& in) const
 {
-  BOOST_REQUIRE_EQUAL(
-    in.size(),
-    (currentEvent_ == 2 && testZeroSecondaries_) ? 0 : nSecondaries_);
+  BOOST_TEST_REQUIRE((
+    in.size() == (currentEvent_ == 2 && testZeroSecondaries_) ? 0 :
+                                                                nSecondaries_));
 }
 
 arttest::MixFilterTestDetail::MixFilterTestDetail(Parameters const& p,
@@ -352,13 +352,13 @@ arttest::MixFilterTestDetail::MixFilterTestDetail(Parameters const& p,
       for (auto i = 0ul; i < sz; ++i) {
         if (!compactMissingProducts_ && ((*eIDs_)[i].event() % 100) == 0) {
           // Product missing
-          BOOST_REQUIRE(in[i] == nullptr);
+          BOOST_TEST_REQUIRE(in[i] == nullptr);
         } else {
-          BOOST_REQUIRE(in[i] != nullptr);
+          BOOST_TEST_REQUIRE(in[i] != nullptr);
         }
       }
-      BOOST_REQUIRE_EQUAL(
-        sz, (currentEvent_ == 2 && testZeroSecondaries_) ? 0ul : expected);
+      BOOST_TEST_REQUIRE(
+        (sz == (currentEvent_ == 2 && testZeroSecondaries_) ? 0ul : expected));
       return false;
     });
   helper.declareMixOp(
@@ -382,16 +382,16 @@ arttest::MixFilterTestDetail::~MixFilterTestDetail()
   if (readMode_ == art::MixHelper::Mode::RANDOM_LIM_REPLACE &&
       testNoLimEventDupes_ == false) {
     // Require dupes across the job.
-    BOOST_CHECK_GT(allEvents_.size(), uniqueEvents_.size());
+    BOOST_TEST(allEvents_.size() > uniqueEvents_.size());
   } else if (readMode_ == art::MixHelper::Mode::RANDOM_NO_REPLACE) {
     // Require no dupes across the job.
-    BOOST_CHECK_EQUAL(allEvents_.size(), uniqueEvents_.size());
+    BOOST_TEST(allEvents_.size() == uniqueEvents_.size());
   }
-  BOOST_CHECK_EQUAL(respondFunctionsSeen_, expectedRespondFunctionCalls_);
-  BOOST_CHECK_EQUAL(beginSubRunCounter_, 1ull);
-  BOOST_CHECK_EQUAL(endSubRunCounter_, 1ull);
-  BOOST_CHECK_EQUAL(beginRunCounter_, 1ull);
-  BOOST_CHECK_EQUAL(endRunCounter_, 1ull);
+  BOOST_TEST(respondFunctionsSeen_ == expectedRespondFunctionCalls_);
+  BOOST_TEST(beginSubRunCounter_ == 1ull);
+  BOOST_TEST(endSubRunCounter_ == 1ull);
+  BOOST_TEST(beginRunCounter_ == 1ull);
+  BOOST_TEST(endRunCounter_ == 1ull);
 }
 
 #ifndef ART_TEST_NO_STARTEVENT
@@ -432,8 +432,8 @@ arttest::MixFilterTestDetail::processEventIDs(art::EventIDSequence const& seq)
     case art::MixHelper::Mode::SEQUENTIAL: {
       auto count(1);
       for (auto const& eid : seq) {
-        BOOST_REQUIRE_EQUAL(eid.event(),
-                            currentEvent_ * nSecondaries() + count++);
+        BOOST_TEST_REQUIRE(eid.event() ==
+                           currentEvent_ * nSecondaries() + count++);
       }
     } break;
     case art::MixHelper::Mode::RANDOM_REPLACE: {
@@ -442,7 +442,7 @@ arttest::MixFilterTestDetail::processEventIDs(art::EventIDSequence const& seq)
       cet::transform_all(seq,
                          std::inserter(s, s.begin()),
                          [](art::EventID const& eid) { return eid.event(); });
-      BOOST_CHECK_GT(seq.size(), s.size());
+      BOOST_TEST(seq.size() > s.size());
     } break;
     case art::MixHelper::Mode::RANDOM_LIM_REPLACE:
       if (testNoLimEventDupes_) {
@@ -452,7 +452,7 @@ arttest::MixFilterTestDetail::processEventIDs(art::EventIDSequence const& seq)
           seq, std::inserter(s, s.begin()), [](art::EventID const& eid) {
             return eid.event() + eid.subRun() * 100 + (eid.run() - 1) * 500;
           });
-        BOOST_CHECK_EQUAL(seq.size(), s.size());
+        BOOST_TEST(seq.size() == s.size());
       } else { // Require dupes over 2 events.
         auto checkpoint(allEvents_.size());
         cet::transform_all(
@@ -486,10 +486,10 @@ arttest::MixFilterTestDetail::processEventAuxiliaries(
   // are auxiliaries in the sequence.  No need for full coverage,
   // the event ids test takes care of that.
   if ((readMode_ == art::MixHelper::Mode::SEQUENTIAL) && (currentEvent_ == 0)) {
-    BOOST_REQUIRE_EQUAL(seq.size(), nSecondaries_);
+    BOOST_TEST_REQUIRE(seq.size() == nSecondaries_);
     size_t offset = 1;
     for (auto const& val : seq) {
-      BOOST_REQUIRE_EQUAL(val.event(), offset);
+      BOOST_TEST_REQUIRE(val.event() == offset);
       ++offset;
     }
   }
@@ -501,12 +501,12 @@ arttest::MixFilterTestDetail::finalizeEvent(art::Event& e)
   e.put(std::make_unique<std::string>("BlahBlahBlah"));
   e.put(std::move(eIDs_));
 #ifndef ART_TEST_NO_STARTEVENT
-  BOOST_REQUIRE(startEvent_called_);
+  BOOST_TEST_REQUIRE(startEvent_called_);
   startEvent_called_ = false;
 #endif
-  BOOST_REQUIRE(processEventIDs_called_);
+  BOOST_TEST_REQUIRE(processEventIDs_called_);
   processEventIDs_called_ = false;
-  BOOST_REQUIRE(processEventAuxiliaries_called_);
+  BOOST_TEST_REQUIRE(processEventAuxiliaries_called_);
   processEventAuxiliaries_called_ = false;
 }
 

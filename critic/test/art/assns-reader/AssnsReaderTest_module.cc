@@ -7,6 +7,8 @@
 // from art v0_07_12.
 ////////////////////////////////////////////////////////////////////////
 
+#include "cetlib/quiet_unit_test.hpp"
+
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
@@ -21,7 +23,6 @@
 #include "canvas/Persistency/Common/PtrVector.h"
 #include "canvas/Utilities/InputTag.h"
 #include "cetlib/maybe_ref.h"
-#include "cetlib/quiet_unit_test.hpp"
 
 #include "boost/type_traits.hpp"
 
@@ -141,9 +142,9 @@ namespace {
                     bool wantAmbiguous,
                     std::string const& process)
   {
-    BOOST_CHECK_EQUAL(v.size(),
-                      (expectedSize<A, B, D>(
-                        wantVoid, wantMV, wantMany, wantAmbiguous, process)));
+    BOOST_TEST(v.size() ==
+               (expectedSize<A, B, D>(
+                 wantVoid, wantMV, wantMany, wantAmbiguous, process)));
   }
 } // namespace
 
@@ -156,96 +157,97 @@ arttest::AssnsReaderTest::analyze(art::Event const& e)
   auto const vSizeM = vSize + ((wantVoid_ == "ALL"s) ? 2ull : 1ull);
   auto const mvVSizeM = mvVSize + ((wantVoid_ != "NONE"s) ? 2ull : 1ull);
 
-  static std::regex const re{"Found 2 products rather than one which match all criteria"};
+  static std::regex const re{
+    "Found 2 products rather than one which match all criteria"};
 
   // Check <A, B> and <B, A>.
   art::Handle<AssnsABV_t> hABV;
   try {
     e.getByLabel(inputLabel_, hABV);
-    BOOST_CHECK_EQUAL(hABV->size(), vSize);
+    BOOST_TEST(hABV->size() == vSize);
     if (!process_.empty()) {
-      BOOST_CHECK_EQUAL(hABV.provenance()->processName(), process_);
+      BOOST_TEST(hABV.provenance()->processName() == process_);
     }
   }
   catch (art::Exception const& e) {
     if (!wantAmbiguous_ || wantVoid_ == "ALL") {
       throw; // Shouldn't have gotten here.
     } else { // Expected exception.
-      BOOST_REQUIRE(e.categoryCode() == art::errors::ProductNotFound);
-      BOOST_CHECK(std::regex_search(e.what(), re));
+      BOOST_TEST_REQUIRE(e.categoryCode() == art::errors::ProductNotFound);
+      BOOST_TEST(std::regex_search(e.what(), re));
     }
   }
 
   art::Handle<AssnsBAV_t> hBAV;
   try {
     e.getByLabel(inputLabel_, hBAV);
-    BOOST_CHECK_EQUAL(hBAV->size(), vSize);
+    BOOST_TEST(hBAV->size() == vSize);
     if (!process_.empty()) {
-      BOOST_CHECK_EQUAL(hBAV.provenance()->processName(), process_);
+      BOOST_TEST(hBAV.provenance()->processName() == process_);
     }
   }
   catch (art::Exception const& e) {
     if (!wantAmbiguous_ || wantVoid_ == "ALL") {
       throw; // Shouldn't have gotten here.
     } else { // Expected exception.
-      BOOST_REQUIRE(e.categoryCode() == art::errors::ProductNotFound);
-      BOOST_CHECK(std::regex_search(e.what(), re));
+      BOOST_TEST_REQUIRE(e.categoryCode() == art::errors::ProductNotFound);
+      BOOST_TEST(std::regex_search(e.what(), re));
     }
   }
 
   if (wantMany_) {
     auto const hABVM = e.getValidHandle<AssnsABV_t>({inputLabel_, "many"s});
-    BOOST_CHECK_EQUAL(hABVM->size(), vSizeM);
+    BOOST_TEST(hABVM->size() == vSizeM);
     auto const hBAVM = e.getValidHandle<AssnsBAV_t>({inputLabel_, "many"s});
-    BOOST_CHECK_EQUAL(hBAVM->size(), vSizeM);
+    BOOST_TEST(hBAVM->size() == vSizeM);
     if (!process_.empty()) {
-      BOOST_CHECK_EQUAL(hABVM.provenance()->processName(), process_);
-      BOOST_CHECK_EQUAL(hBAVM.provenance()->processName(), process_);
+      BOOST_TEST(hABVM.provenance()->processName() == process_);
+      BOOST_TEST(hBAVM.provenance()->processName() == process_);
     }
   }
   if (wantMV_) {
     auto const hmvABV = e.getValidHandle<AssnsABV_t>({inputLabel_, "mapvec"s});
-    BOOST_CHECK_EQUAL(hmvABV->size(), mvVSize);
+    BOOST_TEST(hmvABV->size() == mvVSize);
     auto const hmvBAV = e.getValidHandle<AssnsBAV_t>({inputLabel_, "mapvec"s});
-    BOOST_CHECK_EQUAL(hmvBAV->size(), mvVSize);
+    BOOST_TEST(hmvBAV->size() == mvVSize);
     if (!process_.empty()) {
-      BOOST_CHECK_EQUAL(hmvABV.provenance()->processName(), process_);
-      BOOST_CHECK_EQUAL(hmvBAV.provenance()->processName(), process_);
+      BOOST_TEST(hmvABV.provenance()->processName() == process_);
+      BOOST_TEST(hmvBAV.provenance()->processName() == process_);
     }
     if (wantMany_) {
       auto const hmvABVM =
         e.getValidHandle<AssnsABV_t>({inputLabel_, "manymapvec"s});
-      BOOST_CHECK_EQUAL(hmvABVM->size(), mvVSizeM);
+      BOOST_TEST(hmvABVM->size() == mvVSizeM);
       auto const hmvBAVM =
         e.getValidHandle<AssnsBAV_t>({inputLabel_, "manymapvec"s});
-      BOOST_CHECK_EQUAL(hmvBAVM->size(), mvVSizeM);
+      BOOST_TEST(hmvBAVM->size() == mvVSizeM);
       if (!process_.empty()) {
-        BOOST_CHECK_EQUAL(hmvABVM.provenance()->processName(), process_);
-        BOOST_CHECK_EQUAL(hmvBAVM.provenance()->processName(), process_);
+        BOOST_TEST(hmvABVM.provenance()->processName() == process_);
+        BOOST_TEST(hmvBAVM.provenance()->processName() == process_);
       }
     }
   }
 
   // Check all <A, B, V> and <B, A, V>.
-  BOOST_CHECK_EQUAL(e.getValidHandle<AssnsABX_t>(inputLabel_)->size(), 3ull);
-  BOOST_CHECK_EQUAL(e.getValidHandle<AssnsBAX_t>(inputLabel_)->size(), 3ull);
+  BOOST_TEST(e.getValidHandle<AssnsABX_t>(inputLabel_)->size() == 3ull);
+  BOOST_TEST(e.getValidHandle<AssnsBAX_t>(inputLabel_)->size() == 3ull);
   if (wantMany_) {
-    BOOST_CHECK_EQUAL(
-      e.getValidHandle<AssnsABX_t>({inputLabel_, "many"s})->size(), 4ull);
-    BOOST_CHECK_EQUAL(
-      e.getValidHandle<AssnsBAX_t>({inputLabel_, "many"s})->size(), 4ull);
+    BOOST_TEST(e.getValidHandle<AssnsABX_t>({inputLabel_, "many"s})->size() ==
+               4ull);
+    BOOST_TEST(e.getValidHandle<AssnsBAX_t>({inputLabel_, "many"s})->size() ==
+               4ull);
   }
   if (wantMV_) {
-    BOOST_CHECK_EQUAL(
-      e.getValidHandle<AssnsABX_t>({inputLabel_, "mapvec"s})->size(), 3ull);
-    BOOST_CHECK_EQUAL(
-      e.getValidHandle<AssnsBAX_t>({inputLabel_, "mapvec"s})->size(), 3ull);
+    BOOST_TEST(e.getValidHandle<AssnsABX_t>({inputLabel_, "mapvec"s})->size() ==
+               3ull);
+    BOOST_TEST(e.getValidHandle<AssnsBAX_t>({inputLabel_, "mapvec"s})->size() ==
+               3ull);
     if (wantMany_) {
-      BOOST_CHECK_EQUAL(
-        e.getValidHandle<AssnsABX_t>({inputLabel_, "manymapvec"s})->size(),
+      BOOST_TEST(
+        e.getValidHandle<AssnsABX_t>({inputLabel_, "manymapvec"s})->size() ==
         4ull);
-      BOOST_CHECK_EQUAL(
-        e.getValidHandle<AssnsBAX_t>({inputLabel_, "manymapvec"s})->size(),
+      BOOST_TEST(
+        e.getValidHandle<AssnsBAX_t>({inputLabel_, "manymapvec"s})->size() ==
         4ull);
     }
   }

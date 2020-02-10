@@ -52,10 +52,10 @@ namespace {
     void
     endJob() override
     {
-      BOOST_CHECK_EQUAL(nBRcalls_, 1u);
-      BOOST_CHECK_EQUAL(nBSRcalls_, 1u);
-      BOOST_CHECK_EQUAL(nESRcalls_, 1u);
-      BOOST_CHECK_EQUAL(nERcalls_, 1u);
+      BOOST_TEST(nBRcalls_ == 1u);
+      BOOST_TEST(nBSRcalls_ == 1u);
+      BOOST_TEST(nESRcalls_ == 1u);
+      BOOST_TEST(nERcalls_ == 1u);
     }
   };
 }

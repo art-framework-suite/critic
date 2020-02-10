@@ -7,6 +7,8 @@
 // from cetpkgsupport v1_06_02.
 ////////////////////////////////////////////////////////////////////////
 
+#include "cetlib/quiet_unit_test.hpp"
+
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
@@ -15,7 +17,6 @@
 #include "art/Framework/Principal/SubRun.h"
 #include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Utilities/InputTag.h"
-#include "cetlib/quiet_unit_test.hpp"
 #include "fhiclcpp/ParameterSet.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 
@@ -53,39 +54,39 @@ void
 arttest::TestRemoveCachedProduct::analyze(art::Event const& e)
 {
   art::Handle<std::vector<int>> hi;
-  BOOST_CHECK(!hi.isValid());
-  BOOST_CHECK(!e.removeCachedProduct(hi));
-  BOOST_CHECK(e.getByLabel("m1a", hi));
-  BOOST_CHECK(hi.isValid());
-  BOOST_CHECK_EQUAL(hi->size(), 16ul);
-  BOOST_CHECK(e.removeCachedProduct(hi));
-  BOOST_CHECK(!hi.isValid());
+  BOOST_TEST(!hi.isValid());
+  BOOST_TEST(!e.removeCachedProduct(hi));
+  BOOST_TEST(e.getByLabel("m1a", hi));
+  BOOST_TEST(hi.isValid());
+  BOOST_TEST(hi->size() == 16ul);
+  BOOST_TEST(e.removeCachedProduct(hi));
+  BOOST_TEST(!hi.isValid());
 }
 
 void
 arttest::TestRemoveCachedProduct::endSubRun(art::SubRun const& sr)
 {
   art::Handle<IntProduct> hi;
-  BOOST_CHECK(!hi.isValid());
-  BOOST_CHECK(!sr.removeCachedProduct(hi));
+  BOOST_TEST(!hi.isValid());
+  BOOST_TEST(!sr.removeCachedProduct(hi));
   sr.getByLabel("m2", hi);
-  BOOST_CHECK(hi.isValid());
-  BOOST_CHECK_EQUAL(hi->value, 1);
-  BOOST_CHECK(sr.removeCachedProduct(hi));
-  BOOST_CHECK(!hi.isValid());
+  BOOST_TEST(hi.isValid());
+  BOOST_TEST(hi->value == 1);
+  BOOST_TEST(sr.removeCachedProduct(hi));
+  BOOST_TEST(!hi.isValid());
 }
 
 void
 arttest::TestRemoveCachedProduct::endRun(art::Run const& r)
 {
   art::Handle<IntProduct> hi;
-  BOOST_CHECK(!hi.isValid());
-  BOOST_CHECK(!r.removeCachedProduct(hi));
+  BOOST_TEST(!hi.isValid());
+  BOOST_TEST(!r.removeCachedProduct(hi));
   r.getByLabel("m3", hi);
-  BOOST_CHECK(hi.isValid());
-  BOOST_CHECK_EQUAL(hi->value, 2);
-  BOOST_CHECK(r.removeCachedProduct(hi));
-  BOOST_CHECK(!hi.isValid());
+  BOOST_TEST(hi.isValid());
+  BOOST_TEST(hi->value == 2);
+  BOOST_TEST(r.removeCachedProduct(hi));
+  BOOST_TEST(!hi.isValid());
 }
 
 DEFINE_ART_MODULE(arttest::TestRemoveCachedProduct)

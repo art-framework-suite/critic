@@ -1,7 +1,7 @@
+#include "cetlib/quiet_unit_test.hpp"
+
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Modules/ProvenanceDumper.h"
-
-#include "cetlib/quiet_unit_test.hpp"
 
 namespace arttest {
   class RICDetail;
@@ -65,9 +65,9 @@ void
 arttest::RICDetail::postProcessRun()
 {
   if (expectRunProducts_) {
-    BOOST_CHECK_GT(presentRunProducts_, 0ull);
+    BOOST_TEST(presentRunProducts_ > 0ull);
   } else {
-    BOOST_CHECK_EQUAL(presentRunProducts_, 0ull);
+    BOOST_TEST(presentRunProducts_ == 0ull);
   }
 }
 
@@ -87,9 +87,9 @@ void
 arttest::RICDetail::postProcessSubRun()
 {
   if (expectSubRunProducts_) {
-    BOOST_CHECK_GT(presentSubRunProducts_, 0ull);
+    BOOST_TEST(presentSubRunProducts_ > 0ull);
   } else {
-    BOOST_CHECK_EQUAL(presentSubRunProducts_, 0ull);
+    BOOST_TEST(presentSubRunProducts_ == 0ull);
   }
 }
 
@@ -109,9 +109,9 @@ void
 arttest::RICDetail::postProcessEvent()
 {
   if (expectEventProducts_) {
-    BOOST_CHECK_GT(presentEventProducts_, 0ull);
+    BOOST_TEST(presentEventProducts_ > 0ull);
   } else {
-    BOOST_CHECK_EQUAL(presentEventProducts_, 0ull);
+    BOOST_TEST(presentEventProducts_ == 0ull);
   }
 }
 

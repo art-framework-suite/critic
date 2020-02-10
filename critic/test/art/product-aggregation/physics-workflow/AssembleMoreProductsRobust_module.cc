@@ -98,8 +98,8 @@ namespace {
 
     if (art::same_ranges(trkEffNum, trkEffDenom) &&
         art::same_ranges(trkEffRef, trkEffNum.rangeOfValidity())) {
-      BOOST_CHECK(!art::disjoint_ranges(trkEffNum, trkEffDenom));
-      BOOST_CHECK(art::overlapping_ranges(trkEffNum, trkEffDenom));
+      BOOST_TEST(!art::disjoint_ranges(trkEffNum, trkEffDenom));
+      BOOST_TEST(art::overlapping_ranges(trkEffNum, trkEffDenom));
       auto trkEff =
         std::make_unique<Fraction>(trkEffNum.value(), trkEffDenom.value());
       BOOST_CHECK_CLOSE_FRACTION(expTrkEff_, trkEff->value(), tolerance);

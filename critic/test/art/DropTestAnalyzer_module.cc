@@ -53,24 +53,24 @@ void
 arttest::DropTestAnalyzer::analyze(art::Event const& e)
 {
   art::Handle<art::Ptr<std::string>> sh;
-  BOOST_CHECK_EQUAL((e.getByToken(ptrToken_, sh)), keepString_);
-  BOOST_REQUIRE_EQUAL(sh.isValid(), keepString_);
+  BOOST_TEST(e.getByToken(ptrToken_, sh) == keepString_);
+  BOOST_TEST_REQUIRE(sh.isValid() == keepString_);
   if (keepString_ && keepMapVector_) {
-    BOOST_CHECK_EQUAL(**sh, "TWO");
+    BOOST_TEST(**sh == "TWO");
   }
 
   art::Handle<mv_t> mvth;
-  BOOST_CHECK_EQUAL((e.getByToken(mapToken_, mvth)), keepMapVector_);
-  BOOST_REQUIRE_EQUAL(mvth.isValid(), keepMapVector_);
+  BOOST_TEST(e.getByToken(mapToken_, mvth) == keepMapVector_);
+  BOOST_TEST_REQUIRE(mvth.isValid() == keepMapVector_);
 
   if (!keepMapVector_)
     return;
 
   mv_t const& mapvec = *mvth;
-  BOOST_REQUIRE(mapvec[cet::map_vector_key(7)] == "FOUR");
-  BOOST_REQUIRE(mapvec[cet::map_vector_key(5)] == "THREE");
-  BOOST_REQUIRE(mapvec[cet::map_vector_key(3)] == "TWO");
-  BOOST_REQUIRE(mapvec[cet::map_vector_key(0)] == "ONE");
+  BOOST_TEST_REQUIRE(mapvec[cet::map_vector_key(7)] == "FOUR");
+  BOOST_TEST_REQUIRE(mapvec[cet::map_vector_key(5)] == "THREE");
+  BOOST_TEST_REQUIRE(mapvec[cet::map_vector_key(3)] == "TWO");
+  BOOST_TEST_REQUIRE(mapvec[cet::map_vector_key(0)] == "ONE");
 }
 
 DEFINE_ART_MODULE(arttest::DropTestAnalyzer)

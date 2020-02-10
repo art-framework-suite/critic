@@ -73,14 +73,14 @@ art::test::DifferentHistoriesAnalyzer::expected_value_in_ptr(
     Handle<Ptr<int>> h;
     if (t.getByToken(token, h)) {
       ++present;
-      BOOST_REQUIRE_EQUAL(**h, expected_value);
+      BOOST_TEST_REQUIRE(**h == expected_value);
     } else {
       ++not_present;
     }
   }
 
-  BOOST_REQUIRE_EQUAL(present, 1u);
-  BOOST_REQUIRE_EQUAL(not_present, 1u);
+  BOOST_TEST_REQUIRE(present == 1u);
+  BOOST_TEST_REQUIRE(not_present == 1u);
 }
 
 void

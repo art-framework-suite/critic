@@ -1,8 +1,9 @@
+#include "cetlib/quiet_unit_test.hpp"
+
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
-#include "cetlib/quiet_unit_test.hpp"
 #include "fhiclcpp/types/TupleAs.h"
 
 #include <string>
@@ -49,8 +50,8 @@ namespace arttest {
     {
       auto const& numH = r.getValidHandle<unsigned>(tagInfo_("bgnRunNum"));
       auto const& denomH = r.getValidHandle<unsigned>(tagInfo_("bgnRunDenom"));
-      BOOST_CHECK(art::same_ranges(numH, denomH));
-      BOOST_CHECK(numH.provenance()->rangeOfValidity().is_full_run());
+      BOOST_TEST(art::same_ranges(numH, denomH));
+      BOOST_TEST(numH.provenance()->rangeOfValidity().is_full_run());
     }
 
     void
@@ -59,8 +60,8 @@ namespace arttest {
       auto const& numH = sr.getValidHandle<unsigned>(tagInfo_("bgnSubRunNum"));
       auto const& denomH =
         sr.getValidHandle<unsigned>(tagInfo_("bgnSubRunDenom"));
-      BOOST_CHECK(art::same_ranges(numH, denomH));
-      BOOST_CHECK(numH.provenance()->rangeOfValidity().is_full_subRun());
+      BOOST_TEST(art::same_ranges(numH, denomH));
+      BOOST_TEST(numH.provenance()->rangeOfValidity().is_full_subRun());
     }
 
     void
@@ -73,8 +74,8 @@ namespace arttest {
       auto const& numH = sr.getValidHandle<unsigned>(tagInfo_("endSubRunNum"));
       auto const& denomH =
         sr.getValidHandle<unsigned>(tagInfo_("endSubRunDenom"));
-      BOOST_CHECK(art::same_ranges(numH, denomH));
-      BOOST_CHECK(!numH.provenance()->rangeOfValidity().is_full_subRun());
+      BOOST_TEST(art::same_ranges(numH, denomH));
+      BOOST_TEST(!numH.provenance()->rangeOfValidity().is_full_subRun());
     }
 
     void
@@ -82,8 +83,8 @@ namespace arttest {
     {
       auto const& numH = r.getValidHandle<unsigned>(tagInfo_("endRunNum"));
       auto const& denomH = r.getValidHandle<unsigned>(tagInfo_("endRunDenom"));
-      BOOST_CHECK(art::same_ranges(numH, denomH));
-      BOOST_CHECK(!numH.provenance()->rangeOfValidity().is_full_run());
+      BOOST_TEST(art::same_ranges(numH, denomH));
+      BOOST_TEST(!numH.provenance()->rangeOfValidity().is_full_run());
     }
 
   }; // ImplicitRSAssignmentAnalyzer

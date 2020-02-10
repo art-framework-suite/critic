@@ -620,7 +620,7 @@ cet_test(SelectEventsFromPreviousProcess_EventList_t HANDBUILT
   TEST_PROPERTIES DEPENDS SelectEventsFromPreviousProcess_t)
 
 add_executable(test_dropAllEventsSubruns_verify test_dropAllEventsSubruns_verify.cxx)
-target_link_libraries(test_dropAllEventsSubruns_verify ${ROOT_CORE} ${ROOT_RIO} ${ROOT_TREE})
+target_link_libraries(test_dropAllEventsSubruns_verify ROOT::Core ROOT::RIO ROOT::Tree)
 
 #test_dropAllEventsSubruns_verify.cxx
 cet_test(test_dropAllEventsSubruns_t.sh PREBUILT
