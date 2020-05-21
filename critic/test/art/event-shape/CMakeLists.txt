@@ -66,10 +66,7 @@ cet_test(DifferentHistories_r3 HANDBUILT
   REQUIRED_FILES ../DifferentHistories_r2.d/out.root
   TEST_PROPERTIES DEPENDS DifferentHistories_r2)
 
-set_tests_properties(DifferentHistories_r1 PROPERTIES
-  DEPENDS "DifferentHistories_ProcessA_w;DifferentHistories_ProcessB_w2")
-
-set_tests_properties(DifferentHistories_r2 PROPERTIES
+set_tests_properties(DifferentHistories_r1 DifferentHistories_r2 PROPERTIES
   DEPENDS "DifferentHistories_ProcessA_w;DifferentHistories_ProcessB_w2")
 
 #============================================================================
@@ -117,5 +114,4 @@ cet_test(ES_r02 HANDBUILT
   TEST_ARGS -c ES_r02.fcl ../ES_ws01.d/ES_ws01.root ../ES_ws02.d/ES_ws02.root
   DATAFILES fcl/ES_r02.fcl)
 
-set_tests_properties(ES_r01 PROPERTIES DEPENDS "ES_ws01;ES_ws02")
-set_tests_properties(ES_r02 PROPERTIES DEPENDS "ES_ws01;ES_ws02")
+set_tests_properties(ES_r01 ES_r01 PROPERTIES DEPENDS "ES_ws01;ES_ws02")

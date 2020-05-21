@@ -125,12 +125,9 @@ cet_test(Stage2_ParticleSimulation_w HANDBUILT
     -s ../Stage1_EventGeneration_w_0.d/evtGen_3.root
     -s ../Stage1_EventGeneration_w_0.d/evtGen_4.root
   DATAFILES fcl/particleSimulation_w.fcl
+  TEST_PROPERTIES DEPENDS Stage1_EventGeneration_w_0
 )
 
-set_tests_properties(Stage2_ParticleSimulation_w_0 PROPERTIES DEPENDS Stage1_EventGeneration_w_0)
-set_tests_properties(Stage2_ParticleSimulation_w_1 PROPERTIES DEPENDS Stage1_EventGeneration_w_0)
-set_tests_properties(Stage2_ParticleSimulation_w_2 PROPERTIES DEPENDS Stage1_EventGeneration_w_0)
-set_tests_properties(Stage2_ParticleSimulation_w_3 PROPERTIES DEPENDS Stage1_EventGeneration_w_0)
 
 cet_test(Stage3_Reconstruction_w HANDBUILT
   TEST_EXEC art
@@ -141,12 +138,8 @@ cet_test(Stage3_Reconstruction_w HANDBUILT
     -s "../Stage2_ParticleSimulation_w_0.d/sim_3.root"
     -s "../Stage2_ParticleSimulation_w_0.d/sim_4.root"
   DATAFILES fcl/reconstruction_w.fcl
+  TEST_PROPERTIES DEPENDS Stage2_ParticleSimulation_w_0
 )
-
-set_tests_properties(Stage3_Reconstruction_w_0 PROPERTIES DEPENDS Stage2_ParticleSimulation_w_0)
-set_tests_properties(Stage3_Reconstruction_w_1 PROPERTIES DEPENDS Stage2_ParticleSimulation_w_0)
-set_tests_properties(Stage3_Reconstruction_w_2 PROPERTIES DEPENDS Stage2_ParticleSimulation_w_0)
-set_tests_properties(Stage3_Reconstruction_w_3 PROPERTIES DEPENDS Stage2_ParticleSimulation_w_0)
 
 # TEST PATH 1
 
@@ -161,12 +154,8 @@ cet_test(Stage4_Concatenation_w HANDBUILT
     -s "../Stage3_Reconstruction_w_0.d/reco_5.root"
     -s "../Stage3_Reconstruction_w_0.d/reco_6.root"
   DATAFILES fcl/concatenate_w.fcl
+  TEST_PROPERTIES DEPENDS Stage3_Reconstruction_w_0
 )
-
-set_tests_properties(Stage4_Concatenation_w_0 PROPERTIES DEPENDS Stage3_Reconstruction_w_0)
-set_tests_properties(Stage4_Concatenation_w_1 PROPERTIES DEPENDS Stage3_Reconstruction_w_0)
-set_tests_properties(Stage4_Concatenation_w_2 PROPERTIES DEPENDS Stage3_Reconstruction_w_0)
-set_tests_properties(Stage4_Concatenation_w_3 PROPERTIES DEPENDS Stage3_Reconstruction_w_0)
 
 # A test using art_ut cannot use PARG_J -j ${NUM_THREADS}
 # because those arguments get added before the TEST_ARGS,
