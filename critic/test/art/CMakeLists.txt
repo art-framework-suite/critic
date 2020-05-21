@@ -477,12 +477,58 @@ cet_test(ValidHandleTester HANDBUILT
   REQUIRED_FILES "../BareString_w.d/out.root"
   TEST_PROPERTIES DEPENDS BareString_w)
 
-cet_test(issue_0926_t.sh PREBUILT
-  DATAFILES
-  fcl/issue_0926a.fcl
-  fcl/issue_0926b.fcl
-  fcl/issue_0926c.fcl
-  fcl/messageDefaults.fcl)
+cet_test(issue_0926a HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c issue_0926a.fcl --rethrow-all
+  DATAFILES fcl/issue_0926a.fcl fcl/messageDefaults.fcl
+  )
+
+cet_test(issue_0926b HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c issue_0926b.fcl --rethrow-all -s
+  ../issue_0926a.d/issue_0926a.root
+  DATAFILES fcl/issue_0926b.fcl fcl/messageDefaults.fcl
+  REQUIRED_FILES ../issue_0926a.d/issue_0926a.root
+  TEST_PROPERTIES DEPENDS issue_0926a
+  )
+
+foreach(copynum 1 2 3)
+  cet_test(issue_0926b${copynum} HANDBUILT
+    TEST_WORKDIR issue_0926b.d
+    DIRTY_WORKDIR # Shouldn't clean up since we're sharing.
+    TEST_EXEC cp
+    REQUIRED_FILES issue_0926b.root
+    TEST_ARGS -vf issue_0926b.root issue_0926b${copynum}.root
+    TEST_PROPERTIES DEPENDS issue_0926b
+    )
+endforeach()
+
+cet_test(issue_0926c_single HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c issue_0926c.fcl --rethrow-all -s ../issue_0926b.d/issue_0926b.root
+  DATAFILES fcl/issue_0926c.fcl fcl/messageDefaults.fcl
+  REQUIRED_FILES ../issue_0926b.d/issue_0926b.root
+  TEST_PROPERTIES DEPENDS issue_0926b
+  )
+
+cet_test(issue_0926c_dupes HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c issue_0926c.fcl --rethrow-all -s
+  ../issue_0926b.d/issue_0926b.root
+  ../issue_0926b.d/issue_0926b1.root
+  ../issue_0926b.d/issue_0926b2.root
+  ../issue_0926b.d/issue_0926b3.root
+  DATAFILES fcl/issue_0926c.fcl fcl/messageDefaults.fcl
+  REQUIRED_FILES
+  ../issue_0926b.d/issue_0926b.root
+  ../issue_0926b.d/issue_0926b1.root
+  ../issue_0926b.d/issue_0926b2.root
+  ../issue_0926b.d/issue_0926b3.root
+  )
+
+set_tests_properties(issue_0926c_dupes PROPERTIES
+  DEPENDS "issue_0926b;issue_0926b1;issue_0926b2;issue_0926b3"
+  )
 
 cet_test(outputCommand_t.sh PREBUILT
   DATAFILES
