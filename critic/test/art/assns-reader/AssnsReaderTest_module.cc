@@ -158,7 +158,7 @@ arttest::AssnsReaderTest::analyze(art::Event const& e)
   auto const mvVSizeM = mvVSize + ((wantVoid_ != "NONE"s) ? 2ull : 1ull);
 
   static std::regex const re{
-    "Found 2 products rather than one which match all criteria"};
+    "Found 2 products rather than one that match all criteria"};
 
   // Check <A, B> and <B, A>.
   art::Handle<AssnsABV_t> hABV;
