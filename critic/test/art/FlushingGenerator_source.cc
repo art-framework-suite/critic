@@ -8,16 +8,18 @@
 #include <cassert>
 #include <iostream>
 
-namespace arttest {
+namespace art::test {
   class FlushingGeneratorDetail;
 }
 
-class arttest::FlushingGeneratorDetail {
+class art::test::FlushingGeneratorDetail {
 public:
   FlushingGeneratorDetail(FlushingGeneratorDetail const&) = delete;
   FlushingGeneratorDetail& operator=(FlushingGeneratorDetail const&) = delete;
 
-  FlushingGeneratorDetail(fhicl::ParameterSet const& ps,
+  struct Config {};
+  using Parameters = SourceTable<Config>;
+  FlushingGeneratorDetail(Parameters const& ps,
                           art::ProductRegistryHelper& help,
                           art::SourceHelper const& sHelper);
 
@@ -32,26 +34,27 @@ public:
                 art::EventPrincipal*& outE);
 
 private:
-  bool readFileCalled_;
-  art::SourceHelper const& sHelper_;
-  size_t ev_num_;
-  art::EventID curr_evid_;
+  bool readFileCalled_{false};
+  SourceHelper const& sHelper_;
+  size_t ev_num_{0};
+  EventID curr_evid_{1, 0, 1};
 };
 
-arttest::FlushingGeneratorDetail::FlushingGeneratorDetail(
-  fhicl::ParameterSet const&,
+using namespace art::test;
+
+FlushingGeneratorDetail::FlushingGeneratorDetail(
+  Parameters const&,
   art::ProductRegistryHelper&,
   art::SourceHelper const& sHelper)
-  : readFileCalled_(false), sHelper_(sHelper), ev_num_(0), curr_evid_(1, 0, 1)
+  : sHelper_(sHelper)
 {}
 
 void
-arttest::FlushingGeneratorDetail::closeCurrentFile()
+FlushingGeneratorDetail::closeCurrentFile()
 {}
 
 void
-arttest::FlushingGeneratorDetail::readFile(std::string const& name,
-                                           art::FileBlock*& fb)
+FlushingGeneratorDetail::readFile(std::string const& name, art::FileBlock*& fb)
 {
   assert(!readFileCalled_);
   assert(name.empty());
@@ -61,11 +64,11 @@ arttest::FlushingGeneratorDetail::readFile(std::string const& name,
 }
 
 bool
-arttest::FlushingGeneratorDetail::readNext(art::RunPrincipal* const inR,
-                                           art::SubRunPrincipal* const inSR,
-                                           art::RunPrincipal*& outR,
-                                           art::SubRunPrincipal*& outSR,
-                                           art::EventPrincipal*& outE)
+FlushingGeneratorDetail::readNext(art::RunPrincipal* const inR,
+                                  art::SubRunPrincipal* const inSR,
+                                  art::RunPrincipal*& outR,
+                                  art::SubRunPrincipal*& outSR,
+                                  art::EventPrincipal*& outE)
 {
   art::Timestamp runstart;
   if (++ev_num_ > 17) { // Done.
@@ -105,14 +108,14 @@ arttest::FlushingGeneratorDetail::readNext(art::RunPrincipal* const inR,
 // Trait definition (must precede source typedef).
 namespace art {
   template <>
-  struct Source_generator<arttest::FlushingGeneratorDetail> {
+  struct Source_generator<art::test::FlushingGeneratorDetail> {
     static constexpr bool value = true;
   };
 } // namespace art
 
 // Source declaration.
-namespace arttest {
-  typedef art::Source<FlushingGeneratorDetail> FlushingGenerator;
+namespace art::test {
+  using FlushingGenerator = Source<FlushingGeneratorDetail>;
 }
 
-DEFINE_ART_INPUT_SOURCE(arttest::FlushingGenerator)
+DEFINE_ART_INPUT_SOURCE(art::test::FlushingGenerator)

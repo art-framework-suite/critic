@@ -9,16 +9,21 @@
 
 #include <cassert>
 
-namespace arttest {
+namespace art::test {
   class GeneratorTestDetail;
 }
 
-class arttest::GeneratorTestDetail {
+class art::test::GeneratorTestDetail {
 public:
   GeneratorTestDetail(GeneratorTestDetail const&) = delete;
   GeneratorTestDetail& operator=(GeneratorTestDetail const&) = delete;
 
-  GeneratorTestDetail(fhicl::ParameterSet const& ps,
+  struct Config {
+    ToolConfigTable<ReadNextArbitrator::Config> readNextImpl{
+      fhicl::Name("readNextImpl")};
+  };
+  using Parameters = SourceTable<Config>;
+  GeneratorTestDetail(Parameters const& ps,
                       art::ProductRegistryHelper& help,
                       art::SourceHelper const& sHelper);
 
@@ -37,25 +42,24 @@ private:
   art::SourceHelper const& sHelper_;
   size_t ev_num_{};
   // Test tool invocation from within source.
-  std::unique_ptr<arttest::ReadNextArbitrator> readNext_;
+  std::unique_ptr<art::test::ReadNextArbitrator> readNext_;
 };
 
-arttest::GeneratorTestDetail::GeneratorTestDetail(
-  fhicl::ParameterSet const& pset,
-  art::ProductRegistryHelper&,
-  art::SourceHelper const& sHelper)
+using namespace art::test;
+
+GeneratorTestDetail::GeneratorTestDetail(Parameters const& p,
+                                         art::ProductRegistryHelper&,
+                                         art::SourceHelper const& sHelper)
   : sHelper_{sHelper}
-  , readNext_{art::make_tool<ReadNextArbitrator>(
-      pset.get<fhicl::ParameterSet>("readNextImpl"))}
+  , readNext_{art::make_tool<ReadNextArbitrator>(p().readNextImpl.get_PSet())}
 {}
 
 void
-arttest::GeneratorTestDetail::closeCurrentFile()
+GeneratorTestDetail::closeCurrentFile()
 {}
 
 void
-arttest::GeneratorTestDetail::readFile(std::string const& name,
-                                       art::FileBlock*& fb)
+GeneratorTestDetail::readFile(std::string const& name, art::FileBlock*& fb)
 {
   assert(!readFileCalled_);
   assert(name.empty());
@@ -65,11 +69,11 @@ arttest::GeneratorTestDetail::readFile(std::string const& name,
 }
 
 bool
-arttest::GeneratorTestDetail::readNext(art::RunPrincipal const* const inR,
-                                       art::SubRunPrincipal const* const inSR,
-                                       art::RunPrincipal*& outR,
-                                       art::SubRunPrincipal*& outSR,
-                                       art::EventPrincipal*& outE)
+GeneratorTestDetail::readNext(art::RunPrincipal const* const inR,
+                              art::SubRunPrincipal const* const inSR,
+                              art::RunPrincipal*& outR,
+                              art::SubRunPrincipal*& outSR,
+                              art::EventPrincipal*& outE)
 {
   art::Timestamp runstart;
   if (++ev_num_ > readNext_->threshold()) {
@@ -92,14 +96,14 @@ arttest::GeneratorTestDetail::readNext(art::RunPrincipal const* const inR,
 // Trait definition (must precede source typedef).
 namespace art {
   template <>
-  struct Source_generator<arttest::GeneratorTestDetail> {
+  struct Source_generator<test::GeneratorTestDetail> {
     static constexpr bool value = true;
   };
 } // namespace art
 
 // Source declaration.
-namespace arttest {
-  typedef art::Source<GeneratorTestDetail> GeneratorTest;
+namespace art::test {
+  using GeneratorTest = art::Source<GeneratorTestDetail>;
 }
 
-DEFINE_ART_INPUT_SOURCE(arttest::GeneratorTest)
+DEFINE_ART_INPUT_SOURCE(art::test::GeneratorTest)
