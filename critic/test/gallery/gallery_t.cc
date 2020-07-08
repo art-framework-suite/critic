@@ -318,9 +318,13 @@ main()
     // StringProduct products.  Note that test_gallery7.root has 48
     // StringProduct branches, but since the presence bit is false for
     // 9 of those branches, 39 products are retrieved.
+
+    std::size_t const expectedNumber = (counter < 5 ? 36 : 39);
+    auto const tags = ev.getInputTags<arttest::StringProduct>();
+    auto const tokens = ev.getProductTokens<arttest::StringProduct>();
+
     std::vector<gallery::Handle<arttest::StringProduct>> stringProducts;
     ev.getManyByType(stringProducts);
-    std::size_t const expectedNumber = (counter < 5 ? 36 : 39);
     assert(expectedNumber == stringProducts.size());
     for (auto const& h : stringProducts) {
       assert(h.isValid());

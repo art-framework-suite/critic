@@ -4,7 +4,7 @@
 #include "art/Utilities/ToolConfigTable.h"
 #include "fhiclcpp/types/Atom.h"
 
-namespace arttest {
+namespace art::test {
   class ReadNextArbitrator {
   public:
     struct Config {
@@ -23,7 +23,7 @@ namespace arttest {
   private:
     unsigned threshold_;
   };
-} // namespace arttest
+} // namespace art::test
 
 #endif /* critic_test_art_ReadNextArbitrator_h */
 
