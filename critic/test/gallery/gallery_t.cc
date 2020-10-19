@@ -188,6 +188,14 @@ main()
     assert(test1 == test3);
     assert(test2 == test3);
 
+    // Test invalid InputTag
+    {
+      auto const invalid_tag = art::InputTag{};
+      gallery::Handle<arttest::IntProduct> h;
+      assert(not ev.getByLabel(invalid_tag, h));
+      assert(h.whyFailed().get());
+    }
+
     auto const eventIDInt =
       ev.getValidHandle<arttest::IntProduct>(inputTagEventID);
     assert(static_cast<unsigned int>(eventIDInt->value) == aux.id().event());
