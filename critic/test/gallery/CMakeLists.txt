@@ -1,11 +1,7 @@
-# Set the test environment so that pyROOT and interactive ROOT can find all necessary headers
-#
-if (DEFINED ENV{MRB_BUILDDIR})
-  # This first clause should be redundant when cetbuildtools goes to v6.
-  cet_test_env(ROOT_INCLUDE_PATH=$ENV{MRB_BUILDDIR}/canvas:$ENV{ROOT_INCLUDE_PATH})
-else()
-  cet_test_env(ROOT_INCLUDE_PATH=${PROJECT_SOURCE_DIR}:$ENV{ROOT_INCLUDE_PATH})
-endif()
+cet_test_env("ROOT_INCLUDE_PATH=${PROJECT_BINARY_DIR}:${PROJECT_SOURCE_DIR}:$ENV{ROOT_INCLUDE_PATH}")
+cet_test_env("LD_LIBRARY_PATH=$<TARGET_FILE_DIR:critic_test_CriticTestObjects>:\
+$<IF:$<PLATFORM_ID:Darwin>,$ENV{DYLD_LIBRARY_PATH},$ENV{LD_LIBRARY_PATH}>\
+")
 
 set(gallery_tests_libraries
   critic_test_CriticTestObjects

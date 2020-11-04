@@ -1,4 +1,4 @@
-find_package(Threads REQUIRED)
+cet_find_package(Threads REQUIRED)
 
 simple_plugin(AssnsAnalyzer               "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(AssnsProducer               "module" NO_INSTALL)

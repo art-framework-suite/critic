@@ -1,1 +1,1 @@
-art_make(NO_INSTALL REQUIRED_DICTIONARIES libart_test_TestObjects_dict LIB_LIBRARIES canvas)
+art_make(NO_INSTALL DICTIONARY_LIBRARIES critic_test_CriticTestObjects LIB_LIBRARIES canvas) ### MIGRATE-ACTION-RECOMMENDED: use art_make_library(), art_dictionary(), simple_plugin() with explicit source lists
