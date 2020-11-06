@@ -6,8 +6,8 @@
 #include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "art/Framework/Services/System/FileCatalogMetadata.h"
 #include "art/Framework/Services/System/TriggerNamesService.h"
-#include "cetlib/SimultaneousFunctionSpawner.h"
 #include "cetlib/canonical_string.h"
+#include "hep_concurrency/simultaneous_function_spawner.h"
 
 #include <string>
 #include <vector>
@@ -54,7 +54,7 @@ namespace {
       cet::transform_all(mockMD, back_inserter(tasks), [&md](auto const& pr) {
         return [&md, &pr] { md->addMetadataString(pr.first, pr.second); };
       });
-      cet::SimultaneousFunctionSpawner sfs{tasks};
+      hep::concurrency::simultaneous_function_spawner sfs{tasks};
     }
 
     void
