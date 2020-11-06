@@ -20,7 +20,6 @@
 #include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "art/Utilities/ScheduleID.h"
 #include "art/Utilities/ScheduleIteration.h"
-#include "cetlib/SimultaneousFunctionSpawner.h"
 
 #include "CLHEP/Random/RandFlat.h"
 
