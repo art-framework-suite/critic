@@ -13,7 +13,7 @@
 # ======================================================================
 cmake_minimum_required(VERSION 3.18.2 FATAL_ERROR)
 
-find_package(cetmodules 2.03.00 REQUIRED)
+find_package(cetmodules 2.04.00 REQUIRED)
 project(critic VERSION 2.04.03 LANGUAGES CXX C)
 
 include(CetCMakeEnv)
