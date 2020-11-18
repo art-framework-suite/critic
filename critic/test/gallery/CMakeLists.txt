@@ -255,6 +255,7 @@ foreach (num 1 2 3)
     TEST_PROPERTIES DEPENDS CriticAssns_w
     REQUIRED_FILES ../CriticAssns_w.d/out1.root
     )
+  target_link_options(findOne_${num}_t PRIVATE "-rdynamic")
 endforeach()
 
 simple_plugin(GalleryTestProducer     "module"  NO_INSTALL art_Persistency_Provenance cetlib_except)
