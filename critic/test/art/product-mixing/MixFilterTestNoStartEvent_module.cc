@@ -13,7 +13,6 @@
 #include "canvas/Persistency/Common/PtrVector.h"
 #include "canvas/Utilities/InputTag.h"
 #include "cetlib/map_vector.h"
-#include "messagefacility/MessageLogger/MessageLogger.h"
 
 #include <algorithm>
 #include <iterator>

@@ -15,7 +15,6 @@
 #include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Utilities/Exception.h"
 #include "fhiclcpp/types/Atom.h"
-#include "messagefacility/MessageLogger/MessageLogger.h"
 
 namespace arttest {
   class RPTestReader;

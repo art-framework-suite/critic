@@ -1,5 +1,5 @@
-simple_plugin(IntProducingService         "service" NO_INSTALL art_Framework_Principal art_Framework_Core art_Persistency_Provenance)
-simple_plugin(LastDoubleProducingService  "service" NO_INSTALL art_Framework_Principal art_Framework_Core art_Persistency_Provenance)
+simple_plugin(IntProducingService         "service" NO_INSTALL LIBRARIES PRIVATE art::art_Framework_Core)
+simple_plugin(LastDoubleProducingService  "service" NO_INSTALL LIBRARIES PRIVATE art::art_Framework_Core)
 
 cet_test(IntProducerRun_t HANDBUILT
   TEST_EXEC art

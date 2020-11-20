@@ -18,7 +18,6 @@
 #include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Utilities/InputTag.h"
 #include "fhiclcpp/ParameterSet.h"
-#include "messagefacility/MessageLogger/MessageLogger.h"
 
 namespace arttest {
   class TestRemoveCachedProduct;

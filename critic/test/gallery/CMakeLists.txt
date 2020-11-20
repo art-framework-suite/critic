@@ -4,14 +4,10 @@ $<IF:$<PLATFORM_ID:Darwin>,$ENV{DYLD_LIBRARY_PATH},$ENV{LD_LIBRARY_PATH}>\
 ")
 
 set(gallery_tests_libraries
-  critic_test_CriticTestObjects
-  gallery
-  canvas
-  fhiclcpp
-  cetlib
-  cetlib_except
-  ROOT::RIO
-  ROOT::Core
+    critic::critic_test_CriticTestObjects
+    gallery::gallery
+    ROOT::RIO
+    ROOT::Core
   )
 
 ########################################################################
@@ -258,7 +254,7 @@ foreach (num 1 2 3)
   target_link_options(findOne_${num}_t PRIVATE "-rdynamic")
 endforeach()
 
-simple_plugin(GalleryTestProducer     "module"  NO_INSTALL art_Persistency_Provenance cetlib_except)
-simple_plugin(GalleryPtrTestProducer  "module"  NO_INSTALL critic_test_CriticTestObjects art_Persistency_Provenance cetlib_except)
-simple_plugin(GalleryAssnsProducer    "module"  NO_INSTALL critic_test_CriticTestObjects art_Persistency_Provenance cetlib_except)
+simple_plugin(GalleryTestProducer     "module"  NO_INSTALL LIBRARIES PRIVATE)
+simple_plugin(GalleryPtrTestProducer  "module"  NO_INSTALL LIBRARIES PRIVATE critic::critic_test_CriticTestObjects)
+simple_plugin(GalleryAssnsProducer    "module"  NO_INSTALL LIBRARIES PRIVATE critic::critic_test_CriticTestObjects)
 simple_plugin(CriticFailEverything    "module"  NO_INSTALL)

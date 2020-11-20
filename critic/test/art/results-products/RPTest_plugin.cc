@@ -15,7 +15,6 @@
 #include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Utilities/Exception.h"
 #include "fhiclcpp/ParameterSet.h"
-#include "messagefacility/MessageLogger/MessageLogger.h"
 
 #include <algorithm>
 #include <iterator>

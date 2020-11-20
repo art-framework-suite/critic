@@ -23,7 +23,6 @@
 #include "fhiclcpp/types/Sequence.h"
 #include "fhiclcpp/types/Table.h"
 #include "fhiclcpp/types/TupleAs.h"
-#include "messagefacility/MessageLogger/MessageLogger.h"
 
 #include <cassert>
 #include <string>

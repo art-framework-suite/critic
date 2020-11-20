@@ -1,1 +1,11 @@
-art_make(NO_INSTALL DICTIONARY_LIBRARIES critic_test_CriticTestObjects LIB_LIBRARIES canvas) ### MIGRATE-ACTION-RECOMMENDED: use art_make_library(), art_dictionary(), simple_plugin() with explicit source lists
+art_make_library(
+  LIBRARY_NAME
+    critic_test_CriticTestObjects
+  SOURCE
+    LiteAssnTestData.cc
+    LitePtrTestProduct.cc
+  LIBRARIES
+    art::art_test_TestObjects
+)
+
+art_dictionary(DICTIONARY_LIBRARIES PRIVATE critic::critic_test_CriticTestObjects)

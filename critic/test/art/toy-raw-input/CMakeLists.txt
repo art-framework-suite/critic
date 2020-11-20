@@ -1,18 +1,13 @@
 art_make_library(
   LIBRARY_NAME critic_test_art_toy_input
   SOURCE ToySource.cc
-  LIBRARIES
-  art_Framework_Core
-  art_Framework_IO_Sources
-  art_Framework_Principal
-  art_Persistency_Provenance
-  fhiclcpp
-  canvas
-  cetlib_except
+  LIBRARIES PRIVATE
+    art::art_Framework_Core
+    art::art_Framework_IO_Sources
   NO_INSTALL)
 
-simple_plugin(ToyRawFileInput   "source" USE_BOOST_UNIT NO_INSTALL critic_test_art_toy_input)
-simple_plugin(ToyRawInput       "source" USE_BOOST_UNIT NO_INSTALL critic_test_art_toy_input)
+simple_plugin(ToyRawFileInput   "source" USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE critic::critic_test_art_toy_input)
+simple_plugin(ToyRawInput       "source" USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE critic::critic_test_art_toy_input)
 simple_plugin(ToyRawInputTester "module" NO_INSTALL)
 
 cet_test(ToyRawInput_w HANDBUILT

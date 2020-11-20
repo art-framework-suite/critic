@@ -5,7 +5,6 @@
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
 #include "canvas/Persistency/Provenance/RangeSet.h"
-#include "messagefacility/MessageLogger/MessageLogger.h"
 
 namespace fhicl {
   class ParameterSet;

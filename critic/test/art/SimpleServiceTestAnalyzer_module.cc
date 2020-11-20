@@ -17,7 +17,6 @@
 #include "canvas/Utilities/InputTag.h"
 #include "critic/test/art/SimpleServiceTest.h"
 #include "fhiclcpp/ParameterSet.h"
-#include "messagefacility/MessageLogger/MessageLogger.h"
 
 #include <cassert>
 

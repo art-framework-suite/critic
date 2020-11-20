@@ -1,6 +1,6 @@
 simple_plugin(ThrowingAnalyzer "module" NO_INSTALL)
 simple_plugin(ThrowingProducer "module" NO_INSTALL)
-simple_plugin(DoNothingInput   "source" NO_INSTALL art_Framework_Services_Registry)
+simple_plugin(DoNothingInput   "source" NO_INSTALL)
 
 cet_test(ThrowsWithModuleInfo_t HANDBUILT
   TEST_EXEC art

@@ -14,4 +14,4 @@ cet_test(for_each_group_2 HANDBUILT
   DATAFILES for_each_group_2.fcl
   TEST_PROPERTIES DEPENDS for_each_group_1)
 
-art_dictionary(DICTIONARY_LIBRARIES canvas NO_INSTALL)
+art_dictionary(NO_INSTALL)
