@@ -42,7 +42,7 @@ cet_test(ProvenanceDumper_w HANDBUILT
   fcl/ProvenanceDumper_w.fcl)
 
 # Test the ProvenanceDumper module template (read and check).
-foreach(num 1 2 3 4)
+foreach(num RANGE 1 4)
   cet_test(ProvenanceDumper_r${num} HANDBUILT
   TEST_EXEC art_ut
   TEST_ARGS -- -c "ProvenanceDumper_r${num}.fcl"
@@ -162,7 +162,7 @@ cet_test(ProvenanceDumper_DroppedProducts_t2 HANDBUILT
 
 simple_plugin(TestReadImmediateControl "module" NO_INSTALL USE_BOOST_UNIT)
 
-foreach(num 1 2 3 4 5)
+foreach(num RANGE 1 5)
   cet_test(ImmediateReadControl_${num} HANDBUILT
     TEST_EXEC art_ut
     TEST_ARGS -- -c "ImmediateReadControl_${num}.fcl"

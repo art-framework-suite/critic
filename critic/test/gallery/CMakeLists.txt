@@ -245,7 +245,7 @@ cet_test(CriticAssns_w HANDBUILT
   fcl/CriticAssns_w.fcl
 )
 
-foreach (num 1 2 3)
+foreach (num RANGE 1 3)
   cet_test(findOne_${num}_t USE_BOOST_UNIT
     LIBRARIES ${gallery_tests_libraries}
     TEST_PROPERTIES DEPENDS CriticAssns_w
