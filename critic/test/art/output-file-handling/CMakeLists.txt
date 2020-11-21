@@ -23,7 +23,7 @@ cet_test(MultiOutputProducerRootInput_w HANDBUILT
 # A test for output-file switching upon 'InputFile' boundaries is
 # relevant only for RootInput and is presented after these.
 
-foreach(source EmptyEvent RootInput)
+foreach(source IN ITEMS EmptyEvent RootInput)
 
   ## =============================================================
   ## Event-level output-file rollover

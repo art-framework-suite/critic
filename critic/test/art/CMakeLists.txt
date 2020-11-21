@@ -108,7 +108,7 @@ set(test_list
   TrigBits3_t
   TrigBits4_t)
 
-foreach(test ${test_list})
+foreach(test IN LISTS test_list)
   cet_test(${test} HANDBUILT
     TEST_EXEC art
     TEST_ARGS -c ${test}.fcl
@@ -228,7 +228,7 @@ cet_test(SimpleSource_t_01 HANDBUILT
   TEST_PROPERTIES
   PASS_REGULAR_EXPRESSION "readNext returned true but no RunPrincipal has been set")
 
-foreach(num 01 02 03)
+foreach(num IN ITEMS 01 02 03)
   cet_test(ToyProductProducerMultiput_t_${num} HANDBUILT
     TEST_EXEC art
     TEST_ARGS -c ToyProductProducerMultiput_t_${num}.fcl
@@ -344,7 +344,7 @@ cet_test(BlockingPrescaler_t HANDBUILT
 # received, the art framework appropriately backs out of the event
 # processing level.  We set errorOnSIGINT to false so that we need
 # only one STDOUT reference file (i.e. return code is 0).
-foreach(SIGNAL sigint sigquit sigterm sigusr2)
+foreach(SIGNAL IN ITEMS sigint sigquit sigterm sigusr2)
   cet_test(signal_handling_${SIGNAL}_t HANDBUILT
     TEST_EXEC art
     TEST_ARGS -c signal_${SIGNAL}.fcl --errorOnSIGINT=false --process-name="Test${SIGNAL}"
@@ -487,7 +487,7 @@ cet_test(issue_0926b HANDBUILT
   TEST_PROPERTIES DEPENDS issue_0926a
   )
 
-foreach(copynum 1 2 3)
+foreach(copynum RANGE 1 3)
   cet_test(issue_0926b${copynum} HANDBUILT
     TEST_WORKDIR issue_0926b.d
     DIRTY_WORKDIR # Shouldn't clean up since we're sharing.
@@ -587,7 +587,7 @@ cet_test(Assns_w HANDBUILT
   TEST_ARGS -- -c "Assns_w.fcl"
   DATAFILES fcl/Assns_w.fcl)
 
-foreach(num 1 2 3)
+foreach(num RANGE 1 3)
   cet_test(Assns_r${num} HANDBUILT
     TEST_EXEC art_ut
     TEST_ARGS -- -c "Assns_r${num}.fcl"
@@ -604,7 +604,7 @@ cet_test(AssnsFastClone_w HANDBUILT
   DATAFILES fcl/AssnsFastClone_w.fcl
   TEST_PROPERTIES DEPENDS Assns_w)
 
-foreach(mode M S P)
+foreach(mode IN ITEMS M S P)
   cet_test(config_dumper_${mode}_t HANDBUILT
     TEST_EXEC config_dumper
     TEST_ARGS -${mode} ../Assns_w.d/out.root

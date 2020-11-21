@@ -50,7 +50,7 @@ cet_test(ToyRawInput_r3 HANDBUILT
   TEST_PROPERTIES DEPENDS ToyRawInput_w)
 
 # Attempts to create SubRunPrincipal without a valid RunPrincipal.
-foreach(num 02 11)
+foreach(num IN ITEMS 02 11)
   cet_test(ToyRawInput_t_${num} HANDBUILT
     TEST_EXEC art
     TEST_ARGS -c ToyRawInput_${num}.fcl
@@ -62,7 +62,7 @@ foreach(num 02 11)
 endforeach()
 
 # Attempts to create EventPrincipal without a valid SubRunPrincipal.
-foreach(num 03 04 12)
+foreach(num IN ITEMS 03 04 12)
   cet_test(ToyRawInput_t_${num} HANDBUILT
     TEST_EXEC art
     TEST_ARGS -c ToyRawInput_${num}.fcl
@@ -88,7 +88,7 @@ cet_test(ToyRawInput_OutputCheck_t_01 HANDBUILT
   TEST_PROPERTIES
   DEPENDS ToyRawInput_t_01)
 
-foreach(num 05 06 07 08 09 10)
+foreach(num IN ITEMS 05 06 07 08 09 10)
   cet_test(ToyRawInput_t_${num} HANDBUILT
     TEST_EXEC art
     TEST_ARGS -c ToyRawInput_${num}.fcl

@@ -119,7 +119,7 @@ cet_test(ProductMix_r1d1 HANDBUILT
 #   RANDOM_LIM_REPLACE (require no dupes within a primary)
 #   RANDOM_LIM_REPLACE (require dupes across a job).
 #   RANDOM_NO_REPLACE
-foreach(test 1 2 3 4 5)
+foreach(test RANGE 1 5)
   cet_test(ProductMix_r1e${test} HANDBUILT
     TEST_EXEC art_ut
     TEST_ARGS -- -c "ProductMix_r1e${test}.fcl"
