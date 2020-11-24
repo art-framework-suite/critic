@@ -24,7 +24,7 @@ cet_set_compiler_flags(DIAGS VIGILANT
   NO_UNDEFINED
   EXTRA_FLAGS -pedantic)
 
-if(DEFINED ENV{CET_SANITIZE_ADDRESS} AND NOT DEFINED ENV{GCC_FQ_DIR})
+if(DEFINED ENV{CET_SANITIZE_ADDRESS} AND DEFINED ENV{GCC_FQ_DIR})
   find_file(ASAN_LIB libasan.so NO_DEFAULT_PATH PATHS $ENV{GCC_FQ_DIR}/lib64)
   cet_add_compiler_flags(CXX -fsanitize=address)
   cet_add_compiler_flags(C -fsanitize=address)
