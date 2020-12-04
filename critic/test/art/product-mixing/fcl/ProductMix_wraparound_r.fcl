@@ -1,0 +1,23 @@
+process_name: "WraparoundTest"
+
+physics: {
+  filters: {
+    mixFilter: {
+      module_type: MixFilterTest
+      numSecondaries: 1
+      mixProducerLabel: mixProducer
+      fileNames: [ "../ProductMix_trimmed_w.d/mix_trimmed.root" ]
+      readMode: sequential
+      wrapFiles: true
+    }
+  }
+
+  p1: [ mixFilter ]
+}
+
+source: {
+  module_type: EmptyEvent
+  maxEvents: 200
+}
+
+services.TFileService.fileName: "dummy.root"
