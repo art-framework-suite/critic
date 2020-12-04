@@ -29,8 +29,6 @@ namespace arttest {
 #elif defined ART_TEST_EVENTS_TO_SKIP_CONST
 #define ART_MFT MixFilterTestETS
 #define ART_TEST_EVENTS_TO_SKIP_CONST_TXT
-#elif defined ART_TEST_OLD_STARTEVENT
-#define ART_MT MixFilterTestOldStartEvent
 #elif defined ART_TEST_NO_STARTEVENT
 #define ART_MT MixFilterTestNoStartEvent
 #else
@@ -98,10 +96,7 @@ public:
 
   ~MixFilterTestDetail();
 
-#ifdef ART_TEST_OLD_STARTEVENT
-  // Old startEvent signature -- check it still works
-  void startEvent();
-#elif !defined ART_TEST_NO_STARTEVENT
+#if !defined ART_TEST_NO_STARTEVENT
   // Optional startEvent(Event const &): initialize state for each event,
   void startEvent(art::Event const&);
 #endif
@@ -318,13 +313,7 @@ arttest::MixFilterTestDetail::~MixFilterTestDetail()
 
 #ifndef ART_TEST_NO_STARTEVENT
 void
-arttest::MixFilterTestDetail::
-#ifdef ART_TEST_OLD_STARTEVENT
-  startEvent()
-#else
-    // Normal case
-  startEvent(art::Event const&)
-#endif
+arttest::MixFilterTestDetail::startEvent(art::Event const&)
 {
   startEvent_called_ = true;
   eIDs_.reset();
