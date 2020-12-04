@@ -24,6 +24,25 @@ cet_test(ProductMix_w HANDBUILT
   TEST_ARGS -c "ProductMix_w.fcl"
   DATAFILES fcl/ProductMix_w.fcl)
 
+# Make trimmed file with all events in the same run
+cet_test(ProductMix_trimmed_w HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS
+    -c /dev/null
+    -o mix_trimmed.root
+    -s ../ProductMix_w.d/mix.root
+    -n 100
+  TEST_PROPERTIES DEPENDS ProductMix_w)
+
+# Test wrap-around feature in MT environment
+cet_test(ProductMix_wraparound_r HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS
+    -c ProductMix_wraparound_r.fcl
+    -j 4
+  DATAFILES fcl/ProductMix_wraparound_r.fcl
+  TEST_PROPERTIES DEPENDS ProductMix_trimmed_w)
+
 # Mix the events from ProductMix_w, analyzing the results and
 # writing an output file.
 cet_test(ProductMix_r1 HANDBUILT
