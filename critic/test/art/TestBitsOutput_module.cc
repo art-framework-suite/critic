@@ -135,13 +135,11 @@ arttest::TestBitsOutput::write(art::EventPrincipal& ep)
   // Now deal with the other case where we expect the object to be
   // present.
   art::Handle<art::TriggerResults> prod{getTriggerResults(ev)};
+  assert(prod.isValid());
   // TriggerResults objects should have no parents.
   assert(prod.provenance()->parents().empty());
   std::vector<unsigned char> vHltState;
-  // std::vector<std::string> const& hlts = ServiceHandle<TriggerNamesService
-  // const>{}->getTrigPaths();
-  std::vector<std::string> const& hlts =
-    art::Globals::instance()->triggerPathNames();
+  auto const& hlts = art::Globals::instance()->triggerPathNames();
   unsigned int hltSize = hlts.size();
   for (unsigned int i = 0; i != hltSize; ++i) {
     vHltState.push_back(prod->at(i).state());
