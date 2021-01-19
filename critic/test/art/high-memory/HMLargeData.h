@@ -1,14 +1,11 @@
 #ifndef critic_test_art_high_memory_HMLargeData_h
 #define critic_test_art_high_memory_HMLargeData_h
 
+#include <cassert>
 #include <vector>
 
 namespace arttest {
   class HMLargeData;
-}
-
-#include <cstddef>
-namespace arttest {
   constexpr unsigned short N_BLOCKS = 28;
 }
 
@@ -22,18 +19,15 @@ public:
   void aggregate(HMLargeData const& other);
 
 private:
-  static const int data_size_ = 32 * 12 * 32 * 100 * 3 * 5;
+  static constexpr size_t data_size_ = 32 * 12 * 32 * 100 * 3 * 5;
   std::vector<float> data_;
-  // float data_[data_size_];
 };
-
-#include <iterator>
 
 arttest::HMLargeData&
 arttest::HMLargeData::operator+=(HMLargeData const& other)
 {
-  auto o = std::begin(other.data_); // Should be cbegin in C++2014.
-  for (auto i = std::begin(data_), e = std::begin(data_); i != e; ++i, ++o) {
+  auto o = cbegin(other.data_);
+  for (auto i = begin(data_), e = end(data_); i != e; ++i, ++o) {
     *i += *o;
   }
   return *this;
@@ -60,7 +54,6 @@ arttest::HMLargeData::data()
   return data_.data();
 }
 
-#include <cassert>
 float const*
 arttest::HMLargeData::data() const
 {
