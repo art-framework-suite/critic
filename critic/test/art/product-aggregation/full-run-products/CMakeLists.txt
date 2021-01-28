@@ -1,6 +1,6 @@
 # Simple check that Run products do not have an aggregation function
 # called.
-foreach(I 1 2)
+foreach(I RANGE 1 2)
   cet_test(FullRunAggregation_w${I} HANDBUILT
     TEST_EXEC art
     TEST_ARGS
@@ -9,7 +9,7 @@ foreach(I 1 2)
     DATAFILES
     fcl/fullRunAggregation_w.fcl
     fcl/fullRunAggregation_w${I}.fcl)
-endforeach(I 1 2)
+endforeach()
 
 cet_test(FullRunAggregation_w3 HANDBUILT
   TEST_EXEC art

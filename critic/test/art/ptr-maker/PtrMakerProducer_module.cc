@@ -15,7 +15,6 @@
 #include "canvas/Persistency/Common/PtrVector.h"
 #include "canvas/Utilities/InputTag.h"
 #include "fhiclcpp/ParameterSet.h"
-#include "messagefacility/MessageLogger/MessageLogger.h"
 
 #include "art/Persistency/Common/PtrMaker.h"
 

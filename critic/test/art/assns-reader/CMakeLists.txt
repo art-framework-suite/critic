@@ -234,7 +234,7 @@ simple_plugin(AssnsReaderTest "module" NO_INSTALL USE_BOOST_UNIT)
 #     Total products (present, not present): 25 (25, 0).
 #
 ########################################################################
-foreach (tnum 1 2 3 4 5 6)
+foreach (tnum RANGE 1 6)
   set(read_dfiles
     fcl/AssnsReaderTest_${tnum}.fcl
     fcl/AssnsReaderTest_r.fcl

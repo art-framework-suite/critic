@@ -1,20 +1,12 @@
 simple_plugin(RPTest "plugin" NO_INSTALL
-  art_Framework_Core
-  art_Framework_Principal
-  canvas
-  cetlib_except
-  art_Persistency_Provenance
-  fhiclcpp
-  ${Boost_FILESYSTEM_LIBRARY})
+  LIBRARIES PRIVATE
+  art::art_Framework_Core
+  Boost::filesystem)
 
 simple_plugin(RPTestReader "plugin" NO_INSTALL
-  art_Framework_Core
-  art_Framework_Principal
-  canvas
-  cetlib_except
-  art_Persistency_Provenance
-  fhiclcpp
-  ${Boost_FILESYSTEM_LIBRARY})
+  LIBRARIES PRIVATE
+  art::art_Framework_Core
+  Boost::filesystem)
 
 cet_test(RPTest_conf_err_01 HANDBUILT
   TEST_EXEC art

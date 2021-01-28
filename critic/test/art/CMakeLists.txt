@@ -1,4 +1,4 @@
-find_package(Threads REQUIRED)
+cet_find_package(Threads REQUIRED)
 
 simple_plugin(AssnsAnalyzer               "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(AssnsProducer               "module" NO_INSTALL)
@@ -6,7 +6,7 @@ simple_plugin(BareStringAnalyzer          "module" NO_INSTALL)
 simple_plugin(BareStringProducer          "module" NO_INSTALL)
 simple_plugin(CompressedIntProducer       "module" NO_INSTALL)
 simple_plugin(CompressedIntTestAnalyzer   "module" NO_INSTALL)
-simple_plugin(DefaultEngineTester         "module" NO_INSTALL ${CLHEP})
+simple_plugin(DefaultEngineTester         "module" NO_INSTALL LIBRARIES PRIVATE CLHEP::CLHEP)
 simple_plugin(DerivedPtrVectorAnalyzer    "module" NO_INSTALL)
 simple_plugin(DerivedPtrVectorProducer    "module" NO_INSTALL)
 simple_plugin(DifferentHistoriesAnalyzer  "module" USE_BOOST_UNIT NO_INSTALL)
@@ -27,12 +27,13 @@ simple_plugin(ProductIDGetterAnalyzer     "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(PtrmvAnalyzer               "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(PtrmvProducer               "module" NO_INSTALL)
 simple_plugin(PtrVectorSimpleAnalyzer     "module" NO_INSTALL)
-simple_plugin(RandomNumberSaveTest        "module" USE_BOOST_UNIT NO_INSTALL ${CLHEP})
+simple_plugin(RandomNumberSaveTest        "module" USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE CLHEP::CLHEP)
 simple_plugin(RunSubRunProductProducerNoPut "module" NO_INSTALL)
 simple_plugin(SAMMetadataTest             "module"
   NO_INSTALL
-  art_Framework_Services_System_FileCatalogMetadata_service
-  art_Framework_Services_Registry)
+  LIBRARIES PRIVATE
+  art::art_Framework_Services_System_FileCatalogMetadata_service
+  art::art_Framework_Services_Registry)
 simple_plugin(SimpleDerivedAnalyzer       "module" NO_INSTALL)
 simple_plugin(SimpleDerivedProducer       "module" NO_INSTALL)
 simple_plugin(TestFilterSpecificEvents    "module" NO_INSTALL)
@@ -47,7 +48,7 @@ simple_plugin(VerifyTransitionsReplicated "module" USE_BOOST_UNIT NO_INSTALL)
 simple_plugin(AddIntsProducer             "module" NO_INSTALL)
 simple_plugin(AssnsMultipleProduces       "module" NO_INSTALL)
 simple_plugin(AssnsWrongPut               "module" NO_INSTALL)
-simple_plugin(ConcurrentEngineRetrieval   "module" NO_INSTALL USE_BOOST_UNIT ${CLHEP})
+simple_plugin(ConcurrentEngineRetrieval   "module" NO_INSTALL USE_BOOST_UNIT LIBRARIES PRIVATE CLHEP::CLHEP)
 simple_plugin(DeferredIsReadyWithAssnsAnalyzer "module" NO_INSTALL)
 simple_plugin(DeferredIsReadyWithAssnsProducer "module" NO_INSTALL)
 simple_plugin(EventIDFilterChecker        "module" NO_INSTALL)
@@ -67,25 +68,26 @@ simple_plugin(ReadNextArbitrator          "tool"   NO_INSTALL)
 
 simple_plugin(SAMMetadataConcurrentTest   "module"
   NO_INSTALL USE_BOOST_UNIT
-  art_Framework_Services_Registry
-  art_Framework_Services_System_TriggerNamesService_service
-  art_Framework_Services_System_FileCatalogMetadata_service
+  LIBRARIES PRIVATE
+  art::art_Framework_Services_Registry
+#  art_Framework_Services_System_TriggerNamesService_service
+#  art_Framework_Services_System_FileCatalogMetadata_service
   Threads::Threads)
 
-simple_plugin(ServiceUsing                "service" NO_INSTALL hep_concurrency)
+simple_plugin(ServiceUsing                "service" NO_INSTALL)
 simple_plugin(SigIntAnalyzer              "module" NO_INSTALL)
 simple_plugin(SimpleSource                "source" NO_INSTALL)
-simple_plugin(TestAnalyzerSelect          "module" NO_INSTALL MF_MessageLogger)
+simple_plugin(TestAnalyzerSelect          "module" NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
 simple_plugin(TestBitsOutput              "module" NO_INSTALL)
 simple_plugin(TestFilter                  "module" NO_INSTALL)
-simple_plugin(TestOutput                  "module" NO_INSTALL MF_MessageLogger)
-simple_plugin(TestResultAnalyzer          "module" NO_INSTALL MF_MessageLogger)
-simple_plugin(TestServiceUsingService     "module" NO_INSTALL USE_BOOST_UNIT art_Framework_Services_Registry)
+simple_plugin(TestOutput                  "module" NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
+simple_plugin(TestResultAnalyzer          "module" NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
+simple_plugin(TestServiceUsingService     "module" NO_INSTALL USE_BOOST_UNIT)
 simple_plugin(TestSimpleMemoryCheckProducer "module" NO_INSTALL)
 simple_plugin(TestTimeTrackerProducer     "module" NO_INSTALL)
 simple_plugin(TestTimeTrackerFilter       "module" NO_INSTALL)
 simple_plugin(TestTimeTrackerAnalyzer     "module" NO_INSTALL)
-simple_plugin(Throwing                    "service" NO_INSTALL hep_concurrency MF_MessageLogger)
+simple_plugin(Throwing                    "service" NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
 simple_plugin(ToyProductAnalyzer          "module" NO_INSTALL)
 simple_plugin(ToyProductFilter            "module" NO_INSTALL)
 simple_plugin(ToyProductFilterReplicated  "module" NO_INSTALL)
@@ -108,7 +110,7 @@ set(test_list
   TrigBits3_t
   TrigBits4_t)
 
-foreach(test ${test_list})
+foreach(test IN LISTS test_list)
   cet_test(${test} HANDBUILT
     TEST_EXEC art
     TEST_ARGS -c ${test}.fcl
@@ -228,7 +230,7 @@ cet_test(SimpleSource_t_01 HANDBUILT
   TEST_PROPERTIES
   PASS_REGULAR_EXPRESSION "readNext returned true but no RunPrincipal has been set")
 
-foreach(num 01 02 03)
+foreach(num IN ITEMS 01 02 03)
   cet_test(ToyProductProducerMultiput_t_${num} HANDBUILT
     TEST_EXEC art
     TEST_ARGS -c ToyProductProducerMultiput_t_${num}.fcl
@@ -344,7 +346,7 @@ cet_test(BlockingPrescaler_t HANDBUILT
 # received, the art framework appropriately backs out of the event
 # processing level.  We set errorOnSIGINT to false so that we need
 # only one STDOUT reference file (i.e. return code is 0).
-foreach(SIGNAL sigint sigquit sigterm sigusr2)
+foreach(SIGNAL IN ITEMS sigint sigquit sigterm sigusr2)
   cet_test(signal_handling_${SIGNAL}_t HANDBUILT
     TEST_EXEC art
     TEST_ARGS -c signal_${SIGNAL}.fcl --errorOnSIGINT=false --process-name="Test${SIGNAL}"
@@ -391,18 +393,17 @@ set_source_files_properties(TestEmptyEventTimestampNoRSRTS_plugin.cc
   PROPERTIES COMPILE_DEFINITIONS TEST_USE_LAST_EVENT_TIMESTAMP)
 
 simple_plugin(TestEmptyEventTimestamp "plugin" NO_INSTALL
-  art_Framework_Core
-  art_Framework_Principal
-  fhiclcpp
+  LIBRARIES PRIVATE
+  art::art_Framework_Core
   Boost::filesystem)
 
 simple_plugin(TestEmptyEventTimestampNoRSRTS "plugin" NO_INSTALL
-  art_Framework_Core
-  art_Framework_Principal
-  fhiclcpp
+  LIBRARIES PRIVATE
+  art::art_Framework_Core
   Boost::filesystem)
 
 cet_test(TestEmptyEventTimestamp_t HANDBUILT
+  LIBRARIES PRIVATE
   TEST_EXEC art
   TEST_ARGS -c TestEmptyEventTimestamp_t.fcl
   DATAFILES fcl/TestEmptyEventTimestamp_t.fcl)
@@ -415,7 +416,8 @@ cet_test(TestEmptyEventTimestampNoRSRTS_t HANDBUILT
   fcl/TestEmptyEventTimestampNoRSRTS_t.fcl)
 
 simple_plugin(SimpleServiceTest "service" NO_INSTALL)
-simple_plugin(SimpleServiceTestAnalyzer "module" NO_INSTALL critic_test_art_SimpleServiceTest_service)
+simple_plugin(SimpleServiceTestAnalyzer "module" NO_INSTALL
+  LIBRARIES PRIVATE critic::critic_test_art_SimpleServiceTest_service)
 
 cet_test(SimpleServiceTest_t HANDBUILT
   TEST_EXEC art
@@ -487,7 +489,7 @@ cet_test(issue_0926b HANDBUILT
   TEST_PROPERTIES DEPENDS issue_0926a
   )
 
-foreach(copynum 1 2 3)
+foreach(copynum RANGE 1 3)
   cet_test(issue_0926b${copynum} HANDBUILT
     TEST_WORKDIR issue_0926b.d
     DIRTY_WORKDIR # Shouldn't clean up since we're sharing.
@@ -554,11 +556,9 @@ cet_test(rename-histfile_t_check HANDBUILT
   TEST_PROPERTIES DEPENDS rename-histfile_t_w)
 
 simple_plugin(Metadata "plugin" NO_INSTALL
-              art_Framework_Core
-              art_Utilities
-              cetlib_except
-              fhiclcpp
-              MF_MessageLogger
+              LIBRARIES PRIVATE
+              art::art_Framework_Core
+              messagefacility::MF_MessageLogger
               Boost::filesystem)
 cet_test(Metadata_plugin_t HANDBUILT
   TEST_EXEC art
@@ -587,7 +587,7 @@ cet_test(Assns_w HANDBUILT
   TEST_ARGS -- -c "Assns_w.fcl"
   DATAFILES fcl/Assns_w.fcl)
 
-foreach(num 1 2 3)
+foreach(num RANGE 1 3)
   cet_test(Assns_r${num} HANDBUILT
     TEST_EXEC art_ut
     TEST_ARGS -- -c "Assns_r${num}.fcl"
@@ -604,7 +604,7 @@ cet_test(AssnsFastClone_w HANDBUILT
   DATAFILES fcl/AssnsFastClone_w.fcl
   TEST_PROPERTIES DEPENDS Assns_w)
 
-foreach(mode M S P)
+foreach(mode IN ITEMS M S P)
   cet_test(config_dumper_${mode}_t HANDBUILT
     TEST_EXEC config_dumper
     TEST_ARGS -${mode} ../Assns_w.d/out.root
@@ -752,7 +752,7 @@ cet_test(CmdLineTmpDir_t HANDBUILT
   DATAFILES cmdLineTmpDir_t-ref.txt
   TEST_PROPERTIES DEPENDS CmdLineTmpDir_w)
 
-simple_plugin(EmptyPSetRegistryChecker "module" NO_INSTALL USE_BOOST_UNIT hep_concurrency)
+simple_plugin(EmptyPSetRegistryChecker "module" NO_INSTALL USE_BOOST_UNIT LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
 
 cet_test(EmptyPSetRegistryChecker_w1 HANDBUILT
   TEST_EXEC art
@@ -778,8 +778,8 @@ cet_test(EmptyPSetRegistryChecker_r2 HANDBUILT
   fcl/EmptyPSetRegistryChecker_r2.fcl
   TEST_PROPERTIES DEPENDS EmptyPSetRegistryChecker_w2)
 
-simple_plugin(FindManySpeedTestProducer "module" NO_INSTALL)
-simple_plugin(FindManySpeedTestAnalyzer "module" NO_INSTALL)
+simple_plugin(FindManySpeedTestProducer "module" NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
+simple_plugin(FindManySpeedTestAnalyzer "module" NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
 
 add_subdirectory(results-products)
 

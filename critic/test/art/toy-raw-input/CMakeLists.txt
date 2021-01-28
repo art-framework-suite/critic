@@ -1,18 +1,13 @@
 art_make_library(
   LIBRARY_NAME critic_test_art_toy_input
   SOURCE ToySource.cc
-  LIBRARIES
-  art_Framework_Core
-  art_Framework_IO_Sources
-  art_Framework_Principal
-  art_Persistency_Provenance
-  fhiclcpp
-  canvas
-  cetlib_except
+  LIBRARIES PRIVATE
+    art::art_Framework_Core
+    art::art_Framework_IO_Sources
   NO_INSTALL)
 
-simple_plugin(ToyRawFileInput   "source" USE_BOOST_UNIT NO_INSTALL critic_test_art_toy_input)
-simple_plugin(ToyRawInput       "source" USE_BOOST_UNIT NO_INSTALL critic_test_art_toy_input)
+simple_plugin(ToyRawFileInput   "source" USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE critic::critic_test_art_toy_input)
+simple_plugin(ToyRawInput       "source" USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE critic::critic_test_art_toy_input)
 simple_plugin(ToyRawInputTester "module" NO_INSTALL)
 
 cet_test(ToyRawInput_w HANDBUILT
@@ -50,7 +45,7 @@ cet_test(ToyRawInput_r3 HANDBUILT
   TEST_PROPERTIES DEPENDS ToyRawInput_w)
 
 # Attempts to create SubRunPrincipal without a valid RunPrincipal.
-foreach(num 02 11)
+foreach(num IN ITEMS 02 11)
   cet_test(ToyRawInput_t_${num} HANDBUILT
     TEST_EXEC art
     TEST_ARGS -c ToyRawInput_${num}.fcl
@@ -62,7 +57,7 @@ foreach(num 02 11)
 endforeach()
 
 # Attempts to create EventPrincipal without a valid SubRunPrincipal.
-foreach(num 03 04 12)
+foreach(num IN ITEMS 03 04 12)
   cet_test(ToyRawInput_t_${num} HANDBUILT
     TEST_EXEC art
     TEST_ARGS -c ToyRawInput_${num}.fcl
@@ -88,7 +83,7 @@ cet_test(ToyRawInput_OutputCheck_t_01 HANDBUILT
   TEST_PROPERTIES
   DEPENDS ToyRawInput_t_01)
 
-foreach(num 05 06 07 08 09 10)
+foreach(num IN ITEMS 05 06 07 08 09 10)
   cet_test(ToyRawInput_t_${num} HANDBUILT
     TEST_EXEC art
     TEST_ARGS -c ToyRawInput_${num}.fcl

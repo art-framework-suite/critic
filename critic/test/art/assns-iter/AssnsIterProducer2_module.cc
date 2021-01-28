@@ -16,7 +16,6 @@
 #include "art/Persistency/Common/PtrMaker.h"
 #include "canvas/Utilities/InputTag.h"
 #include "fhiclcpp/ParameterSet.h"
-#include "messagefacility/MessageLogger/MessageLogger.h"
 
 namespace arttest {
   class AssnsIterProducer2;

@@ -1,4 +1,4 @@
-art_dictionary(NO_INSTALL)
+art_dictionary(NO_INSTALL DICTIONARY_LIBRARIES PRIVATE art::art_test_TestObjects)
 
 #================================================================
 # Data container (e.g. Run, Event) shape testing

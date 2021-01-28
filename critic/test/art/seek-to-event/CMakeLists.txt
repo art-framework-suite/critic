@@ -1,8 +1,8 @@
 simple_plugin(SeekToEventClient "service" NO_INSTALL
-  art_Framework_Core
-  art_Framework_Principal
-  art_root_io_RootInput_source
-  art_root_io)
+  LIBRARIES PRIVATE
+    art_root_io::art_root_io_RootInput_source
+    art_root_io::art_root_io
+  )
 
 macro(seekToEventTest NEVENTS)
   set(SeekToEventPrefix "SeekToEvent_${NEVENTS}_events")

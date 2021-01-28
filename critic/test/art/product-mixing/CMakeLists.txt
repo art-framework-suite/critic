@@ -7,22 +7,57 @@ set_source_files_properties(MixFilterTestETSc_module.cc
 set_source_files_properties(MixFilterTestNoStartEvent_module.cc
   PROPERTIES COMPILE_DEFINITIONS ART_TEST_NO_STARTEVENT)
 
-simple_plugin(MixAnalyzer               "module" NO_INSTALL USE_BOOST_UNIT)
-simple_plugin(MixFilterTest             "module" NO_INSTALL USE_BOOST_UNIT
-              art_Framework_IO_ProductMix
-              art_Framework_Services_Registry
-              art_root_io
-              ROOT::Core)
-simple_plugin(MixFilterTestETS          "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ROOT::Core)
-simple_plugin(MixFilterTestETSc         "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ROOT::Core)
-simple_plugin(MixFilterTestNoStartEvent "module" NO_INSTALL USE_BOOST_UNIT art_Framework_IO_ProductMix art_root_io ROOT::Core)
-simple_plugin(MixProducer               "module" NO_INSTALL)
+simple_plugin(MixAnalyzer "module" NO_INSTALL USE_BOOST_UNIT)
+
+simple_plugin(MixFilterTest "module" NO_INSTALL USE_BOOST_UNIT
+  LIBRARIES PRIVATE
+    art::art_Framework_IO_ProductMix
+    art_root_io::art_root_io
+  )
+
+simple_plugin(MixFilterTestETS "module" NO_INSTALL USE_BOOST_UNIT
+  LIBRARIES PRIVATE
+    art::art_Framework_IO_ProductMix
+    art_root_io::art_root_io
+  )
+
+simple_plugin(MixFilterTestETSc "module" NO_INSTALL USE_BOOST_UNIT
+  LIBRARIES PRIVATE
+    art::art_Framework_IO_ProductMix
+    art_root_io::art_root_io
+  )
+
+simple_plugin(MixFilterTestNoStartEvent "module" NO_INSTALL USE_BOOST_UNIT
+  LIBRARIES PRIVATE
+    art::art_Framework_IO_ProductMix
+    art_root_io::art_root_io
+  )
+
+simple_plugin(MixProducer "module" NO_INSTALL)
 
 # Write the data file required for the other mixing tests.
 cet_test(ProductMix_w HANDBUILT
   TEST_EXEC art
   TEST_ARGS -c "ProductMix_w.fcl"
   DATAFILES fcl/ProductMix_w.fcl)
+
+# Make trimmed file with all events in the same run
+cet_test(ProductMix_trimmed_w HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS
+    -c /dev/null
+    -o mix_trimmed.root
+    -s ../ProductMix_w.d/mix.root
+    -n 100
+  TEST_PROPERTIES DEPENDS ProductMix_w)
+
+# Test wrap-around feature in MT environment
+cet_test(ProductMix_wraparound_r HANDBUILT
+  TEST_EXEC art
+  PARG_J -j 1 2 4 8
+  TEST_ARGS -c ProductMix_wraparound_r.fcl
+  DATAFILES fcl/ProductMix_wraparound_r.fcl
+  TEST_PROPERTIES DEPENDS ProductMix_trimmed_w)
 
 # Mix the events from ProductMix_w, analyzing the results and
 # writing an output file.
@@ -119,7 +154,7 @@ cet_test(ProductMix_r1d1 HANDBUILT
 #   RANDOM_LIM_REPLACE (require no dupes within a primary)
 #   RANDOM_LIM_REPLACE (require dupes across a job).
 #   RANDOM_NO_REPLACE
-foreach(test 1 2 3 4 5)
+foreach(test RANGE 1 5)
   cet_test(ProductMix_r1e${test} HANDBUILT
     TEST_EXEC art_ut
     TEST_ARGS -- -c "ProductMix_r1e${test}.fcl"
