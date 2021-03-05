@@ -1,6 +1,6 @@
-simple_plugin(PtrMakerProducer  "module" NO_INSTALL)
-simple_plugin(PtrMakerProducer2 "module" NO_INSTALL)
-simple_plugin(PtrMakerAnalyzer  "module" NO_INSTALL)
+build_plugin(PtrMakerProducer  "module" NO_INSTALL)
+build_plugin(PtrMakerProducer2 "module" NO_INSTALL)
+build_plugin(PtrMakerAnalyzer  "module" NO_INSTALL)
 
 cet_test(PtrMaker_t1 HANDBUILT
   TEST_EXEC art

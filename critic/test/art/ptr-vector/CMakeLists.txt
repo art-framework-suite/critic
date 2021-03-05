@@ -1,5 +1,5 @@
-simple_plugin(PtrVectorAnalyzer "module" NO_INSTALL)
-simple_plugin(PtrVectorProducer "module" NO_INSTALL)
+build_plugin(PtrVectorAnalyzer "module" NO_INSTALL)
+build_plugin(PtrVectorProducer "module" NO_INSTALL)
 
 cet_test(PtrVector_01a_t HANDBUILT
   TEST_EXEC art

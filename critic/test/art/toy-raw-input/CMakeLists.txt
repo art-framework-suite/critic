@@ -1,14 +1,14 @@
-art_make_library(
+cet_make_library(
   LIBRARY_NAME critic_test_art_toy_input
   SOURCE ToySource.cc
   LIBRARIES PRIVATE
-    art::art_Framework_Core
-    art::art_Framework_IO_Sources
+    art::Framework_Core
+    art::Framework_IO_Sources
   NO_INSTALL)
 
-simple_plugin(ToyRawFileInput   "source" USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE critic::critic_test_art_toy_input)
-simple_plugin(ToyRawInput       "source" USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE critic::critic_test_art_toy_input)
-simple_plugin(ToyRawInputTester "module" NO_INSTALL)
+build_plugin(ToyRawFileInput   "source" USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE critic_test::art_toy_input)
+build_plugin(ToyRawInput       "source" USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE critic_test::art_toy_input)
+build_plugin(ToyRawInputTester "module" NO_INSTALL)
 
 cet_test(ToyRawInput_w HANDBUILT
   TEST_EXEC art

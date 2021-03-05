@@ -242,7 +242,7 @@ cet_test(SwitchOnTwoConditions_FileIndexCheck_t HANDBUILT
 ## =============================================================
 ## Test output-file switching based on file size.
 
-simple_plugin(BigProductProducer "module" NO_INSTALL)
+build_plugin(BigProductProducer "module" NO_INSTALL)
 
 cet_test(SwitchOnFileSizeMax_w HANDBUILT
   TEST_EXEC art

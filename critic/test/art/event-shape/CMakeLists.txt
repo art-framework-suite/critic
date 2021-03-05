@@ -1,4 +1,4 @@
-art_dictionary(NO_INSTALL DICTIONARY_LIBRARIES PRIVATE art::art_test_TestObjects)
+art_dictionary(NO_INSTALL DICTIONARY_LIBRARIES PRIVATE art_test::TestObjects)
 
 #================================================================
 # Data container (e.g. Run, Event) shape testing
@@ -76,8 +76,8 @@ set_tests_properties(DifferentHistories_r1 DifferentHistories_r2 PROPERTIES
 #  FIXME: Should be more explicit about what kinds of shapes we're
 #         testing here.
 
-simple_plugin(ESPrimaryProducer   "module" NO_INSTALL)
-simple_plugin(ESSecondaryProducer "module" NO_INSTALL)
+build_plugin(ESPrimaryProducer   "module" NO_INSTALL)
+build_plugin(ESSecondaryProducer "module" NO_INSTALL)
 
 # First processes: create files with two collections.
 cet_test(ES_w01 HANDBUILT

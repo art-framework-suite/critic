@@ -1,4 +1,4 @@
-simple_plugin(AssnsReaderTest "module" NO_INSTALL USE_BOOST_UNIT)
+build_plugin(AssnsReaderTest "module" NO_INSTALL USE_BOOST_UNIT)
 
 ########################################################################
 # Description of tests

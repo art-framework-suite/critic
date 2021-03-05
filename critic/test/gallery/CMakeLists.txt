@@ -4,11 +4,11 @@ $<IF:$<PLATFORM_ID:Darwin>,$ENV{DYLD_LIBRARY_PATH},$ENV{LD_LIBRARY_PATH}>\
 ")
 
 set(gallery_tests_libraries
-    critic::critic_test_CriticTestObjects
-    gallery::gallery
-    ROOT::RIO
-    ROOT::Core
-  )
+  critic_test::CriticTestObjects
+  gallery::gallery
+  ROOT::RIO
+  ROOT::Core
+)
 
 ########################################################################
 #
@@ -221,7 +221,12 @@ foreach (num RANGE 1 3)
   )
 endforeach()
 
-simple_plugin(GalleryTestProducer     "module"  NO_INSTALL)
-simple_plugin(GalleryPtrTestProducer  "module"  NO_INSTALL LIBRARIES PRIVATE critic::critic_test_CriticTestObjects)
-simple_plugin(GalleryAssnsProducer    "module"  NO_INSTALL LIBRARIES PRIVATE critic::critic_test_CriticTestObjects)
-simple_plugin(CriticFailEverything    "module"  NO_INSTALL)
+build_plugin(GalleryTestProducer "module" NO_INSTALL)
+
+build_plugin(GalleryPtrTestProducer "module" NO_INSTALL
+ LIBRARIES PRIVATE critic_test::CriticTestObjects)
+
+build_plugin(GalleryAssnsProducer "module" NO_INSTALL
+ LIBRARIES PRIVATE critic_test::CriticTestObjects)
+
+build_plugin(CriticFailEverything "module" NO_INSTALL)
