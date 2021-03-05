@@ -2,10 +2,11 @@
 #define critic_test_art_Wanted_h
 // vim: set sw=2 expandtab :
 
-#include "art/Framework/Services/Registry/ActivityRegistry.h"
-#include "art/Framework/Services/Registry/ServiceHandle.h"
-#include "art/Framework/Services/Registry/ServiceMacros.h"
-#include "fhiclcpp/ParameterSet.h"
+#include "art/Framework/Services/Registry/ServiceDeclarationMacros.h"
+
+namespace fhicl {
+  class ParameterSet;
+}
 
 namespace art::test {
 

@@ -2,6 +2,7 @@
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
 #include "art/Framework/Services/Registry/ActivityRegistry.h"
+#include "art/Framework/Services/Registry/ServiceDefinitionMacros.h"
 #include "art_root_io/RootInput.h"
 #include "critic/test/art/seek-to-event/SeekToEventClient.h"
 #include "fhiclcpp/ParameterSet.h"

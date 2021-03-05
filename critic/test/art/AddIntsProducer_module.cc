@@ -1,7 +1,6 @@
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
-#include "art/Utilities/ToolConfigTable.h"
 #include "art/Utilities/make_tool.h"
 #include "art/test/TestObjects/ToyProducts.h"
 #include "fhiclcpp/types/DelegatedParameter.h"

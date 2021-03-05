@@ -9,7 +9,7 @@
 // from cetlib version v1_17_04.
 ////////////////////////////////////////////////////////////////////////
 
-#include "art/Framework/Services/Registry/ServiceMacros.h"
+#include "art/Framework/Services/Registry/ServiceDeclarationMacros.h"
 
 namespace fhicl {
   class ParameterSet;
