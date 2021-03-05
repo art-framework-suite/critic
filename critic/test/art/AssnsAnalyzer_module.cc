@@ -6,7 +6,7 @@
 // Generated at Wed Jul 13 14:36:05 2011 by Chris Green using artmod
 // from art v0_07_12.
 ////////////////////////////////////////////////////////////////////////
-#include "cetlib/quiet_unit_test.hpp"
+#include "boost/test/unit_test.hpp"
 
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
