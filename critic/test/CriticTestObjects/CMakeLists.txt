@@ -1,11 +1,8 @@
-art_make_library(
-  LIBRARY_NAME
-    critic_test_CriticTestObjects
-  SOURCE
-    LiteAssnTestData.cc
-    LitePtrTestProduct.cc
-  LIBRARIES
-    art::art_test_TestObjects
+cet_make_library(SOURCE LiteAssnTestData.cc LitePtrTestProduct.cc
+  LIBRARIES PUBLIC art_test::TestObjects canvas::canvas
 )
 
-art_dictionary(DICTIONARY_LIBRARIES PRIVATE critic::critic_test_CriticTestObjects)
+art_dictionary(DICTIONARY_LIBRARIES
+  critic_test::CriticTestObjects
+  cetlib::cetlib
+)
