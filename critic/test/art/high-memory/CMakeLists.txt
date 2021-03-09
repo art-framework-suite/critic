@@ -2,9 +2,9 @@
 
 art_dictionary(NO_INSTALL)
 
-simple_plugin(HMSubRunProdProducer "module" NO_INSTALL)
-simple_plugin(HMRunProdProducer "module" NO_INSTALL)
-simple_plugin(TestRemoveCachedProduct "module" NO_INSTALL USE_BOOST_UNIT)
+build_plugin(HMSubRunProdProducer "module" NO_INSTALL)
+build_plugin(HMRunProdProducer "module" NO_INSTALL)
+build_plugin(TestRemoveCachedProduct "module" NO_INSTALL USE_BOOST_UNIT)
 
 cet_test(HMSubRun_w HANDBUILT
   TEST_EXEC art

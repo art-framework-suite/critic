@@ -12,7 +12,7 @@
 //      RandomNumberGenerator::getEngine in multiple threads.
 // ========================================================================
 
-#include "cetlib/quiet_unit_test.hpp"
+#include "boost/test/unit_test.hpp"
 
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/ReplicatedAnalyzer.h"

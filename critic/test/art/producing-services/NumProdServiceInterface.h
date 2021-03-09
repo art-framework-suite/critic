@@ -2,7 +2,6 @@
 #define critic_test_art_producing_services_NumProdServiceInterface_h
 
 #include "art/Framework/Core/ProducingService.h"
-#include "art/Framework/Services/Registry/ServiceMacros.h"
 
 namespace arttest {
   class NumProdServiceInterface : public art::ProducingService {};

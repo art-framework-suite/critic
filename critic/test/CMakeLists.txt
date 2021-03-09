@@ -1,14 +1,27 @@
 cet_enable_asserts()
-
-# add_definitions(-DART_NO_MIX_PTRVECTOR)
-
 # Make sure tests have correct environment settings.
 include(CetTest)
-# If you explicitly include CetTest in a subdirectory, you will need to
-# re-initialize the test environment.
 cet_test_env("FHICL_FILE_PATH=.")
 
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+
+cet_find_package(CLHEP PRIVATE COMPONENTS Random REQUIRED)
+cet_find_package(ROOT PRIVATE COMPONENTS Core RIO Tree REQUIRED)
+cet_find_package(Threads PRIVATE REQUIRED)
+cet_find_package(art REQUIRED)
+cet_find_package(art_root_io PRIVATE REQUIRED)
+cet_find_package(canvas REQUIRED)
+cet_find_package(cetlib PRIVATE REQUIRED)
+cet_find_package(fhiclcpp PRIVATE REQUIRED)
+cet_find_package(gallery PRIVATE REQUIRED)
+cet_find_package(messagefacility PRIVATE REQUIRED)
+
+include(ArtDictionary)
 include(ArtMake)
+include(BuildPlugins)
+
+# Put everything in a different export set.
+cet_register_export_set(SET_NAME Testing NAMESPACE critic_test SET_DEFAULT)
 
 # build Persistency libraries
 add_subdirectory(CriticTestObjects)

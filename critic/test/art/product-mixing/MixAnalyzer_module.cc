@@ -7,7 +7,7 @@
 // from art v0_06_02.
 ////////////////////////////////////////////////////////////////////////
 
-#include "cetlib/quiet_unit_test.hpp"
+#include "boost/test/unit_test.hpp"
 
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"

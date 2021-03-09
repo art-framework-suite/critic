@@ -9,7 +9,7 @@
 // Generated at Wed Oct 12 11:44:35 2011 by Chris Green using artmod
 // from art v1_00_00.
 ////////////////////////////////////////////////////////////////////////
-#include "cetlib/quiet_unit_test.hpp"
+#include "boost/test/unit_test.hpp"
 
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"

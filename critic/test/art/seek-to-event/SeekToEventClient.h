@@ -11,7 +11,7 @@
 
 #include "art/Framework/Services/Registry/ActivityRegistry.h"
 #include "art/Framework/Services/Registry/ServiceHandle.h"
-#include "art/Framework/Services/Registry/ServiceMacros.h"
+#include "art/Framework/Services/Registry/ServiceDeclarationMacros.h"
 #include "canvas/Persistency/Provenance/EventID.h"
 #include "cetlib/exempt_ptr.h"
 #include "fhiclcpp/types/Sequence.h"

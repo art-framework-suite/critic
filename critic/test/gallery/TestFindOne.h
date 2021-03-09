@@ -17,7 +17,7 @@
 #include "canvas/Persistency/Common/detail/is_handle.h"
 #include "canvas/Utilities/InputTag.h"
 #include "cetlib/maybe_ref.h"
-#include "cetlib/quiet_unit_test.hpp"
+#include "boost/test/unit_test.hpp"
 #include "critic/test/CriticTestObjects/LiteAssnTestData.h"
 #include "gallery/Event.h"
 #include "gallery/Handle.h"

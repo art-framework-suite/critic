@@ -1,12 +1,5 @@
-simple_plugin(RPTest "plugin" NO_INSTALL
-  LIBRARIES PRIVATE
-  art::art_Framework_Core
-  Boost::filesystem)
-
-simple_plugin(RPTestReader "plugin" NO_INSTALL
-  LIBRARIES PRIVATE
-  art::art_Framework_Core
-  Boost::filesystem)
+build_plugin(RPTest "plugin" BASE ResultsProducer NO_INSTALL)
+build_plugin(RPTestReader "plugin" BASE ResultsProducer NO_INSTALL)
 
 cet_test(RPTest_conf_err_01 HANDBUILT
   TEST_EXEC art

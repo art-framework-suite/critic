@@ -4,7 +4,7 @@
 // whenever the input files are presented in out-of-(sub)run order.
 // =================================================================
 
-#include "cetlib/quiet_unit_test.hpp"
+#include "boost/test/unit_test.hpp"
 
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
