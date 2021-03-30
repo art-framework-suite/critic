@@ -6,9 +6,6 @@
 #include "art/Framework/Principal/SubRun.h"
 #include "cetlib/HorizontalRule.h"
 #include "fhiclcpp/ParameterSet.h"
-#include "fhiclcpp/intermediate_table.h"
-#include "fhiclcpp/make_ParameterSet.h"
-#include "fhiclcpp/parse.h"
 
 #include <iostream>
 #include <sstream>
@@ -37,13 +34,13 @@ public:
       expected << "open " << fileNames_[i] << '\n';
 
       std::vector<std::tuple<int, int, int>> tokens;
+      cet::filepath_lookup_after1 lookupPolicy(".:");
       try { // Assume it's a real filename
-        fhicl::intermediate_table raw_config;
-        cet::filepath_lookup_after1 lookupPolicy(".:");
-        fhicl::parse_document(fileNames_[i], lookupPolicy, raw_config);
-        fhicl::ParameterSet file_pset;
-        make_ParameterSet(raw_config, file_pset);
-        assert(file_pset.get_if_present("data", tokens));
+        auto const file_pset =
+          fhicl::ParameterSet::make(fileNames_[i], lookupPolicy);
+        bool const present [[maybe_unused]] =
+          file_pset.get_if_present("data", tokens);
+        assert(present);
       }
       catch (...) { // Attempt to read the parameter set by that name instead.
         assert(p.get_if_present(fileNames_[i], tokens));

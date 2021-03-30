@@ -11,9 +11,6 @@
 #include "cetlib/filepath_maker.h"
 #include "critic/test/art/toy-raw-input/ToySource.h"
 #include "fhiclcpp/ParameterSet.h"
-#include "fhiclcpp/intermediate_table.h"
-#include "fhiclcpp/make_ParameterSet.h"
-#include "fhiclcpp/parse.h"
 
 namespace arttest {
   // ToyFile is the sort of class that experimenters who make use of
@@ -44,11 +41,8 @@ arttest::ToyFileReader::readFile(std::string const& name, art::FileBlock*& fb)
 {
   if (throw_on_readFile_)
     throw_exception_from("readFile");
-  fhicl::intermediate_table raw_config;
   cet::filepath_lookup_after1 lookupPolicy{".:"};
-  fhicl::parse_document(name, lookupPolicy, raw_config);
-  fhicl::ParameterSet file_pset;
-  make_ParameterSet(raw_config, file_pset);
+  auto const file_pset = fhicl::ParameterSet::make(name, lookupPolicy);
 
   if (!file_pset.get_if_present("data", fileData_)) {
     throw art::Exception{art::errors::Configuration}
