@@ -1,4 +1,3 @@
-outputs: {}
 process_name: "ImmediateReadControl"
 services: {
    CatalogInterface: {
