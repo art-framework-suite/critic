@@ -1,8 +1,8 @@
 #ifndef critic_test_art_ServiceUsing_h
 #define critic_test_art_ServiceUsing_h
 
-#include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "art/Framework/Services/Registry/ServiceDeclarationMacros.h"
+#include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "critic/test/art/Wanted.h"
 
 namespace art::test {

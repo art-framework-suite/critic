@@ -14,18 +14,18 @@ namespace art::test {
                     std::string const& instance = {})
   {
     switch (bt) {
-      case art::InEvent:
-        collector.produces<T>(instance);
-        break;
-      case art::InSubRun:
-        collector.produces<T, art::InSubRun>(instance);
-        break;
-      case art::InRun:
-        collector.produces<T, art::InRun>(instance);
-        break;
-      default:
-        throw art::Exception(art::errors::LogicError)
-          << "Unknown branch type " << bt << ".\n";
+    case art::InEvent:
+      collector.produces<T>(instance);
+      break;
+    case art::InSubRun:
+      collector.produces<T, art::InSubRun>(instance);
+      break;
+    case art::InRun:
+      collector.produces<T, art::InRun>(instance);
+      break;
+    default:
+      throw art::Exception(art::errors::LogicError)
+        << "Unknown branch type " << bt << ".\n";
     }
   }
 }

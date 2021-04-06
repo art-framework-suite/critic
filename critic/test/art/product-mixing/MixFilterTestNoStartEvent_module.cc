@@ -342,52 +342,51 @@ arttest::MixFilterTestDetail::processEventIDs(art::EventIDSequence const& seq)
     return;
   }
   switch (readMode_) {
-    case art::MixHelper::Mode::SEQUENTIAL: {
-      auto count(1);
-      for (auto const& eid : seq) {
-        BOOST_TEST_REQUIRE(eid.event() ==
-                           currentEvent_ * nSecondaries() + count++);
-      }
-    } break;
-    case art::MixHelper::Mode::RANDOM_REPLACE: {
-      // We should have a duplicate within the secondaries.
+  case art::MixHelper::Mode::SEQUENTIAL: {
+    auto count(1);
+    for (auto const& eid : seq) {
+      BOOST_TEST_REQUIRE(eid.event() ==
+                         currentEvent_ * nSecondaries() + count++);
+    }
+  } break;
+  case art::MixHelper::Mode::RANDOM_REPLACE: {
+    // We should have a duplicate within the secondaries.
+    std::unordered_set<int> s;
+    std::transform(seq.cbegin(),
+                   seq.cend(),
+                   std::inserter(s, s.begin()),
+                   [](art::EventID const& eid) { return eid.event(); });
+    BOOST_TEST(seq.size() > s.size());
+  } break;
+  case art::MixHelper::Mode::RANDOM_LIM_REPLACE:
+    if (testNoLimEventDupes_) {
+      // We should have no duplicate within the secondaries.
       std::unordered_set<int> s;
       std::transform(seq.cbegin(),
                      seq.cend(),
                      std::inserter(s, s.begin()),
                      [](art::EventID const& eid) { return eid.event(); });
-      BOOST_TEST(seq.size() > s.size());
-    } break;
-    case art::MixHelper::Mode::RANDOM_LIM_REPLACE:
-      if (testNoLimEventDupes_) {
-        // We should have no duplicate within the secondaries.
-        std::unordered_set<int> s;
-        std::transform(seq.cbegin(),
-                       seq.cend(),
-                       std::inserter(s, s.begin()),
-                       [](art::EventID const& eid) { return eid.event(); });
-        BOOST_TEST(seq.size() == s.size());
-      } else { // Require dupes over 2 events.
-        auto checkpoint(allEvents_.size());
-        std::transform(seq.cbegin(),
-                       seq.cend(),
-                       std::back_inserter(allEvents_),
-                       [](art::EventID const& eid) { return eid.event(); });
-        uniqueEvents_.insert(allEvents_.cbegin() + checkpoint,
-                             allEvents_.cend());
-        // Test at end job for duplicates.
-      }
-      break;
-    case art::MixHelper::Mode::RANDOM_NO_REPLACE: {
+      BOOST_TEST(seq.size() == s.size());
+    } else { // Require dupes over 2 events.
       auto checkpoint(allEvents_.size());
       std::transform(seq.cbegin(),
                      seq.cend(),
                      std::back_inserter(allEvents_),
                      [](art::EventID const& eid) { return eid.event(); });
       uniqueEvents_.insert(allEvents_.cbegin() + checkpoint, allEvents_.cend());
-      // Test at end job for no duplicates.
-    } break;
-    default:;
+      // Test at end job for duplicates.
+    }
+    break;
+  case art::MixHelper::Mode::RANDOM_NO_REPLACE: {
+    auto checkpoint(allEvents_.size());
+    std::transform(seq.cbegin(),
+                   seq.cend(),
+                   std::back_inserter(allEvents_),
+                   [](art::EventID const& eid) { return eid.event(); });
+    uniqueEvents_.insert(allEvents_.cbegin() + checkpoint, allEvents_.cend());
+    // Test at end job for no duplicates.
+  } break;
+  default:;
   }
 }
 
