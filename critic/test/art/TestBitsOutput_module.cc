@@ -81,9 +81,6 @@ private:
   writeRun(art::RunPrincipal&) override
   {}
 
-  void endJob() override;
-
-  std::string name_{};
   std::vector<unsigned char> hltbits_{};
   art::ModuleDescription moduleDescription_{};
   int bitMask_;
@@ -92,9 +89,8 @@ private:
 
 // -----------------------------------------------------------------
 
-arttest::TestBitsOutput::TestBitsOutput(
-  arttest::TestBitsOutput::Parameters const& ps)
-  : art::OutputModule{ps().omConfig, ps.get_PSet()}
+arttest::TestBitsOutput::TestBitsOutput(Parameters const& ps)
+  : OutputModule{ps().omConfig, ps.get_PSet()}
   , bitMask_{ps().bitMask()}
   , expectTriggerResults_{ps().expectTriggerResults()}
 {}
@@ -169,9 +165,5 @@ arttest::TestBitsOutput::write(art::EventPrincipal& ep)
   }
   std::cout << "\nSUCCESS: Found Matching Bits" << std::endl;
 }
-
-void
-arttest::TestBitsOutput::endJob()
-{}
 
 DEFINE_ART_MODULE(arttest::TestBitsOutput)

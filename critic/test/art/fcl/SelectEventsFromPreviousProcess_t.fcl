@@ -1,5 +1,16 @@
 process_name: PROD2
-physics.e1: [o1]
+
+physics: {
+  analyzers: {
+    a1: {
+      module_type: CheckPathResults
+      process_name: PROD1
+      expected_events: [1,4,5,8,9]
+    }
+  }
+  ep: [a1, o1]
+}
+
 outputs.o1: {
   module_type: RootOutput
   SelectEvents: ["PROD1:p1"]
