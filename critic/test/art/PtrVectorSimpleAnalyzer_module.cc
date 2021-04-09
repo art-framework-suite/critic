@@ -51,9 +51,8 @@ arttest::PtrVectorSimpleAnalyzer::analyze(art::Event const& e,
   assert(p->size() > 0);
   // assert( p->pop_back()); // This fails to compile, because *p is const.
 
-  art::Handle<SimplePtrVector> h;
-  bool const status = e.getByLabel(input_label_, h);
-  assert(status);
+  auto h = e.getHandle<SimplePtrVector>(input_label_);
+  assert(h);
 
   int const event_num = e.id().event();
   size_t const sz = h->size();

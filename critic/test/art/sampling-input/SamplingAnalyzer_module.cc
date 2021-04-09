@@ -189,7 +189,7 @@ namespace {
                                original_tag.instance(),
                                sampled_from(original_tag.process())};
     auto const& sampledInts =
-      *dc.template getValidHandle<Sampled<arttest::IntProduct>>(sampled_tag);
+      dc.template getProduct<Sampled<arttest::IntProduct>>(sampled_tag);
     assert(sampledInts.originalInputTag() == original_tag);
 
     std::size_t successes{};

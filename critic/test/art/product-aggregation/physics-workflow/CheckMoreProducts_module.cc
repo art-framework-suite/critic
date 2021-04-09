@@ -76,8 +76,8 @@ namespace {
       trkEffH->efficiency(), trkEffValueH->value(), tolerance);
 
     // User-assembled ParticleRatio check
-    auto const seenParticles = sr.getByLabel<unsigned>(seenParticlesRef_.tag_);
-    auto const nParticles = sr.getByLabel<unsigned>(nParticlesRef_.tag_);
+    auto const seenParticles = sr.getProduct<unsigned>(seenParticlesRef_.tag_);
+    auto const nParticles = sr.getProduct<unsigned>(nParticlesRef_.tag_);
     auto const& particleRatioH =
       sr.getValidHandle<Fraction>(particleRatioRef_.tag_);
     BOOST_TEST(seenParticles == seenParticlesRef_.value_);

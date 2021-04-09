@@ -36,13 +36,8 @@ namespace arttest {
   void
   DerivedPtrVectorAnalyzer::analyze(art::Event const& e)
   {
-    art::Handle<product_t> h;
-    bool const success = e.getByToken(productToken_, h);
-    if (requirePresence_) {
-      assert(success);
-    } else {
-      assert(!success);
-    }
+    auto h = e.getHandle(productToken_);
+    assert(requirePresence_ == h.isValid());
   }
 }
 

@@ -50,8 +50,7 @@ MockClusterListAnalyzer::analyze(art::Event const& e)
 {
   int event_num = e.id().event();
   typedef arttest::MockClusterList product_t;
-  art::Handle<product_t> h;
-  e.getByLabel(inputLabel_, h);
+  auto h = e.getHandle<product_t>(inputLabel_);
 
   assert(h.isValid());
   unsigned psz = h->size();

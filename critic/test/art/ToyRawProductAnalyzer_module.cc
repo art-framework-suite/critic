@@ -51,8 +51,8 @@ arttest::ToyRawProductAnalyzer::analyze(art::Event const& e)
   std::cerr << e.id() << " bool a = " << (*hb1) << "\n";
   assert(e.getByLabel(art::InputTag("m2", "b"), hb2));
   std::cerr << e.id() << " bool b = " << (*hb2) << "\n";
-  auto ph = e.getValidHandle<art::Ptr<double>>("m3");
-  assert(**ph == 3.7);
+  auto ptr = e.getProduct<art::Ptr<double>>("m3");
+  assert(*ptr == 3.7);
 }
 
 void

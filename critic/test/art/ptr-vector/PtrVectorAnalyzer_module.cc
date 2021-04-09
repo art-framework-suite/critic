@@ -23,7 +23,7 @@ namespace arttest {
 
 class arttest::PtrVectorAnalyzer : public art::EDAnalyzer {
 public:
-  typedef art::PtrVector<int> product_t;
+  using product_t = art::PtrVector<int>;
 
   PtrVectorAnalyzer(fhicl::ParameterSet const& p)
     : art::EDAnalyzer(p)
@@ -34,10 +34,9 @@ public:
   void
   analyze(art::Event const& e) override
   {
-    art::Handle<product_t> h;
-    e.getByLabel(input_label_, h);
+    auto const& int_ptrs = e.getProduct<product_t>(input_label_);
 
-    size_t sz = h->size();
+    size_t sz = int_ptrs.size();
     if (sz != nvalues_) {
       throw cet::exception("SizeMismatch")
         << "Expected a PtrVector of size " << nvalues_
@@ -46,7 +45,7 @@ public:
 
     int value = e.id().event();
     size_t count = 0;
-    for (const auto ptr : *h) {
+    for (auto const& ptr : int_ptrs) {
       if (*ptr != value) {
         throw cet::exception("ValueMismatch")
           << "At position " << count << " expected value " << value
@@ -62,7 +61,7 @@ public:
     }
 
     // Make a copy of the PtrVector, so we can call sort on it.
-    product_t local(*h);
+    product_t local(int_ptrs);
     // Make sure we're not sorted yet...
     sz = local.size();
     assert(sz > 1);
@@ -80,16 +79,16 @@ public:
 
     // Make a new PtrVector so we can range-insert into it.
     product_t insert_test;
-    auto half_size = h->size() / 2;
+    auto half_size = int_ptrs.size() / 2;
     insert_test.insert(
-      insert_test.begin(), h->cbegin(), h->cbegin() + half_size);
-    auto it =
-      insert_test.insert(insert_test.end(), h->cbegin() + half_size, h->cend());
+      insert_test.begin(), int_ptrs.cbegin(), int_ptrs.cbegin() + half_size);
+    auto it = insert_test.insert(
+      insert_test.end(), int_ptrs.cbegin() + half_size, int_ptrs.cend());
     assert(it == insert_test.begin() + half_size);
-    assert(insert_test.size() == h->size());
-    it = insert_test.insert(it, h->cbegin(), h->end());
+    assert(insert_test.size() == int_ptrs.size());
+    it = insert_test.insert(it, int_ptrs.cbegin(), int_ptrs.end());
     assert(it == insert_test.begin() + half_size);
-    assert(insert_test.size() == h->size() * 2);
+    assert(insert_test.size() == int_ptrs.size() * 2);
   } // analyze()
 
 private:

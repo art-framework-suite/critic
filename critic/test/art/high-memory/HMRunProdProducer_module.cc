@@ -55,9 +55,8 @@ void
 arttest::HMRunProdProducer::endSubRun(art::SubRun& sr)
 {
   for (unsigned short i = 0; i < N_BLOCKS; ++i) {
-    art::Handle<HMLargeData> h;
-    sr.getByLabel<HMLargeData>(
-      inputLabel_, std::string("block") + std::to_string(i), h);
+    auto h = sr.getHandle<HMLargeData>(
+      {inputLabel_, std::string("block") + std::to_string(i)});
     if (data_[i]) {
       *data_[i] += *h;
     } else {

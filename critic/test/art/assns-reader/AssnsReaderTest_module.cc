@@ -229,26 +229,22 @@ arttest::AssnsReaderTest::analyze(art::Event const& e)
   }
 
   // Check all <A, B, V> and <B, A, V>.
-  BOOST_TEST(e.getValidHandle<AssnsABX_t>(inputLabel_)->size() == 3ull);
-  BOOST_TEST(e.getValidHandle<AssnsBAX_t>(inputLabel_)->size() == 3ull);
+  BOOST_TEST(e.getProduct<AssnsABX_t>(inputLabel_).size() == 3ull);
+  BOOST_TEST(e.getProduct<AssnsBAX_t>(inputLabel_).size() == 3ull);
   if (wantMany_) {
-    BOOST_TEST(e.getValidHandle<AssnsABX_t>({inputLabel_, "many"s})->size() ==
-               4ull);
-    BOOST_TEST(e.getValidHandle<AssnsBAX_t>({inputLabel_, "many"s})->size() ==
-               4ull);
+    BOOST_TEST(e.getProduct<AssnsABX_t>({inputLabel_, "many"s}).size() == 4ull);
+    BOOST_TEST(e.getProduct<AssnsBAX_t>({inputLabel_, "many"s}).size() == 4ull);
   }
   if (wantMV_) {
-    BOOST_TEST(e.getValidHandle<AssnsABX_t>({inputLabel_, "mapvec"s})->size() ==
+    BOOST_TEST(e.getProduct<AssnsABX_t>({inputLabel_, "mapvec"s}).size() ==
                3ull);
-    BOOST_TEST(e.getValidHandle<AssnsBAX_t>({inputLabel_, "mapvec"s})->size() ==
+    BOOST_TEST(e.getProduct<AssnsBAX_t>({inputLabel_, "mapvec"s}).size() ==
                3ull);
     if (wantMany_) {
       BOOST_TEST(
-        e.getValidHandle<AssnsABX_t>({inputLabel_, "manymapvec"s})->size() ==
-        4ull);
+        e.getProduct<AssnsABX_t>({inputLabel_, "manymapvec"s}).size() == 4ull);
       BOOST_TEST(
-        e.getValidHandle<AssnsBAX_t>({inputLabel_, "manymapvec"s})->size() ==
-        4ull);
+        e.getProduct<AssnsBAX_t>({inputLabel_, "manymapvec"s}).size() == 4ull);
     }
   }
 

@@ -51,9 +51,8 @@ void
 PtrMakerAnalyzer::analyze(art::Event const& e)
 {
   std::cerr << "PtrMakerAnalyzer is running\n";
-  art::Handle<intptrvector_t> h;
-  e.getByLabel(fInputLabel, h);
-  size_t sz = h->size();
+  auto const& ipv = e.getProduct<intptrvector_t>(fInputLabel);
+  size_t sz = ipv.size();
   if (sz != (size_t)nvalues) {
     throw cet::exception("SizeMismatch")
       << "Expected a PtrVector of size " << nvalues
@@ -63,7 +62,7 @@ PtrMakerAnalyzer::analyze(art::Event const& e)
   int eid = e.id().event();
 
   // now check the values
-  intptrvector_t local{*h};
+  intptrvector_t local{ipv};
   for (int i = 0; i < nvalues; ++i) {
     assert(*local[i] == eid + i);
   }

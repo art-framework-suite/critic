@@ -77,7 +77,7 @@ namespace arttest {
   bool
   Reconstruction::filter(Event& e, ProcessingFrame const&)
   {
-    auto const& particleEnergies = *e.getValidHandle(particleEnergiesTkn_);
+    auto const& particleEnergies = e.getProduct(particleEnergiesTkn_);
     bool pass = false;
     for (auto const& val : particleEnergies) {
       if (val >= threshold_) {

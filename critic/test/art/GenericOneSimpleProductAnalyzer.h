@@ -111,8 +111,7 @@ public:
   {
     if (branch_type_ != art::InEvent)
       return;
-    art::Handle<P> handle;
-    e.getByLabel(input_label_, handle);
+    auto handle = e.getHandle<P>(input_label_);
     assert(handle.isValid() == require_presence_);
     if (require_presence_) {
       verify_value(art::InEvent, handle);
@@ -124,8 +123,7 @@ public:
   {
     if (branch_type_ != art::InSubRun)
       return;
-    art::Handle<P> handle;
-    sr.getByLabel(input_label_, handle);
+    auto handle = sr.getHandle<P>(input_label_);
     assert(handle.isValid() == require_presence_);
     if (require_presence_) {
       verify_value(art::InSubRun, handle);
@@ -137,8 +135,7 @@ public:
   {
     if (branch_type_ != art::InRun)
       return;
-    art::Handle<P> handle;
-    r.getByLabel(input_label_, handle);
+    auto handle = r.getHandle<P>(input_label_);
     assert(handle.isValid() == require_presence_);
     if (require_presence_) {
       verify_value(art::InRun, handle);

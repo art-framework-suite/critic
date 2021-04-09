@@ -55,35 +55,31 @@ arttest::MixAnalyzer::analyze(art::Event const& e)
   ++eventCounter_;
 
   // Double
-  art::Handle<double> dH;
-  e.getByLabel(mixFilterLabel_, "doubleLabel", dH);
+  double d = e.getProduct<double>({mixFilterLabel_, "doubleLabel"});
   double dExpected =
     ((2 * eventCounter_ - 1) * nSecondaries_ + 1) * nSecondaries_ / 2;
-  assert(*dH == dExpected);
+  assert(d == dExpected);
 
   // IntProduct
-  art::Handle<IntProduct> ipH;
-  BOOST_TEST_REQUIRE(e.getByLabel(mixFilterLabel_, "IntProductLabel", ipH));
-  BOOST_TEST_REQUIRE(ipH->value == dExpected + 1000000 * nSecondaries_);
+  auto ip = e.getProduct<IntProduct>({mixFilterLabel_, "IntProductLabel"});
+  BOOST_TEST_REQUIRE(ip.value == dExpected + 1000000 * nSecondaries_);
 
   // String
-  art::Handle<std::string> sH;
-  BOOST_TEST_REQUIRE(e.getByLabel(mixFilterLabel_, "stringLabel", sH));
+  auto const& s = e.getProduct<std::string>({mixFilterLabel_, "stringLabel"});
   std::ostringstream sExp;
   for (size_t i = 1; i <= nSecondaries_; ++i) {
     sExp << "string value: " << std::setfill('0') << std::setw(7)
          << (eventCounter_ - 1) * nSecondaries_ + i << "\n";
   }
-  BOOST_TEST_REQUIRE(*sH == sExp.str());
+  BOOST_TEST_REQUIRE(s == sExp.str());
 
   // 1. std::vector<double>
-  art::Handle<std::vector<double>> vdH;
-  BOOST_TEST_REQUIRE(
-    e.getByLabel(mixFilterLabel_, "doubleCollectionLabel", vdH));
-  BOOST_TEST_REQUIRE(vdH->size() == 10 * nSecondaries_);
+  auto const& vd = e.getProduct<std::vector<double>>(
+    {mixFilterLabel_, "doubleCollectionLabel"});
+  BOOST_TEST_REQUIRE(size(vd) == 10 * nSecondaries_);
   for (size_t i = 0; i < nSecondaries_; ++i) {
     for (size_t j = 1; j < 11; ++j) {
-      BOOST_TEST_REQUIRE((*vdH)[i * 10 + j - 1] ==
+      BOOST_TEST_REQUIRE(vd[i * 10 + j - 1] ==
                          j + 10 * (i + (eventCounter_ - 1) * nSecondaries_));
     }
   }
@@ -91,49 +87,47 @@ arttest::MixAnalyzer::analyze(art::Event const& e)
   // 2. std::vector<art::Ptr<double> >
   // 3. art::PtrVector<double>
   // 4. ProductWithPtrs
-  art::Handle<std::vector<art::Ptr<double>>> vpdH;
-  BOOST_TEST_REQUIRE(
-    e.getByLabel(mixFilterLabel_, "doubleVectorPtrLabel", vpdH)); // 2.
+
+  auto const& vpd = e.getProduct<std::vector<art::Ptr<double>>>(
+    {mixFilterLabel_, "doubleVectorPtrLabel"});
 #ifndef ART_NO_MIX_PTRVECTOR
-  art::Handle<art::PtrVector<double>> pvdH;
-  BOOST_TEST_REQUIRE(
-    e.getByLabel(mixFilterLabel_, "doublePtrVectorLabel", pvdH)); // 3.
+  auto const& pvd = e.getProduct<art::PtrVector<double>>(
+    {mixFilterLabel_, "doublePtrVectorLabel"}); // 3.
 #endif
   art::Handle<arttest::ProductWithPtrs> pwpH;
   BOOST_TEST_REQUIRE(
     e.getByLabel(mixFilterLabel_, "ProductWithPtrsLabel", pwpH)); // 4.
 
   for (size_t i = 0; i < nSecondaries_; ++i) {
-    BOOST_TEST_REQUIRE(*(*vpdH)[i * 3 + 0] == (*vdH)[(i * 10) + 0]); // 2.
-    BOOST_TEST_REQUIRE(*(*vpdH)[i * 3 + 1] == (*vdH)[(i * 10) + 4]); // 2.
-    BOOST_TEST_REQUIRE(*(*vpdH)[i * 3 + 2] == (*vdH)[(i * 10) + 8]); // 2.
+    BOOST_TEST_REQUIRE(*vpd[i * 3 + 0] == vd[(i * 10) + 0]); // 2.
+    BOOST_TEST_REQUIRE(*vpd[i * 3 + 1] == vd[(i * 10) + 4]); // 2.
+    BOOST_TEST_REQUIRE(*vpd[i * 3 + 2] == vd[(i * 10) + 8]); // 2.
 #ifndef ART_NO_MIX_PTRVECTOR
-    BOOST_TEST_REQUIRE(*(*pvdH)[i * 3 + 0] == (*vdH)[(i * 10) + 1]); // 3.
-    BOOST_TEST_REQUIRE(*(*pvdH)[i * 3 + 1] == (*vdH)[(i * 10) + 5]); // 3.
-    BOOST_TEST_REQUIRE(*(*pvdH)[i * 3 + 2] == (*vdH)[(i * 10) + 9]); // 3.
+    BOOST_TEST_REQUIRE(*pvd[i * 3 + 0] == vd[(i * 10) + 1]); // 3.
+    BOOST_TEST_REQUIRE(*pvd[i * 3 + 1] == vd[(i * 10) + 5]); // 3.
+    BOOST_TEST_REQUIRE(*pvd[i * 3 + 2] == vd[(i * 10) + 9]); // 3.
 #endif
     BOOST_TEST_REQUIRE(*(pwpH->vectorPtrDouble())[i * 3 + 0] ==
-                       *(*vpdH)[i * 3 + 0]); // 4.
+                       *vpd[i * 3 + 0]); // 4.
     BOOST_TEST_REQUIRE(*(pwpH->vectorPtrDouble())[i * 3 + 1] ==
-                       *(*vpdH)[i * 3 + 1]); // 4.
+                       *vpd[i * 3 + 1]); // 4.
     BOOST_TEST_REQUIRE(*(pwpH->vectorPtrDouble())[i * 3 + 2] ==
-                       *(*vpdH)[i * 3 + 2]); // 4.
+                       *vpd[i * 3 + 2]); // 4.
 #ifndef ART_NO_MIX_PTRVECTOR
     BOOST_TEST_REQUIRE(*(pwpH->ptrVectorDouble())[i * 3 + 0] ==
-                       *(*pvdH)[i * 3 + 0]); // 4.
+                       *pvd[i * 3 + 0]); // 4.
     BOOST_TEST_REQUIRE(*(pwpH->ptrVectorDouble())[i * 3 + 1] ==
-                       *(*pvdH)[i * 3 + 1]); // 4.
+                       *pvd[i * 3 + 1]); // 4.
     BOOST_TEST_REQUIRE(*(pwpH->ptrVectorDouble())[i * 3 + 2] ==
-                       *(*pvdH)[i * 3 + 2]); // 4.
+                       *pvd[i * 3 + 2]); // 4.
 #endif
   }
 
   // map_vector<unsigned int>
-  art::Handle<mv_t> mv;
-  BOOST_TEST_REQUIRE(e.getByLabel(mixFilterLabel_, "mapVectorLabel", mv));
-  BOOST_TEST_REQUIRE(mv->size() == 5 * nSecondaries_);
+  auto const& mv = e.getProduct<mv_t>({mixFilterLabel_, "mapVectorLabel"});
+  BOOST_TEST_REQUIRE(mv.size() == 5 * nSecondaries_);
   {
-    auto it = mv->begin();
+    auto it = mv.begin();
     size_t delta = 0;
     size_t index = 0;
     for (size_t i = 0; i < nSecondaries_; ++i, delta = index + 1) {
@@ -144,8 +138,7 @@ arttest::MixAnalyzer::analyze(art::Event const& e)
                            static_cast<cet::map_vector_key>(index));
         size_t answer = j + 1 + 5 * i + (eventCounter_ - 1) * 5 * nSecondaries_;
         BOOST_TEST_REQUIRE(it->second == answer);
-        BOOST_TEST_REQUIRE(*mv->getOrNull(cet::map_vector_key(index)) ==
-                           answer);
+        BOOST_TEST_REQUIRE(*mv.getOrNull(cet::map_vector_key(index)) == answer);
       }
     }
     std::cerr << "\n";
@@ -186,15 +179,13 @@ arttest::MixAnalyzer::analyze(art::Event const& e)
   }
 
   // Bookkeeping.
-  art::Handle<std::string> bsH;
-  BOOST_TEST_REQUIRE(e.getByLabel(mixFilterLabel_, bsH));
-  BOOST_TEST_REQUIRE((*bsH) == "BlahBlahBlah");
+  auto const& bs = e.getProduct<std::string>(mixFilterLabel_);
+  BOOST_TEST_REQUIRE(bs == "BlahBlahBlah");
 
-  art::Handle<art::EventIDSequence> eidsH;
-  BOOST_TEST_REQUIRE((e.getByLabel(mixFilterLabel_, eidsH)));
+  auto const& eids = e.getProduct<art::EventIDSequence>(mixFilterLabel_);
   for (size_t i = 0; i < nSecondaries_; ++i) {
-    BOOST_TEST_REQUIRE((*eidsH)[i].event() + ((*eidsH)[i].subRun() * 100) +
-                         (((*eidsH)[i].run() - 1) * 500) ==
+    BOOST_TEST_REQUIRE(eids[i].event() + (eids[i].subRun() * 100) +
+                         ((eids[i].run() - 1) * 500) ==
                        (eventCounter_ - 1) * nSecondaries_ + i + 1);
   }
 }

@@ -60,8 +60,8 @@ namespace {
     void
     produce(art::Event& e) override
     {
-      auto const& genParticles = e.getValidHandle(genParticlesTkn_);
-      e.put(get_energies(*genParticles), "particleEnergies");
+      auto const& genParticles = e.getProduct(genParticlesTkn_);
+      e.put(get_energies(genParticles), "particleEnergies");
     }
 
   }; // ParticleSimulator

@@ -60,7 +60,7 @@ void
 AssnsAnalyzerFEG::for_each_group_test(art::Event const& e) const
 {
   typedef art::Assns<int, std::string> istr_assns;
-  auto const& int_to_str_assns = *e.getValidHandle<istr_assns>(fInputLabel);
+  auto const& int_to_str_assns = e.getProduct<istr_assns>(fInputLabel);
   auto vs = strvec_t{"one", "one-a", "two", "two-a", "three", "three-a"};
 
   strvec_t strvec;

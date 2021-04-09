@@ -94,17 +94,16 @@ arttest::RPTestReader::readResults(art::Results const& res)
 bool
 arttest::RPTestReader::maybeAccumulateData_(art::Results const& res)
 {
-  art::Handle<IntProduct> hi;
-  bool result = res.getByLabel(intResultsLabel_, hi);
-  if (result) {
+  if (auto hi = res.getHandle<IntProduct>(intResultsLabel_)) {
     ++resultsSeen_;
     if (hi->value != 5.0) {
       throw art::Exception(art::errors::LogicError)
         << "Unexcepted value in results int product: " << hi->value << ".\n";
     }
     total_ += hi->value;
+    return true;
   }
-  return result;
+  return false;
 }
 
 DEFINE_ART_RESULTS_PLUGIN(arttest::RPTestReader)

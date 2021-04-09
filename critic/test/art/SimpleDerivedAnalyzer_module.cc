@@ -217,7 +217,7 @@ SimpleDerivedAnalyzer::test_PtrVector(art::Event const& e) const
   using base_product_t = art::PtrVector<arttest::Simple>;
 
   // Read the data.
-  auto const& d = *e.getValidHandle(ptrVectorToken_);
+  auto const& d = e.getProduct(ptrVectorToken_);
   auto const sz = d.size();
   if (sz != expectedSize()) {
     throw cet::exception("SizeMismatch")

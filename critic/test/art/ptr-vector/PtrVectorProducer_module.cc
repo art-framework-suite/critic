@@ -49,17 +49,16 @@ PtrVectorProducer::produce(art::Event& e)
 {
   std::cerr << "PtrVectorProducer::produce is running!\n";
 
-  art::Handle<intvector_t> h;
-  e.getByLabel(input_label_, h);
+  auto h = e.getHandle<intvector_t>(input_label_);
 
-  std::unique_ptr<product_t> prod(new product_t);
+  auto prod = std::make_unique<product_t>();
   for (int k = 0; k != 8; ++k) {
     art::Ptr<int> p(h, 7 - k);
     prod->push_back(p);
   }
   prod->sort();
 
-  e.put(std::move(prod));
+  e.put(move(prod));
 }
 
 // ----------------------------------------------------------------------
