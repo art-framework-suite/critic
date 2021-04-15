@@ -167,6 +167,11 @@ test_view(art::Event const& e,
   for (std::size_t i = 0, sz = pvec.size(); i != sz; ++i) {
     assert(*pvec[i] == *v.vals()[i + 1]);
   }
+  // Try to fill PtrVector from empty view
+  pvec.clear();
+  art::View<T> v3;
+  v3.fill(pvec);
+  assert(pvec.empty());
 }
 
 void
