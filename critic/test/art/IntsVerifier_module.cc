@@ -39,8 +39,7 @@ namespace {
   void
   IntsVerifier::produce(art::Event& e, art::ProcessingFrame const&)
   {
-    std::vector<art::Handle<arttest::IntProduct>> products;
-    e.getManyByType(products);
+    auto const products = e.getMany<arttest::IntProduct>();
     std::set<int> presentValues;
     for (auto const& h : products) {
       presentValues.insert(h->value);

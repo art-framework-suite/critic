@@ -41,8 +41,7 @@ void
 arttest::ToyRawProductAnalyzer::analyze(art::Event const& e)
 {
   e.getRun(); // Will throw if subRun or run are unavailable.
-  std::vector<art::Handle<int>> hv;
-  e.getManyByType(hv);
+  auto hv = e.getMany<int>();
   assert(hv.size() == 1u);
   art::Handle<int>& h = hv[0];
   std::cerr << e.id() << " int = " << (*h) << "\n";
@@ -60,8 +59,7 @@ arttest::ToyRawProductAnalyzer::beginRun(art::Run const& r)
 {
   if (!doBeginRun_)
     return;
-  std::vector<art::Handle<double>> hv;
-  r.getManyByType(hv);
+  auto hv = r.getMany<double>();
   assert(hv.size() == 1u);
   art::Handle<double>& h = hv[0];
   std::cerr << r.id() << " double = " << (*h) << "\n";
@@ -73,8 +71,7 @@ arttest::ToyRawProductAnalyzer::beginSubRun(art::SubRun const& sr)
   if (!doBeginSubRun_)
     return;
   sr.getRun(); // Will throw if not available.
-  std::vector<art::Handle<double>> hv;
-  sr.getManyByType(hv);
+  auto hv = sr.getMany<double>();
   assert(hv.size() == 1u);
   art::Handle<double>& h = hv[0];
   std::cerr << sr.id() << " double = " << (*h) << "\n";

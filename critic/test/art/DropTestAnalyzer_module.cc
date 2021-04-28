@@ -52,15 +52,13 @@ arttest::DropTestAnalyzer::DropTestAnalyzer(Parameters const& p)
 void
 arttest::DropTestAnalyzer::analyze(art::Event const& e)
 {
-  art::Handle<art::Ptr<std::string>> sh;
-  BOOST_TEST(e.getByToken(ptrToken_, sh) == keepString_);
+  auto const sh = e.getHandle(ptrToken_);
   BOOST_TEST_REQUIRE(sh.isValid() == keepString_);
   if (keepString_ && keepMapVector_) {
     BOOST_TEST(**sh == "TWO");
   }
 
-  art::Handle<mv_t> mvth;
-  BOOST_TEST(e.getByToken(mapToken_, mvth) == keepMapVector_);
+  auto const mvth = e.getHandle(mapToken_);
   BOOST_TEST_REQUIRE(mvth.isValid() == keepMapVector_);
 
   if (!keepMapVector_)

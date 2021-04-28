@@ -70,8 +70,7 @@ art::test::DifferentHistoriesAnalyzer::expected_value_in_ptr(
   unsigned present{}, not_present{};
 
   for (auto const& token : tokens) {
-    Handle<Ptr<int>> h;
-    if (t.getByToken(token, h)) {
+    if (auto h = t.getHandle(token)) {
       ++present;
       BOOST_TEST_REQUIRE(**h == expected_value);
     } else {

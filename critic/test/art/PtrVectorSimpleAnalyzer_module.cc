@@ -46,18 +46,13 @@ arttest::PtrVectorSimpleAnalyzer::analyze(art::Event const& e,
 {
   using SimplePtrVector = art::PtrVector<arttest::Simple>;
 
-  auto p = e.getPointerByLabel<SimplePtrVector>(input_label_);
-  assert(p);
-  assert(p->size() > 0);
-  // assert( p->pop_back()); // This fails to compile, because *p is const.
-
-  auto h = e.getHandle<SimplePtrVector>(input_label_);
-  assert(h);
+  auto const& ptr_vec = e.getProduct<SimplePtrVector>(input_label_);
+  assert(not ptr_vec.empty());
 
   int const event_num = e.id().event();
-  size_t const sz = h->size();
+  size_t const sz = ptr_vec.size();
   size_t i = 0;
-  for (auto const ptr : *h) {
+  for (auto const& ptr : ptr_vec) {
     assert((unsigned)ptr->key == sz - i + event_num);
     double const expect = 1.5 * i + 100.0;
     assert(ptr->value == expect);
