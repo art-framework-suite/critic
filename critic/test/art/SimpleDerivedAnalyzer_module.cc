@@ -149,22 +149,29 @@ test_view(art::Event const& e,
   sz = e.getView(tokenForCurrentProcess, ptrs);
   assert(sz == nvalues);
   verify_elements(ptrs, sz, event_num, nvalues);
+
   art::View<T> v;
   assert(e.getView(token, v));
   assert(v.vals().size() == nvalues);
   verify_elements(v.vals(), v.vals().size(), event_num, nvalues);
+
   art::View<T> v2;
   assert(e.getView(tokenForCurrentProcess, v2));
   assert(v2.vals().size() == nvalues);
   verify_elements(v2.vals(), v2.vals().size(), event_num, nvalues);
-  // Fill a PtrVector from the view... after zeroing the first
-  // element.
-  v.vals().front() = 0; // zero out the first pointer...
+
+  // Fill a PtrVector from the view...after zeroing the first element.
+  v.vals().front() = nullptr;
   art::PtrVector<T> pvec;
   v.fill(pvec);
   for (std::size_t i = 0, sz = pvec.size(); i != sz; ++i) {
     assert(*pvec[i] == *v.vals()[i + 1]);
   }
+  // Try to fill PtrVector from empty view
+  pvec.clear();
+  art::View<T> v3;
+  v3.fill(pvec);
+  assert(pvec.empty());
 }
 
 void
@@ -173,40 +180,36 @@ SimpleDerivedAnalyzer::test_getView(art::Event const& e) const
   // Make sure we can get views into products that are present.
   test_view(e, simpleToken_, simpleCurrentToken_, nvalues_);
   test_view(e, simpleDerivedToken_, simpleDerivedCurrentToken_, nvalues_);
-} // test_getView()
-
-void
-SimpleDerivedAnalyzer::test_getViewReturnFalse(art::Event const& e) const
-{
-  std::vector<int const*> ints;
-  try {
-    assert(e.getView("nothing with this illegal label", ints) == false);
-  }
-  catch (std::exception& e) {
-    std::cerr << e.what() << '\n';
-    assert("Unexpected exception thrown" == 0);
-  }
-  catch (...) {
-    assert("Unexpected exception thrown" == 0);
-  }
 }
 
 void
+SimpleDerivedAnalyzer::test_getViewReturnFalse(art::Event const& e) const
+try {
+  std::vector<int const*> ints;
+  assert(e.getView("nothing with this illegal label", ints) == false);
+}
+catch (std::exception& exception) {
+  std::cerr << exception.what() << '\n';
+  assert("Unexpected exception thrown" == 0);
+}
+catch (...) {
+  assert("Unexpected exception thrown" == 0);
+}
+
+//  Make sure attempts to get views into products that are not there fail
+//  correctly.
+void
 SimpleDerivedAnalyzer::test_getViewThrowing(art::Event const& e) const
-{
-  //  Make sure attempts to get views into products that are not there
-  //  fail correctly.
+try {
   std::vector<dummy const*> dummies;
-  try {
-    e.getView(dummyToken_, dummies);
-    assert("Failed to throw required exception" == 0);
-  }
-  catch (art::Exception& e) {
-    assert(e.categoryCode() == art::errors::ProductNotFound);
-  }
-  catch (...) {
-    assert("Wrong exception thrown" == 0);
-  }
+  e.getView(dummyToken_, dummies);
+  assert("Failed to throw required exception" == 0);
+}
+catch (art::Exception& exception) {
+  assert(exception.categoryCode() == art::errors::ProductNotFound);
+}
+catch (...) {
+  assert("Wrong exception thrown" == 0);
 }
 
 void
@@ -217,7 +220,7 @@ SimpleDerivedAnalyzer::test_PtrVector(art::Event const& e) const
   using base_product_t = art::PtrVector<arttest::Simple>;
 
   // Read the data.
-  auto const& d = *e.getValidHandle(ptrVectorToken_);
+  auto const& d = e.getProduct(ptrVectorToken_);
   auto const sz = d.size();
   if (sz != expectedSize()) {
     throw cet::exception("SizeMismatch")

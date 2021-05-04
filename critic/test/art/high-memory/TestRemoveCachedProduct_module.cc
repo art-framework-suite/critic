@@ -45,8 +45,7 @@ private:
 
 arttest::TestRemoveCachedProduct::TestRemoveCachedProduct(
   fhicl::ParameterSet const& p)
-  : EDAnalyzer(p) // ,
-                  // More initializers here.
+  : EDAnalyzer{p}
 {}
 
 void

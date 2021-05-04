@@ -61,8 +61,7 @@ namespace {
     endJob() override
     {
       collection_type coll;
-      art::ServiceHandle<art::FileCatalogMetadata const> {}
-      ->getMetadata(coll);
+      art::ServiceHandle<art::FileCatalogMetadata const>()->getMetadata(coll);
       cet::sort_all(coll);
 
       // Check that 'file_type' and 'art.process_name' were
@@ -71,9 +70,7 @@ namespace {
       using value_type = decltype(coll)::value_type;
 
       auto const& process_name =
-        art::ServiceHandle<art::TriggerNamesService const>
-      {}
-      ->getProcessName();
+        art::ServiceHandle<art::TriggerNamesService const>()->getProcessName();
 
       auto file_type_it = cet::find_in_all(
         coll, value_type{"file_type", cet::canonical_string("unknown")});

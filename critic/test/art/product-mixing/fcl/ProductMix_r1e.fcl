@@ -4,6 +4,8 @@ source.maxEvents: 1
 
 services.RandomNumberGenerator.defaultEngineKind: "MixMaxRng"
 
-physics.end_paths: [ ]
+outputs: @erase
+physics.analyzers: @erase
+physics.e1: @erase
 physics.filters.mixFilter.testEventOrdering: true
 physics.filters.mixFilter.expectedRespondFunctionCalls: 2

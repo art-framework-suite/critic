@@ -18,9 +18,9 @@ namespace r10870 {
 
 namespace r10870::detail {
 
-  template <
-    class D,
-    bool = std::is_base_of<r10870::exception, std::remove_reference_t<D>>::value>
+  template <class D,
+            bool = std::is_base_of<r10870::exception,
+                                   std::remove_reference_t<D>>::value>
   struct enable_if_an_exception {
     using type = D&&;
   };

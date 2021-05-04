@@ -40,7 +40,7 @@ namespace {
   {
     int value{};
     for (auto const& label : labels_) {
-      auto const newVal = e.getValidHandle<arttest::IntProduct>(label)->value;
+      auto const newVal = e.getProduct<arttest::IntProduct>(label).value;
       addInts_(value, newVal);
     }
     e.put(std::make_unique<arttest::IntProduct>(value));

@@ -38,9 +38,8 @@ namespace art::test {
   void
   PtrListAnalyzer::analyze(art::Event const& ev)
   {
-    art::Handle<input_t> h;
-    ev.getByLabel(input_label_, h);
-    assert(h.isValid());
+    auto h = ev.getHandle<input_t>(input_label_);
+    assert(h);
     assert(h->size() == num_expected_);
 
     test_fill_list(ev);

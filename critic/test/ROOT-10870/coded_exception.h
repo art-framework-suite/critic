@@ -46,14 +46,14 @@ r10870::coded_exception<Code, translate>::coded_exception(Code c)
 
 template <typename Code, std::string translate(Code)>
 r10870::coded_exception<Code, translate>::coded_exception(Code c,
-                                                       std::string const& m)
+                                                          std::string const& m)
   : exception{codeToString(c), m}, category_{c}
 {}
 
 template <typename Code, std::string translate(Code)>
 r10870::coded_exception<Code, translate>::coded_exception(Code c,
-                                                       std::string const& m,
-                                                       exception const& e)
+                                                          std::string const& m,
+                                                          exception const& e)
   : exception{codeToString(c), m, e}, category_{c}
 {}
 

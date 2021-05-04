@@ -53,7 +53,7 @@ ConstAssnsIterAnalyzer::analyze(art::Event const& e)
   auto const vs = strvec_t{"one", "one-a", "two", "two-a", "three", "three-a"};
   auto const vf = floatvec_t{1.0, 1.1, 2.0, 2.1, 3.0, 3.1};
 
-  assns_t const& assns{*e.getValidHandle<assns_t>(fInputLabel)};
+  auto const& assns = e.getProduct<assns_t>(fInputLabel);
 
   // iterator increment and dereference test
   auto my_begin = assns.begin();

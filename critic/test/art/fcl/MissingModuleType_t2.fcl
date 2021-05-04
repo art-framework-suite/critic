@@ -3,4 +3,4 @@
 
 process_name: TEST
 
-outputs.BadModuleConfig: { }
+outputs.BadModuleConfig: {}

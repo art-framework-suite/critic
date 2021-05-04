@@ -1,35 +1,7 @@
-#include "messageDefaults.fcl"
+services.scheduler.wantSummary: true
 
-services:
-{
-  # Always-present services; configuration optional.
-  FloatingPointControl: { }
-
-  scheduler:  # options block in the old system
-  {
-    Rethrow: ['OtherArt','StdException','Unknown','BadAlloc',
-              'BadExceptionType','ProductNotFound','DictionaryNotFound',
-              'ProductPutFailure','Configuration','LogicError','UnimplementedFeature',
-              'InvalidReference','NullPointerError','NoProductSpecified','EventTimeout',
-              'DataCorruption','ScheduleExecutionFailure','EventProcessorFailure',
-              'FileInPathError','FileOpenError','FileReadError','FatalRootError',
-              'MismatchedInputFiles','ProductDoesNotSupportViews',
-              'ProductDoesNotSupportPtr','NotFound']
-    wantSummary: true
-  }
-}
-
-services.message: @local::messageDefaults
 physics:
 {
-  producers:
-  {
-  }
-
-  filters:
-  {
-  }
-
   analyzers:
   {
     a1:
@@ -41,10 +13,6 @@ physics:
   }
 
   e1: [ a1 ]
-}
-
-outputs:
-{
 }
 
 source:

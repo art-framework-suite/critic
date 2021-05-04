@@ -30,18 +30,18 @@ namespace {
     , branchType_{art::BranchType(p().branchType())}
   {
     switch (branchType_) {
-      case art::InEvent:
-        produces<arttest::IntProduct>("", art::Persistable::No);
-        break;
-      case art::InSubRun:
-        produces<arttest::IntProduct, art::InSubRun>("", art::Persistable::No);
-        break;
-      case art::InRun:
-        produces<arttest::IntProduct, art::InRun>("", art::Persistable::No);
-        break;
-      default:
-        throw art::Exception(art::errors::LogicError)
-          << "Unknown branch type " << branchType_ << ".\n";
+    case art::InEvent:
+      produces<arttest::IntProduct>("", art::Persistable::No);
+      break;
+    case art::InSubRun:
+      produces<arttest::IntProduct, art::InSubRun>("", art::Persistable::No);
+      break;
+    case art::InRun:
+      produces<arttest::IntProduct, art::InRun>("", art::Persistable::No);
+      break;
+    default:
+      throw art::Exception(art::errors::LogicError)
+        << "Unknown branch type " << branchType_ << ".\n";
     }
   }
 

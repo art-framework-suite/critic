@@ -1,6 +1,6 @@
-#include "critic/test/art/ServiceUsing.h"
-#include "art/Framework/Services/Registry/ServiceDefinitionMacros.h"
 #include "art/Framework/Services/Registry/ActivityRegistry.h"
+#include "art/Framework/Services/Registry/ServiceDefinitionMacros.h"
+#include "critic/test/art/ServiceUsing.h"
 
 namespace art::test {
 

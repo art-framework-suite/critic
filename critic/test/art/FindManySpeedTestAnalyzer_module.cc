@@ -59,12 +59,12 @@ arttest::FindManySpeedTestAnalyzer::FindManySpeedTestAnalyzer(
 void
 arttest::FindManySpeedTestAnalyzer::analyze(art::Event const& e)
 {
-  auto hH = e.getValidHandle<std::vector<Hit>>(producerLabel_);
-  std::cout << "Hit collection size: " << hH->size() << ".\n";
-  auto hT = e.getValidHandle<std::vector<Track>>(producerLabel_);
-  std::cout << "Track collection size: " << hT->size() << ".\n";
-  auto hA = e.getValidHandle<art::Assns<Hit, Track>>(producerLabel_);
-  std::cout << "Assns size = " << hA->size() << ".\n";
+  auto const& hits = e.getProduct<std::vector<Hit>>(producerLabel_);
+  std::cout << "Hit collection size: " << size(hits) << ".\n";
+  auto const& tracks = e.getProduct<std::vector<Track>>(producerLabel_);
+  std::cout << "Track collection size: " << size(tracks) << ".\n";
+  auto const& assns = e.getProduct<art::Assns<Hit, Track>>(producerLabel_);
+  std::cout << "Assns size = " << assns.size() << ".\n";
 
   // Make a collection of Ptrs so we can exercise the algorithm at
   // issue.
@@ -72,7 +72,7 @@ arttest::FindManySpeedTestAnalyzer::analyze(art::Event const& e)
   e.getView<Track>(producerLabel_, tv);
   art::PtrVector<Track> tPtrs;
   tv.fill(tPtrs);
-  assert(tPtrs.size() == hT->size());
+  assert(tPtrs.size() == tracks.size());
 
   // Time the activity under test.
   cet::cpu_timer timer;

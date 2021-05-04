@@ -41,9 +41,7 @@ arttest::TestResultAnalyzer::TestResultAnalyzer(fhicl::ParameterSet const& ps)
 void
 arttest::TestResultAnalyzer::analyze(art::Event const& e)
 {
-  typedef std::vector<art::Handle<art::TriggerResults>> Trig;
-  Trig prod;
-  e.getManyByType(prod);
+  auto const prod = e.getMany<art::TriggerResults>();
 
   if (prod.size() == 0)
     return;

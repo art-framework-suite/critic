@@ -58,9 +58,8 @@ void
 art::test::IntReaderThenProducer::produce(Event& e, ProcessingFrame const&)
 {
   // getByToken adds parent for the about-to-be-created IntProduct.
-  Handle<arttest::IntProduct> intH;
-  bool const fetched{e.getByToken(token_, intH)};
-  assert(shouldSucceed_ == fetched);
+  auto intH = e.getHandle(token_);
+  assert(shouldSucceed_ == intH.isValid());
   auto new_value = std::make_unique<arttest::IntProduct>(deltaValue_);
   if (shouldSucceed_) {
     new_value->value += intH->value;

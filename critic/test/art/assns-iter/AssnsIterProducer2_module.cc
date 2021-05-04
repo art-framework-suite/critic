@@ -42,12 +42,9 @@ AssnsIterProducer2::AssnsIterProducer2(fhicl::ParameterSet const& p)
 void
 AssnsIterProducer2::produce(art::Event& e)
 {
-  art::Handle<std::vector<int>> ih;
-  e.getByLabel(fInputLabel, ih);
-  art::Handle<std::vector<std::string>> sh;
-  e.getByLabel(fInputLabel, sh);
-  art::Handle<std::vector<float>> fh;
-  e.getByLabel(fInputLabel, fh);
+  auto ih = e.getHandle<std::vector<int>>(fInputLabel);
+  auto sh = e.getHandle<std::vector<std::string>>(fInputLabel);
+  auto fh = e.getHandle<std::vector<float>>(fInputLabel);
 
   art::PtrMaker<int> make_intptr(e, ih.id());
   art::PtrMaker<float> make_floatptr(e, fh.id());
@@ -60,7 +57,7 @@ AssnsIterProducer2::produce(art::Event& e)
       assns->addSingle(p1, p2, sh->at(i * 2 + j));
     }
   }
-  e.put(std::move(assns));
+  e.put(move(assns));
 }
 
 DEFINE_ART_MODULE(AssnsIterProducer2)

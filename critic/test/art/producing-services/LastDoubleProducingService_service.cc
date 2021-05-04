@@ -52,19 +52,18 @@ namespace {
     , branchType_{art::BranchType(p().branchType())}
   {
     switch (branchType_) {
-      case art::InEvent:
-        produces<arttest::DoubleProduct>("", art::Persistable::No);
-        break;
-      case art::InSubRun:
-        produces<arttest::DoubleProduct, art::InSubRun>("",
-                                                        art::Persistable::No);
-        break;
-      case art::InRun:
-        produces<arttest::DoubleProduct, art::InRun>("", art::Persistable::No);
-        break;
-      default:
-        throw art::Exception(art::errors::LogicError)
-          << "Unknown branch type " << branchType_ << ".\n";
+    case art::InEvent:
+      produces<arttest::DoubleProduct>("", art::Persistable::No);
+      break;
+    case art::InSubRun:
+      produces<arttest::DoubleProduct, art::InSubRun>("", art::Persistable::No);
+      break;
+    case art::InRun:
+      produces<arttest::DoubleProduct, art::InRun>("", art::Persistable::No);
+      break;
+    default:
+      throw art::Exception(art::errors::LogicError)
+        << "Unknown branch type " << branchType_ << ".\n";
     }
   }
 
@@ -75,13 +74,12 @@ namespace {
       return;
 
     // Cannot access produced products from other producing services
-    art::Handle<arttest::IntProduct> h;
-    assert(!r.getByLabel(serviceTag_, h));
-    assert(!h.isValid());
+    auto h = r.getHandle<arttest::IntProduct>(serviceTag_);
+    assert(!h);
 
     // Can access present products from the source
-    auto const& vh = r.getValidHandle<arttest::IntProduct>(sourceTag_);
-    r.put(std::make_unique<arttest::DoubleProduct>(value_ + vh->value),
+    auto const new_value = r.getProduct<arttest::IntProduct>(sourceTag_).value;
+    r.put(std::make_unique<arttest::DoubleProduct>(value_ + new_value),
           art::fullRun());
   }
 
@@ -92,13 +90,12 @@ namespace {
       return;
 
     // Cannot access produced products from other producing services
-    art::Handle<arttest::IntProduct> h;
-    assert(!sr.getByLabel(serviceTag_, h));
-    assert(!h.isValid());
+    auto h = sr.getHandle<arttest::IntProduct>(serviceTag_);
+    assert(!h);
 
     // Can access present products from the source
-    auto const& vh = sr.getValidHandle<arttest::IntProduct>(sourceTag_);
-    sr.put(std::make_unique<arttest::DoubleProduct>(value_ + vh->value),
+    auto const new_value = sr.getProduct<arttest::IntProduct>(sourceTag_).value;
+    sr.put(std::make_unique<arttest::DoubleProduct>(value_ + new_value),
            art::fullSubRun());
   }
 
@@ -109,13 +106,12 @@ namespace {
       return;
 
     // Cannot access produced products from other producing services
-    art::Handle<arttest::IntProduct> h;
-    assert(!e.getByLabel(serviceTag_, h));
-    assert(!h.isValid());
+    auto h = e.getHandle<arttest::IntProduct>(serviceTag_);
+    assert(!h);
 
     // Can access present products from the source
-    auto const& vh = e.getValidHandle<arttest::IntProduct>(sourceTag_);
-    e.put(std::make_unique<arttest::DoubleProduct>(value_ + vh->value));
+    auto const new_value = e.getProduct<arttest::IntProduct>(sourceTag_).value;
+    e.put(std::make_unique<arttest::DoubleProduct>(value_ + new_value));
   }
 }
 

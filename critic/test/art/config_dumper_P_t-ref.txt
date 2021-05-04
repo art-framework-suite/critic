@@ -80,7 +80,7 @@ ASSNS: {
    }
    trigger_paths: {
       trigger_paths: [
-         "p1"
+         "0:p1"
       ]
    }
 }

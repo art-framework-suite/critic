@@ -31,9 +31,8 @@ namespace {
     void
     produce(art::Event& e) override
     {
-      auto const& particles =
-        e.getValidHandle<std::vector<double>>(particlesTag_);
-      seenParticles_ += particles->size();
+      auto const& particles = e.getProduct<std::vector<double>>(particlesTag_);
+      seenParticles_ += particles.size();
     }
 
     void

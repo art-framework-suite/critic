@@ -17,8 +17,8 @@
 #include "critic/test/art/high-memory/HMLargeData.h"
 #include "fhiclcpp/ParameterSet.h"
 
-#include <numeric>
 #include <memory>
+#include <numeric>
 
 using namespace std::string_literals;
 

@@ -86,16 +86,15 @@ arttest::RandomNumberSaveTest::produce(art::Event& e)
       << "Throwing while processing ordinal event " << eventN_
       << " as requested.\n";
   }
-  art::Handle<prod_t> hp;
   prod_t nums;
-  static size_t constexpr nums_size{5};
-  static size_t constexpr random_range{1000};
+  constexpr size_t nums_size{5};
+  constexpr size_t random_range{1000};
   nums.reserve(nums_size);
   generate_n(std::back_inserter(nums), nums_size, [this] {
     return dist_.fireInt(random_range);
   });
   std::cerr << "nums: " << nums << "\n";
-  if (e.getByLabel(myLabel_, hp)) {
+  if (auto hp = e.getHandle<prod_t>(myLabel_)) {
     std::cerr << "(*hp): " << *hp << "\n";
     // Reading.
     BOOST_TEST_REQUIRE((*hp) == nums);

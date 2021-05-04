@@ -4,3 +4,6 @@ physics.filters.f1: {
   eventsToAccept: [1,4,5,8,9]
 }
 physics.p1: [f1]
+physics.p2: ["-f1"]
+physics.p3: ["!f1"]
+physics.trigger_paths: [p3, "4:p2", "1:p1"]

@@ -2,6 +2,7 @@ build_plugin(AssnsAnalyzer               "module" USE_BOOST_UNIT NO_INSTALL)
 build_plugin(AssnsProducer               "module" NO_INSTALL)
 build_plugin(BareStringAnalyzer          "module" NO_INSTALL)
 build_plugin(BareStringProducer          "module" NO_INSTALL)
+build_plugin(CheckPathResults            "module" NO_INSTALL)
 build_plugin(CompressedIntProducer       "module" NO_INSTALL)
 build_plugin(CompressedIntTestAnalyzer   "module" NO_INSTALL)
 build_plugin(DefaultEngineTester         "module" NO_INSTALL LIBRARIES PRIVATE CLHEP::Random)
@@ -633,8 +634,9 @@ cet_test(SelectEventsFromPreviousProcess_w HANDBUILT
   DATAFILES fcl/SelectEventsFromPreviousProcess_w.fcl)
 
 cet_test(SelectEventsFromPreviousProcess_t HANDBUILT
-  TEST_EXEC art
-  TEST_ARGS --config SelectEventsFromPreviousProcess_t.fcl
+  TEST_EXEC art_ut
+  TEST_ARGS
+  -- --config SelectEventsFromPreviousProcess_t.fcl
   -s ../SelectEventsFromPreviousProcess_w.d/out.root
   -j 4
   DATAFILES fcl/SelectEventsFromPreviousProcess_t.fcl

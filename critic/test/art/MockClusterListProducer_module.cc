@@ -47,10 +47,9 @@ private:
 void
 MockClusterListProducer::produce(art::Event& e)
 {
-  art::Handle<input_t> h;
-  e.getByLabel(input_label_, "derived", h);
+  auto h = e.getHandle<input_t>({input_label_, "derived"});
 
-  std::unique_ptr<product_t> prod(new product_t);
+  auto prod = std::make_unique<product_t>();
   arttest::MockCluster c1;
   c1.skew = 1;
   for (unsigned k = 0; k < (nvalues_ / 2); ++k) {
@@ -69,7 +68,7 @@ MockClusterListProducer::produce(art::Event& e)
   c2.eNum = e.id().event() + 1;
   prod->push_back(c2);
 
-  e.put(std::move(prod));
+  e.put(move(prod));
 }
 
 DEFINE_ART_MODULE(MockClusterListProducer)

@@ -7,6 +7,7 @@
 // the checks related to View were deleted.
 
 #include "art/test/TestObjects/ToyProducts.h"
+#include "boost/test/unit_test.hpp"
 #include "boost/type_traits/has_dereference.hpp"
 #include "canvas/Persistency/Common/Assns.h"
 #include "canvas/Persistency/Common/FindMany.h"
@@ -17,7 +18,6 @@
 #include "canvas/Persistency/Common/detail/is_handle.h"
 #include "canvas/Utilities/InputTag.h"
 #include "cetlib/maybe_ref.h"
-#include "boost/test/unit_test.hpp"
 #include "critic/test/CriticTestObjects/LiteAssnTestData.h"
 #include "gallery/Event.h"
 #include "gallery/Handle.h"

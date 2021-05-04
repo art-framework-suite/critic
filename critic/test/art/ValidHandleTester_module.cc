@@ -44,9 +44,8 @@ void
 ValidHandleTester::analyze(art::Event const& e)
 {
   // Make sure old-form access works.
-  art::Handle<std::string> h;
-  e.getByToken(token_, h);
-  assert(h.isValid());
+  auto h = e.getHandle(token_);
+  assert(h);
   assert(*h == expected_value_);
 
   // Make sure new-form access works.

@@ -42,10 +42,8 @@ AssnsProducer2::AssnsProducer2(fhicl::ParameterSet const& p)
 void
 AssnsProducer2::produce(art::Event& e)
 {
-  art::Handle<std::vector<int>> ih;
-  e.getByLabel(fInputLabel, ih);
-  art::Handle<std::vector<std::string>> sh;
-  e.getByLabel(fInputLabel, sh);
+  auto ih = e.getHandle<std::vector<int>>(fInputLabel);
+  auto sh = e.getHandle<std::vector<std::string>>(fInputLabel);
 
   art::PtrMaker<int> make_intptr(e, ih.id());
   art::PtrMaker<std::string> make_strptr(e, sh.id());
@@ -58,7 +56,7 @@ AssnsProducer2::produce(art::Event& e)
       assns->addSingle(p1, p2);
     }
   }
-  e.put(std::move(assns));
+  e.put(move(assns));
 }
 
 DEFINE_ART_MODULE(AssnsProducer2)
