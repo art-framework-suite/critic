@@ -6,6 +6,8 @@
 #include "art/Framework/IO/ProductMix/MixHelper.h"
 #include "art/Framework/Modules/MixFilter.h"
 #include "art/Framework/Principal/Event.h"
+#include "art/Framework/Principal/SubRun.h"
+#include "art/Framework/Principal/Run.h"
 #include "art/Framework/Services/Optional/RandomNumberGenerator.h"
 #include "art/Persistency/Common/CollectionUtilities.h"
 #include "art/test/TestObjects/ProductWithPtrs.h"
