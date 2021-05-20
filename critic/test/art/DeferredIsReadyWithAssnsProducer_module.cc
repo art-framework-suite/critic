@@ -15,6 +15,7 @@
 #include "art/Framework/Principal/SubRun.h"
 #include "art/test/TestObjects/AssnTestData.h"
 #include "canvas/Utilities/InputTag.h"
+#include "canvas/Persistency/Common/Assns.h"
 #include "fhiclcpp/ParameterSet.h"
 
 #include <memory>
