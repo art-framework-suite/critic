@@ -17,5 +17,5 @@ File catalog metadata from file ../SAM_metadataFromInput_02.d/out.root:
 14: art.first_event      [ 1, 0, 1 ]
 15: art.last_event       [ 1, 0, 1 ]
 16: art.file_format_era  "ART_2011a"
-17: art.file_format_version 13
+17: art.file_format_version 14
 <separator (-)>
