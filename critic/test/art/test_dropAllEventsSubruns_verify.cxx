@@ -3,7 +3,6 @@
 #include <string>
 
 #include "TFile.h"
-#include "TH1F.h"
 #include "TTree.h"
 
 using namespace std;

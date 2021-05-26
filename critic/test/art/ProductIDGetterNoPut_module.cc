@@ -9,10 +9,7 @@
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
-#include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Persistency/Provenance/ProductID.h"
-
-#include <vector>
 
 namespace art::test {
   class ProductIDGetterNoPut;

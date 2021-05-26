@@ -5,7 +5,6 @@
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/SharedProducer.h"
 #include "art/Framework/Principal/Event.h"
-#include "art/Framework/Principal/Handle.h"
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
 #include "canvas/Persistency/Provenance/BranchType.h"
@@ -15,7 +14,6 @@
 
 #include "art/test/TestObjects/ToyProducts.h"
 
-#include <iostream>
 #include <memory>
 
 using namespace fhicl;

@@ -3,8 +3,6 @@
 
 #include "fhiclcpp/types/Atom.h"
 
-#include <cassert>
-
 namespace {
   using namespace fhicl;
   struct Config {
@@ -30,8 +28,6 @@ private:
   bool const onlyOne_;
 };
 
-// -------
-
 // -----------------------------------------------------------------
 
 arttest::TestFilter::TestFilter(Parameters const& ps)
@@ -42,10 +38,10 @@ bool
 arttest::TestFilter::filter(art::Event&)
 {
   ++count_;
-  if (onlyOne_)
+  if (onlyOne_) {
     return count_ % acceptRate_ == 0;
-  else
-    return count_ % 100 <= acceptRate_;
+  }
+  return count_ % 100 <= acceptRate_;
 }
 
 DEFINE_ART_MODULE(arttest::TestFilter)

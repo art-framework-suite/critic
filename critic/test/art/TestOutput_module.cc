@@ -5,8 +5,6 @@
 #include "fhiclcpp/types/ConfigurationTable.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 
-#include <cassert>
-
 namespace arttest {
   class TestOutput;
 }
