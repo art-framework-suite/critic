@@ -10,17 +10,13 @@
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/fwd.h"
-#include "canvas/Utilities/InputTag.h"
-#include "fhiclcpp/ParameterSet.h"
 
 #include <signal.h>
 #include <string>
 #include <unistd.h>
 
-namespace art {
-  namespace test {
-    class SigIntAnalyzer;
-  }
+namespace art::test {
+  class SigIntAnalyzer;
 }
 
 class art::test::SigIntAnalyzer : public EDAnalyzer {

@@ -26,7 +26,6 @@
 #include "boost/type_traits.hpp"
 
 #include <initializer_list>
-#include <iostream>
 #include <type_traits>
 
 using A_t = size_t;

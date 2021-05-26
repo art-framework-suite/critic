@@ -2,7 +2,6 @@
 #include "art/Framework/Core/ModuleMacros.h"
 
 #include <string>
-#include <vector>
 
 namespace arttest {
   class UnputtingProducer;

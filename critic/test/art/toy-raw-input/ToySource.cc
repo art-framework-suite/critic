@@ -5,7 +5,6 @@
 #include "art/Framework/Principal/EventPrincipal.h"
 #include "art/Framework/Principal/RunPrincipal.h"
 #include "art/Framework/Principal/SubRunPrincipal.h"
-#include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Utilities/Exception.h"
 #include "fhiclcpp/ParameterSet.h"
 

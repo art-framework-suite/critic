@@ -7,10 +7,8 @@
 #include "art/test/TestObjects/MockCluster.h"
 #include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Persistency/Common/Ptr.h"
-#include "canvas/Persistency/Common/PtrVector.h"
 #include "fhiclcpp/ParameterSet.h"
 
-#include <iostream>
 #include <memory>
 #include <vector>
 

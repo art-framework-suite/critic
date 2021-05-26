@@ -8,13 +8,10 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/ResultsProducer.h"
-#include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Results.h"
-#include "art/Framework/Principal/Run.h"
-#include "art/Framework/Principal/SubRun.h"
+#include "art/Framework/Principal/fwd.h"
 #include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Utilities/Exception.h"
-#include "fhiclcpp/ParameterSet.h"
 
 #include <algorithm>
 #include <iterator>
@@ -28,7 +25,7 @@ namespace arttest {
 class arttest::RPTest : public art::ResultsProducer {
 public:
   struct Config {};
-  using Parameters = art::ResultsProducer::Table<Config>;
+  using Parameters = Table<Config>;
   explicit RPTest(Parameters const& p);
   // The compiler-generated destructor is fine for non-base
   // classes without bare pointers or other resource use.

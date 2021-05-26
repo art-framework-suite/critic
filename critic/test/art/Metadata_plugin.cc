@@ -3,7 +3,6 @@
 #include "art/Framework/Principal/fwd.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 
-#include <iostream>
 #include <string>
 
 namespace art::test {

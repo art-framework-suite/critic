@@ -2,9 +2,9 @@
 
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
-#include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
+#include "art/Framework/Principal/fwd.h"
 #include "canvas/Persistency/Provenance/RangeSet.h"
 #include "critic/test/art/product-aggregation/physics-workflow/CalibConstants.h"
 #include "critic/test/art/product-aggregation/physics-workflow/Geometry.h"

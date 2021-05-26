@@ -2,7 +2,6 @@
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"
-#include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Utilities/ensurePointer.h"
 #include "fhiclcpp/ParameterSet.h"

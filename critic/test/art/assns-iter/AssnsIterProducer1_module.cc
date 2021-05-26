@@ -10,13 +10,7 @@
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
-#include "art/Framework/Principal/Handle.h"
-#include "art/Framework/Principal/Run.h"
-#include "art/Framework/Principal/SubRun.h"
-#include "canvas/Persistency/Common/Assns.h"
-#include "canvas/Persistency/Common/Ptr.h"
-#include "canvas/Utilities/InputTag.h"
-#include "fhiclcpp/ParameterSet.h"
+#include "fhiclcpp/fwd.h"
 
 #include <vector>
 

@@ -13,7 +13,6 @@
 #include "art/test/TestObjects/ToyProducts.h"
 
 #include <memory>
-#include <vector>
 
 namespace art::test {
   class NonPersistableProducer;

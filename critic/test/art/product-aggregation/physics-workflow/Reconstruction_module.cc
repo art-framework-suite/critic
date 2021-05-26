@@ -2,22 +2,17 @@
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/SharedFilter.h"
 #include "art/Framework/Principal/Event.h"
-#include "art/Framework/Principal/Handle.h"
 #include "art/Framework/Principal/SubRun.h"
 #include "critic/test/art/product-aggregation/physics-workflow/CalibConstants.h"
 #include "critic/test/art/product-aggregation/physics-workflow/TrackEfficiency.h"
 #include "fhiclcpp/types/Atom.h"
 #include "fhiclcpp/types/Name.h"
-#include "fhiclcpp/types/Table.h"
 #include "fhiclcpp/types/TupleAs.h"
-#include "hep_concurrency/tsan.h"
 
 #include <atomic>
 #include <memory>
 #include <string>
 #include <vector>
-
-#include <unistd.h>
 
 using namespace art;
 using namespace std;

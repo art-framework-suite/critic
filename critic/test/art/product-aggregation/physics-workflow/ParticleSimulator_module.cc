@@ -12,8 +12,6 @@
 #include "critic/test/art/product-aggregation/physics-workflow/Geometry.h"
 #include "fhiclcpp/types/TupleAs.h"
 
-#include <cmath>
-
 namespace {
 
   struct Config {

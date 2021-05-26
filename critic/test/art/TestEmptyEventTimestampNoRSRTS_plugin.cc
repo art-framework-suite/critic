@@ -8,11 +8,9 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/EmptyEventTimestampPlugin.h"
-#include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
 #include "canvas/Persistency/Provenance/Timestamp.h"
-#include "fhiclcpp/ParameterSet.h"
 
 #include <iostream>
 

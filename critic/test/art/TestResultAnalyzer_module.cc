@@ -1,15 +1,10 @@
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
-#include "art/Framework/Principal/Handle.h"
 #include "canvas/Persistency/Common/TriggerResults.h"
 #include "cetlib_except/exception.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 
-#include <algorithm>
-#include <cassert>
-#include <iterator>
-#include <numeric>
 #include <string>
 
 namespace arttest {
