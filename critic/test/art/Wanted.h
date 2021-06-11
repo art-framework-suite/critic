@@ -3,10 +3,7 @@
 // vim: set sw=2 expandtab :
 
 #include "art/Framework/Services/Registry/ServiceDeclarationMacros.h"
-
-namespace fhicl {
-  class ParameterSet;
-}
+#include "fhiclcpp/fwd.h"
 
 namespace art::test {
 
