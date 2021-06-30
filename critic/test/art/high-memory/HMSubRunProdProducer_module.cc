@@ -14,6 +14,7 @@
 #include "critic/test/art/high-memory/HMLargeData.h"
 #include "fhiclcpp/fwd.h"
 
+#include <numeric>
 #include <memory>
 #include <numeric>
 
