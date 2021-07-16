@@ -15,7 +15,7 @@ cet_set_compiler_flags(DIAGS VIGILANT
 
 cet_report_compiler_flags()
 
-cet_find_package(ROOT 6.20.00 REQUIRED HINTS $ENV{ROOTSYS})
+find_package(ROOT 6.20.00 REQUIRED HINTS $ENV{ROOTSYS} PUBLIC)
 
 cet_enable_asserts()
 include(BuildDictionary)
