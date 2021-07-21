@@ -1,6 +1,8 @@
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
+#include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "canvas/Utilities/Exception.h"
+#include "critic/test/art/EnsureNoModulesAtEndOfJob.h"
 #include "critic/test/art/event-processor/ThrowAfterConfig.h"
 #include "fhiclcpp/types/Atom.h"
 
@@ -21,6 +23,12 @@ public:
     if (p().throwFromCtor()) {
       throw Exception{errors::OtherArt} << "Throw from c'tor.\n";
     }
+    ServiceHandle<EnsureNoModulesAtEndOfJob>()->increment();
+  }
+
+  ~ThrowingAnalyzer()
+  {
+    ServiceHandle<EnsureNoModulesAtEndOfJob>()->decrement();
   }
 
   void

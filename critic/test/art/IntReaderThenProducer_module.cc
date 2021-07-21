@@ -3,7 +3,6 @@
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"
 #include "art/test/TestObjects/ToyProducts.h"
-#include "canvas/Utilities/InputTag.h"
 #include "fhiclcpp/types/Atom.h"
 
 #include <memory>

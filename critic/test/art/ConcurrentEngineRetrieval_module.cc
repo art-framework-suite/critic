@@ -16,15 +16,10 @@
 
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/ReplicatedAnalyzer.h"
-#include "art/Framework/Services/Optional/RandomNumberGenerator.h"
-#include "art/Framework/Services/Registry/ServiceHandle.h"
-#include "art/Utilities/ScheduleID.h"
-#include "art/Utilities/ScheduleIteration.h"
 
 #include "CLHEP/Random/RandFlat.h"
 
 #include <algorithm>
-#include <functional>
 #include <vector>
 
 namespace art::test {

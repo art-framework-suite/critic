@@ -12,10 +12,6 @@
 
 #include "art/test/TestObjects/ToyProducts.h"
 
-namespace fhicl {
-  class ParameterSet;
-}
-
 using art::RangeSet;
 
 namespace arttest {

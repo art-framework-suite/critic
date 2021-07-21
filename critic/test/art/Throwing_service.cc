@@ -3,11 +3,10 @@
 // postProcessEvent signal is emitted.
 // ======================================================================
 
-#include "art/Framework/Principal/Event.h"
+#include "art/Framework/Principal/fwd.h"
 #include "art/Framework/Services/Registry/ActivityRegistry.h"
 #include "art/Framework/Services/Registry/ServiceDeclarationMacros.h"
 #include "art/Framework/Services/Registry/ServiceDefinitionMacros.h"
-#include "fhiclcpp/ParameterSet.h"
 #include "messagefacility/MessageLogger/MessageLogger.h"
 
 using namespace art;

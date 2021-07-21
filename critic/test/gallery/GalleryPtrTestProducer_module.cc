@@ -5,16 +5,12 @@
 #include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Persistency/Common/Assns.h"
 #include "canvas/Persistency/Common/Ptr.h"
-#include "canvas/Utilities/InputTag.h"
 #include "critic/test/CriticTestObjects/LiteAssnTestData.h"
 #include "critic/test/CriticTestObjects/LitePtrTestProduct.h"
+#include "fhiclcpp/ParameterSet.h"
 
 #include <memory>
 #include <vector>
-
-namespace fhicl {
-  class ParameterSet;
-}
 
 using arttest::Simple;
 using arttest::SimpleDerived;

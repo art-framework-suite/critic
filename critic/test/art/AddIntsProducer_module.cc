@@ -4,6 +4,7 @@
 #include "art/Utilities/make_tool.h"
 #include "art/test/TestObjects/ToyProducts.h"
 #include "fhiclcpp/types/DelegatedParameter.h"
+#include "fhiclcpp/types/Sequence.h"
 
 using namespace fhicl;
 

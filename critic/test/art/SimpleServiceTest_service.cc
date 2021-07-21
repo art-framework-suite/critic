@@ -9,7 +9,6 @@
 
 #include "SimpleServiceTest.h"
 #include "art/Framework/Services/Registry/ServiceDefinitionMacros.h"
-#include "fhiclcpp/ParameterSet.h"
 
 arttest::SimpleServiceTest::SimpleServiceTest(fhicl::ParameterSet const&) {}
 

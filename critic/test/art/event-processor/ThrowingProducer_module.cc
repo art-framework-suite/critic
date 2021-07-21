@@ -1,6 +1,8 @@
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
+#include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "canvas/Utilities/Exception.h"
+#include "critic/test/art/EnsureNoModulesAtEndOfJob.h"
 #include "critic/test/art/event-processor/ThrowAfterConfig.h"
 #include "fhiclcpp/types/Atom.h"
 
@@ -19,6 +21,12 @@ namespace art::test {
       if (p().throwFromCtor()) {
         throw Exception{errors::OtherArt} << "Throw from c'tor.\n";
       }
+      ServiceHandle<EnsureNoModulesAtEndOfJob>()->increment();
+    }
+
+    ~ThrowingProducer()
+    {
+      ServiceHandle<EnsureNoModulesAtEndOfJob>()->decrement();
     }
 
   private:

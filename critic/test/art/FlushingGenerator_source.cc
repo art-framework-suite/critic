@@ -1,6 +1,5 @@
 #include "art/Framework/Core/FileBlock.h"
 #include "art/Framework/Core/InputSourceMacros.h"
-#include "art/Framework/Core/ProductRegistryHelper.h"
 #include "art/Framework/IO/Sources/Source.h"
 #include "art/Framework/IO/Sources/SourceHelper.h"
 #include "art/Framework/IO/Sources/SourceTraits.h"
@@ -19,8 +18,8 @@ public:
 
   struct Config {};
   using Parameters = SourceTable<Config>;
-  FlushingGeneratorDetail(Parameters const& ps,
-                          art::ProductRegistryHelper& help,
+  FlushingGeneratorDetail(Parameters const&,
+                          art::ProductRegistryHelper&,
                           art::SourceHelper const& sHelper);
 
   void closeCurrentFile();

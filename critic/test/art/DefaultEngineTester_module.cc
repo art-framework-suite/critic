@@ -1,7 +1,6 @@
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/fwd.h"
-#include "fhiclcpp/types/Atom.h"
 
 #include "CLHEP/Random/Random.h"
 #include "CLHEP/Random/RandomEngine.h"

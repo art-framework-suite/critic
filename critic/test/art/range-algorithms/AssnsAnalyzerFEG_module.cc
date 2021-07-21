@@ -19,11 +19,7 @@
 #include "canvas/Utilities/InputTag.h"
 #include "fhiclcpp/ParameterSet.h"
 
-#include <algorithm> // std::copy()
-#include <iterator>  // std::inserter()
 #include <set>
-
-class AssnsAnalyzerFEG;
 
 class AssnsAnalyzerFEG : public art::EDAnalyzer {
 public:
@@ -47,7 +43,6 @@ private:
 
 AssnsAnalyzerFEG::AssnsAnalyzerFEG(fhicl::ParameterSet const& p)
   : EDAnalyzer(p), fInputLabel(p.get<art::InputTag>("input_label"))
-// More initializers here.
 {}
 
 void

@@ -12,18 +12,9 @@
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
-#include "art/Framework/Principal/View.h"
 #include "art/test/TestObjects/AssnTestData.h"
 #include "canvas/Persistency/Common/Assns.h"
-#include "canvas/Persistency/Common/FindMany.h"
-#include "canvas/Persistency/Common/FindManyP.h"
-#include "canvas/Persistency/Common/FindOne.h"
-#include "canvas/Persistency/Common/FindOneP.h"
-#include "canvas/Persistency/Common/Ptr.h"
-#include "canvas/Persistency/Common/PtrVector.h"
-#include "canvas/Utilities/InputTag.h"
 
-#include <initializer_list>
 #include <iostream>
 #include <regex>
 #include <type_traits>

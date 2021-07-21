@@ -2,21 +2,15 @@
 #include "art/Framework/Core/OutputModule.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"
-#include "art/Framework/Services/Registry/ServiceHandle.h"
-#include "art/Framework/Services/System/TriggerNamesService.h"
 #include "art/Persistency/Provenance/ModuleContext.h"
 #include "art/Persistency/Provenance/ModuleDescription.h"
 #include "art/Utilities/Globals.h"
 #include "canvas/Persistency/Common/TriggerResults.h"
 #include "fhiclcpp/types/ConfigurationTable.h"
 
-#include <algorithm>
 #include <cassert>
 #include <cstdlib>
 #include <iostream>
-#include <iterator>
-#include <numeric>
-#include <string>
 
 using namespace art;
 

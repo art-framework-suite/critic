@@ -1,6 +1,6 @@
 #include "boost/test/unit_test.hpp"
 
-#include "art/Framework/Core/FileBlock.h"
+#include "art/Framework/Core/Frameworkfwd.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/PtrRemapper.h"
 #include "art/Framework/IO/ProductMix/MixHelper.h"
@@ -13,8 +13,6 @@
 #include "canvas/Persistency/Common/PtrVector.h"
 #include "canvas/Utilities/InputTag.h"
 #include "cetlib/map_vector.h"
-
-#include "boost/noncopyable.hpp"
 
 #include <algorithm>
 #include <iterator>

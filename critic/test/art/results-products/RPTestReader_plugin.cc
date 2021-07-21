@@ -8,10 +8,8 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/ResultsProducer.h"
-#include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Results.h"
-#include "art/Framework/Principal/Run.h"
-#include "art/Framework/Principal/SubRun.h"
+#include "art/Framework/Principal/fwd.h"
 #include "art/test/TestObjects/ToyProducts.h"
 #include "canvas/Utilities/Exception.h"
 #include "fhiclcpp/types/Atom.h"

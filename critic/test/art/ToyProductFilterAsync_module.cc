@@ -1,13 +1,8 @@
 // vim: set sw=2 expandtab :
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/SharedFilter.h"
-#include "art/Framework/Principal/Event.h"
-#include "art/Framework/Principal/Handle.h"
-#include "art/test/TestObjects/ToyProducts.h"
-#include "fhiclcpp/ParameterSet.h"
+#include "art/Framework/Principal/fwd.h"
 
-#include <iostream>
-#include <sstream>
 #include <string>
 
 using namespace art;

@@ -12,8 +12,6 @@
 #include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "critic/test/art/Wanted.h"
 
-#include <memory>
-
 namespace art {
   class FileBlock;
   class ProductRegistryHelper;

@@ -6,10 +6,6 @@
 #include "art/Framework/Principal/SubRun.h"
 #include "canvas/Persistency/Provenance/RangeSet.h"
 
-namespace fhicl {
-  class ParameterSet;
-}
-
 using std::make_unique;
 
 namespace {

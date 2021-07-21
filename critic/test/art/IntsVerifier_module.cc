@@ -3,6 +3,7 @@
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"
 #include "art/test/TestObjects/ToyProducts.h"
+#include "fhiclcpp/types/Sequence.h"
 
 #include <algorithm>
 #include <cassert>

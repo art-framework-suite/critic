@@ -1,11 +1,13 @@
 #include "boost/test/unit_test.hpp"
 
-#include "art/Framework/Core/FileBlock.h"
+#include "art/Framework/Core/Frameworkfwd.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/PtrRemapper.h"
 #include "art/Framework/IO/ProductMix/MixHelper.h"
 #include "art/Framework/Modules/MixFilter.h"
 #include "art/Framework/Principal/Event.h"
+#include "art/Framework/Principal/Run.h"
+#include "art/Framework/Principal/SubRun.h"
 #include "art/Framework/Services/Optional/RandomNumberGenerator.h"
 #include "art/Persistency/Common/CollectionUtilities.h"
 #include "art/test/TestObjects/ProductWithPtrs.h"
@@ -16,7 +18,6 @@
 #include "cetlib/container_algorithms.h"
 #include "cetlib/map_vector.h"
 #include "fhiclcpp/types/Atom.h"
-#include "fhiclcpp/types/ConfigurationTable.h"
 #include "fhiclcpp/types/OptionalSequence.h"
 
 #include <algorithm>
