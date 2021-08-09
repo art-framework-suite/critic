@@ -10,12 +10,4 @@
 #include "SimpleServiceTest.h"
 #include "art/Framework/Services/Registry/ServiceDefinitionMacros.h"
 
-arttest::SimpleServiceTest::SimpleServiceTest(fhicl::ParameterSet const&) {}
-
-bool
-arttest::SimpleServiceTest::verifyStatus() const
-{
-  return true;
-}
-
 DEFINE_ART_SERVICE(arttest::SimpleServiceTest)
