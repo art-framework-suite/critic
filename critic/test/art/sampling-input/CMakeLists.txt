@@ -3,7 +3,7 @@ cet_test_env("LD_LIBRARY_PATH=$<TARGET_FILE_DIR:critic_test_art_sampling-input_d
 $<IF:$<PLATFORM_ID:Darwin>,$ENV{DYLD_LIBRARY_PATH},$ENV{LD_LIBRARY_PATH}>\
 ")
 
-build_plugin(SamplingAnalyzer "module" NO_INSTALL ALLOW_UNDERSCORES)
+cet_build_plugin(SamplingAnalyzer art::module NO_INSTALL ALLOW_UNDERSCORES)
 
 art_dictionary(DICTIONARY_LIBRARIES PRIVATE art_test::TestObjects NO_INSTALL)
 

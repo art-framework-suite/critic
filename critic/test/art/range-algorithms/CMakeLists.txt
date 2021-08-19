@@ -1,6 +1,6 @@
-build_plugin(AssnsProducer1   "module" NO_INSTALL)
-build_plugin(AssnsProducer2   "module" NO_INSTALL)
-build_plugin(AssnsAnalyzerFEG "module" NO_INSTALL LIBRARIES
+cet_build_plugin(AssnsProducer1 art::module NO_INSTALL)
+cet_build_plugin(AssnsProducer2 art::module NO_INSTALL)
+cet_build_plugin(AssnsAnalyzerFEG art::module NO_INSTALL LIBRARIES
   PRIVATE canvas::AssnsAlgorithms)
 
 cet_test(for_each_group_1 HANDBUILT

@@ -7,33 +7,33 @@ set_source_files_properties(MixFilterTestETSc_module.cc
 set_source_files_properties(MixFilterTestNoStartEvent_module.cc
   PROPERTIES COMPILE_DEFINITIONS ART_TEST_NO_STARTEVENT)
 
-build_plugin(MixAnalyzer "module" NO_INSTALL USE_BOOST_UNIT)
+cet_build_plugin(MixAnalyzer art::module NO_INSTALL USE_BOOST_UNIT)
 
-build_plugin(MixFilterTest "module" NO_INSTALL USE_BOOST_UNIT
+cet_build_plugin(MixFilterTest art::module NO_INSTALL USE_BOOST_UNIT
   LIBRARIES PRIVATE
     art::Framework_IO_ProductMix
     art_root_io::art_root_io
   )
 
-build_plugin(MixFilterTestETS "module" NO_INSTALL USE_BOOST_UNIT
+cet_build_plugin(MixFilterTestETS art::module NO_INSTALL USE_BOOST_UNIT
   LIBRARIES PRIVATE
     art::Framework_IO_ProductMix
     art_root_io::art_root_io
   )
 
-build_plugin(MixFilterTestETSc "module" NO_INSTALL USE_BOOST_UNIT
+cet_build_plugin(MixFilterTestETSc art::module NO_INSTALL USE_BOOST_UNIT
   LIBRARIES PRIVATE
     art::Framework_IO_ProductMix
     art_root_io::art_root_io
   )
 
-build_plugin(MixFilterTestNoStartEvent "module" NO_INSTALL USE_BOOST_UNIT
+cet_build_plugin(MixFilterTestNoStartEvent art::module NO_INSTALL USE_BOOST_UNIT
   LIBRARIES PRIVATE
     art::Framework_IO_ProductMix
     art_root_io::art_root_io
   )
 
-build_plugin(MixProducer "module" NO_INSTALL)
+cet_build_plugin(MixProducer art::module NO_INSTALL)
 
 # Write the data file required for the other mixing tests.
 cet_test(ProductMix_w HANDBUILT

@@ -1,5 +1,5 @@
-build_plugin(IntProducingService         "service" NO_INSTALL BASE ProducingService)
-build_plugin(LastDoubleProducingService  "service" NO_INSTALL BASE ProducingService)
+cet_build_plugin(IntProducingService art::ProducingService NO_INSTALL)
+cet_build_plugin(LastDoubleProducingService art::ProducingService NO_INSTALL)
 
 cet_test(IntProducerRun_t HANDBUILT
   TEST_EXEC art

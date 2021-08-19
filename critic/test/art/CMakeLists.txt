@@ -1,72 +1,72 @@
-build_plugin(AssnsAnalyzer               "module" USE_BOOST_UNIT NO_INSTALL)
-build_plugin(AssnsProducer               "module" NO_INSTALL)
-build_plugin(BareStringAnalyzer          "module" NO_INSTALL)
-build_plugin(BareStringProducer          "module" NO_INSTALL)
-build_plugin(CheckPathResults            "module" NO_INSTALL)
-build_plugin(CompressedIntProducer       "module" NO_INSTALL)
-build_plugin(CompressedIntTestAnalyzer   "module" NO_INSTALL)
-build_plugin(DefaultEngineTester         "module" NO_INSTALL LIBRARIES PRIVATE CLHEP::Random)
-build_plugin(DerivedPtrVectorAnalyzer    "module" NO_INSTALL)
-build_plugin(DerivedPtrVectorProducer    "module" NO_INSTALL)
-build_plugin(DifferentHistoriesAnalyzer  "module" USE_BOOST_UNIT NO_INSTALL)
-build_plugin(DoubleProducer              "module" NO_INSTALL)
-build_plugin(DoubleTestAnalyzer          "module" NO_INSTALL)
-build_plugin(DropTestAnalyzer            "module" USE_BOOST_UNIT NO_INSTALL)
-build_plugin(DropTestParentageFaker      "module" NO_INSTALL)
-build_plugin(EnsureNoModulesAtEndOfJob   "service" NO_INSTALL)
-build_plugin(FailingProducer             "module" NO_INSTALL)
-build_plugin(IntProducer                 "module" NO_INSTALL)
-build_plugin(IntReaderThenProducer       "module" NO_INSTALL)
-build_plugin(IntTestAnalyzer             "module" NO_INSTALL)
-build_plugin(IntVectorAnalyzer           "module" NO_INSTALL)
-build_plugin(IntVectorProducer           "module" NO_INSTALL)
-build_plugin(MockClusterListAnalyzer     "module" NO_INSTALL)
-build_plugin(MockClusterListProducer     "module" NO_INSTALL)
-build_plugin(ProductIDGetter             "module" USE_BOOST_UNIT NO_INSTALL)
-build_plugin(ProductIDGetterAnalyzer     "module" USE_BOOST_UNIT NO_INSTALL)
-build_plugin(PtrmvAnalyzer               "module" USE_BOOST_UNIT NO_INSTALL)
-build_plugin(PtrmvProducer               "module" NO_INSTALL)
-build_plugin(PtrVectorSimpleAnalyzer     "module" NO_INSTALL)
-build_plugin(RandomNumberSaveTest        "module" USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE CLHEP::Random)
-build_plugin(RunSubRunProductProducerNoPut "module" NO_INSTALL)
-build_plugin(SAMMetadataTest             "module" NO_INSTALL
+cet_build_plugin(AssnsAnalyzer art::module USE_BOOST_UNIT NO_INSTALL)
+cet_build_plugin(AssnsProducer art::module NO_INSTALL)
+cet_build_plugin(BareStringAnalyzer art::module NO_INSTALL)
+cet_build_plugin(BareStringProducer art::module NO_INSTALL)
+cet_build_plugin(CheckPathResults art::module NO_INSTALL)
+cet_build_plugin(CompressedIntProducer art::module NO_INSTALL)
+cet_build_plugin(CompressedIntTestAnalyzer art::module NO_INSTALL)
+cet_build_plugin(DefaultEngineTester art::module NO_INSTALL LIBRARIES PRIVATE CLHEP::Random)
+cet_build_plugin(DerivedPtrVectorAnalyzer art::module NO_INSTALL)
+cet_build_plugin(DerivedPtrVectorProducer art::module NO_INSTALL)
+cet_build_plugin(DifferentHistoriesAnalyzer art::module USE_BOOST_UNIT NO_INSTALL)
+cet_build_plugin(DoubleProducer art::module NO_INSTALL)
+cet_build_plugin(DoubleTestAnalyzer art::module NO_INSTALL)
+cet_build_plugin(DropTestAnalyzer art::module USE_BOOST_UNIT NO_INSTALL)
+cet_build_plugin(DropTestParentageFaker art::module NO_INSTALL)
+cet_build_plugin(EnsureNoModulesAtEndOfJob art::service NO_INSTALL)
+cet_build_plugin(FailingProducer art::module NO_INSTALL)
+cet_build_plugin(IntProducer art::module NO_INSTALL)
+cet_build_plugin(IntReaderThenProducer art::module NO_INSTALL)
+cet_build_plugin(IntTestAnalyzer art::module NO_INSTALL)
+cet_build_plugin(IntVectorAnalyzer art::module NO_INSTALL)
+cet_build_plugin(IntVectorProducer art::module NO_INSTALL)
+cet_build_plugin(MockClusterListAnalyzer art::module NO_INSTALL)
+cet_build_plugin(MockClusterListProducer art::module NO_INSTALL)
+cet_build_plugin(ProductIDGetter art::module USE_BOOST_UNIT NO_INSTALL)
+cet_build_plugin(ProductIDGetterAnalyzer art::module USE_BOOST_UNIT NO_INSTALL)
+cet_build_plugin(PtrmvAnalyzer art::module USE_BOOST_UNIT NO_INSTALL)
+cet_build_plugin(PtrmvProducer art::module NO_INSTALL)
+cet_build_plugin(PtrVectorSimpleAnalyzer art::module NO_INSTALL)
+cet_build_plugin(RandomNumberSaveTest art::module USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE CLHEP::Random)
+cet_build_plugin(RunSubRunProductProducerNoPut art::module NO_INSTALL)
+cet_build_plugin(SAMMetadataTest art::module NO_INSTALL
   LIBRARIES PRIVATE
     art::Framework_Services_System_FileCatalogMetadata_service
     art::Framework_Services_Registry
 )
-build_plugin(SimpleDerivedAnalyzer       "module" NO_INSTALL)
-build_plugin(SimpleDerivedProducer       "module" NO_INSTALL)
-build_plugin(TestFilterSpecificEvents    "module" NO_INSTALL)
-build_plugin(TestProvenanceDumper        "module" USE_BOOST_UNIT NO_INSTALL)
-build_plugin(ToyProductProducer          "module" NO_INSTALL)
-build_plugin(ToyRawProductAnalyzer       "module" NO_INSTALL)
-build_plugin(ValidHandleTester           "module" NO_INSTALL)
-build_plugin(VerifyTransitionsLegacy     "module" USE_BOOST_UNIT NO_INSTALL)
-build_plugin(VerifyTransitionsShared     "module" USE_BOOST_UNIT NO_INSTALL)
-build_plugin(VerifyTransitionsReplicated "module" USE_BOOST_UNIT NO_INSTALL)
+cet_build_plugin(SimpleDerivedAnalyzer art::module NO_INSTALL)
+cet_build_plugin(SimpleDerivedProducer art::module NO_INSTALL)
+cet_build_plugin(TestFilterSpecificEvents art::module NO_INSTALL)
+cet_build_plugin(TestProvenanceDumper art::module USE_BOOST_UNIT NO_INSTALL)
+cet_build_plugin(ToyProductProducer art::module NO_INSTALL)
+cet_build_plugin(ToyRawProductAnalyzer art::module NO_INSTALL)
+cet_build_plugin(ValidHandleTester art::module NO_INSTALL)
+cet_build_plugin(VerifyTransitionsLegacy art::module USE_BOOST_UNIT NO_INSTALL)
+cet_build_plugin(VerifyTransitionsShared art::module USE_BOOST_UNIT NO_INSTALL)
+cet_build_plugin(VerifyTransitionsReplicated art::module USE_BOOST_UNIT NO_INSTALL)
 
-build_plugin(AddIntsProducer             "module" NO_INSTALL)
-build_plugin(AssnsMultipleProduces       "module" NO_INSTALL)
-build_plugin(AssnsWrongPut               "module" NO_INSTALL)
-build_plugin(ConcurrentEngineRetrieval   "module" NO_INSTALL USE_BOOST_UNIT LIBRARIES PRIVATE CLHEP::Random)
-build_plugin(DeferredIsReadyWithAssnsAnalyzer "module" NO_INSTALL)
-build_plugin(DeferredIsReadyWithAssnsProducer "module" NO_INSTALL)
-build_plugin(EventIDFilterChecker        "module" NO_INSTALL)
-build_plugin(FailingAnalyzer             "module" NO_INSTALL)
-build_plugin(UnputtingProducer           "module" NO_INSTALL)
-build_plugin(FlushingGenerator           "source" NO_INSTALL)
-build_plugin(FlushingGeneratorTest       "module" NO_INSTALL)
-build_plugin(FlushingGeneratorTestFilter "module" NO_INSTALL)
-build_plugin(GeneratorTest               "source" NO_INSTALL)
-build_plugin(ImplicitRSAssignmentAnalyzer "module" NO_INSTALL USE_BOOST_UNIT)
-build_plugin(ImplicitRSAssignmentProducer "module" NO_INSTALL USE_BOOST_UNIT)
-build_plugin(IntsVerifier                "module" NO_INSTALL)
-build_plugin(MessagePrinter              "tool"   NO_INSTALL)
-build_plugin(ProductIDGetterNoPut        "module" NO_INSTALL USE_BOOST_UNIT)
-build_plugin(PtrListAnalyzer             "module" NO_INSTALL)
-build_plugin(ReadNextArbitrator          "tool"   NO_INSTALL LIBRARIES PRIVATE fhiclcpp::types fhiclcpp::fhiclcpp)
+cet_build_plugin(AddIntsProducer art::module NO_INSTALL)
+cet_build_plugin(AssnsMultipleProduces art::module NO_INSTALL)
+cet_build_plugin(AssnsWrongPut art::module NO_INSTALL)
+cet_build_plugin(ConcurrentEngineRetrieval art::module NO_INSTALL USE_BOOST_UNIT LIBRARIES PRIVATE CLHEP::Random)
+cet_build_plugin(DeferredIsReadyWithAssnsAnalyzer art::module NO_INSTALL)
+cet_build_plugin(DeferredIsReadyWithAssnsProducer art::module NO_INSTALL)
+cet_build_plugin(EventIDFilterChecker art::module NO_INSTALL)
+cet_build_plugin(FailingAnalyzer art::module NO_INSTALL)
+cet_build_plugin(UnputtingProducer art::module NO_INSTALL)
+cet_build_plugin(FlushingGenerator art::source NO_INSTALL)
+cet_build_plugin(FlushingGeneratorTest art::module NO_INSTALL)
+cet_build_plugin(FlushingGeneratorTestFilter art::module NO_INSTALL)
+cet_build_plugin(GeneratorTest art::source NO_INSTALL)
+cet_build_plugin(ImplicitRSAssignmentAnalyzer art::module NO_INSTALL USE_BOOST_UNIT)
+cet_build_plugin(ImplicitRSAssignmentProducer art::module NO_INSTALL USE_BOOST_UNIT)
+cet_build_plugin(IntsVerifier art::module NO_INSTALL)
+cet_build_plugin(MessagePrinter art::tool   NO_INSTALL)
+cet_build_plugin(ProductIDGetterNoPut art::module NO_INSTALL USE_BOOST_UNIT)
+cet_build_plugin(PtrListAnalyzer art::module NO_INSTALL)
+cet_build_plugin(ReadNextArbitrator art::tool   NO_INSTALL LIBRARIES PRIVATE fhiclcpp::types fhiclcpp::fhiclcpp)
 
-build_plugin(SAMMetadataConcurrentTest   "module" NO_INSTALL USE_BOOST_UNIT
+cet_build_plugin(SAMMetadataConcurrentTest art::module NO_INSTALL USE_BOOST_UNIT
   LIBRARIES PRIVATE
     art::Framework_Services_Registry
     art::Framework_Services_System_TriggerNamesService_service
@@ -74,28 +74,28 @@ build_plugin(SAMMetadataConcurrentTest   "module" NO_INSTALL USE_BOOST_UNIT
     Threads::Threads
 )
 
-build_plugin(ServiceUsing                "service" NO_INSTALL)
-build_plugin(SigIntAnalyzer              "module" NO_INSTALL)
-build_plugin(SimpleSource                "source" NO_INSTALL)
-build_plugin(TestAnalyzerSelect          "module" NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
-build_plugin(TestBitsOutput              "module" NO_INSTALL)
-build_plugin(TestFilter                  "module" NO_INSTALL)
-build_plugin(TestOutput                  "module" NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
-build_plugin(TestResultAnalyzer          "module" NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
-build_plugin(TestServiceUsingService     "module" NO_INSTALL USE_BOOST_UNIT)
-build_plugin(TestSimpleMemoryCheckProducer "module" NO_INSTALL)
-build_plugin(TestTimeTrackerProducer     "module" NO_INSTALL)
-build_plugin(TestTimeTrackerFilter       "module" NO_INSTALL)
-build_plugin(TestTimeTrackerAnalyzer     "module" NO_INSTALL)
-build_plugin(Throwing                    "service" NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
-build_plugin(ToyProductAnalyzer          "module" NO_INSTALL)
-build_plugin(ToyProductFilter            "module" NO_INSTALL)
-build_plugin(ToyProductFilterReplicated  "module" NO_INSTALL)
-build_plugin(ToyProductFilterAsync       "module" NO_INSTALL)
-build_plugin(ToyProductProducerMultiput  "module" NO_INSTALL)
-build_plugin(U_S                         "module" NO_INSTALL ALLOW_UNDERSCORES)
-build_plugin(Wanted                      "service" NO_INSTALL)
-build_plugin(addInts                     "tool"   NO_INSTALL LIBRARIES PRIVATE fhiclcpp::types fhiclcpp::fhiclcpp)
+cet_build_plugin(ServiceUsing art::service NO_INSTALL)
+cet_build_plugin(SigIntAnalyzer art::module NO_INSTALL)
+cet_build_plugin(SimpleSource art::source NO_INSTALL)
+cet_build_plugin(TestAnalyzerSelect art::module NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
+cet_build_plugin(TestBitsOutput art::module NO_INSTALL)
+cet_build_plugin(TestFilter art::module NO_INSTALL)
+cet_build_plugin(TestOutput art::module NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
+cet_build_plugin(TestResultAnalyzer art::module NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
+cet_build_plugin(TestServiceUsingService art::module NO_INSTALL USE_BOOST_UNIT)
+cet_build_plugin(TestSimpleMemoryCheckProducer art::module NO_INSTALL)
+cet_build_plugin(TestTimeTrackerProducer art::module NO_INSTALL)
+cet_build_plugin(TestTimeTrackerFilter art::module NO_INSTALL)
+cet_build_plugin(TestTimeTrackerAnalyzer art::module NO_INSTALL)
+cet_build_plugin(Throwing art::service NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
+cet_build_plugin(ToyProductAnalyzer art::module NO_INSTALL)
+cet_build_plugin(ToyProductFilter art::module NO_INSTALL)
+cet_build_plugin(ToyProductFilterReplicated art::module NO_INSTALL)
+cet_build_plugin(ToyProductFilterAsync art::module NO_INSTALL)
+cet_build_plugin(ToyProductProducerMultiput art::module NO_INSTALL)
+cet_build_plugin(U_S art::module NO_INSTALL ALLOW_UNDERSCORES)
+cet_build_plugin(Wanted art::service NO_INSTALL)
+cet_build_plugin(addInts art::tool NO_INSTALL LIBRARIES PRIVATE fhiclcpp::types fhiclcpp::fhiclcpp)
 
 ########################################################################
 # Old tests converted from CMS FWCore/Framework/test
@@ -392,9 +392,9 @@ cet_test(MissingModuleType_t2 HANDBUILT
 set_source_files_properties(TestEmptyEventTimestampNoRSRTS_plugin.cc
   PROPERTIES COMPILE_DEFINITIONS TEST_USE_LAST_EVENT_TIMESTAMP)
 
-build_plugin(TestEmptyEventTimestamp "plugin" BASE EmptyEventTimestampPlugin NO_INSTALL)
+cet_build_plugin(TestEmptyEventTimestamp art::EmptyEventTimestampPlugin NO_INSTALL)
 
-build_plugin(TestEmptyEventTimestampNoRSRTS "plugin" BASE EmptyEventTimestampPlugin NO_INSTALL)
+cet_build_plugin(TestEmptyEventTimestampNoRSRTS art::EmptyEventTimestampPlugin NO_INSTALL)
 
 cet_test(TestEmptyEventTimestamp_t HANDBUILT
   TEST_EXEC art
@@ -408,8 +408,8 @@ cet_test(TestEmptyEventTimestampNoRSRTS_t HANDBUILT
   fcl/TestEmptyEventTimestamp_t.fcl
   fcl/TestEmptyEventTimestampNoRSRTS_t.fcl)
 
-build_plugin(SimpleServiceTest "service" NO_INSTALL)
-build_plugin(SimpleServiceTestAnalyzer "module" NO_INSTALL
+cet_build_plugin(SimpleServiceTest art::service NO_INSTALL)
+cet_build_plugin(SimpleServiceTestAnalyzer art::module NO_INSTALL
   LIBRARIES PRIVATE critic_test::art_SimpleServiceTest_service)
 
 cet_test(SimpleServiceTest_t HANDBUILT
@@ -526,7 +526,7 @@ cet_test(outputCommand_t.sh PREBUILT
   fcl/outputCommand_r.fcl
   fcl/messageDefaults.fcl)
 
-build_plugin(NonPersistableProducer "module" NO_INSTALL)
+cet_build_plugin(NonPersistableProducer art::module NO_INSTALL)
 cet_test(NonPersistableProducts_t HANDBUILT
   TEST_EXEC art
   TEST_ARGS -c non_persistable_products_t.fcl -n 1
@@ -548,7 +548,7 @@ cet_test(rename-histfile_t_check HANDBUILT
   TEST_ARGS -l ../rename-histfile_t_w.d/test_1_0_2_8.root
   TEST_PROPERTIES DEPENDS rename-histfile_t_w)
 
-build_plugin(Metadata "plugin" BASE FileCatalogMetadataPlugin NO_INSTALL
+cet_build_plugin(Metadata art::FileCatalogMetadataPlugin NO_INSTALL
   LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
 cet_test(Metadata_plugin_t HANDBUILT
   TEST_EXEC art
@@ -744,7 +744,7 @@ cet_test(CmdLineTmpDir_t HANDBUILT
   DATAFILES cmdLineTmpDir_t-ref.txt
   TEST_PROPERTIES DEPENDS CmdLineTmpDir_w)
 
-build_plugin(EmptyPSetRegistryChecker "module" NO_INSTALL USE_BOOST_UNIT LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
+cet_build_plugin(EmptyPSetRegistryChecker art::module NO_INSTALL USE_BOOST_UNIT LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
 
 cet_test(EmptyPSetRegistryChecker_w1 HANDBUILT
   TEST_EXEC art
@@ -770,8 +770,8 @@ cet_test(EmptyPSetRegistryChecker_r2 HANDBUILT
   fcl/EmptyPSetRegistryChecker_r2.fcl
   TEST_PROPERTIES DEPENDS EmptyPSetRegistryChecker_w2)
 
-build_plugin(FindManySpeedTestProducer "module" NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
-build_plugin(FindManySpeedTestAnalyzer "module" NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
+cet_build_plugin(FindManySpeedTestProducer art::module NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
+cet_build_plugin(FindManySpeedTestAnalyzer art::module NO_INSTALL LIBRARIES PRIVATE messagefacility::MF_MessageLogger)
 
 add_subdirectory(results-products)
 

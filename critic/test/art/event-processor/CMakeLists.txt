@@ -1,6 +1,6 @@
-build_plugin(ThrowingAnalyzer "module" NO_INSTALL)
-build_plugin(ThrowingProducer "module" NO_INSTALL)
-build_plugin(DoNothingInput   "source" NO_INSTALL)
+cet_build_plugin(ThrowingAnalyzer art::module NO_INSTALL)
+cet_build_plugin(ThrowingProducer art::module NO_INSTALL)
+cet_build_plugin(DoNothingInput art::source NO_INSTALL)
 
 cet_test(ThrowsWithModuleInfo_t HANDBUILT
   TEST_EXEC art

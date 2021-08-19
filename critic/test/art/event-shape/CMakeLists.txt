@@ -76,8 +76,8 @@ set_tests_properties(DifferentHistories_r1 DifferentHistories_r2 PROPERTIES
 #  FIXME: Should be more explicit about what kinds of shapes we're
 #         testing here.
 
-build_plugin(ESPrimaryProducer   "module" NO_INSTALL)
-build_plugin(ESSecondaryProducer "module" NO_INSTALL)
+cet_build_plugin(ESPrimaryProducer art::module NO_INSTALL)
+cet_build_plugin(ESSecondaryProducer art::module NO_INSTALL)
 
 # First processes: create files with two collections.
 cet_test(ES_w01 HANDBUILT

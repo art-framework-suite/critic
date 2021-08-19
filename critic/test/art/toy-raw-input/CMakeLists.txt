@@ -6,9 +6,9 @@ cet_make_library(
     art::Framework_IO_Sources
   NO_INSTALL)
 
-build_plugin(ToyRawFileInput   "source" USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE critic_test::art_toy_input)
-build_plugin(ToyRawInput       "source" USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE critic_test::art_toy_input)
-build_plugin(ToyRawInputTester "module" NO_INSTALL)
+cet_build_plugin(ToyRawFileInput art::source USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE critic_test::art_toy_input)
+cet_build_plugin(ToyRawInput art::source USE_BOOST_UNIT NO_INSTALL LIBRARIES PRIVATE critic_test::art_toy_input)
+cet_build_plugin(ToyRawInputTester art::module NO_INSTALL)
 
 cet_test(ToyRawInput_w HANDBUILT
   TEST_EXEC art
