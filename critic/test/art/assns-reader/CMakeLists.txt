@@ -1,4 +1,4 @@
-build_plugin(AssnsReaderTest "module" NO_INSTALL USE_BOOST_UNIT)
+cet_build_plugin(AssnsReaderTest art::module NO_INSTALL USE_BOOST_UNIT)
 
 ########################################################################
 # Description of tests

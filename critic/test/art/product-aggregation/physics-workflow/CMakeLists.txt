@@ -2,14 +2,14 @@
 
 art_dictionary(NO_INSTALL)
 
-build_plugin(EventGenerator       "module" NO_INSTALL)
-build_plugin(ParticleSimulator    "module" NO_INSTALL)
-build_plugin(Reconstruction       "module" NO_INSTALL)
-build_plugin(CheckMoreProducts    "module" NO_INSTALL USE_BOOST_UNIT)
-build_plugin(CheckProducts        "module" NO_INSTALL USE_BOOST_UNIT)
-build_plugin(AssembleProducts     "module" NO_INSTALL)
-build_plugin(AssembleMoreProducts "module" NO_INSTALL USE_BOOST_UNIT)
-build_plugin(AssembleMoreProductsRobust "module" NO_INSTALL USE_BOOST_UNIT)
+cet_build_plugin(EventGenerator art::module NO_INSTALL)
+cet_build_plugin(ParticleSimulator art::module NO_INSTALL)
+cet_build_plugin(Reconstruction art::module NO_INSTALL)
+cet_build_plugin(CheckMoreProducts art::module NO_INSTALL USE_BOOST_UNIT)
+cet_build_plugin(CheckProducts art::module NO_INSTALL USE_BOOST_UNIT)
+cet_build_plugin(AssembleProducts art::module NO_INSTALL)
+cet_build_plugin(AssembleMoreProducts art::module NO_INSTALL USE_BOOST_UNIT)
+cet_build_plugin(AssembleMoreProductsRobust art::module NO_INSTALL USE_BOOST_UNIT)
 
 # For more realistic product aggregation tests, a physics workflow has
 # been simulated, using multiple stages (see below for schematic of

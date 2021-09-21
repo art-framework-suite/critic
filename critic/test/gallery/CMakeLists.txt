@@ -221,12 +221,12 @@ foreach (num RANGE 1 3)
   )
 endforeach()
 
-build_plugin(GalleryTestProducer "module" NO_INSTALL)
+cet_build_plugin(GalleryTestProducer art::module NO_INSTALL)
 
-build_plugin(GalleryPtrTestProducer "module" NO_INSTALL
+cet_build_plugin(GalleryPtrTestProducer art::module NO_INSTALL
  LIBRARIES PRIVATE critic_test::CriticTestObjects)
 
-build_plugin(GalleryAssnsProducer "module" NO_INSTALL
+cet_build_plugin(GalleryAssnsProducer art::module NO_INSTALL
  LIBRARIES PRIVATE critic_test::CriticTestObjects)
 
-build_plugin(CriticFailEverything "module" NO_INSTALL)
+cet_build_plugin(CriticFailEverything art::module NO_INSTALL)

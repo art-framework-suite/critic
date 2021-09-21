@@ -1,4 +1,4 @@
-build_plugin(SeekToEventClient "service" NO_INSTALL
+cet_build_plugin(SeekToEventClient art::service NO_INSTALL
   LIBRARIES PRIVATE
     art_root_io::RootInput_source
     art_root_io::art_root_io

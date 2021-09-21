@@ -1,5 +1,5 @@
-build_plugin(RPTest "plugin" BASE ResultsProducer NO_INSTALL)
-build_plugin(RPTestReader "plugin" BASE ResultsProducer NO_INSTALL)
+cet_build_plugin(RPTest art::ResultsProducer NO_INSTALL)
+cet_build_plugin(RPTestReader art::ResultsProducer NO_INSTALL)
 
 cet_test(RPTest_conf_err_01 HANDBUILT
   TEST_EXEC art
