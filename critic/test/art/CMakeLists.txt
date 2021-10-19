@@ -538,6 +538,15 @@ cet_test(test_failingProducer_t.sh PREBUILT
   fcl/test_failingProducer_r.fcl
   fcl/messageDefaults.fcl)
 
+foreach(I RANGE 1 2)
+  cet_test(exception_multiple_paths_t${I} HANDBUILT
+    TEST_EXEC art
+    TEST_ARGS -c exception_multiple_paths_t${I}.fcl
+    DATAFILES fcl/exception_multiple_paths_t${I}.fcl
+    TEST_PROPERTIES
+    PASS_REGULAR_EXPRESSION "Intentional 'ProductNotFound' exception")
+endforeach()
+
 cet_test(rename-histfile_t_w HANDBUILT
   TEST_EXEC art
   TEST_ARGS -c rename-histfile_t.fcl
