@@ -7,7 +7,7 @@
 //   -1 means no new item of that type
 //
 
-#include "art/Framework/Core/Frameworkfwd.h"
+#include "art/Framework/Core/fwd.h"
 #include "art/Framework/IO/Sources/SourceHelper.h"
 #include "art/Framework/Principal/fwd.h"
 #include "fhiclcpp/ParameterSet.h"
