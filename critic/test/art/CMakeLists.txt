@@ -230,6 +230,15 @@ cet_test(SimpleSource_t_01 HANDBUILT
   TEST_PROPERTIES
   PASS_REGULAR_EXPRESSION "readNext returned true but no RunPrincipal has been set")
 
+# The following test checks that the maxEvents parameter (or '-n'
+# command-line option) works for Source templates.
+cet_test(SimpleSource_t_02 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c SimpleSource_t_02.fcl -n 2
+  DATAFILES fcl/SimpleSource_t_02.fcl
+  TEST_PROPERTIES
+  PASS_REGULAR_EXPRESSION "Events total = 2 passed = 2 failed = 0")
+
 foreach(num IN ITEMS 01 02 03)
   cet_test(ToyProductProducerMultiput_t_${num} HANDBUILT
     TEST_EXEC art
