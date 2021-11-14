@@ -1,3 +1,24 @@
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include "canvas/Persistency/Common/Assns.h"
+#include "canvas/Persistency/Common/FindOne.h"
+#include "canvas/Persistency/Common/FindMany.h"
+#include "canvas/Persistency/Common/Ptr.h"
+#include "canvas/Persistency/Common/TriggerResults.h"
+#include "canvas/Persistency/Provenance/EventAuxiliary.h"
+#include "canvas/Utilities/InputTag.h"
+#include "canvas/Utilities/TypeID.h"
+
+#include "art/test/TestObjects/ToyProducts.h"
+#include "critic/test/CriticTestObjects/LiteAssnTestData.h"
+#include "critic/test/CriticTestObjects/LitePtrTestProduct.h"
+
+#include "gallery/Event.h"
+#include "gallery/Handle.h"
+#include "gallery/TypeLabelInstanceKey.h"
 
 void
 print_and_abort(std::string const& msg = std::string(""))
