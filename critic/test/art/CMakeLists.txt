@@ -230,6 +230,15 @@ cet_test(SimpleSource_t_01 HANDBUILT
   TEST_PROPERTIES
   PASS_REGULAR_EXPRESSION "readNext returned true but no RunPrincipal has been set")
 
+# The following test checks that the maxEvents parameter (or '-n'
+# command-line option) works for Source templates.
+cet_test(SimpleSource_t_02 HANDBUILT
+  TEST_EXEC art
+  TEST_ARGS -c SimpleSource_t_02.fcl -n 2
+  DATAFILES fcl/SimpleSource_t_02.fcl
+  TEST_PROPERTIES
+  PASS_REGULAR_EXPRESSION "Events total = 2 passed = 2 failed = 0")
+
 foreach(num IN ITEMS 01 02 03)
   cet_test(ToyProductProducerMultiput_t_${num} HANDBUILT
     TEST_EXEC art
@@ -537,6 +546,15 @@ cet_test(test_failingProducer_t.sh PREBUILT
   fcl/test_failingProducer_w.fcl
   fcl/test_failingProducer_r.fcl
   fcl/messageDefaults.fcl)
+
+foreach(I RANGE 1 2)
+  cet_test(exception_multiple_paths_t${I} HANDBUILT
+    TEST_EXEC art
+    TEST_ARGS -c exception_multiple_paths_t${I}.fcl
+    DATAFILES fcl/exception_multiple_paths_t${I}.fcl
+    TEST_PROPERTIES
+    PASS_REGULAR_EXPRESSION "Intentional 'ProductNotFound' exception")
+endforeach()
 
 cet_test(rename-histfile_t_w HANDBUILT
   TEST_EXEC art

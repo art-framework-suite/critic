@@ -1,34 +1,32 @@
 #include "art/Framework/Core/EDProducer.h"
 #include "art/Framework/Core/ModuleMacros.h"
-#include "art/test/TestObjects/ToyProducts.h"
 
-namespace arttest {
+namespace art::test {
   class FailingProducer;
 }
 
 //--------------------------------------------------------------------
+// Every call to FailingProducer::produce throws an art::Exception
 //
-// throws an exception.
-// Announces an IntProduct but does not produce one;
-// every call to FailingProducer::produce throws an art::Exception
-//
-class arttest::FailingProducer : public art::EDProducer {
+class art::test::FailingProducer : public EDProducer {
 public:
-  explicit FailingProducer(fhicl::ParameterSet const& ps) : EDProducer{ps}
+  struct Config {};
+  using Parameters = Table<Config>;
+  explicit FailingProducer(Parameters const& ps) : EDProducer{ps}
   {
-    produces<arttest::IntProduct>();
+    produces<int>();
   }
 
 private:
-  void produce(art::Event& e) override;
+  void produce(Event&) override;
 };
 
 void
-arttest::FailingProducer::produce(art::Event&)
+art::test::FailingProducer::produce(Event&)
 {
-  // We throw an edm exception with a configurable action.
-  throw art::Exception(art::errors::ProductNotFound)
+  // We throw an exception with a configurable action.
+  throw Exception(errors::ProductNotFound)
     << "Intentional 'ProductNotFound' exception for testing purposes\n";
 }
 
-DEFINE_ART_MODULE(arttest::FailingProducer)
+DEFINE_ART_MODULE(art::test::FailingProducer)

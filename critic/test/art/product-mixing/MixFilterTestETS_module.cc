@@ -1,8 +1,8 @@
 #include "boost/test/unit_test.hpp"
 
-#include "art/Framework/Core/Frameworkfwd.h"
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/PtrRemapper.h"
+#include "art/Framework/Core/fwd.h"
 #include "art/Framework/IO/ProductMix/MixHelper.h"
 #include "art/Framework/Modules/MixFilter.h"
 #include "art/Framework/Principal/Event.h"
