@@ -245,8 +245,7 @@ foreach(num IN ITEMS 01 02 03)
     TEST_ARGS -c ToyProductProducerMultiput_t_${num}.fcl
     DATAFILES fcl/ToyProductProducerMultiput_t_${num}.fcl
     TEST_PROPERTIES
-    PASS_REGULAR_EXPRESSION "Attempt to put multiple products with the"
-    PASS_REGULAR_EXPRESSION "following description onto the")
+    PASS_REGULAR_EXPRESSION "Attempt to put multiple products with the following descriptions")
 endforeach()
 
 cet_test(ProductIDGetter_t HANDBUILT
