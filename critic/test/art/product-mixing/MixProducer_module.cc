@@ -155,14 +155,17 @@ void
 arttest::MixProducer::endSubRun(art::SubRun& sr, art::ProcessingFrame const&)
 {
   ++subrunCounter_;
-  sr.put(std::make_unique<double>(subrunCounter_), "DoubleSRLabel");
+  sr.put(std::make_unique<double>(subrunCounter_),
+         "DoubleSRLabel",
+         art::subRunFragment());
 }
 
 void
 arttest::MixProducer::endRun(art::Run& r, art::ProcessingFrame const&)
 {
   ++runCounter_;
-  r.put(std::make_unique<double>(runCounter_), "DoubleRLabel");
+  r.put(
+    std::make_unique<double>(runCounter_), "DoubleRLabel", art::runFragment());
 }
 
 DEFINE_ART_MODULE(arttest::MixProducer)

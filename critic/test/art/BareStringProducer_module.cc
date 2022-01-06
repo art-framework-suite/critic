@@ -53,7 +53,7 @@ BareStringProducer::beginRun(art::Run& r)
 {
   if (branchType_ != art::InRun)
     return;
-  r.put(std::make_unique<std::string>(value_));
+  r.put(std::make_unique<std::string>(value_), art::fullRun());
 }
 
 void
@@ -61,7 +61,7 @@ BareStringProducer::beginSubRun(art::SubRun& sr)
 {
   if (branchType_ != art::InSubRun)
     return;
-  sr.put(std::make_unique<std::string>(value_));
+  sr.put(std::make_unique<std::string>(value_), art::fullSubRun());
 }
 
 void

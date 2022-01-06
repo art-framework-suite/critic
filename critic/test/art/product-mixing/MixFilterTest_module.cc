@@ -533,7 +533,7 @@ void
 arttest::MixFilterTestDetail::endSubRun(art::SubRun& sr)
 {
   ++endSubRunCounter_;
-  sr.put(std::make_unique<double>(subRunInfo_));
+  sr.put(std::make_unique<double>(subRunInfo_), art::subRunFragment());
 }
 
 void
@@ -547,7 +547,7 @@ void
 arttest::MixFilterTestDetail::endRun(art::Run& r)
 {
   ++endRunCounter_;
-  r.put(std::make_unique<double>(runInfo_));
+  r.put(std::make_unique<double>(runInfo_), art::runFragment());
 }
 
 template <typename PROD, typename OPROD>

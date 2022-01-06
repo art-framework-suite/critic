@@ -1,3 +1,8 @@
+// Implicit RangeSet assignment is deprecated and will be removed in a
+// future version of art.
+
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 #include "boost/test/unit_test.hpp"
 
 #include "art/Framework/Core/EDProducer.h"

@@ -366,6 +366,8 @@ foreach(SIGNAL IN ITEMS sigint sigquit sigterm sigusr2)
     OUTPUT_FILTERS "filter-updated-summary")
 endforeach()
 
+# Implicit RangeSet assignment is deprecated and will be removed in a
+# future version of art.
 cet_test(ImplicitRSAssignment_t HANDBUILT
   TEST_EXEC art_ut
   TEST_ARGS -- --config implicitRSAssignment_t.fcl

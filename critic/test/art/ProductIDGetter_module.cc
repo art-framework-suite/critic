@@ -56,13 +56,13 @@ art::test::ProductIDGetter::beginSubRun(art::SubRun& sr)
 
   BOOST_TEST_REQUIRE(ptr->id().isValid());
 
-  art::ProductID const id{sr.put(std::move(vip))};
+  art::ProductID const id{sr.put(std::move(vip), fullSubRun())};
   art::Ptr<int> const ptr_check{id, 2, sr.productGetter(id)};
 
   BOOST_TEST_REQUIRE(ptr->id() == ptr_check.id());
   BOOST_TEST_REQUIRE(!ptr_check.isAvailable());
 
-  sr.put(std::move(ptr), art::fullSubRun());
+  sr.put(std::move(ptr), fullSubRun());
 }
 
 void
