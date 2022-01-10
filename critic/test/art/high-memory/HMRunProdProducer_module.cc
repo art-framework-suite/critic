@@ -62,7 +62,7 @@ arttest::HMRunProdProducer::endSubRun(art::SubRun& sr)
     } else {
       data_[i] = std::make_unique<HMLargeData>(*h);
     }
-    assert(sr.removeCachedProduct(h)); // Save the space.
+    assert(h.removeProduct()); // Save the space.
   }
 }
 

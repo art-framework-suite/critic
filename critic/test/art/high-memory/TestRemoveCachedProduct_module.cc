@@ -52,11 +52,11 @@ arttest::TestRemoveCachedProduct::analyze(art::Event const& e)
 {
   art::Handle<std::vector<int>> hi;
   BOOST_TEST(!hi.isValid());
-  BOOST_TEST(!e.removeCachedProduct(hi));
+  BOOST_TEST(!hi.removeProduct());
   BOOST_TEST(e.getByLabel("m1a", hi));
   BOOST_TEST(hi.isValid());
   BOOST_TEST(hi->size() == 16ul);
-  BOOST_TEST(e.removeCachedProduct(hi));
+  BOOST_TEST(hi.removeProduct());
   BOOST_TEST(!hi.isValid());
 }
 
@@ -65,11 +65,11 @@ arttest::TestRemoveCachedProduct::endSubRun(art::SubRun const& sr)
 {
   art::Handle<IntProduct> hi;
   BOOST_TEST(!hi.isValid());
-  BOOST_TEST(!sr.removeCachedProduct(hi));
+  BOOST_TEST(!hi.removeProduct());
   sr.getByLabel("m2", hi);
   BOOST_TEST(hi.isValid());
   BOOST_TEST(hi->value == 1);
-  BOOST_TEST(sr.removeCachedProduct(hi));
+  BOOST_TEST(hi.removeProduct());
   BOOST_TEST(!hi.isValid());
 }
 
@@ -78,11 +78,11 @@ arttest::TestRemoveCachedProduct::endRun(art::Run const& r)
 {
   art::Handle<IntProduct> hi;
   BOOST_TEST(!hi.isValid());
-  BOOST_TEST(!r.removeCachedProduct(hi));
+  BOOST_TEST(!hi.removeProduct());
   r.getByLabel("m3", hi);
   BOOST_TEST(hi.isValid());
   BOOST_TEST(hi->value == 2);
-  BOOST_TEST(r.removeCachedProduct(hi));
+  BOOST_TEST(hi.removeProduct());
   BOOST_TEST(!hi.isValid());
 }
 
