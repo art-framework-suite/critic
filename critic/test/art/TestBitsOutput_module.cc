@@ -93,7 +93,7 @@ void
 arttest::TestBitsOutput::write(art::EventPrincipal& ep)
 {
   ModuleContext const mc{moduleDescription_};
-  Event const ev{ep, mc};
+  auto const ev = Event::make(std::as_const(ep), mc);
   // There should not be a TriggerResults object in the event if all
   // three of the following requirements are met:
   //
