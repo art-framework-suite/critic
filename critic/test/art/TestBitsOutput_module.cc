@@ -1,6 +1,7 @@
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/OutputModule.h"
 #include "art/Framework/Principal/Event.h"
+#include "art/Framework/Principal/EventPrincipal.h"
 #include "art/Framework/Principal/Handle.h"
 #include "art/Persistency/Provenance/ModuleContext.h"
 #include "art/Persistency/Provenance/ModuleDescription.h"
@@ -93,7 +94,7 @@ void
 arttest::TestBitsOutput::write(art::EventPrincipal& ep)
 {
   ModuleContext const mc{moduleDescription_};
-  auto const ev = Event::make(std::as_const(ep), mc);
+  auto const ev = std::as_const(ep).makeEvent(mc);
   // There should not be a TriggerResults object in the event if all
   // three of the following requirements are met:
   //
