@@ -11,7 +11,7 @@
     "art.first_event": [ 1, 0, 1 ],
     "art.last_event": [ 1, 0, 1 ],
     "art.file_format_era": "ART_2011a",
-    "art.file_format_version": 14,
+    "art.file_format_version": 15,
     "key1": "value1",
     "key2": "value2"
   }
