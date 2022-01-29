@@ -32,7 +32,6 @@ public:
 
   // Required functions.
   art::Timestamp eventTimestamp(art::EventID const& eid) override;
-  void rewind() override;
 
   // Selected optional functions.
   void beginJob() override;
@@ -71,13 +70,6 @@ arttest::TestEmptyEventTimestamp::eventTimestamp(art::EventID const&)
 {
   announce("eventTimestamp");
   return timeCount_++;
-}
-
-void
-arttest::TestEmptyEventTimestamp::rewind()
-{
-  announce("rewind");
-  timeCount_ = 0;
 }
 
 void
