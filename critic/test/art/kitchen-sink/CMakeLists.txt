@@ -13,6 +13,17 @@ cet_test(FileDumperOutput_r HANDBUILT
   PASS_REGULAR_EXPRESSION "PROCESS NAME.*Total products \\(present, not present\\): 4 \\(3, 1\\)\\."
   DEPENDS FileDumperOutput_w)
 
+cet_test(ProductPtr_w HANDBUILT
+  TEST_EXEC art_ut
+  TEST_ARGS -- -c "ProductPtr_w.fcl" -o out.root
+  DATAFILES fcl/ProductPtr_w.fcl)
+
+cet_test(ProductPtr_r HANDBUILT
+  TEST_EXEC art_ut
+  TEST_ARGS -- -c "ProductPtr_r.fcl" -o out.root -s ../ProductPtr_w.d/out.root
+  DATAFILES fcl/ProductPtr_r.fcl fcl/ProductPtr_w.fcl
+  TEST_PROPERTIES DEPENDS ProductPtr_w)
+
 cet_test(Ptrmv_w HANDBUILT
   TEST_EXEC art_ut
   TEST_ARGS -- -c "Ptrmv_w.fcl"

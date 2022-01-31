@@ -1,0 +1,32 @@
+BEGIN_PROLOG
+int_value: 17
+string_value: "C'est la vie."
+END_PROLOG
+
+process_name: ProductPtrW
+
+physics: {
+  producers: {
+    a: {
+      module_type: IntProducer
+      ivalue: @local::int_value
+    }
+    b: {
+      module_type: ProductPtrProducer
+      read_from: a
+      string_to_make: @local::string_value
+    }
+  }
+
+  analyzers: {
+    ptrReader: {
+      module_type: ProductPtrAnalyzer
+      read_from: b
+      expected_int: @local::int_value
+      expected_string: @local::string_value
+    }
+  }
+
+  tp: [ a, b ]
+  ep: [ ptrReader ]
+}

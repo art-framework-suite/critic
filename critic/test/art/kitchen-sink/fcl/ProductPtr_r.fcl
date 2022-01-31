@@ -1,0 +1,8 @@
+#include "ProductPtr_w.fcl"
+
+# Run the same test as ProductPtrw, but this time we're reading the
+# persisted ProductPtrs.
+
+process_name: ProductPtrR
+physics.producers: @erase
+physics.tp: @erase
