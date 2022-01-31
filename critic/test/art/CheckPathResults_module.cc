@@ -2,7 +2,9 @@
 #include "art/Framework/Core/SharedAnalyzer.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Services/System/TriggerNamesService.h"
+#include "oneapi/tbb/concurrent_vector.h"
 
+#include <algorithm>
 #include <cassert>
 
 namespace {
@@ -17,9 +19,11 @@ namespace {
 
   private:
     void analyze(art::Event const& e, art::ProcessingFrame const&) override;
+    void endJob(art::ProcessingFrame const&) override;
 
     std::string processName_;
     std::vector<unsigned> expectedEvents_;
+    tbb::concurrent_vector<unsigned> passed_;
     art::ServiceHandle<art::TriggerNamesService const> triggerNames_{};
   };
 
@@ -47,10 +51,35 @@ namespace {
     auto const results = triggerNames_->pathResults(e, processName_);
     bool const should_pass_event = std::binary_search(
       begin(expectedEvents_), end(expectedEvents_), e.event());
+    if (should_pass_event) {
+      passed_.push_back(e.event());
+    }
     assert(size(results) == 3ull);
     assert(results.at("p1").accept() == should_pass_event);
     assert(results.at("p2").accept());
     assert(results.at("p3").accept() == not should_pass_event);
+  }
+
+  void
+  CheckPathResults::endJob(art::ProcessingFrame const&)
+  {
+    if (passed_.size() == size(expectedEvents_))
+      return;
+
+    std::set<unsigned> const passed(passed_.cbegin(), passed_.cend());
+    std::set<unsigned> const expected(cbegin(expectedEvents_),
+                                      cend(expectedEvents_));
+    std::vector<unsigned> missing;
+    set_difference(cbegin(expected),
+                   cend(expected),
+                   cbegin(passed),
+                   cend(passed),
+                   back_inserter(missing));
+    art::Exception e{art::errors::LogicError};
+    e << "The following events were not found: ";
+    for (auto const num : missing)
+      e << num << ' ';
+    throw e << '\n';
   }
 }
 
