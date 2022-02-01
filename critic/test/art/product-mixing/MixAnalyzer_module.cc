@@ -90,10 +90,8 @@ arttest::MixAnalyzer::analyze(art::Event const& e)
 
   auto const& vpd = e.getProduct<std::vector<art::Ptr<double>>>(
     {mixFilterLabel_, "doubleVectorPtrLabel"});
-#ifndef ART_NO_MIX_PTRVECTOR
   auto const& pvd = e.getProduct<art::PtrVector<double>>(
     {mixFilterLabel_, "doublePtrVectorLabel"}); // 3.
-#endif
   art::Handle<arttest::ProductWithPtrs> pwpH;
   BOOST_TEST_REQUIRE(
     e.getByLabel(mixFilterLabel_, "ProductWithPtrsLabel", pwpH)); // 4.
@@ -102,25 +100,21 @@ arttest::MixAnalyzer::analyze(art::Event const& e)
     BOOST_TEST_REQUIRE(*vpd[i * 3 + 0] == vd[(i * 10) + 0]); // 2.
     BOOST_TEST_REQUIRE(*vpd[i * 3 + 1] == vd[(i * 10) + 4]); // 2.
     BOOST_TEST_REQUIRE(*vpd[i * 3 + 2] == vd[(i * 10) + 8]); // 2.
-#ifndef ART_NO_MIX_PTRVECTOR
     BOOST_TEST_REQUIRE(*pvd[i * 3 + 0] == vd[(i * 10) + 1]); // 3.
     BOOST_TEST_REQUIRE(*pvd[i * 3 + 1] == vd[(i * 10) + 5]); // 3.
     BOOST_TEST_REQUIRE(*pvd[i * 3 + 2] == vd[(i * 10) + 9]); // 3.
-#endif
     BOOST_TEST_REQUIRE(*(pwpH->vectorPtrDouble())[i * 3 + 0] ==
                        *vpd[i * 3 + 0]); // 4.
     BOOST_TEST_REQUIRE(*(pwpH->vectorPtrDouble())[i * 3 + 1] ==
                        *vpd[i * 3 + 1]); // 4.
     BOOST_TEST_REQUIRE(*(pwpH->vectorPtrDouble())[i * 3 + 2] ==
                        *vpd[i * 3 + 2]); // 4.
-#ifndef ART_NO_MIX_PTRVECTOR
     BOOST_TEST_REQUIRE(*(pwpH->ptrVectorDouble())[i * 3 + 0] ==
                        *pvd[i * 3 + 0]); // 4.
     BOOST_TEST_REQUIRE(*(pwpH->ptrVectorDouble())[i * 3 + 1] ==
                        *pvd[i * 3 + 1]); // 4.
     BOOST_TEST_REQUIRE(*(pwpH->ptrVectorDouble())[i * 3 + 2] ==
                        *pvd[i * 3 + 2]); // 4.
-#endif
   }
 
   // map_vector<unsigned int>

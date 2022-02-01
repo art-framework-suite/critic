@@ -117,11 +117,7 @@ arttest::MixProducer::produce(art::Event& e, art::ProcessingFrame const&)
   pvd->push_back(art::Ptr<double>(collID, 1, e.productGetter(collID)));
   pvd->push_back(art::Ptr<double>(collID, 5, e.productGetter(collID)));
   pvd->push_back(art::Ptr<double>(collID, 9, e.productGetter(collID)));
-  auto pwp = std::make_unique<ProductWithPtrs>(
-#ifndef ART_NO_MIX_PTRVECTOR
-    *pvd.get(),
-#endif
-    *vpd.get());
+  auto pwp = std::make_unique<ProductWithPtrs>(*pvd, *vpd);
   e.put(move(vpd), "doubleVectorPtrLabel");      // 2.
   e.put(std::move(pvd), "doublePtrVectorLabel"); // 3.
   e.put(move(pwp), "ProductWithPtrsLabel");      // 4.

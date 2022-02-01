@@ -151,11 +151,9 @@ public:
                std::vector<art::Ptr<double>>& out,
                art::PtrRemapper const& remap);
 
-#ifndef ART_NO_MIX_PTRVECTOR
   bool mixPtrVectors(std::vector<art::PtrVector<double> const*> const& in,
                      art::PtrVector<double>& out,
                      art::PtrRemapper const& remap);
-#endif
 
   bool mixProductWithPtrs(
     std::vector<arttest::ProductWithPtrs const*> const& in,
@@ -252,11 +250,9 @@ arttest::MixFilterTestDetail::MixFilterTestDetail(fhicl::ParameterSet const& p,
   helper.declareMixOp(art::InputTag(mixProducerLabel, "doubleVectorPtrLabel"),
                       &MixFilterTestDetail::mixPtrs,
                       *this);
-#ifndef ART_NO_MIX_PTRVECTOR
   helper.declareMixOp(art::InputTag(mixProducerLabel, "doublePtrVectorLabel"),
                       &MixFilterTestDetail::mixPtrVectors,
                       *this);
-#endif
   helper.declareMixOp(art::InputTag(mixProducerLabel, "ProductWithPtrsLabel"),
                       &MixFilterTestDetail::mixProductWithPtrs,
                       *this);
@@ -474,7 +470,6 @@ arttest::MixFilterTestDetail::mixPtrs(
   return true; //  Always want product in event.
 }
 
-#ifndef ART_NO_MIX_PTRVECTOR
 bool
 arttest::MixFilterTestDetail::mixPtrVectors(
   std::vector<art::PtrVector<double> const*> const& in,
@@ -485,7 +480,6 @@ arttest::MixFilterTestDetail::mixPtrVectors(
   remap(in, std::back_inserter(out), doubleVectorOffsets_);
   return true; //  Always want product in event.
 }
-#endif
 
 bool
 arttest::MixFilterTestDetail::mixProductWithPtrs(
@@ -494,12 +488,10 @@ arttest::MixFilterTestDetail::mixProductWithPtrs(
   art::PtrRemapper const& remap)
 {
   verifyInSize(in);
-#ifndef ART_NO_MIX_PTRVECTOR
   remap(in,
         std::back_inserter(out.ptrVectorDouble()),
         doubleVectorOffsets_,
         &arttest::ProductWithPtrs::ptrVectorDouble);
-#endif
   remap(in,
         std::back_inserter(out.vectorPtrDouble()),
         doubleVectorOffsets_,
