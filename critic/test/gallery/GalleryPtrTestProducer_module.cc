@@ -109,8 +109,6 @@ namespace critictest {
 
     auto const& hDrop = event.getValidHandle(dropToken_);
     testProduct->ptrIntoContainerToBeDropped = art::Ptr<int>{hDrop, 1};
-    testProduct->nullPtr = art::Ptr<int>{hint1.id()};
-    testProduct->nullDroppedPtr = art::Ptr<int>{hDrop.id()};
     testProduct->invalidPtr = art::Ptr<int>{};
 
     event.put(move(testProduct));

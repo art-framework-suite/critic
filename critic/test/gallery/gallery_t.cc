@@ -407,25 +407,6 @@ main()
     }
     assert(exceptionThrown);
 
-    assert(!ptrTestProduct->nullPtr && ptrTestProduct->nullPtr.isAvailable() &&
-           ptrTestProduct->nullPtr.isNull());
-
-    // I chose not to test the behavior if a null or invalid Ptr is
-    // dereferenced. As of this writing the behavior is this:
-    //
-    // Ptr::get() will return a null pointer for a null or invalid Ptr
-    // Ptr::operator*() will dereference whatever "get" returns (so segfault)
-    // Ptr::operator->() throws an exception for invalid Ptrs and
-    // I am guessing undefined behavior for null Ptrs
-    //
-    // This is all in the Ptr class and really has nothing to do with
-    // gallery. The same behavior should exist in the full art
-    // framework.
-
-    assert(!ptrTestProduct->nullDroppedPtr &&
-           !ptrTestProduct->nullDroppedPtr.isAvailable() &&
-           ptrTestProduct->nullDroppedPtr.isNull());
-
     // Note some of the documentation says an invalid Ptr is nonNull,
     // but that is not the way the Ptr class is written.
     assert(!ptrTestProduct->invalidPtr &&
