@@ -11,6 +11,7 @@
 #include "art/Framework/Core/SharedAnalyzer.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/test/TestObjects/ToyProducts.h"
+#include "canvas/Persistency/Common/PtrVector.h"
 
 namespace arttest {
   class PtrVectorSimpleAnalyzer;

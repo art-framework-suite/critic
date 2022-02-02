@@ -13,6 +13,7 @@
 #include "art/Framework/Principal/Handle.h"
 #include "art/test/TestObjects/AssnTestData.h"
 #include "canvas/Persistency/Common/FindMany.h"
+#include "canvas/Persistency/Common/PtrVector.h"
 #include "fhiclcpp/ParameterSet.h"
 
 namespace arttest {
