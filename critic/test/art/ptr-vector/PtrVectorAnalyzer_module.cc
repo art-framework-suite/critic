@@ -60,8 +60,7 @@ namespace art::test {
             << "At position " << count << " expected value " << value
             << " but obtained " << *ptr << '\n';
         }
-        auto getter = e.productGetter(ptr.id());
-        auto const* parent_address = &ptr.parentAs<std::vector>(getter);
+        auto const* parent_address = &ptr.parentAs<std::vector>();
         if (parent_address != ints_address) {
           throw cet::exception("ParentMismatch")
             << "The address of the parent collection does not match what has"
