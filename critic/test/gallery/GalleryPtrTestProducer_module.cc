@@ -73,16 +73,16 @@ namespace critictest {
   {
     auto testProduct = std::make_unique<LitePtrTestProduct>();
 
-    auto const& hint1 = event.getValidHandle(int1Token_);
-    auto const& hint2 = event.getValidHandle(int2Token_);
-    auto const& hint3 = event.getValidHandle(int3Token_);
+    auto const hint1 = event.getValidHandle(int1Token_);
+    auto const hint2 = event.getValidHandle(int2Token_);
+    auto const hint3 = event.getValidHandle(int3Token_);
     testProduct->ptrInt1 = art::Ptr<int>{hint1, 0};
     testProduct->ptrInt2 = art::Ptr<int>{hint2, 1};
     testProduct->ptrInt3 = art::Ptr<int>{hint3, 2};
 
-    auto const& hSimpleDerived1 = event.getValidHandle(simpleDerived1Token_);
-    auto const& hSimpleDerived2 = event.getValidHandle(simpleDerived2Token_);
-    auto const& hSimpleDerived3 = event.getValidHandle(simpleDerived3Token_);
+    auto const hSimpleDerived1 = event.getValidHandle(simpleDerived1Token_);
+    auto const hSimpleDerived2 = event.getValidHandle(simpleDerived2Token_);
+    auto const hSimpleDerived3 = event.getValidHandle(simpleDerived3Token_);
     testProduct->ptrSimple1 = art::Ptr<Simple>{hSimpleDerived1, 0};
     testProduct->ptrSimple2 = art::Ptr<Simple>{hSimpleDerived2, 1};
     testProduct->ptrSimple3 = art::Ptr<Simple>{hSimpleDerived3, 2};
@@ -107,13 +107,13 @@ namespace critictest {
     testProduct->ptrVectorSimpleDerived.push_back(
       art::Ptr<SimpleDerived>{hSimpleDerived1, 2});
 
-    auto const& hDrop = event.getValidHandle(dropToken_);
+    auto const hDrop = event.getValidHandle(dropToken_);
     testProduct->ptrIntoContainerToBeDropped = art::Ptr<int>{hDrop, 1};
     testProduct->invalidPtr = art::Ptr<int>{};
 
     event.put(move(testProduct));
 
-    auto const& hVStringProduct = event.getValidHandle(stringProductToken_);
+    auto const hVStringProduct = event.getValidHandle(stringProductToken_);
     if (produceAssnStringInt_) {
       auto assnsAB = std::make_unique<AssnsAB_t>();
       assnsAB->addSingle(art::Ptr<StringProduct>{hVStringProduct, 0},

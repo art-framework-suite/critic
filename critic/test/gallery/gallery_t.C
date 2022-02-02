@@ -1,4 +1,3 @@
-
 void
 print_and_abort(std::string const& msg = std::string(""))
 {
