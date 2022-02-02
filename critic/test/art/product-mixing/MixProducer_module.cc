@@ -51,7 +51,7 @@ private:
 
 arttest::MixProducer::MixProducer(Parameters const& p,
                                   art::ProcessingFrame const&)
-  : art::SharedProducer{p}
+  : SharedProducer{p}
 {
   async<art::InEvent>();
 
