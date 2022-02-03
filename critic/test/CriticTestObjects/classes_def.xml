@@ -60,6 +60,7 @@
   <class name="art::Ptr<std::string>"/>
   <class name="art::Ptr<cet::map_vector<unsigned int>::value_type>"/>
   <class name="art::Ptr<unsigned long>"/>
+  <class name="art::ProductPtr<std::vector<double>>"/>
   <class name="art::PtrVector<double>"/>
   <class name="art::PtrVector<arttest::SimpleDerived>"/>
   <class name="art::PtrVector<arttest::Simple>"/><!-- For view<Simple> -->

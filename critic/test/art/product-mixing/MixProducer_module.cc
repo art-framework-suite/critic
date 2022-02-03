@@ -105,19 +105,25 @@ arttest::MixProducer::produce(art::Event& e, art::ProcessingFrame const&)
     coll->push_back(i + 10 * (eventCounter_ - 1));
   }
   e.put(move(coll), "doubleCollectionLabel"); // 1.
-  auto vpd = std::make_unique<std::vector<art::Ptr<double>>>();
-  vpd->reserve(3);
-  auto pvd = std::make_unique<art::PtrVector<double>>();
-  pvd->reserve(3);
   art::ProductID const collID{
     e.getProductID<std::vector<double>>("doubleCollectionLabel")};
-  vpd->emplace_back(collID, 0, e.productGetter(collID));
-  vpd->emplace_back(collID, 4, e.productGetter(collID));
-  vpd->emplace_back(collID, 8, e.productGetter(collID));
-  pvd->push_back(art::Ptr<double>(collID, 1, e.productGetter(collID)));
-  pvd->push_back(art::Ptr<double>(collID, 5, e.productGetter(collID)));
-  pvd->push_back(art::Ptr<double>(collID, 9, e.productGetter(collID)));
-  auto pwp = std::make_unique<ProductWithPtrs>(*pvd, *vpd);
+
+  auto productGetter = e.productGetter(collID);
+
+  auto vpd = std::make_unique<std::vector<art::Ptr<double>>>();
+  vpd->reserve(3);
+  vpd->emplace_back(collID, 0, productGetter);
+  vpd->emplace_back(collID, 4, productGetter);
+  vpd->emplace_back(collID, 8, productGetter);
+
+  auto pvd = std::make_unique<art::PtrVector<double>>();
+  pvd->reserve(3);
+  pvd->emplace_back(collID, 1, productGetter);
+  pvd->emplace_back(collID, 5, productGetter);
+  pvd->emplace_back(collID, 9, productGetter);
+
+  auto pwp = std::make_unique<ProductWithPtrs>(
+    *pvd, *vpd, art::ProductPtr<std::vector<double>>{collID, productGetter});
   e.put(move(vpd), "doubleVectorPtrLabel");      // 2.
   e.put(std::move(pvd), "doublePtrVectorLabel"); // 3.
   e.put(move(pwp), "ProductWithPtrsLabel");      // 4.

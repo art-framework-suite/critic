@@ -296,11 +296,12 @@ arttest::MixFilterTestDetail::MixFilterTestDetail(Parameters const& p,
                         cet::exception);
   }
 
-  auto const mixProducerLabel = p().mixProducerLabel();
   helper.produces<std::string>();           // "Bookkeeping"
   helper.produces<art::EventIDSequence>();  // "Bookkeeping"
   helper.produces<double, art::InSubRun>(); // SubRun product test.
   helper.produces<double, art::InRun>();    // Run product test.
+
+  auto const mixProducerLabel = p().mixProducerLabel();
   helper.declareMixOp(art::InputTag{mixProducerLabel, "doubleLabel"},
                       &MixFilterTestDetail::mixByAddition<double>,
                       *this);
@@ -328,6 +329,7 @@ arttest::MixFilterTestDetail::MixFilterTestDetail(Parameters const& p,
   helper.declareMixOp(art::InputTag{mixProducerLabel, "intVectorPtrLabel"},
                       &MixFilterTestDetail::mixmap_vectorPtrs,
                       *this);
+
   art::MixFunc<IntProduct> mixfunc(
     [this](std::vector<IntProduct const*> const& in,
            IntProduct,
@@ -354,12 +356,14 @@ arttest::MixFilterTestDetail::MixFilterTestDetail(Parameters const& p,
     });
   helper.declareMixOp(
     art::InputTag{mixProducerLabel, "SpottyProductLabel"}, mixfunc, false);
+
   // SubRun mixing.
   helper.declareMixOp<art::InSubRun>(
     art::InputTag{mixProducerLabel, "DoubleSRLabel"},
     "SRInfo",
     &MixFilterTestDetail::mixSRProduct,
     *this);
+
   // Run mixing.
   helper.declareMixOp<art::InRun>(
     art::InputTag{mixProducerLabel, "DoubleRLabel"},
