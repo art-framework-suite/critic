@@ -1,37 +1,24 @@
-set_source_files_properties(MixFilterTestETS_module.cc
-  PROPERTIES COMPILE_DEFINITIONS ART_TEST_EVENTS_TO_SKIP_CONST=0)
-
-set_source_files_properties(MixFilterTestETSc_module.cc
-  PROPERTIES COMPILE_DEFINITIONS ART_TEST_EVENTS_TO_SKIP_CONST=1)
-
-set_source_files_properties(MixFilterTestNoStartEvent_module.cc
-  PROPERTIES COMPILE_DEFINITIONS ART_TEST_NO_STARTEVENT)
-
 cet_build_plugin(MixAnalyzer art::module NO_INSTALL USE_BOOST_UNIT)
 
-cet_build_plugin(MixFilterTest art::module NO_INSTALL USE_BOOST_UNIT
-  LIBRARIES PRIVATE
+function(build_mix_filter ART_MFT)
+  configure_file(MixFilterTestImpl_module.cc.in ${ART_MFT}_module.cc)
+  cet_build_plugin(${ART_MFT} art::module NO_INSTALL USE_BOOST_UNIT
+    REG_SOURCE ${CMAKE_CURRENT_BINARY_DIR}/${ART_MFT}_module.cc
+    LIBRARIES PRIVATE
     art::Framework_IO_ProductMix
     art_root_io::art_root_io
-  )
+    )
+  set(DEFINITIONS ${ARGN})
+  if (DEFINITIONS)
+    set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/${ART_MFT}_module.cc
+      PROPERTIES COMPILE_DEFINITIONS ${DEFINITIONS})
+  endif()
+endfunction()
 
-cet_build_plugin(MixFilterTestETS art::module NO_INSTALL USE_BOOST_UNIT
-  LIBRARIES PRIVATE
-    art::Framework_IO_ProductMix
-    art_root_io::art_root_io
-  )
-
-cet_build_plugin(MixFilterTestETSc art::module NO_INSTALL USE_BOOST_UNIT
-  LIBRARIES PRIVATE
-    art::Framework_IO_ProductMix
-    art_root_io::art_root_io
-  )
-
-cet_build_plugin(MixFilterTestNoStartEvent art::module NO_INSTALL USE_BOOST_UNIT
-  LIBRARIES PRIVATE
-    art::Framework_IO_ProductMix
-    art_root_io::art_root_io
-  )
+build_mix_filter(MixFilterTest)
+build_mix_filter(MixFilterTestETS "ART_TEST_EVENTS_TO_SKIP_CONST=0")
+build_mix_filter(MixFilterTestETSc "ART_TEST_EVENTS_TO_SKIP_CONST=1")
+build_mix_filter(MixFilterTestNoStartEvent "ART_TEST_NO_STARTEVENT")
 
 cet_build_plugin(MixProducer art::module NO_INSTALL)
 
@@ -186,8 +173,7 @@ cet_test(ProductMix_r1g HANDBUILT
   fcl/ProductMix_r1g.fcl
   TEST_PROPERTIES DEPENDS ProductMix_w)
 
-
-SET_TESTS_PROPERTIES(
+set_tests_properties(
   ProductMix_r1c2
   ProductMix_r1c3
   PROPERTIES

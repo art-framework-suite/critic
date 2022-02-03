@@ -8,6 +8,8 @@ physics:
     {
       module_type: MixFilterTest
       numSecondaries: 5
+      testProcessEventAuxiliaries: true
+      testRunsAndSubRuns: true
       mixProducerLabel: mixProducer
       fileNames: [ "../ProductMix_w.d/mix.root" ]
       readMode: sequential
