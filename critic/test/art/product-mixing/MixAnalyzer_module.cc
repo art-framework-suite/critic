@@ -38,7 +38,6 @@ namespace art::test {
 
     using mv_t = cet::map_vector<unsigned int>;
     using mvv_t = mv_t::value_type;
-    using mvm_t = mv_t::mapped_type;
 
     size_t eventCounter_{};
     size_t nSecondaries_;
@@ -83,8 +82,9 @@ art::test::MixAnalyzer::analyze(Event const& e)
   BOOST_TEST(s == sExp.str());
 
   // 1. std::vector<double>
-  auto const& vd =
-    e.getProduct<std::vector<double>>(tag_for("doubleCollectionLabel"));
+  auto const vdH =
+    e.getValidHandle<std::vector<double>>(tag_for("doubleCollectionLabel"));
+  auto const& vd = *vdH;
   BOOST_TEST_REQUIRE(size(vd) == 10 * nSecondaries_);
   for (size_t i = 0; i < nSecondaries_; ++i) {
     for (size_t j = 1; j < 11; ++j) {
@@ -118,6 +118,10 @@ art::test::MixAnalyzer::analyze(Event const& e)
     BOOST_TEST(*pwp.pvd_[i * 3 + 1] == *pvd[i * 3 + 1]); // 4.
     BOOST_TEST(*pwp.pvd_[i * 3 + 2] == *pvd[i * 3 + 2]); // 4.
   }
+
+  // Embedded ProductPtr<std::vector<double>>
+  BOOST_TEST(vdH.id() == pwp.ppvd_.id());
+  BOOST_TEST(vd == *pwp.ppvd_);
 
   // map_vector<unsigned int>
   auto const& mv = e.getProduct<mv_t>(tag_for("mapVectorLabel"));

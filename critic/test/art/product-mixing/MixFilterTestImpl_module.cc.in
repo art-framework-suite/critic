@@ -634,6 +634,8 @@ namespace {
           std::back_inserter(out.vectorPtrDouble()),
           doubleVectorOffsets_,
           &arttest::ProductWithPtrs::vectorPtrDouble);
+    out.ppvd_ = remap(in, &arttest::ProductWithPtrs::ppvd_);
+
     // Throw-away object to test non-standard remap interface.
     arttest::ProductWithPtrs tmp;
     remap(in,
