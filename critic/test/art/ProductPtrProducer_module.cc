@@ -50,8 +50,8 @@ namespace art::test {
     e.put(move(ptr));
 
     // Make ProductPtr from product created in this module
-    auto const id = e.put(std::make_unique<std::string>(stringToMake_));
-    e.put(std::make_unique<ProductPtr<std::string>>(id, e.productGetter(id)));
+    auto const h = e.put(std::make_unique<std::string>(stringToMake_));
+    e.put(std::make_unique<ProductPtr<std::string>>(h));
   }
 
 }
