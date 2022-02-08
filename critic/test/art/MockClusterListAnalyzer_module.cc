@@ -48,15 +48,12 @@ void
 MockClusterListAnalyzer::analyze(art::Event const& e)
 {
   int event_num = e.id().event();
-  typedef arttest::MockClusterList product_t;
-  auto h = e.getHandle<product_t>(inputLabel_);
+  auto h = e.getHandle<arttest::MockClusterList>(inputLabel_);
 
   assert(h.isValid());
   unsigned psz = h->size();
   assert(psz == 2);
-  for (product_t::const_iterator pb = h->begin(), pi = pb, pe = h->end();
-       pi != pe;
-       ++pi) {
+  for (auto pb = h->cbegin(), pi = pb, pe = h->cend(); pi != pe; ++pi) {
     int pk = pi - pb;
     size_t csz = pi->cells.size();
     if (pk == 0) {
@@ -71,10 +68,7 @@ MockClusterListAnalyzer::analyze(art::Event const& e)
 
     // Now use the iterator to loop over the PtrVector.
     size_t cell_count = 0;
-    for (product_t::value_type::CellList::const_iterator cb = pi->cells.begin(),
-                                                         ci = cb,
-                                                         ce = pi->cells.end();
-         ci != ce;
+    for (auto cb = pi->cells.cbegin(), ci = cb, ce = pi->cells.cend(); ci != ce;
          ++ci, ++cell_count) {
       int ck = ci - cb;
       art::Ptr<SimpleDerived> ptsd = *ci;

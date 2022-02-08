@@ -9,21 +9,21 @@
 
 using namespace fhicl;
 
-namespace arttest {
-  class DerivedPtrVectorAnalyzer : public art::EDAnalyzer {
+namespace art::test {
+  class DerivedPtrVectorAnalyzer : public EDAnalyzer {
   public:
     struct Config {
-      Atom<art::InputTag> input_tag{Name{"input_tag"}};
+      Atom<InputTag> input_tag{Name{"input_tag"}};
       Atom<bool> require_presence{Name{"require_presence"}};
     };
     using Parameters = Table<Config>;
     explicit DerivedPtrVectorAnalyzer(Parameters const&);
 
   private:
-    void analyze(art::Event const& e) override;
+    void analyze(Event const& e) override;
 
-    using product_t = art::PtrVector<arttest::SimpleDerived>;
-    art::ProductToken<product_t> const productToken_;
+    using product_t = PtrVector<arttest::SimpleDerived>;
+    ProductToken<product_t> const productToken_;
     bool const requirePresence_;
   };
 
@@ -34,11 +34,11 @@ namespace arttest {
   {}
 
   void
-  DerivedPtrVectorAnalyzer::analyze(art::Event const& e)
+  DerivedPtrVectorAnalyzer::analyze(Event const& e)
   {
     auto h = e.getHandle(productToken_);
     assert(requirePresence_ == h.isValid());
   }
 }
 
-DEFINE_ART_MODULE(arttest::DerivedPtrVectorAnalyzer)
+DEFINE_ART_MODULE(art::test::DerivedPtrVectorAnalyzer)

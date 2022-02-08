@@ -131,17 +131,17 @@ art::test::AssnsProducer::produce(Event& e)
 
   // We add associations in an order such that the associated data are
   // in alphabetical order.
-  addS(a, av, Ptr{vuiH, 1}, Ptr{vsH, 2}, AssnTestData(1, 2, "A"));
-  ay->addSingle(Ptr{vuiH, 1}, Ptr{vsH, 2}, "A");
+  addS(a, av, {vuiH, 1}, {vsH, 2}, AssnTestData(1, 2, "A"));
+  ay->addSingle({vuiH, 1}, {vsH, 2}, "A");
 
-  addS(a, av, Ptr{vuiH, 2}, Ptr{vsH, 0}, AssnTestData(2, 0, "B"));
-  ay->addSingle(Ptr{vuiH, 2}, Ptr{vsH, 0}, "B");
+  addS(a, av, {vuiH, 2}, {vsH, 0}, AssnTestData(2, 0, "B"));
+  ay->addSingle({vuiH, 2}, {vsH, 0}, "B");
 
-  addS(a, av, Ptr{vuiH, 0}, Ptr{vsH, 1}, AssnTestData(0, 1, "C"));
-  ay->addSingle(Ptr{vuiH, 0}, Ptr{vsH, 1}, "C");
+  addS(a, av, {vuiH, 0}, {vsH, 1}, AssnTestData(0, 1, "C"));
+  ay->addSingle({vuiH, 0}, {vsH, 1}, "C");
 
   if (dinkVoid_) {
-    av->addSingle(Ptr<size_t>{vuiH, 3}, Ptr{vsH, 3});
+    av->addSingle({vuiH, 3}, {vsH, 3});
   }
 
   auto aH = e.put(move(a));
@@ -149,9 +149,9 @@ art::test::AssnsProducer::produce(Event& e)
   auto am = make_unique<AssnsABX_t>(*aH);
   auto avm = make_unique<AssnsVoid_t>(*av);
 
-  addS(am, avm, Ptr{vuiH, 1}, Ptr{vsH, 2}, AssnTestData(1, 2, "AA"));
+  addS(am, avm, {vuiH, 1}, {vsH, 2}, AssnTestData(1, 2, "AA"));
   if (dinkVoid_) {
-    avm->addSingle(Ptr{vuiH, 3}, Ptr{vsH, 3});
+    avm->addSingle({vuiH, 3}, {vsH, 3});
   }
 
   if (wantMany_) {
@@ -177,20 +177,20 @@ art::test::AssnsProducer::produce(Event& e)
   auto bv = std::make_unique<AssnsVoid_t>();
 
   auto mvsH = e.put(move(mvs), "mv");
-  addS(b, bv, Ptr{vuiH, 1}, Ptr<string>{mvsH, 0}, AssnTestData(1, 0, "A"));
-  addS(b, bv, Ptr{vuiH, 2}, Ptr<string>{mvsH, 11}, AssnTestData(2, 11, "B"));
-  addS(b, bv, Ptr{vuiH, 0}, Ptr<string>{mvsH, 22}, AssnTestData(0, 22, "C"));
+  addS(b, bv, {vuiH, 1}, Ptr<string>{mvsH, 0}, AssnTestData(1, 0, "A"));
+  addS(b, bv, {vuiH, 2}, Ptr<string>{mvsH, 11}, AssnTestData(2, 11, "B"));
+  addS(b, bv, {vuiH, 0}, Ptr<string>{mvsH, 22}, AssnTestData(0, 22, "C"));
   if (dinkVoid_) {
-    bv->addSingle(Ptr{vuiH, 3}, Ptr<string>{mvsH, 33});
+    bv->addSingle({vuiH, 3}, Ptr<string>{mvsH, 33});
   }
 
   auto bH = e.put(move(b), "mapvec");
 
   auto bm = make_unique<AssnsABX_t>(*bH);
   auto bvm = make_unique<AssnsVoid_t>(*bv);
-  addS(bm, bvm, Ptr{vuiH, 1}, Ptr<string>{mvsH, 0}, AssnTestData(1, 0, "AA"));
+  addS(bm, bvm, {vuiH, 1}, Ptr<string>{mvsH, 0}, AssnTestData(1, 0, "AA"));
   if (dinkVoid_) {
-    bvm->addSingle(Ptr{vuiH, 3}, Ptr<string>{mvsH, 33});
+    bvm->addSingle({vuiH, 3}, Ptr<string>{mvsH, 33});
   }
 
   if (wantMany_) {

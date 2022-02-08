@@ -77,9 +77,9 @@ void
 critictest::GalleryAssnsProducer::produce(art::Event& e)
 {
   // Create the data products among which we will make associations.
-  auto vi = make_unique<intvec>(intvec{2, 0, 1});
-  auto vs = make_unique<stringvec>(stringvec{
-    StringProduct("one"), StringProduct("two"), StringProduct("zero")});
+  auto const viH = e.put(make_unique<intvec>(intvec{2, 0, 1}));
+  auto const vsH = e.put(make_unique<stringvec>(stringvec{
+    StringProduct("one"), StringProduct("two"), StringProduct("zero")}));
 
   // Making a map_vector is hard.
   auto mvs = make_unique<mapvec>();
@@ -88,11 +88,7 @@ critictest::GalleryAssnsProducer::produce(art::Event& e)
   (*mvs)[key_t(0)] = StringProduct{"zero"};
   (*mvs)[key_t(11)] = StringProduct{"one"};
   (*mvs)[key_t(22)] = StringProduct{"two"};
-
-  // We will need the product IDs of the data products.
-  auto const vi_pid = e.getProductID<intvec>();
-  auto const vs_pid = e.getProductID<stringvec>();
-  auto const mvs_pid = e.getProductID<mapvec>("mv");
+  auto const mvsH = e.put(move(mvs), "mv");
 
   // Create the association objects.
   // Assns into vectors.
@@ -104,52 +100,43 @@ critictest::GalleryAssnsProducer::produce(art::Event& e)
   auto bv = std::make_unique<AssnsVoid_t>();
 
   // addS will add to both x and xv a reference between slot1 of
-  // productID1 and slot2 of productID2. The reference in x will have
+  // product1 and slot2 of product2. The reference in x will have
   // associated data td.
-  auto addS = [&e](auto& x,
-                   auto& xv,
-                   ProductID const id1,
-                   std::size_t const slot1,
-                   ProductID const id2,
-                   std::size_t const slot2,
-                   auto const td) {
-    x->addSingle(Ptr<int>{id1, slot1, e.productGetter(id1)},
-                 Ptr<StringProduct>{id2, slot2, e.productGetter(id2)},
-                 td);
-    xv->addSingle(Ptr<int>{id1, slot1, e.productGetter(id1)},
-                  Ptr<StringProduct>{id2, slot2, e.productGetter(id2)});
-  };
+  auto addS =
+    [](auto& x, auto& xv, Ptr<int> p1, Ptr<StringProduct> p2, auto const td) {
+      x->addSingle(p1, p2, td);
+      xv->addSingle(p1, p2);
+    };
 
   // We add associations in an order such that the associated data are
   // in alphabetical order.
-  addS(a, av, vi_pid, 1, vs_pid, 2, LiteAssnTestData{1, 2, "A"});
-  addS(b, bv, vi_pid, 1, mvs_pid, 0, LiteAssnTestData{1, 0, "A"});
+  using PtrStr = Ptr<StringProduct>;
+  addS(a, av, {viH, 1}, PtrStr{vsH, 2}, LiteAssnTestData{1, 2, "A"});
+  addS(b, bv, {viH, 1}, PtrStr{mvsH, 0}, LiteAssnTestData{1, 0, "A"});
 
-  addS(a, av, vi_pid, 2, vs_pid, 0, LiteAssnTestData{2, 0, "B"});
-  addS(b, bv, vi_pid, 2, mvs_pid, 11, LiteAssnTestData{2, 11, "B"});
+  addS(a, av, {viH, 2}, PtrStr{vsH, 0}, LiteAssnTestData{2, 0, "B"});
+  addS(b, bv, {viH, 2}, PtrStr{mvsH, 11}, LiteAssnTestData{2, 11, "B"});
 
-  addS(a, av, vi_pid, 0, vs_pid, 1, LiteAssnTestData{0, 1, "C"});
-  addS(b, bv, vi_pid, 0, mvs_pid, 22, LiteAssnTestData{0, 22, "C"});
+  addS(a, av, {viH, 0}, PtrStr{vsH, 1}, LiteAssnTestData{0, 1, "C"});
+  addS(b, bv, {viH, 0}, PtrStr{mvsH, 22}, LiteAssnTestData{0, 22, "C"});
 
-  auto am = make_unique<AssnsAB_t>(*a);
-  auto avm = make_unique<AssnsVoid_t>(*av);
-  auto bm = make_unique<AssnsAB_t>(*b);
-  auto bvm = make_unique<AssnsVoid_t>(*bv);
+  auto aH = e.put(move(a));
+  auto avH = e.put(move(av));
+  auto bH = e.put(move(b), "mapvec");
+  auto bvH = e.put(move(bv), "mapvec");
 
-  addS(am, avm, vi_pid, 1, vs_pid, 2, LiteAssnTestData{1, 2, "AA"});
-  addS(bm, bvm, vi_pid, 1, mvs_pid, 0, LiteAssnTestData{1, 0, "AA"});
+  auto am = make_unique<AssnsAB_t>(*aH);
+  auto avm = make_unique<AssnsVoid_t>(*avH);
+  auto bm = make_unique<AssnsAB_t>(*bH);
+  auto bvm = make_unique<AssnsVoid_t>(*bvH);
 
-  e.put(std::move(vi));
-  e.put(std::move(vs));
-  e.put(std::move(mvs), "mv");
-  e.put(std::move(a));
-  e.put(std::move(av));
-  e.put(std::move(am), "many");
-  e.put(std::move(avm), "many");
-  e.put(std::move(b), "mapvec");
-  e.put(std::move(bv), "mapvec");
-  e.put(std::move(bm), "manymapvec");
-  e.put(std::move(bvm), "manymapvec");
+  addS(am, avm, {viH, 1}, PtrStr{vsH, 2}, LiteAssnTestData{1, 2, "AA"});
+  addS(bm, bvm, {viH, 1}, PtrStr{mvsH, 0}, LiteAssnTestData{1, 0, "AA"});
+
+  e.put(move(am), "many");
+  e.put(move(avm), "many");
+  e.put(move(bm), "manymapvec");
+  e.put(move(bvm), "manymapvec");
 }
 
 DEFINE_ART_MODULE(critictest::GalleryAssnsProducer)

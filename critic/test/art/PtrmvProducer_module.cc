@@ -60,20 +60,20 @@ arttest::PtrmvProducer::produce(art::Event& e)
 
   auto pv = std::make_unique<art::PtrVector<std::string>>();
   pv->reserve(4);
-  pv->push_back(art::Ptr<std::string>{h, 5});
-  pv->push_back(art::Ptr<std::string>{h, 0});
-  pv->push_back(art::Ptr<std::string>{h, 7});
-  pv->push_back(art::Ptr<std::string>{h, 3});
+  pv->emplace_back(h, 5);
+  pv->emplace_back(h, 0);
+  pv->emplace_back(h, 7);
+  pv->emplace_back(h, 3);
 
   e.put(std::move(pv));
   e.put(std::make_unique<art::Ptr<mvp_t>>(h, 3));
 
   auto pvp = std::make_unique<art::PtrVector<mvp_t>>();
   pvp->reserve(4);
-  pvp->push_back(art::Ptr<mvp_t>{h, 5});
-  pvp->push_back(art::Ptr<mvp_t>{h, 0});
-  pvp->push_back(art::Ptr<mvp_t>{h, 7});
-  pvp->push_back(art::Ptr<mvp_t>{h, 3});
+  pvp->emplace_back(h, 5);
+  pvp->emplace_back(h, 0);
+  pvp->emplace_back(h, 7);
+  pvp->emplace_back(h, 3);
 
   e.put(std::move(pvp));
 }

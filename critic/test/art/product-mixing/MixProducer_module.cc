@@ -24,53 +24,53 @@
 #include <string>
 #include <vector>
 
-namespace arttest {
-  class MixProducer;
+using arttest::IntProduct;
+using arttest::ProductWithPtrs;
+
+namespace art::test {
+  class MixProducer : public SharedProducer {
+  public:
+    struct Config {};
+    using Parameters = Table<Config>;
+    explicit MixProducer(Parameters const& p, ProcessingFrame const&);
+
+  private:
+    void produce(Event& e, ProcessingFrame const&) override;
+    void endSubRun(SubRun& sr, ProcessingFrame const&) override;
+    void endRun(Run& r, ProcessingFrame const&) override;
+
+    using mv_t = cet::map_vector<unsigned int>;
+    using mvv_t = mv_t::value_type;
+    using mvm_t = mv_t::mapped_type;
+
+    // Declare member data here.
+    std::atomic<size_t> eventCounter_{};
+    std::atomic<size_t> subrunCounter_{};
+    std::atomic<size_t> runCounter_{};
+  };
 }
 
-class arttest::MixProducer : public art::SharedProducer {
-public:
-  struct Config {};
-  using Parameters = Table<Config>;
-  explicit MixProducer(Parameters const& p, art::ProcessingFrame const&);
-
-private:
-  void produce(art::Event& e, art::ProcessingFrame const&) override;
-  void endSubRun(art::SubRun& sr, art::ProcessingFrame const&) override;
-  void endRun(art::Run& r, art::ProcessingFrame const&) override;
-
-  using mv_t = cet::map_vector<unsigned int>;
-  using mvv_t = mv_t::value_type;
-  using mvm_t = mv_t::mapped_type;
-
-  // Declare member data here.
-  std::atomic<size_t> eventCounter_{};
-  std::atomic<size_t> subrunCounter_{};
-  std::atomic<size_t> runCounter_{};
-};
-
-arttest::MixProducer::MixProducer(Parameters const& p,
-                                  art::ProcessingFrame const&)
+art::test::MixProducer::MixProducer(Parameters const& p, ProcessingFrame const&)
   : SharedProducer{p}
 {
-  async<art::InEvent>();
+  async<InEvent>();
 
   produces<double>("doubleLabel");
   produces<IntProduct>("IntProductLabel");
   produces<IntProduct>("SpottyProductLabel");
   produces<std::string>("stringLabel");
   produces<std::vector<double>>("doubleCollectionLabel");
-  produces<std::vector<art::Ptr<double>>>("doubleVectorPtrLabel");
-  produces<art::PtrVector<double>>("doublePtrVectorLabel");
+  produces<std::vector<Ptr<double>>>("doubleVectorPtrLabel");
+  produces<PtrVector<double>>("doublePtrVectorLabel");
   produces<ProductWithPtrs>("ProductWithPtrsLabel");
   produces<mv_t>("mapVectorLabel");
-  produces<std::vector<art::Ptr<mvv_t>>>("intVectorPtrLabel");
-  produces<double, art::InSubRun>("DoubleSRLabel");
-  produces<double, art::InRun>("DoubleRLabel");
+  produces<std::vector<Ptr<mvv_t>>>("intVectorPtrLabel");
+  produces<double, InSubRun>("DoubleSRLabel");
+  produces<double, InRun>("DoubleRLabel");
 }
 
 void
-arttest::MixProducer::produce(art::Event& e, art::ProcessingFrame const&)
+art::test::MixProducer::produce(Event& e, ProcessingFrame const&)
 {
   ++eventCounter_;
 
@@ -93,40 +93,33 @@ arttest::MixProducer::produce(art::Event& e, art::ProcessingFrame const&)
   e.put(std::make_unique<std::string>(s.str()), "stringLabel");
 
   // 1. std::vector<double>
-  //
-  // 2. std::vector<art::Ptr<double>>
-  //
-  // 3. art::PtrVector<double>
-  //
+  // 2. std::vector<Ptr<double>>
+  // 3. PtrVector<double>
   // 4. ProductWithPtrs
+
   auto coll = std::make_unique<std::vector<double>>();
   coll->reserve(10);
   for (size_t i = 1; i < 11; ++i) {
     coll->push_back(i + 10 * (eventCounter_ - 1));
   }
-  e.put(move(coll), "doubleCollectionLabel"); // 1.
-  art::ProductID const collID{
-    e.getProductID<std::vector<double>>("doubleCollectionLabel")};
+  auto collH = e.put(move(coll), "doubleCollectionLabel"); // 1.
 
-  auto productGetter = e.productGetter(collID);
-
-  auto vpd = std::make_unique<std::vector<art::Ptr<double>>>();
+  auto vpd = std::make_unique<std::vector<Ptr<double>>>();
   vpd->reserve(3);
-  vpd->emplace_back(collID, 0, productGetter);
-  vpd->emplace_back(collID, 4, productGetter);
-  vpd->emplace_back(collID, 8, productGetter);
+  vpd->emplace_back(collH, 0);
+  vpd->emplace_back(collH, 4);
+  vpd->emplace_back(collH, 8);
 
-  auto pvd = std::make_unique<art::PtrVector<double>>();
+  auto pvd = std::make_unique<PtrVector<double>>();
   pvd->reserve(3);
-  pvd->emplace_back(collID, 1, productGetter);
-  pvd->emplace_back(collID, 5, productGetter);
-  pvd->emplace_back(collID, 9, productGetter);
+  pvd->emplace_back(collH, 1);
+  pvd->emplace_back(collH, 5);
+  pvd->emplace_back(collH, 9);
 
-  auto pwp = std::make_unique<ProductWithPtrs>(
-    *pvd, *vpd, art::ProductPtr<std::vector<double>>{collID, productGetter});
-  e.put(move(vpd), "doubleVectorPtrLabel");      // 2.
-  e.put(std::move(pvd), "doublePtrVectorLabel"); // 3.
-  e.put(move(pwp), "ProductWithPtrsLabel");      // 4.
+  auto pwp = std::make_unique<ProductWithPtrs>(*pvd, *vpd, ProductPtr{collH});
+  e.put(move(vpd), "doubleVectorPtrLabel"); // 2.
+  e.put(move(pvd), "doublePtrVectorLabel"); // 3.
+  e.put(move(pwp), "ProductWithPtrsLabel"); // 4.
 
   // map_vector, .
   auto mv = std::make_unique<mv_t>();
@@ -139,9 +132,9 @@ arttest::MixProducer::produce(art::Event& e, art::ProcessingFrame const&)
   }
 
   // Ptr into map_vector.
-  auto mvvp = std::make_unique<std::vector<art::Ptr<mvv_t>>>();
+  auto mvvp = std::make_unique<std::vector<Ptr<mvv_t>>>();
   mvvp->reserve(mv_size);
-  art::ProductID const mvID{e.getProductID<mv_t>("mapVectorLabel")};
+  ProductID const mvID{e.getProductID<mv_t>("mapVectorLabel")};
   mvvp->emplace_back(mvID, 10 * (eventCounter_ - 1) + 7, e.productGetter(mvID));
   mvvp->emplace_back(mvID, 10 * (eventCounter_ - 1) + 1, e.productGetter(mvID));
   mvvp->emplace_back(mvID, 10 * (eventCounter_ - 1) + 3, e.productGetter(mvID));
@@ -154,20 +147,19 @@ arttest::MixProducer::produce(art::Event& e, art::ProcessingFrame const&)
 }
 
 void
-arttest::MixProducer::endSubRun(art::SubRun& sr, art::ProcessingFrame const&)
+art::test::MixProducer::endSubRun(SubRun& sr, ProcessingFrame const&)
 {
   ++subrunCounter_;
   sr.put(std::make_unique<double>(subrunCounter_),
          "DoubleSRLabel",
-         art::subRunFragment());
+         subRunFragment());
 }
 
 void
-arttest::MixProducer::endRun(art::Run& r, art::ProcessingFrame const&)
+art::test::MixProducer::endRun(Run& r, ProcessingFrame const&)
 {
   ++runCounter_;
-  r.put(
-    std::make_unique<double>(runCounter_), "DoubleRLabel", art::runFragment());
+  r.put(std::make_unique<double>(runCounter_), "DoubleRLabel", runFragment());
 }
 
-DEFINE_ART_MODULE(arttest::MixProducer)
+DEFINE_ART_MODULE(art::test::MixProducer)

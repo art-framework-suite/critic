@@ -12,57 +12,37 @@
 #include "canvas/Persistency/Common/PtrVector.h"
 #include "fhiclcpp/ParameterSet.h"
 
-#include <iostream>
 #include <memory>
 #include <vector>
 
-namespace arttest {
-  class PtrVectorProducer;
+namespace art::test {
+  class PtrVectorProducer : public EDProducer {
+  public:
+    explicit PtrVectorProducer(fhicl::ParameterSet const& p)
+      : EDProducer{p}, input_label_(p.get<std::string>("input_label"))
+    {
+      produces<PtrVector<int>>();
+    }
+
+  private:
+    void produce(Event& e) override;
+
+    std::string const input_label_;
+  }; // PtrVectorProducer
 }
 
-using arttest::PtrVectorProducer;
-
-// ----------------------------------------------------------------------
-
-class arttest::PtrVectorProducer : public art::EDProducer {
-public:
-  using intvector_t = std::vector<int>;
-  using product_t = art::PtrVector<int>;
-
-  explicit PtrVectorProducer(fhicl::ParameterSet const& p)
-    : EDProducer{p}, input_label_(p.get<std::string>("input_label"))
-  {
-    produces<product_t>();
-  }
-
-private:
-  void produce(art::Event& e) override;
-
-  std::string const input_label_;
-
-}; // PtrVectorProducer
-
-// ----------------------------------------------------------------------
-
 void
-PtrVectorProducer::produce(art::Event& e)
+art::test::PtrVectorProducer::produce(Event& e)
 {
-  std::cerr << "PtrVectorProducer::produce is running!\n";
+  auto h = e.getHandle<std::vector<int>>(input_label_);
 
-  auto h = e.getHandle<intvector_t>(input_label_);
-
-  auto prod = std::make_unique<product_t>();
+  auto prod = std::make_unique<PtrVector<int>>();
   for (int k = 0; k != 8; ++k) {
-    art::Ptr<int> p(h, 7 - k);
-    prod->push_back(p);
+    prod->emplace_back(h, 7 - k);
   }
   prod->sort();
 
   e.put(move(prod));
 }
 
-// ----------------------------------------------------------------------
-
-DEFINE_ART_MODULE(PtrVectorProducer)
-
-// ======================================================================
+DEFINE_ART_MODULE(art::test::PtrVectorProducer)

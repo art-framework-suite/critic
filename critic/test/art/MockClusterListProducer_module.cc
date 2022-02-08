@@ -51,8 +51,7 @@ MockClusterListProducer::produce(art::Event& e)
   arttest::MockCluster c1;
   c1.skew = 1;
   for (unsigned k = 0; k < (nvalues_ / 2); ++k) {
-    art::Ptr<SimpleDerived> p(h, k);
-    c1.cells.push_back(p);
+    c1.cells.emplace_back(h, k);
   }
   c1.eNum = e.id().event();
   prod->push_back(c1);
@@ -60,8 +59,7 @@ MockClusterListProducer::produce(art::Event& e)
   arttest::MockCluster c2;
   c2.skew = 2;
   for (unsigned k = nvalues_ / 2; k < nvalues_; ++k) {
-    art::Ptr<SimpleDerived> p(h, k);
-    c2.cells.push_back(p);
+    c2.cells.emplace_back(h, k);
   }
   c2.eNum = e.id().event() + 1;
   prod->push_back(c2);

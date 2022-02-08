@@ -42,7 +42,7 @@ arttest::DeferredIsReadyWithAssnsAnalyzer::analyze(art::Event const& e)
   art::PtrVector<size_t> pv;
   pv.reserve(h->size());
   for (size_t i = 0, e = h->size(); i != e; ++i) {
-    pv.push_back(art::Ptr<size_t>(h, i));
+    pv.emplace_back(h, i);
   }
   art::FindMany<std::string, arttest::AssnTestData> fmp(pv, e, inputLabel_);
   for (size_t i = 0, sz = fmp.size(); i != sz; ++i) {

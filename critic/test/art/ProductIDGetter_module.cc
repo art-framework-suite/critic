@@ -58,7 +58,7 @@ art::test::ProductIDGetter::beginSubRun(SubRun& sr)
 
   // New-style way of making Ptr to product inserted in the same module.
   auto h = sr.put(move(vip), fullSubRun());
-  Ptr<int> const ptr_check{h, 2};
+  Ptr const ptr_check{h, 2};
   BOOST_TEST_REQUIRE(ptr->id() == ptr_check.id());
 
   // Ptr and Handle available for use even now
@@ -92,7 +92,7 @@ art::test::ProductIDGetter::produce(Event& e)
 
   // New-style way of making Ptr to product inserted in the same module.
   auto h = e.put(move(vip));
-  Ptr<int> const ptr_check{h, 2};
+  Ptr const ptr_check{h, 2};
   BOOST_TEST_REQUIRE(ptr->id() == ptr_check.id());
 
   // Ptr and Handle available for use even now

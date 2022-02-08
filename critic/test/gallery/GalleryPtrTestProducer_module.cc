@@ -76,63 +76,52 @@ namespace critictest {
     auto const hint1 = event.getValidHandle(int1Token_);
     auto const hint2 = event.getValidHandle(int2Token_);
     auto const hint3 = event.getValidHandle(int3Token_);
-    testProduct->ptrInt1 = art::Ptr<int>{hint1, 0};
-    testProduct->ptrInt2 = art::Ptr<int>{hint2, 1};
-    testProduct->ptrInt3 = art::Ptr<int>{hint3, 2};
+    testProduct->ptrInt1 = {hint1, 0};
+    testProduct->ptrInt2 = {hint2, 1};
+    testProduct->ptrInt3 = {hint3, 2};
 
     auto const hSimpleDerived1 = event.getValidHandle(simpleDerived1Token_);
     auto const hSimpleDerived2 = event.getValidHandle(simpleDerived2Token_);
     auto const hSimpleDerived3 = event.getValidHandle(simpleDerived3Token_);
-    testProduct->ptrSimple1 = art::Ptr<Simple>{hSimpleDerived1, 0};
-    testProduct->ptrSimple2 = art::Ptr<Simple>{hSimpleDerived2, 1};
-    testProduct->ptrSimple3 = art::Ptr<Simple>{hSimpleDerived3, 2};
+    testProduct->ptrSimple1 = {hSimpleDerived1, 0};
+    testProduct->ptrSimple2 = {hSimpleDerived2, 1};
+    testProduct->ptrSimple3 = {hSimpleDerived3, 2};
 
-    testProduct->ptrSimpleDerived1 =
-      art::Ptr<SimpleDerived>{hSimpleDerived1, 0};
-    testProduct->ptrSimpleDerived2 =
-      art::Ptr<SimpleDerived>{hSimpleDerived2, 1};
-    testProduct->ptrSimpleDerived3 =
-      art::Ptr<SimpleDerived>{hSimpleDerived3, 2};
+    testProduct->ptrSimpleDerived1 = {hSimpleDerived1, 0};
+    testProduct->ptrSimpleDerived2 = {hSimpleDerived2, 1};
+    testProduct->ptrSimpleDerived3 = {hSimpleDerived3, 2};
 
-    testProduct->ptrVectorInt.push_back(art::Ptr<int>{hint1, 0});
-    testProduct->ptrVectorInt.push_back(art::Ptr<int>{hint1, 2});
+    testProduct->ptrVectorInt.emplace_back(hint1, 0);
+    testProduct->ptrVectorInt.emplace_back(hint1, 2);
 
-    testProduct->ptrVectorSimple.push_back(
-      art::Ptr<Simple>{hSimpleDerived1, 0});
-    testProduct->ptrVectorSimple.push_back(
-      art::Ptr<Simple>{hSimpleDerived1, 2});
+    testProduct->ptrVectorSimple.emplace_back(hSimpleDerived1, 0);
+    testProduct->ptrVectorSimple.emplace_back(hSimpleDerived1, 2);
 
-    testProduct->ptrVectorSimpleDerived.push_back(
-      art::Ptr<SimpleDerived>{hSimpleDerived1, 0});
-    testProduct->ptrVectorSimpleDerived.push_back(
-      art::Ptr<SimpleDerived>{hSimpleDerived1, 2});
+    testProduct->ptrVectorSimpleDerived.emplace_back(hSimpleDerived1, 0);
+    testProduct->ptrVectorSimpleDerived.emplace_back(hSimpleDerived1, 2);
 
     auto const hDrop = event.getValidHandle(dropToken_);
-    testProduct->ptrIntoContainerToBeDropped = art::Ptr<int>{hDrop, 1};
-    testProduct->invalidPtr = art::Ptr<int>{};
+    testProduct->ptrIntoContainerToBeDropped = {hDrop, 1};
+    testProduct->invalidPtr = {};
 
     event.put(move(testProduct));
 
     auto const hVStringProduct = event.getValidHandle(stringProductToken_);
     if (produceAssnStringInt_) {
       auto assnsAB = std::make_unique<AssnsAB_t>();
-      assnsAB->addSingle(art::Ptr<StringProduct>{hVStringProduct, 0},
-                         art::Ptr<int>{hint1, 1},
-                         LiteAssnTestData{0, 1, "A"});
-      assnsAB->addSingle(art::Ptr<StringProduct>{hVStringProduct, 1},
-                         art::Ptr<int>{hint1, 2},
-                         LiteAssnTestData{1, 2, "B"});
+      assnsAB->addSingle(
+        {hVStringProduct, 0}, {hint1, 1}, LiteAssnTestData{0, 1, "A"});
+      assnsAB->addSingle(
+        {hVStringProduct, 1}, {hint1, 2}, LiteAssnTestData{1, 2, "B"});
       event.put(move(assnsAB));
     }
 
     if (produceAssnIntString_) {
       auto assnsBA = std::make_unique<AssnsBA_t>();
-      assnsBA->addSingle(art::Ptr<int>{hint1, 2},
-                         art::Ptr<StringProduct>{hVStringProduct, 2},
-                         LiteAssnTestData{1, 2, "C"});
-      assnsBA->addSingle(art::Ptr<int>{hint1, 1},
-                         art::Ptr<StringProduct>{hVStringProduct, 0},
-                         LiteAssnTestData{1, 2, "D"});
+      assnsBA->addSingle(
+        {hint1, 2}, {hVStringProduct, 2}, LiteAssnTestData{1, 2, "C"});
+      assnsBA->addSingle(
+        {hint1, 1}, {hVStringProduct, 0}, LiteAssnTestData{1, 2, "D"});
       event.put(move(assnsBA));
     }
   }
