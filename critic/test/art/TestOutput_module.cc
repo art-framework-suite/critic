@@ -35,9 +35,7 @@ private:
 };
 
 arttest::TestOutput::TestOutput(arttest::TestOutput::Parameters const& ps)
-  : art::OutputModule(ps().omConfig, ps.get_PSet())
-  , num_pass_{ps().shouldPass()}
-  , total_{0u}
+  : OutputModule{ps().omConfig}, num_pass_{ps().shouldPass()}, total_{0u}
 {}
 
 void

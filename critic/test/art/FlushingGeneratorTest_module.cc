@@ -42,9 +42,8 @@ public:
 private:
 };
 
-arttest::FlushingGeneratorTest::FlushingGeneratorTest(
-  arttest::FlushingGeneratorTest::Parameters const& p)
-  : OutputModule(p().omConfig, p.get_PSet())
+arttest::FlushingGeneratorTest::FlushingGeneratorTest(Parameters const& p)
+  : OutputModule(p().omConfig)
 {}
 
 void

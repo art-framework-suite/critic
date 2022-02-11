@@ -85,7 +85,7 @@ private:
 // -----------------------------------------------------------------
 
 arttest::TestBitsOutput::TestBitsOutput(Parameters const& ps)
-  : OutputModule{ps().omConfig, ps.get_PSet()}
+  : OutputModule{ps().omConfig}
   , bitMask_{ps().bitMask()}
   , expectTriggerResults_{ps().expectTriggerResults()}
 {}
