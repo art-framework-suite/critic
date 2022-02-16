@@ -42,14 +42,14 @@ private:
 };
 
 namespace {
-  typedef size_t A_t;
-  typedef std::string B_t;
-  typedef art::Assns<size_t, std::string, arttest::AssnTestData> AssnsABX_t;
-  typedef art::Assns<std::string, size_t, arttest::AssnTestData> AssnsBAX_t;
-  typedef art::Assns<size_t, std::string, std::string> AssnsABY_t;
-  typedef art::Assns<std::string, size_t, std::string> AssnsBAY_t;
-  typedef art::Assns<size_t, std::string> AssnsABV_t;
-  typedef art::Assns<std::string, size_t> AssnsBAV_t;
+  using A_t = size_t;
+  using B_t = std::string;
+  using AssnsABX_t = art::Assns<size_t, std::string, arttest::AssnTestData>;
+  using AssnsBAX_t = art::Assns<std::string, size_t, arttest::AssnTestData>;
+  using AssnsABY_t = art::Assns<size_t, std::string, std::string>;
+  using AssnsBAY_t = art::Assns<std::string, size_t, std::string>;
+  using AssnsABV_t = art::Assns<size_t, std::string>;
+  using AssnsBAV_t = art::Assns<std::string, size_t>;
 } // namespace
 
 using namespace std::string_literals;

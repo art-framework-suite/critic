@@ -28,7 +28,7 @@ using arttest::MockClusterListAnalyzer;
 //
 class arttest::MockClusterListAnalyzer : public art::EDAnalyzer {
 public:
-  typedef std::vector<arttest::SimpleDerived> SimpleDerivedProduct;
+  using SimpleDerivedProduct = std::vector<arttest::SimpleDerived>;
 
   explicit MockClusterListAnalyzer(fhicl::ParameterSet const& p)
     : art::EDAnalyzer(p)

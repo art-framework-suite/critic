@@ -7,7 +7,6 @@
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
 #include "canvas/Persistency/Provenance/BranchType.h"
-#include "cetlib/metaprogramming.h"
 #include "cetlib_except/exception.h"
 #include "critic/test/art/RunTimeConsumes.h"
 #include "fhiclcpp/ParameterSet.h"
@@ -16,41 +15,29 @@
 #include <string>
 #include <type_traits>
 
-namespace arttest {
+namespace art::test {
   template <typename V, typename P>
   class GenericOneSimpleProductAnalyzer;
   namespace detail {
 
-    // All this detail is to decide whether our product P has a "value"
-    // member or is (effectively) convertible-to-V.
+    // Metaprogramming to decide whether our product P has a "value"
+    // member and that is convertible to V.
 
-    template <typename V, typename P, V P::*>
-    struct value_member;
-    template <typename V, typename P>
-    cet::no_tag has_value_helper(...);
-    template <typename V, typename P>
-    cet::yes_tag has_value_helper(value_member<V, P, &P::value>* x);
+    template <typename V, typename P, typename = void>
+    struct has_value_member : std::false_type {};
 
     template <typename V, typename P>
-    struct has_value_member {
-      static bool constexpr value{sizeof(has_value_helper<V, P>(nullptr)) ==
-                                  sizeof(cet::yes_tag)};
-    };
-
-    template <typename V, typename P>
-    struct GetValue {
-      V const&
-      operator()(art::Handle<P> const& h)
-      {
-        return h->value;
-      }
-    };
+    struct has_value_member<
+      V,
+      P,
+      std::void_t<decltype(std::declval<V>() = std::declval<P>().value)>>
+      : std::true_type {};
 
   } // namespace detail
-} // namespace arttest
+} // namespace art::test
 
 template <typename V, typename P>
-class arttest::GenericOneSimpleProductAnalyzer : public art::EDAnalyzer {
+class art::test::GenericOneSimpleProductAnalyzer : public EDAnalyzer {
 public:
   struct Config {
 
@@ -78,23 +65,21 @@ public:
     fhicl::Atom<V> expected_value;
   };
 
-  using Parameters = EDAnalyzer::Table<Config>;
+  using Parameters = Table<Config>;
   GenericOneSimpleProductAnalyzer(Parameters const& ps)
     : EDAnalyzer{ps}
     , input_label_{ps().input_label()}
-    , branch_type_{art::BranchType(ps().branch_type())}
+    , branch_type_{BranchType(ps().branch_type())}
     , require_presence_{ps().require_presence()}
   {
-    art::test::run_time_consumes<P>(
-      consumesCollector(), branch_type_, input_label_);
+    run_time_consumes<P>(consumesCollector(), branch_type_, input_label_);
     if (require_presence_) {
       value_ = ps().expected_value();
     }
   }
 
   void
-  verify_value(art::BranchType const bt [[maybe_unused]],
-               art::Handle<P> const& h) const
+  verify_value(BranchType const bt [[maybe_unused]], Handle<P> const& h) const
   {
     if constexpr (detail::has_value_member<V, P>::value) {
       if (h->value == value_) {
@@ -107,45 +92,45 @@ public:
   }
 
   void
-  analyze(art::Event const& e) override
+  analyze(Event const& e) override
   {
-    if (branch_type_ != art::InEvent)
+    if (branch_type_ != InEvent)
       return;
     auto handle = e.getHandle<P>(input_label_);
     assert(handle.isValid() == require_presence_);
     if (require_presence_) {
-      verify_value(art::InEvent, handle);
+      verify_value(InEvent, handle);
     }
   }
 
   void
-  endSubRun(art::SubRun const& sr) override
+  endSubRun(SubRun const& sr) override
   {
-    if (branch_type_ != art::InSubRun)
+    if (branch_type_ != InSubRun)
       return;
     auto handle = sr.getHandle<P>(input_label_);
     assert(handle.isValid() == require_presence_);
     if (require_presence_) {
-      verify_value(art::InSubRun, handle);
+      verify_value(InSubRun, handle);
     }
   }
 
   void
-  endRun(art::Run const& r) override
+  endRun(Run const& r) override
   {
-    if (branch_type_ != art::InRun)
+    if (branch_type_ != InRun)
       return;
     auto handle = r.getHandle<P>(input_label_);
     assert(handle.isValid() == require_presence_);
     if (require_presence_) {
-      verify_value(art::InRun, handle);
+      verify_value(InRun, handle);
     }
   }
 
 private:
   V value_{};
   std::string input_label_;
-  art::BranchType branch_type_;
+  BranchType branch_type_;
   bool require_presence_;
 };
 

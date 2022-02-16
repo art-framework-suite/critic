@@ -7,4 +7,3 @@ arttest::SimpleServiceTest::verifyStatus() const
 {
   return true;
 }
-

@@ -25,7 +25,7 @@ using namespace art;
 class arttest::ToyRawInputTester : public art::EDAnalyzer {
 public:
   explicit ToyRawInputTester(fhicl::ParameterSet const& p)
-    : art::EDAnalyzer{p}, fileNames_{p.get<strings>("fileNames")}, pset_{p}
+    : EDAnalyzer{p}, fileNames_{p.get<strings>("fileNames")}, pset_{p}
   {
     numFilesExpected_ = fileNames_.size();
     ostringstream expected;

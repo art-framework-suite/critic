@@ -25,8 +25,8 @@ namespace arttest {
 }
 
 namespace {
-  typedef cet::map_vector<std::string> mv_t;
-  typedef typename mv_t::value_type mvp_t;
+  using mv_t = cet::map_vector<std::string>;
+  using mvp_t = mv_t::value_type;
 } // namespace
 
 class arttest::PtrmvAnalyzer : public art::EDAnalyzer {

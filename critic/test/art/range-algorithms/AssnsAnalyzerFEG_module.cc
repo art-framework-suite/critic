@@ -23,9 +23,9 @@
 
 class AssnsAnalyzerFEG : public art::EDAnalyzer {
 public:
-  typedef std::vector<int> intvec_t;
-  typedef std::vector<std::string> strvec_t;
-  typedef art::Assns<std::string, int> strintAssns_t;
+  using intvec_t = std::vector<int>;
+  using strvec_t = std::vector<std::string>;
+  using strintAssns_t = art::Assns<std::string, int>;
 
   explicit AssnsAnalyzerFEG(fhicl::ParameterSet const& p);
 
