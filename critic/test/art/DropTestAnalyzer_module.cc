@@ -10,7 +10,6 @@
 #include "boost/test/unit_test.hpp"
 
 #include "art/Framework/Core/EDAnalyzer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "canvas/Persistency/Common/Ptr.h"
 #include "fhiclcpp/types/Atom.h"

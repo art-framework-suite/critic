@@ -2,7 +2,6 @@
 // Empty module just to test timeTracker stuff
 //--------------------------------------------------------------------
 
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/ReplicatedProducer.h"
 #include "art/Framework/Principal/fwd.h"
 

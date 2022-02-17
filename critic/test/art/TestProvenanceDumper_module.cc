@@ -1,6 +1,5 @@
 #include "boost/test/unit_test.hpp"
 
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Modules/ProvenanceDumper.h"
 #include "cetlib/container_algorithms.h"
 

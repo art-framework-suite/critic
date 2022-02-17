@@ -14,7 +14,6 @@
 
 #include "boost/test/unit_test.hpp"
 
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/ReplicatedAnalyzer.h"
 
 #include "CLHEP/Random/RandFlat.h"

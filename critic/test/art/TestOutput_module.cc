@@ -1,4 +1,3 @@
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/OutputModule.h"
 #include "cetlib_except/exception.h"
 #include "fhiclcpp/types/Atom.h"

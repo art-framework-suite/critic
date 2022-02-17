@@ -1,5 +1,4 @@
 // vim: set sw=2 expandtab :
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/SharedFilter.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/SubRun.h"

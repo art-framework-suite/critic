@@ -1,6 +1,5 @@
 // vim: set sw=2 expandtab :
 #include "art/Framework/Core/EDFilter.h"
-#include "art/Framework/Core/ModuleMacros.h"
 
 #include <cmath>
 

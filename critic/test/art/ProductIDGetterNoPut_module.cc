@@ -7,7 +7,6 @@
 #include "boost/test/unit_test.hpp"
 
 #include "art/Framework/Core/EDProducer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "canvas/Persistency/Provenance/ProductID.h"
 
