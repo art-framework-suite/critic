@@ -15,7 +15,6 @@
 #include "canvas/Persistency/Common/FindOne.h"
 #include "canvas/Persistency/Common/FindOneP.h"
 #include "canvas/Persistency/Common/Ptr.h"
-#include "canvas/Persistency/Common/detail/is_handle.h"
 #include "canvas/Utilities/InputTag.h"
 #include "cetlib/maybe_ref.h"
 #include "critic/test/CriticTestObjects/LiteAssnTestData.h"
