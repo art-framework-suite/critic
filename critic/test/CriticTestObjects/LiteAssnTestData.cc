@@ -7,3 +7,18 @@ critictest::operator<<(std::ostream& os, LiteAssnTestData const& item)
      << ", d2: " << item.d2;
   return os;
 }
+
+bool
+critictest::operator==(LiteAssnTestData const& left,
+                       LiteAssnTestData const& right)
+{
+  return (left.d1 == right.d1) && (left.d2 == right.d2) &&
+         (left.label == right.label);
+}
+
+inline bool
+critictest::operator!=(LiteAssnTestData const& left,
+                       LiteAssnTestData const& right)
+{
+  return !(left == right);
+}

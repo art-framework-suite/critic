@@ -1,5 +1,4 @@
 #include "art/Framework/Core/EDAnalyzer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Utilities/ScheduleID.h"
 
 #include <iostream>

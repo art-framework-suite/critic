@@ -8,7 +8,6 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/EDProducer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Handle.h"
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
@@ -62,7 +61,7 @@ arttest::HMRunProdProducer::endSubRun(art::SubRun& sr)
     } else {
       data_[i] = std::make_unique<HMLargeData>(*h);
     }
-    assert(sr.removeCachedProduct(h)); // Save the space.
+    assert(h.removeProduct()); // Save the space.
   }
 }
 

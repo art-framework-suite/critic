@@ -7,7 +7,6 @@
 // from cetpkgsupport v1_01_00.
 ////////////////////////////////////////////////////////////////////////
 
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/OutputModule.h"
 #include "art/Framework/Principal/EventPrincipal.h"
 #include "art/Framework/Principal/RunPrincipal.h"
@@ -42,9 +41,8 @@ public:
 private:
 };
 
-arttest::FlushingGeneratorTest::FlushingGeneratorTest(
-  arttest::FlushingGeneratorTest::Parameters const& p)
-  : OutputModule(p().omConfig, p.get_PSet())
+arttest::FlushingGeneratorTest::FlushingGeneratorTest(Parameters const& p)
+  : OutputModule(p().omConfig)
 {}
 
 void

@@ -8,7 +8,6 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/EDProducer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "canvas/Persistency/Common/Ptr.h"
 #include "canvas/Persistency/Common/PtrVector.h"
@@ -55,27 +54,25 @@ arttest::PtrmvProducer::produce(art::Event& e)
   (*mv)[cet::map_vector_key(5)] = "THREE";
   (*mv)[cet::map_vector_key(7)] = "FOUR";
 
-  art::ProductID const mvID{e.put(std::move(mv))};
-
-  e.put(
-    std::make_unique<art::Ptr<std::string>>(mvID, 3, e.productGetter(mvID)));
+  auto h = e.put(std::move(mv));
+  e.put(std::make_unique<art::Ptr<std::string>>(h, 3));
 
   auto pv = std::make_unique<art::PtrVector<std::string>>();
   pv->reserve(4);
-  pv->push_back(art::Ptr<std::string>{mvID, 5, e.productGetter(mvID)});
-  pv->push_back(art::Ptr<std::string>{mvID, 0, e.productGetter(mvID)});
-  pv->push_back(art::Ptr<std::string>{mvID, 7, e.productGetter(mvID)});
-  pv->push_back(art::Ptr<std::string>{mvID, 3, e.productGetter(mvID)});
+  pv->emplace_back(h, 5);
+  pv->emplace_back(h, 0);
+  pv->emplace_back(h, 7);
+  pv->emplace_back(h, 3);
 
   e.put(std::move(pv));
-  e.put(std::make_unique<art::Ptr<mvp_t>>(mvID, 3, e.productGetter(mvID)));
+  e.put(std::make_unique<art::Ptr<mvp_t>>(h, 3));
 
   auto pvp = std::make_unique<art::PtrVector<mvp_t>>();
   pvp->reserve(4);
-  pvp->push_back(art::Ptr<mvp_t>{mvID, 5, e.productGetter(mvID)});
-  pvp->push_back(art::Ptr<mvp_t>{mvID, 0, e.productGetter(mvID)});
-  pvp->push_back(art::Ptr<mvp_t>{mvID, 7, e.productGetter(mvID)});
-  pvp->push_back(art::Ptr<mvp_t>{mvID, 3, e.productGetter(mvID)});
+  pvp->emplace_back(h, 5);
+  pvp->emplace_back(h, 0);
+  pvp->emplace_back(h, 7);
+  pvp->emplace_back(h, 3);
 
   e.put(std::move(pvp));
 }

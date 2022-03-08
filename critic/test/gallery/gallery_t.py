@@ -101,14 +101,6 @@ while not ev.atEnd():
   # This will throw because the product was dropped.
   # x = ptrTestProduct.ptrIntoContainerToBeDropped.get()
 
-  assert(not ptrTestProduct.nullPtr and
-         ptrTestProduct.nullPtr.isAvailable() and
-         ptrTestProduct.nullPtr.isNull())
-
-  assert(not ptrTestProduct.nullDroppedPtr and
-         not ptrTestProduct.nullDroppedPtr.isAvailable() and
-         ptrTestProduct.nullDroppedPtr.isNull())
-
   assert(not ptrTestProduct.invalidPtr and
          not ptrTestProduct.invalidPtr.isAvailable() and
          ptrTestProduct.invalidPtr.isNull())

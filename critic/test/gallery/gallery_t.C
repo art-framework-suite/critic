@@ -1,4 +1,3 @@
-
 void
 print_and_abort(std::string const& msg = std::string(""))
 {
@@ -177,26 +176,6 @@ gallery_t()
     // } catch (art::Exception const&) {
     // }
     // assert(exceptionThrown);
-
-    if (!(!ptrTestProduct->nullPtr && ptrTestProduct->nullPtr.isAvailable() &&
-          ptrTestProduct->nullPtr.isNull()))
-      print_and_abort("138");
-
-    // I chose not to test the behavior if a null or invalid Ptr is
-    // dereferenced. As of this writing the behavior is this:
-    //
-    // Ptr::get() will return a null pointer for a null or invalid Ptr
-    // Ptr::operator*() will dereference whatever "get" returns (so segfault)
-    // Ptr::operator->() throws an exception for invalid Ptrs and
-    // I am guessing undefined behavior for null Ptrs
-    //
-    // This is all in the Ptr class and really has nothing to do with
-    // gallery. The same behavior should exist in the full art framework.
-
-    if (!(!ptrTestProduct->nullDroppedPtr &&
-          !ptrTestProduct->nullDroppedPtr.isAvailable() &&
-          ptrTestProduct->nullDroppedPtr.isNull()))
-      print_and_abort("139");
 
     // Note some of the documentation says an invalid Ptr is nonNull,
     // but that is not the way the Ptr class is written.

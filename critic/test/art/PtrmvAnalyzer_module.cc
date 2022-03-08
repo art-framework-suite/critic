@@ -10,7 +10,6 @@
 #include "boost/test/unit_test.hpp"
 
 #include "art/Framework/Core/EDAnalyzer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"
 #include "canvas/Persistency/Common/Ptr.h"
@@ -25,8 +24,8 @@ namespace arttest {
 }
 
 namespace {
-  typedef cet::map_vector<std::string> mv_t;
-  typedef typename mv_t::value_type mvp_t;
+  using mv_t = cet::map_vector<std::string>;
+  using mvp_t = mv_t::value_type;
 } // namespace
 
 class arttest::PtrmvAnalyzer : public art::EDAnalyzer {

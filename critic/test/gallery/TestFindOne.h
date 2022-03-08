@@ -15,7 +15,6 @@
 #include "canvas/Persistency/Common/FindOne.h"
 #include "canvas/Persistency/Common/FindOneP.h"
 #include "canvas/Persistency/Common/Ptr.h"
-#include "canvas/Persistency/Common/detail/is_handle.h"
 #include "canvas/Utilities/InputTag.h"
 #include "cetlib/maybe_ref.h"
 #include "critic/test/CriticTestObjects/LiteAssnTestData.h"
@@ -49,14 +48,12 @@ namespace critictest {
 
 namespace {
 
-  typedef int A_t;
-  typedef arttest::StringProduct B_t;
-  typedef art::Assns<int, arttest::StringProduct, critictest::LiteAssnTestData>
-    AssnsAB_t;
-  typedef art::Assns<arttest::StringProduct, int, critictest::LiteAssnTestData>
-    AssnsBA_t;
-  typedef art::Assns<int, arttest::StringProduct> AssnsABV_t;
-  typedef art::Assns<arttest::StringProduct, int> AssnsBAV_t;
+  using A_t = int;
+  using B_t = arttest::StringProduct;
+  using AssnsAB_t = art::Assns<A_t, B_t, critictest::LiteAssnTestData>;
+  using AssnsBA_t = art::Assns<B_t, A_t, critictest::LiteAssnTestData>;
+  using AssnsABV_t = art::Assns<A_t, B_t>;
+  using AssnsBAV_t = art::Assns<B_t, A_t>;
 
   // function template to allow us to dereference both maybe_ref<T>
   // objects and objects that have an operator*.
@@ -65,8 +62,7 @@ namespace {
 
   // Common case, can dereference (eg Ptr<T>).
   template <typename T, template <typename> class WRAP>
-  typename std::enable_if<boost::has_dereference<WRAP<T>>::value,
-                          T const&>::type
+  std::enable_if_t<boost::has_dereference<WRAP<T>>::value, T const&>
   dereference(WRAP<T> const& wrapper)
   {
     return *wrapper;
@@ -74,8 +70,7 @@ namespace {
 
   // maybe_ref<T>.
   template <typename T, template <typename> class WRAP>
-  typename std::enable_if<std::is_same<WRAP<T>, cet::maybe_ref<T>>::value,
-                          T const&>::type
+  std::enable_if_t<std::is_same_v<WRAP<T>, cet::maybe_ref<T>>, T const&>
   dereference(WRAP<T> const& wrapper)
   {
     return wrapper.ref();
@@ -117,31 +112,28 @@ namespace {
 
   // check_get specialized for FindOne
   template <typename T, typename D, template <typename, typename> class FO>
-  typename std::enable_if<
-    std::is_same<FO<T, void>, art::FindOne<T, void>>::value>::type
+  std::enable_if_t<std::is_same_v<FO<T, void>, art::FindOne<T, void>>>
   check_get(FO<T, D> const& fA, FO<T, void> const& fAV)
   {
-    typedef cet::maybe_ref<typename FO<T, void>::assoc_t const> item_t;
-    typedef cet::maybe_ref<typename FO<T, D>::data_t const> data_t;
+    using item_t = cet::maybe_ref<typename FO<T, void>::assoc_t const>;
+    using data_t = cet::maybe_ref<typename FO<T, D>::data_t const>;
     check_get_one_impl<item_t, data_t>(fA, fAV);
   }
 
   // check_get specialized for FindOneP
   template <typename T, typename D, template <typename, typename> class FO>
-  typename std::enable_if<
-    std::is_same<FO<T, void>, art::FindOneP<T, void>>::value>::type
+  std::enable_if_t<std::is_same_v<FO<T, void>, art::FindOneP<T, void>>>
   check_get(FO<T, D> const& fA, FO<T, void> const& fAV)
   {
-    typedef art::Ptr<typename FO<T, void>::assoc_t> item_t;
-    typedef cet::maybe_ref<typename FO<T, D>::data_t const> data_t;
+    using item_t = art::Ptr<typename FO<T, void>::assoc_t>;
+    using data_t = cet::maybe_ref<typename FO<T, D>::data_t const>;
     check_get_one_impl<item_t, data_t>(fA, fAV);
   }
 
   // check_get specialized for FindMany and FindManyP
   template <typename T, typename D, template <typename, typename> class FM>
-  typename std::enable_if<
-    std::is_same<FM<T, void>, art::FindMany<T, void>>::value ||
-    std::is_same<FM<T, void>, art::FindManyP<T, void>>::value>::type
+  std::enable_if_t<std::is_same_v<FM<T, void>, art::FindMany<T, void>> ||
+                   std::is_same_v<FM<T, void>, art::FindManyP<T, void>>>
   check_get(FM<T, D> const& fA, FM<T, void> const& fAV)
   {
     typename FM<T, void>::value_type item;
@@ -170,8 +162,8 @@ void
 critictest::TestFindOne::testOne(gallery::Event const& e) const
 {
   static constexpr bool isFOP =
-    std::is_same<typename FO<B_t>::value_type,
-                 art::Ptr<typename FO<B_t>::assoc_t>>::value;
+    std::is_same_v<typename FO<B_t>::value_type,
+                   art::Ptr<typename FO<B_t>::assoc_t>>;
   bool const extendedTestsOK = isFOP || (!bCollMissing_);
   gallery::Handle<AssnsAB_t> hAB;
   gallery::Handle<AssnsBA_t> hBA;

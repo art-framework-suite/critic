@@ -24,6 +24,8 @@ cet_build_plugin(MockClusterListAnalyzer art::module NO_INSTALL)
 cet_build_plugin(MockClusterListProducer art::module NO_INSTALL)
 cet_build_plugin(ProductIDGetter art::module USE_BOOST_UNIT NO_INSTALL)
 cet_build_plugin(ProductIDGetterAnalyzer art::module USE_BOOST_UNIT NO_INSTALL)
+cet_build_plugin(ProductPtrAnalyzer art::module USE_BOOST_UNIT NO_INSTALL)
+cet_build_plugin(ProductPtrProducer art::module NO_INSTALL)
 cet_build_plugin(PtrmvAnalyzer art::module USE_BOOST_UNIT NO_INSTALL)
 cet_build_plugin(PtrmvProducer art::module NO_INSTALL)
 cet_build_plugin(PtrVectorSimpleAnalyzer art::module NO_INSTALL)
@@ -61,10 +63,10 @@ cet_build_plugin(GeneratorTest art::source NO_INSTALL)
 cet_build_plugin(ImplicitRSAssignmentAnalyzer art::module NO_INSTALL USE_BOOST_UNIT)
 cet_build_plugin(ImplicitRSAssignmentProducer art::module NO_INSTALL USE_BOOST_UNIT)
 cet_build_plugin(IntsVerifier art::module NO_INSTALL)
-cet_build_plugin(MessagePrinter art::tool   NO_INSTALL)
+cet_build_plugin(MessagePrinter art::tool NO_INSTALL)
 cet_build_plugin(ProductIDGetterNoPut art::module NO_INSTALL USE_BOOST_UNIT)
 cet_build_plugin(PtrListAnalyzer art::module NO_INSTALL)
-cet_build_plugin(ReadNextArbitrator art::tool   NO_INSTALL LIBRARIES PRIVATE fhiclcpp::types fhiclcpp::fhiclcpp)
+cet_build_plugin(ReadNextArbitrator art::tool NO_INSTALL LIBRARIES PRIVATE fhiclcpp::types fhiclcpp::fhiclcpp)
 
 cet_build_plugin(SAMMetadataConcurrentTest art::module NO_INSTALL USE_BOOST_UNIT
   LIBRARIES PRIVATE
@@ -245,8 +247,7 @@ foreach(num IN ITEMS 01 02 03)
     TEST_ARGS -c ToyProductProducerMultiput_t_${num}.fcl
     DATAFILES fcl/ToyProductProducerMultiput_t_${num}.fcl
     TEST_PROPERTIES
-    PASS_REGULAR_EXPRESSION "Attempt to put multiple products with the"
-    PASS_REGULAR_EXPRESSION "following description onto the")
+    PASS_REGULAR_EXPRESSION "Attempt to put multiple products with the following descriptions")
 endforeach()
 
 cet_test(ProductIDGetter_t HANDBUILT
@@ -367,6 +368,8 @@ foreach(SIGNAL IN ITEMS sigint sigquit sigterm sigusr2)
     OUTPUT_FILTERS "filter-updated-summary")
 endforeach()
 
+# Implicit RangeSet assignment is deprecated and will be removed in a
+# future version of art.
 cet_test(ImplicitRSAssignment_t HANDBUILT
   TEST_EXEC art_ut
   TEST_ARGS -- --config implicitRSAssignment_t.fcl

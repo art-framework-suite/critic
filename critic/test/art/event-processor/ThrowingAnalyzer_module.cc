@@ -1,5 +1,4 @@
 #include "art/Framework/Core/EDAnalyzer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "canvas/Utilities/Exception.h"
 #include "critic/test/art/EnsureNoModulesAtEndOfJob.h"

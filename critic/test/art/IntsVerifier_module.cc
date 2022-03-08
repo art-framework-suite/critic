@@ -1,4 +1,3 @@
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/SharedProducer.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"

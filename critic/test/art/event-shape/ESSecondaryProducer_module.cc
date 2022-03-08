@@ -8,7 +8,6 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/EDProducer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"
 #include "critic/test/art/event-shape/ESPtrSimple.h"
@@ -49,7 +48,7 @@ arttest::ESSecondaryProducer::produce(art::Event& e)
       << "Specified index " << index_ << "is invalid for loaded product.";
   }
   e.put(std::make_unique<arttest::ESPtrSimple>(
-    arttest::ESPtrSimple{art::Ptr<arttest::Simple>(h, index_)}));
+    arttest::ESPtrSimple{art::Ptr{h, index_}}));
   e.put(std::make_unique<arttest::IntProduct>(static_cast<int>(h->size())));
 }
 

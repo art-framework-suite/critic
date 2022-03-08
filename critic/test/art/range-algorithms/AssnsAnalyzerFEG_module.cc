@@ -8,7 +8,6 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/EDAnalyzer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"
 #include "art/Framework/Principal/Run.h"
@@ -23,9 +22,9 @@
 
 class AssnsAnalyzerFEG : public art::EDAnalyzer {
 public:
-  typedef std::vector<int> intvec_t;
-  typedef std::vector<std::string> strvec_t;
-  typedef art::Assns<std::string, int> strintAssns_t;
+  using intvec_t = std::vector<int>;
+  using strvec_t = std::vector<std::string>;
+  using strintAssns_t = art::Assns<std::string, int>;
 
   explicit AssnsAnalyzerFEG(fhicl::ParameterSet const& p);
 
@@ -54,8 +53,8 @@ AssnsAnalyzerFEG::analyze(art::Event const& e)
 void
 AssnsAnalyzerFEG::for_each_group_test(art::Event const& e) const
 {
-  typedef art::Assns<int, std::string> istr_assns;
-  auto const& int_to_str_assns = e.getProduct<istr_assns>(fInputLabel);
+  auto const& int_to_str_assns =
+    e.getProduct<art::Assns<int, std::string>>(fInputLabel);
   auto vs = strvec_t{"one", "one-a", "two", "two-a", "three", "three-a"};
 
   strvec_t strvec;

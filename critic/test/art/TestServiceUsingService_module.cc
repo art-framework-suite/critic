@@ -1,7 +1,6 @@
 #include "boost/test/unit_test.hpp"
 
 #include "art/Framework/Core/EDAnalyzer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "critic/test/art/ServiceUsing.h"
 #include "critic/test/art/Wanted.h"

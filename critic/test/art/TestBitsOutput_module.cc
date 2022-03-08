@@ -1,6 +1,6 @@
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Core/OutputModule.h"
 #include "art/Framework/Principal/Event.h"
+#include "art/Framework/Principal/EventPrincipal.h"
 #include "art/Framework/Principal/Handle.h"
 #include "art/Persistency/Provenance/ModuleContext.h"
 #include "art/Persistency/Provenance/ModuleDescription.h"
@@ -84,7 +84,7 @@ private:
 // -----------------------------------------------------------------
 
 arttest::TestBitsOutput::TestBitsOutput(Parameters const& ps)
-  : OutputModule{ps().omConfig, ps.get_PSet()}
+  : OutputModule{ps().omConfig}
   , bitMask_{ps().bitMask()}
   , expectTriggerResults_{ps().expectTriggerResults()}
 {}
@@ -93,7 +93,7 @@ void
 arttest::TestBitsOutput::write(art::EventPrincipal& ep)
 {
   ModuleContext const mc{moduleDescription_};
-  Event const ev{ep, mc};
+  auto const ev = std::as_const(ep).makeEvent(mc);
   // There should not be a TriggerResults object in the event if all
   // three of the following requirements are met:
   //

@@ -8,45 +8,40 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/EDProducer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"
 #include "art/Persistency/Common/PtrMaker.h"
 #include "canvas/Persistency/Common/Assns.h"
 #include "fhiclcpp/ParameterSet.h"
 
-namespace arttest {
-  class AssnsProducer2;
+namespace art::test {
+  class AssnsProducer2 : public EDProducer {
+  public:
+    explicit AssnsProducer2(fhicl::ParameterSet const& p);
+
+  private:
+    void produce(Event& e) override;
+
+    std::string const fInputLabel;
+  };
 }
 
-using arttest::AssnsProducer2;
-
-class arttest::AssnsProducer2 : public art::EDProducer {
-public:
-  explicit AssnsProducer2(fhicl::ParameterSet const& p);
-
-private:
-  void produce(art::Event& e) override;
-
-  std::string const fInputLabel;
-};
-
-AssnsProducer2::AssnsProducer2(fhicl::ParameterSet const& p)
+art::test::AssnsProducer2::AssnsProducer2(fhicl::ParameterSet const& p)
   : EDProducer{p}, fInputLabel(p.get<std::string>("input_label"))
 {
-  produces<art::Assns<int, std::string>>();
+  produces<Assns<int, std::string>>();
 }
 
 void
-AssnsProducer2::produce(art::Event& e)
+art::test::AssnsProducer2::produce(Event& e)
 {
   auto ih = e.getHandle<std::vector<int>>(fInputLabel);
   auto sh = e.getHandle<std::vector<std::string>>(fInputLabel);
 
-  art::PtrMaker<int> make_intptr(e, ih.id());
-  art::PtrMaker<std::string> make_strptr(e, sh.id());
+  PtrMaker<int> make_intptr(e, ih.id());
+  PtrMaker<std::string> make_strptr(e, sh.id());
 
-  auto assns = std::make_unique<art::Assns<int, std::string>>();
+  auto assns = std::make_unique<Assns<int, std::string>>();
   for (size_t i = 0; i < 3; ++i) {
     auto p1 = make_intptr(i);
     for (size_t j = 0; j < 2; ++j) {
@@ -57,4 +52,4 @@ AssnsProducer2::produce(art::Event& e)
   e.put(move(assns));
 }
 
-DEFINE_ART_MODULE(AssnsProducer2)
+DEFINE_ART_MODULE(art::test::AssnsProducer2)

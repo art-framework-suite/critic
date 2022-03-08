@@ -8,7 +8,6 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/EDProducer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "fhiclcpp/fwd.h"
 
@@ -20,8 +19,8 @@ using arttest::AssnsProducer1;
 
 class arttest::AssnsProducer1 : public art::EDProducer {
 public:
-  typedef std::vector<int> intvec_t;
-  typedef std::vector<std::string> strvec_t;
+  using intvec_t = std::vector<int>;
+  using strvec_t = std::vector<std::string>;
 
   explicit AssnsProducer1(fhicl::ParameterSet const& p);
 

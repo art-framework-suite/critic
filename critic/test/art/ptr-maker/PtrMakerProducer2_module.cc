@@ -8,13 +8,14 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "art/Framework/Core/EDProducer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Persistency/Common/PtrMaker.h"
+#include "canvas/Persistency/Common/PtrVector.h"
 #include "fhiclcpp/types/Atom.h"
 
 #include <cassert>
 #include <memory>
+#include <vector>
 
 class PtrMakerProducer2 : public art::EDProducer {
 public:

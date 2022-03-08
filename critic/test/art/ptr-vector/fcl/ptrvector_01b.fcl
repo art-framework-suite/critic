@@ -2,7 +2,8 @@ physics: {
   analyzers: {
     a1: {
       module_type: PtrVectorAnalyzer
-      input_label: m1b
+      int_vector_label: m1a
+      ptr_vector_label: m1b
       nvalues: 8
     }
   }

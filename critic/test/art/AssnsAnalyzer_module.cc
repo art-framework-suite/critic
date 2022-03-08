@@ -9,7 +9,6 @@
 #include "boost/test/unit_test.hpp"
 
 #include "art/Framework/Core/EDAnalyzer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/View.h"
 #include "art/test/TestObjects/AssnTestData.h"

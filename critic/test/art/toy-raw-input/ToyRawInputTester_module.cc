@@ -1,6 +1,5 @@
 #include "art/Framework/Core/EDAnalyzer.h"
 #include "art/Framework/Core/FileBlock.h"
-#include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Run.h"
 #include "art/Framework/Principal/SubRun.h"
@@ -25,7 +24,7 @@ using namespace art;
 class arttest::ToyRawInputTester : public art::EDAnalyzer {
 public:
   explicit ToyRawInputTester(fhicl::ParameterSet const& p)
-    : art::EDAnalyzer{p}, fileNames_{p.get<strings>("fileNames")}, pset_{p}
+    : EDAnalyzer{p}, fileNames_{p.get<strings>("fileNames")}, pset_{p}
   {
     numFilesExpected_ = fileNames_.size();
     ostringstream expected;

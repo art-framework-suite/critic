@@ -1,5 +1,4 @@
 #include "art/Framework/Core/EDFilter.h"
-#include "art/Framework/Core/ModuleMacros.h"
 
 #include "fhiclcpp/types/Atom.h"
 

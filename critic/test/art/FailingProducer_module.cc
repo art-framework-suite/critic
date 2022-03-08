@@ -1,5 +1,4 @@
 #include "art/Framework/Core/EDProducer.h"
-#include "art/Framework/Core/ModuleMacros.h"
 
 namespace art::test {
   class FailingProducer;
