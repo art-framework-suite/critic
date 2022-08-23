@@ -1,0 +1,26 @@
+services.scheduler: {
+  SkipEvent: ["IntentionalError"]
+  wantSummary: true
+}
+
+physics: {
+  producers: {
+    thrower: {
+      module_type: IntentionalError
+      throwAtEventNo: 3
+    }
+    makeInt: {
+      module_type: IntProducer
+      ivalue: 17
+    }
+  }
+  analyzers: {
+    readInt: {
+      module_type: IntTestAnalyzer
+      input_label: makeInt
+      expected_value: 17
+    }
+  }
+  tp: [thrower, makeInt]
+  ep: [readInt]
+}
