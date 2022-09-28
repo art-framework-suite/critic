@@ -248,8 +248,8 @@ perllib	product_dir
 #
 ####################################
 product		version		qual	flags		<table_format=2>
-art_root_io	v1_08_03	-
-gallery		v1_18_04	-
+art_root_io	v1_08_03a	-
+gallery		v1_18_04a	-
 cetmodules	v2_21_01	-	only_for_build
 range		v3_0_11_0	-	only_for_build
 end_product_list

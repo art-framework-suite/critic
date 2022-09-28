@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.18.2 FATAL_ERROR)
 
 find_package(cetmodules 2.13.00 REQUIRED)
 project(critic VERSION 2.08.03 LANGUAGES CXX C)
+set(${PROJECT_NAME}_CMAKE_PROJECT_VERSION_STRING 2.08.03a)
 
 include(CetCMakeEnv)
 cet_cmake_env()
