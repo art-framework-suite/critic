@@ -62,7 +62,7 @@ art::test::IntReaderThenProducer::produce(Event& e, ProcessingFrame const&)
   if (shouldSucceed_) {
     new_value->value += intH->value;
   }
-  e.put(move(new_value));
+  e.put(std::move(new_value));
 }
 
 DEFINE_ART_MODULE(art::test::IntReaderThenProducer)

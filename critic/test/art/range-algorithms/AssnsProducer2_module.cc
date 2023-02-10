@@ -49,7 +49,7 @@ art::test::AssnsProducer2::produce(Event& e)
       assns->addSingle(p1, p2);
     }
   }
-  e.put(move(assns));
+  e.put(std::move(assns));
 }
 
 DEFINE_ART_MODULE(art::test::AssnsProducer2)

@@ -92,7 +92,7 @@ namespace {
       auto trkEff =
         std::make_unique<Fraction>(trkEffNum_.value(), trkEffDenom_.value());
       BOOST_CHECK_CLOSE_FRACTION(expectedEff_, trkEff->value(), tolerance);
-      sr.put(move(trkEff), "TrkEffValue", art::subRunFragment(trkEffRef));
+      sr.put(std::move(trkEff), "TrkEffValue", art::subRunFragment(trkEffRef));
       trkEffNum_.clear();
       trkEffDenom_.clear();
     }

@@ -39,7 +39,7 @@ private:
   {
     auto non_persistable_name =
       std::make_unique<arttest::PtrToNonPersistable>("Billy");
-    e.put(move(non_persistable_name));
+    e.put(std::move(non_persistable_name));
   }
 };
 

@@ -103,7 +103,7 @@ namespace critictest {
     testProduct->ptrIntoContainerToBeDropped = {hDrop, 1};
     testProduct->invalidPtr = {};
 
-    event.put(move(testProduct));
+    event.put(std::move(testProduct));
 
     auto const hVStringProduct = event.getValidHandle(stringProductToken_);
     if (produceAssnStringInt_) {
@@ -112,7 +112,7 @@ namespace critictest {
         {hVStringProduct, 0}, {hint1, 1}, LiteAssnTestData{0, 1, "A"});
       assnsAB->addSingle(
         {hVStringProduct, 1}, {hint1, 2}, LiteAssnTestData{1, 2, "B"});
-      event.put(move(assnsAB));
+      event.put(std::move(assnsAB));
     }
 
     if (produceAssnIntString_) {
@@ -121,7 +121,7 @@ namespace critictest {
         {hint1, 2}, {hVStringProduct, 2}, LiteAssnTestData{1, 2, "C"});
       assnsBA->addSingle(
         {hint1, 1}, {hVStringProduct, 0}, LiteAssnTestData{1, 2, "D"});
-      event.put(move(assnsBA));
+      event.put(std::move(assnsBA));
     }
   }
 } // namespace critictest

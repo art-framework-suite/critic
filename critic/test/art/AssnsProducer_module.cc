@@ -111,8 +111,8 @@ art::test::AssnsProducer::produce(Event& e)
   }
 
   // Insert containers and keep product IDs of the data products.
-  auto vuiH = e.put(move(vui));
-  auto vsH = e.put(move(vs));
+  auto vuiH = e.put(std::move(vui));
+  auto vsH = e.put(std::move(vs));
 
   // Create the association objects.
   // Assns into vectors.
@@ -143,7 +143,7 @@ art::test::AssnsProducer::produce(Event& e)
     av->addSingle({vuiH, 3}, {vsH, 3});
   }
 
-  auto aH = e.put(move(a));
+  auto aH = e.put(std::move(a));
 
   auto am = make_unique<AssnsABX_t>(*aH);
   auto avm = make_unique<AssnsVoid_t>(*av);
@@ -154,17 +154,17 @@ art::test::AssnsProducer::produce(Event& e)
   }
 
   if (wantMany_) {
-    e.put(move(am), "many");
+    e.put(std::move(am), "many");
   }
 
   if (wantVoid_ == "ALL") {
-    e.put(move(av));
+    e.put(std::move(av));
     if (wantMany_) {
-      e.put(move(avm), "many");
+      e.put(std::move(avm), "many");
     }
   }
   if (wantAmbiguous_) {
-    e.put(move(ay));
+    e.put(std::move(ay));
   }
 
   if (!wantMV_) {
@@ -175,7 +175,7 @@ art::test::AssnsProducer::produce(Event& e)
   auto b = std::make_unique<AssnsABX_t>();
   auto bv = std::make_unique<AssnsVoid_t>();
 
-  auto mvsH = e.put(move(mvs), "mv");
+  auto mvsH = e.put(std::move(mvs), "mv");
   addS(b, bv, {vuiH, 1}, Ptr<string>{mvsH, 0}, AssnTestData(1, 0, "A"));
   addS(b, bv, {vuiH, 2}, Ptr<string>{mvsH, 11}, AssnTestData(2, 11, "B"));
   addS(b, bv, {vuiH, 0}, Ptr<string>{mvsH, 22}, AssnTestData(0, 22, "C"));
@@ -183,7 +183,7 @@ art::test::AssnsProducer::produce(Event& e)
     bv->addSingle({vuiH, 3}, Ptr<string>{mvsH, 33});
   }
 
-  auto bH = e.put(move(b), "mapvec");
+  auto bH = e.put(std::move(b), "mapvec");
 
   auto bm = make_unique<AssnsABX_t>(*bH);
   auto bvm = make_unique<AssnsVoid_t>(*bv);
@@ -193,12 +193,12 @@ art::test::AssnsProducer::produce(Event& e)
   }
 
   if (wantMany_) {
-    e.put(move(bm), "manymapvec");
+    e.put(std::move(bm), "manymapvec");
   }
   if (wantVoid_ != "NONE") {
-    e.put(move(bv), "mapvec");
+    e.put(std::move(bv), "mapvec");
     if (wantMany_) {
-      e.put(move(bvm), "manymapvec");
+      e.put(std::move(bvm), "manymapvec");
     }
   }
 }

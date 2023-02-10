@@ -54,7 +54,7 @@ AssnsIterProducer2::produce(art::Event& e)
       assns->addSingle(p1, p2, sh->at(i * 2 + j));
     }
   }
-  e.put(move(assns));
+  e.put(std::move(assns));
 }
 
 DEFINE_ART_MODULE(AssnsIterProducer2)

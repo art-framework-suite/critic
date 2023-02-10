@@ -29,7 +29,7 @@ namespace {
   class SecondaryFileNameProvider {
   public:
     SecondaryFileNameProvider(std::vector<std::string>&& fileNames)
-      : fileNames_{move(fileNames)}, fileNameIter_{fileNames_.cbegin()}
+      : fileNames_{std::move(fileNames)}, fileNameIter_{fileNames_.cbegin()}
     {}
 
     SecondaryFileNameProvider(SecondaryFileNameProvider const& other)

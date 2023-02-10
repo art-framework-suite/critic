@@ -56,7 +56,7 @@ art::test::ProductIDGetter::beginSubRun(SubRun& sr)
   BOOST_TEST_REQUIRE(ptr->id().isValid());
 
   // New-style way of making Ptr to product inserted in the same module.
-  auto h = sr.put(move(vip), fullSubRun());
+  auto h = sr.put(std::move(vip), fullSubRun());
   Ptr const ptr_check{h, 2};
   BOOST_TEST_REQUIRE(ptr->id() == ptr_check.id());
 
@@ -65,7 +65,7 @@ art::test::ProductIDGetter::beginSubRun(SubRun& sr)
   BOOST_TEST_REQUIRE((*h)[2] == 5);
   BOOST_TEST_REQUIRE(*ptr_check == 5);
 
-  sr.put(move(ptr), fullSubRun());
+  sr.put(std::move(ptr), fullSubRun());
 }
 
 void
@@ -90,7 +90,7 @@ art::test::ProductIDGetter::produce(Event& e)
   BOOST_TEST_REQUIRE(ptr->id().isValid());
 
   // New-style way of making Ptr to product inserted in the same module.
-  auto h = e.put(move(vip));
+  auto h = e.put(std::move(vip));
   Ptr const ptr_check{h, 2};
   BOOST_TEST_REQUIRE(ptr->id() == ptr_check.id());
 
@@ -99,7 +99,7 @@ art::test::ProductIDGetter::produce(Event& e)
   BOOST_TEST_REQUIRE((*h)[2] == 4);
   BOOST_TEST_REQUIRE(*ptr_check == 4);
 
-  e.put(move(ptr));
+  e.put(std::move(ptr));
 }
 
 DEFINE_ART_MODULE(art::test::ProductIDGetter)
