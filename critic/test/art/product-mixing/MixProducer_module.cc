@@ -141,8 +141,8 @@ art::test::MixProducer::produce(Event& e, ProcessingFrame const&)
   mvvp->emplace_back(mvID, 10 * (eventCounter_ - 1) + 5, e.productGetter(mvID));
 
   e.put(std::move(mvvp), "intVectorPtrLabel");
-  e.put(std::move(mv), "mapVectorLabel"); // Note we're putting these into the event
-                                     // in the "wrong" order.
+  e.put(std::move(mv), "mapVectorLabel"); // Note we're putting these into the
+                                          // event in the "wrong" order.
 }
 
 void

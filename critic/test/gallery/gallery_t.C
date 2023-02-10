@@ -66,14 +66,14 @@ gallery_t()
     if (!triggerResultsHandle.whyFailed())
       print_and_abort("110");
 
-    // The following exception fails on OSX and with Clang using LLVM
-    // unwinder because ROOT fails to catch the exception.  It would be
-    // nice to have this fixed in ROOT, but catching exceptions in a
-    // ROOT script is not something a gallery user or gallery itself
-    // needs to do. It only exists here for the purpose of testing that
-    // the exception is thrown.
+      // The following exception fails on OSX and with Clang using LLVM
+      // unwinder because ROOT fails to catch the exception.  It would be
+      // nice to have this fixed in ROOT, but catching exceptions in a
+      // ROOT script is not something a gallery user or gallery itself
+      // needs to do. It only exists here for the purpose of testing that
+      // the exception is thrown.
 
-#if ( defined(__linux__) && defined(__GNUC__) && (__GNUC__ > 4) )
+#if (defined(__linux__) && defined(__GNUC__) && (__GNUC__ > 4))
     bool exceptionWasThrown = true;
     bool exceptionWasCaught = false;
     try {

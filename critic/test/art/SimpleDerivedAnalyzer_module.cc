@@ -181,7 +181,8 @@ SimpleDerivedAnalyzer::test_getView(art::Event const& e) const
 }
 
 void
-SimpleDerivedAnalyzer::test_getViewReturnFalse(art::Event const& e) const try {
+SimpleDerivedAnalyzer::test_getViewReturnFalse(art::Event const& e) const
+try {
   std::vector<int const*> ints;
   assert(e.getView("nothing with this illegal label", ints) == false);
 }
@@ -196,7 +197,8 @@ catch (...) {
 //  Make sure attempts to get views into products that are not there fail
 //  correctly.
 void
-SimpleDerivedAnalyzer::test_getViewThrowing(art::Event const& e) const try {
+SimpleDerivedAnalyzer::test_getViewThrowing(art::Event const& e) const
+try {
   std::vector<dummy const*> dummies;
   e.getView(dummyToken_, dummies);
   assert("Failed to throw required exception" == 0);

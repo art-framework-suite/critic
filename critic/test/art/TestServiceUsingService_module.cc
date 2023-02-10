@@ -26,15 +26,13 @@ private:
 art::test::TestServiceUsingService::TestServiceUsingService(
   fhicl::ParameterSet const& p)
   : EDAnalyzer{p}
-  , debug_level_{ServiceHandle<ServiceUsing const>{}->getCachedValue()}
+  , debug_level_{ServiceHandle<ServiceUsing const>{} -> getCachedValue()}
 {}
 
 art::test::TestServiceUsingService::~TestServiceUsingService()
 {
   // Test that art::ServiceHandle can be dereferenced in a module destructor
-  ServiceHandle<ServiceUsing const> {}
-  ->getCachedValue();
-}
+  ServiceHandle<ServiceUsing const> { } -> getCachedValue(); }
 
 void
 art::test::TestServiceUsingService::analyze(Event const&)
@@ -47,8 +45,8 @@ art::test::TestServiceUsingService::beginJob()
 {
   ServiceHandle<ServiceUsing const> sus;
   BOOST_TEST(debug_level_ == sus->getCachedValue());
-  BOOST_TEST(ServiceHandle<Wanted const> {}->getCachedValue() ==
-             sus->getCachedValue());
+  BOOST_TEST(ServiceHandle<Wanted const> {}
+             -> getCachedValue() == sus->getCachedValue());
 }
 
 void
@@ -59,7 +57,8 @@ art::test::TestServiceUsingService::endJob()
 
   int const current_value{sus->getCachedValue()};
   BOOST_TEST(debug_level_ != current_value);
-  BOOST_TEST(ServiceHandle<Wanted const> {}->getCachedValue() == current_value);
+  BOOST_TEST(ServiceHandle<Wanted const> {}
+             -> getCachedValue() == current_value);
 }
 
 DEFINE_ART_MODULE(art::test::TestServiceUsingService)
