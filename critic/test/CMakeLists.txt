@@ -23,7 +23,10 @@ include(BuildPlugins)
 # Put everything in a different export set.
 cet_register_export_set(SET_NAME Testing NAMESPACE critic_test SET_DEFAULT)
 
-# build Persistency libraries
+# Build Persistency libraries
 add_subdirectory(CriticTestObjects)
-add_subdirectory(art)
-add_subdirectory(gallery)
+
+if (BUILD_TESTING)
+  add_subdirectory(art)
+  add_subdirectory(gallery)
+endif()

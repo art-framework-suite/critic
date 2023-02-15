@@ -56,8 +56,8 @@ DerivedPtrVectorProducer::produce(art::Event& e)
     prod->emplace_back(h, k);
   }
   auto base_prod = std::make_unique<base_t>(*prod);
-  e.put(move(prod));
-  e.put(move(base_prod));
+  e.put(std::move(prod));
+  e.put(std::move(base_prod));
 }
 
 DEFINE_ART_MODULE(DerivedPtrVectorProducer)

@@ -46,7 +46,7 @@ namespace art::test {
     // Make ProductPtr from earlier-placed product
     auto const intProductH = e.getValidHandle<arttest::IntProduct>(tag_);
     auto ptr = std::make_unique<ProductPtr<arttest::IntProduct>>(intProductH);
-    e.put(move(ptr));
+    e.put(std::move(ptr));
 
     // Make ProductPtr from product created in this module
     auto const h = e.put(std::make_unique<std::string>(stringToMake_));

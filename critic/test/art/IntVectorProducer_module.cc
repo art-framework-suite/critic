@@ -40,7 +40,7 @@ private:
     auto p = std::make_unique<intvector_t>();
     for (unsigned k = 0; k != nvalues_; ++k)
       p->push_back(value + k);
-    e.put(move(p));
+    e.put(std::move(p));
   }
 
   unsigned const nvalues_;

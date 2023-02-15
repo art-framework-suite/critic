@@ -87,7 +87,7 @@ critictest::GalleryAssnsProducer::produce(art::Event& e)
   (*mvs)[key_t(0)] = StringProduct{"zero"};
   (*mvs)[key_t(11)] = StringProduct{"one"};
   (*mvs)[key_t(22)] = StringProduct{"two"};
-  auto const mvsH = e.put(move(mvs), "mv");
+  auto const mvsH = e.put(std::move(mvs), "mv");
 
   // Create the association objects.
   // Assns into vectors.
@@ -119,10 +119,10 @@ critictest::GalleryAssnsProducer::produce(art::Event& e)
   addS(a, av, {viH, 0}, PtrStr{vsH, 1}, LiteAssnTestData{0, 1, "C"});
   addS(b, bv, {viH, 0}, PtrStr{mvsH, 22}, LiteAssnTestData{0, 22, "C"});
 
-  auto aH = e.put(move(a));
-  auto avH = e.put(move(av));
-  auto bH = e.put(move(b), "mapvec");
-  auto bvH = e.put(move(bv), "mapvec");
+  auto aH = e.put(std::move(a));
+  auto avH = e.put(std::move(av));
+  auto bH = e.put(std::move(b), "mapvec");
+  auto bvH = e.put(std::move(bv), "mapvec");
 
   auto am = make_unique<AssnsAB_t>(*aH);
   auto avm = make_unique<AssnsVoid_t>(*avH);
@@ -132,10 +132,10 @@ critictest::GalleryAssnsProducer::produce(art::Event& e)
   addS(am, avm, {viH, 1}, PtrStr{vsH, 2}, LiteAssnTestData{1, 2, "AA"});
   addS(bm, bvm, {viH, 1}, PtrStr{mvsH, 0}, LiteAssnTestData{1, 0, "AA"});
 
-  e.put(move(am), "many");
-  e.put(move(avm), "many");
-  e.put(move(bm), "manymapvec");
-  e.put(move(bvm), "manymapvec");
+  e.put(std::move(am), "many");
+  e.put(std::move(avm), "many");
+  e.put(std::move(bm), "manymapvec");
+  e.put(std::move(bvm), "manymapvec");
 }
 
 DEFINE_ART_MODULE(critictest::GalleryAssnsProducer)
