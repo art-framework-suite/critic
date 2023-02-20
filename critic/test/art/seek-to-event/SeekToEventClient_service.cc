@@ -42,8 +42,10 @@ void
 arttest::SeekToEventClient::postProcessEvent(art::Event const&,
                                              art::ScheduleContext)
 {
-  if (nextEventsToProcess_.empty())
+  if (nextEventsToProcess_.empty()) {
+    input_->seekToEvent(0); // Test compilation of integer-only version
     return;
+  }
   input_->seekToEvent(nextEventsToProcess_[0]);
   nextEventsToProcess_.erase(nextEventsToProcess_.begin());
 }
