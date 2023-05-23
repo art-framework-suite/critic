@@ -250,7 +250,7 @@ perllib	product_dir
 product		version		qual	flags		<table_format=2>
 art_root_io	v1_12_03	-
 gallery		v1_21_02	-
-cetmodules	v3_21_00	-	only_for_build
+cetmodules	v3_21_02	-	only_for_build
 range		v3_0_12_0	-	only_for_build
 end_product_list
 ####################################
@@ -317,6 +317,8 @@ e26:debug	e26:debug	e26:debug
 e26:prof	e26:prof	e26:prof
 e27:debug	e27:debug	e27:debug
 e27:prof	e27:prof	e27:prof
+e28:debug	e28:debug	e28:debug
+e28:prof	e28:prof	e28:prof
 end_qualifier_list
 ####################################
 
