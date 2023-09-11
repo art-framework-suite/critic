@@ -180,11 +180,11 @@ main()
     }
     assert(exceptionWasThrown);
 
-    auto const triggerResults =
-      ev.getValidHandle<art::TriggerResults>(inputTagTriggerResults);
-    std::cout << "psetID = " << triggerResults->parameterSetID().to_string()
+    auto const& triggerResults =
+      ev.getProduct<art::TriggerResults>(inputTagTriggerResults);
+    std::cout << "psetID = " << triggerResults.parameterSetID().to_string()
               << "\n";
-    std::string const test3 = triggerResults->parameterSetID().to_string();
+    std::string const test3 = triggerResults.parameterSetID().to_string();
     assert(test1 == test3);
     assert(test2 == test3);
 
@@ -196,13 +196,11 @@ main()
       assert(h.whyFailed().get());
     }
 
-    auto const eventIDInt =
-      ev.getValidHandle<arttest::IntProduct>(inputTagEventID);
-    assert(static_cast<unsigned int>(eventIDInt->value) == aux.id().event());
+    auto const eventIDInt = ev.getProduct<arttest::IntProduct>(inputTagEventID);
+    assert(static_cast<unsigned int>(eventIDInt.value) == aux.id().event());
 
-    auto const intProduct111 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag111);
-    assert(intProduct111->value == 111);
+    auto const intProduct111 = ev.getProduct<arttest::IntProduct>(inputTag111);
+    assert(intProduct111.value == 111);
 
     auto const intProduct121 =
       ev.getValidHandle<arttest::IntProduct>(inputTag121);
@@ -212,113 +210,93 @@ main()
       ev.getValidHandle<arttest::IntProduct>(inputTag131);
     assert(intProduct131.product()->value == 131);
 
-    auto const stringProduct111 =
-      ev.getValidHandle<arttest::StringProduct>(inputTags111);
-    assert(stringProduct111->name_ == "s111");
+    auto const& stringProduct111 =
+      ev.getProduct<arttest::StringProduct>(inputTags111);
+    assert(stringProduct111.name_ == "s111");
 
-    auto const stringProduct121 =
-      ev.getValidHandle<arttest::StringProduct>(inputTags121);
-    assert(stringProduct121->name_ == "s121");
+    auto const& stringProduct121 =
+      ev.getProduct<arttest::StringProduct>(inputTags121);
+    assert(stringProduct121.name_ == "s121");
 
-    auto const stringProduct131 =
-      ev.getValidHandle<arttest::StringProduct>(inputTags131);
-    assert(stringProduct131->name_ == "s131");
+    auto const& stringProduct131 =
+      ev.getProduct<arttest::StringProduct>(inputTags131);
+    assert(stringProduct131.name_ == "s131");
 
-    auto const intProduct211 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag211);
-    assert(intProduct211->value == 211);
+    auto const intProduct211 = ev.getProduct<arttest::IntProduct>(inputTag211);
+    assert(intProduct211.value == 211);
 
-    auto const intProduct221 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag221);
-    assert(intProduct221->value == 221);
+    auto const intProduct221 = ev.getProduct<arttest::IntProduct>(inputTag221);
+    assert(intProduct221.value == 221);
 
-    auto const intProduct112 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag112);
-    assert(intProduct112->value == 112);
+    auto const intProduct112 = ev.getProduct<arttest::IntProduct>(inputTag112);
+    assert(intProduct112.value == 112);
 
-    auto const intProduct122 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag122);
-    assert(intProduct122->value == 122);
+    auto const intProduct122 = ev.getProduct<arttest::IntProduct>(inputTag122);
+    assert(intProduct122.value == 122);
 
-    auto const intProduct113 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag113);
-    assert(intProduct113->value == 113);
+    auto const intProduct113 = ev.getProduct<arttest::IntProduct>(inputTag113);
+    assert(intProduct113.value == 113);
 
-    auto const intProduct123 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag123);
-    assert(intProduct123->value == 123);
+    auto const intProduct123 = ev.getProduct<arttest::IntProduct>(inputTag123);
+    assert(intProduct123.value == 123);
 
-    auto const intProduct11 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag11);
-    assert(intProduct11->value == 113);
+    auto const intProduct11 = ev.getProduct<arttest::IntProduct>(inputTag11);
+    assert(intProduct11.value == 113);
 
-    auto const intProduct12 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag12);
-    assert(intProduct12->value == 123);
+    auto const intProduct12 = ev.getProduct<arttest::IntProduct>(inputTag12);
+    assert(intProduct12.value == 123);
 
-    auto const stringProduct11 =
-      ev.getValidHandle<arttest::StringProduct>(inputTags11);
-    assert(stringProduct11->name_ == "s113");
+    auto const& stringProduct11 =
+      ev.getProduct<arttest::StringProduct>(inputTags11);
+    assert(stringProduct11.name_ == "s113");
 
-    auto const stringProduct12 =
-      ev.getValidHandle<arttest::StringProduct>(inputTags12);
-    assert(stringProduct12->name_ == "s123");
+    auto const& stringProduct12 =
+      ev.getProduct<arttest::StringProduct>(inputTags12);
+    assert(stringProduct12.name_ == "s123");
 
-    auto const intProduct21 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag21);
-    assert(intProduct21->value == 213);
+    auto const intProduct21 = ev.getProduct<arttest::IntProduct>(inputTag21);
+    assert(intProduct21.value == 213);
 
-    auto const intProduct22 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag22);
-    assert(intProduct22->value == 223);
+    auto const intProduct22 = ev.getProduct<arttest::IntProduct>(inputTag22);
+    assert(intProduct22.value == 223);
 
-    auto const intProduct31 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag31);
-    assert(intProduct31->value == 312);
+    auto const intProduct31 = ev.getProduct<arttest::IntProduct>(inputTag31);
+    assert(intProduct31.value == 312);
 
-    auto const intProduct32 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag32);
-    assert(intProduct32->value == 322);
+    auto const intProduct32 = ev.getProduct<arttest::IntProduct>(inputTag32);
+    assert(intProduct32.value == 322);
 
-    auto const intProduct312 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag312);
-    assert(intProduct312->value == 312);
+    auto const intProduct312 = ev.getProduct<arttest::IntProduct>(inputTag312);
+    assert(intProduct312.value == 312);
 
-    auto const intProduct322 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag322);
-    assert(intProduct322->value == 322);
+    auto const intProduct322 = ev.getProduct<arttest::IntProduct>(inputTag322);
+    assert(intProduct322.value == 322);
 
-    auto const intProduct41 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag41);
-    assert(intProduct41->value == 411);
+    auto const intProduct41 = ev.getProduct<arttest::IntProduct>(inputTag41);
+    assert(intProduct41.value == 411);
 
-    auto const intProduct42 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag42);
-    assert(intProduct42->value == 421);
+    auto const intProduct42 = ev.getProduct<arttest::IntProduct>(inputTag42);
+    assert(intProduct42.value == 421);
 
-    auto const intProduct411 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag411);
-    assert(intProduct411->value == 411);
+    auto const intProduct411 = ev.getProduct<arttest::IntProduct>(inputTag411);
+    assert(intProduct411.value == 411);
 
-    auto const intProduct421 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag421);
-    assert(intProduct421->value == 421);
+    auto const intProduct421 = ev.getProduct<arttest::IntProduct>(inputTag421);
+    assert(intProduct421.value == 421);
 
-    auto const intProduct51 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag51);
-    assert(intProduct51->value == 512);
+    auto const intProduct51 = ev.getProduct<arttest::IntProduct>(inputTag51);
+    assert(intProduct51.value == 512);
 
-    auto const intProduct52 =
-      ev.getValidHandle<arttest::IntProduct>(inputTag52);
-    assert(intProduct52->value == 522);
+    auto const intProduct52 = ev.getProduct<arttest::IntProduct>(inputTag52);
+    assert(intProduct52.value == 522);
 
-    auto const stringProduct61 =
-      ev.getValidHandle<arttest::StringProduct>(inputTags61);
-    assert(stringProduct61->name_ == "s611");
+    auto const& stringProduct61 =
+      ev.getProduct<arttest::StringProduct>(inputTags61);
+    assert(stringProduct61.name_ == "s611");
 
-    auto const stringProduct62 =
-      ev.getValidHandle<arttest::StringProduct>(inputTags62);
-    assert(stringProduct62->name_ == "s621");
+    auto const& stringProduct62 =
+      ev.getProduct<arttest::StringProduct>(inputTags62);
+    assert(stringProduct62.name_ == "s621");
 
     // Read all StringProducts from input file.  The first non-empty
     // file is a merged file with 10 events.  The first five events
