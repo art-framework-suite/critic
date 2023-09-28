@@ -5,7 +5,7 @@ $<IF:$<PLATFORM_ID:Darwin>,$ENV{DYLD_LIBRARY_PATH},$ENV{LD_LIBRARY_PATH}>\
 
 cet_build_plugin(SamplingAnalyzer art::module NO_INSTALL ALLOW_UNDERSCORES)
 
-art_dictionary(DICTIONARY_LIBRARIES PRIVATE art_test::TestObjects NO_INSTALL)
+art_dictionary(DICTIONARY_LIBRARIES PRIVATE art_test::TestObjects NO_INSTALL VERBOSE)
 
 cet_test(SamplingInput_config_t_01 HANDBUILT
   TEST_EXEC art

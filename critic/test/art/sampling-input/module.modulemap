@@ -1,0 +1,6 @@
+module "critic_test_art_sampling-input_dict" {
+  requires cplusplus
+  header "canvas/Persistency/Common/Sampled.h"
+  export *
+  link "libcanvas.so"
+}
