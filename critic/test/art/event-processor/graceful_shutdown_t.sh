@@ -1,11 +1,14 @@
 #!/bin/bash
 
 function usage() {
-    echo "usage: ${0##*/} -c <art-config-file>" 1>&2
+    echo "usage: ${0##*/} -e <art-exec> -c <art-config-file>" 1>&2
 }
 
-while getopts :c: OPT; do
+while getopts :e:c: OPT; do
     case $OPT in
+        e)
+            art_exec="$OPTARG"
+            ;;
         c)
             config="$OPTARG"
             ;;
@@ -23,5 +26,5 @@ TMP=`mktemp -t graceful_shutdown_t.sh.XXXXXXXXXX`
 trap "[[ -n \"$TMP\" ]] && rm $TMP* 2>/dev/null" EXIT
 
 # Start art
-art --rethrow-all -c "$config" --trace -n 10 --timing >"$TMP"
+${art_exec} --rethrow-all -c "$config" --trace -n 10 --timing >"$TMP"
 cat "$TMP"

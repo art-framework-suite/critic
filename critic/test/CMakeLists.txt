@@ -27,6 +27,24 @@ cet_register_export_set(SET_NAME Testing NAMESPACE critic_test SET_DEFAULT)
 add_subdirectory(CriticTestObjects)
 
 if (BUILD_TESTING)
+  cet_test_env_prepend(CET_PLUGIN_PATH
+    ${PROJECT_BINARY_DIR}/${critic_LIBRARY_DIR}
+    $<TARGET_FILE_DIR:art_root_io::RootOutput_module>
+    $<TARGET_FILE_DIR:art::Framework_Services_System_FileCatalogMetadata_service>
+    $<TARGET_FILE_DIR:messagefacility::plugins_cerr_mfPlugin>)
+
+  cet_test_env_prepend(LD_LIBRARY_PATH
+    ${PROJECT_BINARY_DIR}/${critic_LIBRARY_DIR}
+    $<TARGET_FILE_DIR:canvas_root_io::Dictionaries_canvas_Provenance_dict>)
+
+  cet_test_env_prepend(ROOT_INCLUDE_PATH
+    ${CMAKE_SOURCE_DIR}/critic
+    ${CMAKE_SOURCE_DIR}/art
+    ${CMAKE_SOURCE_DIR}/canvas
+    ${CMAKE_SOURCE_DIR}/fhicl-cpp
+    ${CMAKE_SOURCE_DIR}/cetlib
+    ${CMAKE_SOURCE_DIR}/cetlib-except)
+
   add_subdirectory(art)
   add_subdirectory(gallery)
 endif()
