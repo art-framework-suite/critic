@@ -34,7 +34,7 @@ while not ev.atEnd():
     iEvent = 1 # Events numbers go from 1 to 5 and repeat 1 to 5
   assert iEvent == aux.id().event(), "Unexpected event number in EventAuxiliary"
 
-  eventIDInt = ev.getValidHandle[ROOT.arttest.IntProduct](inputTagEventID)
+  eventIDInt = ev.getProduct[ROOT.arttest.IntProduct](inputTagEventID)
   assert eventIDInt.value == aux.id().event()
 
   triggerResultsHandle = ROOT.gallery.Handle[ROOT.art.TriggerResults]()
@@ -50,15 +50,15 @@ while not ev.atEnd():
   assert not triggerResultsHandle.isValid()
   assert triggerResultsHandle.whyFailed()
 
-  triggerResults = ev.getValidHandle[ROOT.art.TriggerResults](inputTagTriggerResults)
+  triggerResults = ev.getProduct[ROOT.art.TriggerResults](inputTagTriggerResults)
   test3 = triggerResults.parameterSetID().to_string()
   assert test1 == test3
   assert test2 == test3
 
-  stringProduct62 = ev.getValidHandle[ROOT.arttest.StringProduct](inputTags62)
+  stringProduct62 = ev.getProduct[ROOT.arttest.StringProduct](inputTags62)
   assert stringProduct62.name_ == "s621"
 
-  ptrTestProduct = ev.getValidHandle[ROOT.critictest.LitePtrTestProduct](inputTagPtrTest)
+  ptrTestProduct = ev.getProduct[ROOT.critictest.LitePtrTestProduct](inputTagPtrTest)
 
   eventInt = aux.id().event()
   value = ptrTestProduct.ptrInt1.get()[0]

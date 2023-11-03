@@ -66,14 +66,14 @@ gallery_t()
     if (!triggerResultsHandle.whyFailed())
       print_and_abort("110");
 
-    // The following exception fails on OSX and with Clang using LLVM
-    // unwinder because ROOT fails to catch the exception.  It would be
-    // nice to have this fixed in ROOT, but catching exceptions in a
-    // ROOT script is not something a gallery user or gallery itself
-    // needs to do. It only exists here for the purpose of testing that
-    // the exception is thrown.
+      // The following exception fails on OSX and with Clang using LLVM
+      // unwinder because ROOT fails to catch the exception.  It would be
+      // nice to have this fixed in ROOT, but catching exceptions in a
+      // ROOT script is not something a gallery user or gallery itself
+      // needs to do. It only exists here for the purpose of testing that
+      // the exception is thrown.
 
-#if ( defined(__linux__) && defined(__GNUC__) && (__GNUC__ > 4) )
+#if (defined(__linux__) && defined(__GNUC__) && (__GNUC__ > 4))
     bool exceptionWasThrown = true;
     bool exceptionWasCaught = false;
     try {
@@ -89,82 +89,82 @@ gallery_t()
       print_and_abort("111a");
 #endif
 
-    auto eventIDInt = ev.getValidHandle<arttest::IntProduct>(inputTagEventID);
-    if (static_cast<unsigned int>(eventIDInt->value) != aux.id().event())
+    auto eventIDInt = ev.getProduct<arttest::IntProduct>(inputTagEventID);
+    if (static_cast<unsigned int>(eventIDInt.value) != aux.id().event())
       print_and_abort("112");
 
-    auto triggerResults =
-      ev.getValidHandle<art::TriggerResults>(inputTagTriggerResults);
-    std::cout << "psetID = " << triggerResults->parameterSetID().to_string()
+    auto const& triggerResults =
+      ev.getProduct<art::TriggerResults>(inputTagTriggerResults);
+    std::cout << "psetID = " << triggerResults.parameterSetID().to_string()
               << "\n";
-    std::string test3 = triggerResults->parameterSetID().to_string();
+    std::string test3 = triggerResults.parameterSetID().to_string();
     if (test1 != test3 || test2 != test3)
       print_and_abort("113");
 
-    auto stringProduct62 =
-      ev.getValidHandle<arttest::StringProduct>(inputTags62);
-    if (stringProduct62->name_ != "s621")
+    auto const& stringProduct62 =
+      ev.getProduct<arttest::StringProduct>(inputTags62);
+    if (stringProduct62.name_ != "s621")
       print_and_abort("114");
 
-    auto ptrTestProduct =
-      ev.getValidHandle<critictest::LitePtrTestProduct>(inputTagPtrTest);
+    auto const& ptrTestProduct =
+      ev.getProduct<critictest::LitePtrTestProduct>(inputTagPtrTest);
 
     int eventInt = static_cast<int>(aux.id().event());
-    if (*ptrTestProduct->ptrInt1 != 111 + eventInt)
+    if (*ptrTestProduct.ptrInt1 != 111 + eventInt)
       print_and_abort("115");
-    if (!ptrTestProduct->ptrInt1.isAvailable())
+    if (!ptrTestProduct.ptrInt1.isAvailable())
       print_and_abort("116");
-    if (*ptrTestProduct->ptrInt2 != 122)
+    if (*ptrTestProduct.ptrInt2 != 122)
       print_and_abort("117");
-    if (*ptrTestProduct->ptrInt3 != 133)
+    if (*ptrTestProduct.ptrInt3 != 133)
       print_and_abort("118");
 
-    if (ptrTestProduct->ptrSimple1->key != 111)
+    if (ptrTestProduct.ptrSimple1->key != 111)
       print_and_abort("119");
-    if (ptrTestProduct->ptrSimple2->key != 122)
+    if (ptrTestProduct.ptrSimple2->key != 122)
       print_and_abort("120");
-    if (ptrTestProduct->ptrSimple3->key != 133)
+    if (ptrTestProduct.ptrSimple3->key != 133)
       print_and_abort("121");
-    if (ptrTestProduct->ptrSimple3->dummy() != 16.25)
+    if (ptrTestProduct.ptrSimple3->dummy() != 16.25)
       print_and_abort("122");
 
-    if (ptrTestProduct->ptrSimpleDerived1->key != 111)
+    if (ptrTestProduct.ptrSimpleDerived1->key != 111)
       print_and_abort("123");
-    if (ptrTestProduct->ptrSimpleDerived2->key != 122)
+    if (ptrTestProduct.ptrSimpleDerived2->key != 122)
       print_and_abort("124");
-    if (ptrTestProduct->ptrSimpleDerived3->key != 133)
+    if (ptrTestProduct.ptrSimpleDerived3->key != 133)
       print_and_abort("125");
-    if (ptrTestProduct->ptrSimpleDerived3->dummy() != 16.25)
+    if (ptrTestProduct.ptrSimpleDerived3->dummy() != 16.25)
       print_and_abort("126");
 
-    if (*ptrTestProduct->ptrVectorInt.at(0) != 111 + eventInt)
+    if (*ptrTestProduct.ptrVectorInt.at(0) != 111 + eventInt)
       print_and_abort("127");
-    if (!ptrTestProduct->ptrVectorInt.isAvailable())
+    if (!ptrTestProduct.ptrVectorInt.isAvailable())
       print_and_abort("128");
-    if (*ptrTestProduct->ptrVectorInt.at(1) != 131)
+    if (*ptrTestProduct.ptrVectorInt.at(1) != 131)
       print_and_abort("129");
 
-    if (ptrTestProduct->ptrVectorSimple.at(0)->key != 111)
+    if (ptrTestProduct.ptrVectorSimple.at(0)->key != 111)
       print_and_abort("130");
-    if (ptrTestProduct->ptrVectorSimple.at(1)->key != 131)
+    if (ptrTestProduct.ptrVectorSimple.at(1)->key != 131)
       print_and_abort("131");
-    if (ptrTestProduct->ptrVectorSimple.at(1)->dummy() != 16.25)
+    if (ptrTestProduct.ptrVectorSimple.at(1)->dummy() != 16.25)
       print_and_abort("132");
 
-    if (ptrTestProduct->ptrVectorSimpleDerived.at(0)->key != 111)
+    if (ptrTestProduct.ptrVectorSimpleDerived.at(0)->key != 111)
       print_and_abort("133");
-    if (ptrTestProduct->ptrVectorSimpleDerived.at(1)->key != 131)
+    if (ptrTestProduct.ptrVectorSimpleDerived.at(1)->key != 131)
       print_and_abort("134");
-    if (ptrTestProduct->ptrVectorSimpleDerived.at(1)->dummy() != 16.25)
+    if (ptrTestProduct.ptrVectorSimpleDerived.at(1)->dummy() != 16.25)
       print_and_abort("135");
 
-    if (!(ptrTestProduct->ptrInt1 && ptrTestProduct->ptrInt1.isAvailable() &&
-          !ptrTestProduct->ptrInt1.isNull()))
+    if (!(ptrTestProduct.ptrInt1 && ptrTestProduct.ptrInt1.isAvailable() &&
+          !ptrTestProduct.ptrInt1.isNull()))
       print_and_abort("136");
 
-    if (!(!ptrTestProduct->ptrIntoContainerToBeDropped &&
-          !ptrTestProduct->ptrIntoContainerToBeDropped.isAvailable() &&
-          !ptrTestProduct->ptrIntoContainerToBeDropped.isNull()))
+    if (!(!ptrTestProduct.ptrIntoContainerToBeDropped &&
+          !ptrTestProduct.ptrIntoContainerToBeDropped.isAvailable() &&
+          !ptrTestProduct.ptrIntoContainerToBeDropped.isNull()))
       print_and_abort("137");
 
     // I cannot get this part of the test to work in a ROOT script
@@ -172,7 +172,7 @@ gallery_t()
     // not catching the throw properly. I do not understand why.
     // bool exceptionThrown = true;
     // try {
-    //   auto x = *ptrTestProduct->ptrIntoContainerToBeDropped;
+    //   auto x = *ptrTestProduct.ptrIntoContainerToBeDropped;
     //   std::cout << x << "\n";
     //   exceptionThrown = false;
     // } catch (art::Exception const&) {
@@ -181,9 +181,9 @@ gallery_t()
 
     // Note some of the documentation says an invalid Ptr is nonNull,
     // but that is not the way the Ptr class is written.
-    if (!(!ptrTestProduct->invalidPtr &&
-          !ptrTestProduct->invalidPtr.isAvailable() &&
-          ptrTestProduct->invalidPtr.isNull()))
+    if (!(!ptrTestProduct.invalidPtr &&
+          !ptrTestProduct.invalidPtr.isAvailable() &&
+          ptrTestProduct.invalidPtr.isNull()))
       print_and_abort("140");
 
     gallery::Handle<

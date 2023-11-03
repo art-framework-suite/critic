@@ -63,7 +63,7 @@ MockClusterListProducer::produce(art::Event& e)
   c2.eNum = e.id().event() + 1;
   prod->push_back(c2);
 
-  e.put(move(prod));
+  e.put(std::move(prod));
 }
 
 DEFINE_ART_MODULE(MockClusterListProducer)

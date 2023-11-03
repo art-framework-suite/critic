@@ -58,12 +58,12 @@ art::test::FindManySpeedTestProducer::produce(Event& e)
   // Hits.
   auto hits = std::make_unique<std::vector<arttest::Hit>>(nHits_);
   std::iota(hits->begin(), hits->end(), 0ul);
-  auto hitsH = e.put(move(hits));
+  auto hitsH = e.put(std::move(hits));
 
   // Tracks.
   auto tracks = std::make_unique<std::vector<arttest::Track>>(nTracks_);
   std::iota(tracks->begin(), tracks->end(), 0ul);
-  auto tracksH = e.put(move(tracks));
+  auto tracksH = e.put(std::move(tracks));
 
   // Assns.
   auto assns = std::make_unique<Assns<arttest::Hit, arttest::Track>>();
@@ -77,7 +77,7 @@ art::test::FindManySpeedTestProducer::produce(Event& e)
       assns->addSingle({hitsH, udice()}, trackPtr);
     }
   }
-  e.put(move(assns));
+  e.put(std::move(assns));
 }
 
 DEFINE_ART_MODULE(art::test::FindManySpeedTestProducer)

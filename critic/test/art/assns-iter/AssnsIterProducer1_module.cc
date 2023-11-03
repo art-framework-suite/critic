@@ -56,9 +56,9 @@ AssnsIterProducer1::produce(art::Event& e)
   auto vf =
     std::make_unique<floatvec_t>(floatvec_t{1.0, 1.1, 2.0, 2.1, 3.0, 3.1});
 
-  e.put(move(vs));
-  e.put(move(vi));
-  e.put(move(vf));
+  e.put(std::move(vs));
+  e.put(std::move(vi));
+  e.put(std::move(vf));
 }
 
 DEFINE_ART_MODULE(AssnsIterProducer1)

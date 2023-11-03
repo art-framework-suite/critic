@@ -78,8 +78,8 @@ namespace {
 
       result.emplace(name,
                      DataSetInfo{table().sampled_subruns(),
-                                 move(run_values),
-                                 move(subrun_values),
+                                 std::move(run_values),
+                                 std::move(subrun_values),
                                  table().event_values()});
     }
     return result;

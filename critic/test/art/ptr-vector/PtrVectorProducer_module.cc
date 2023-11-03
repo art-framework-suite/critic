@@ -41,7 +41,7 @@ art::test::PtrVectorProducer::produce(Event& e)
   }
   prod->sort();
 
-  e.put(move(prod));
+  e.put(std::move(prod));
 }
 
 DEFINE_ART_MODULE(art::test::PtrVectorProducer)

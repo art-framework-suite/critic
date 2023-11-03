@@ -41,20 +41,20 @@ arttest::DeferredIsReadyWithAssnsProducer::produce(art::Event& e)
 {
   std::vector<std::string> letters{"f", "e", "d", "c", "b", "a"};
   std::vector<size_t> nums{0, 1, 2, 3, 4, 5};
-  auto vs = std::make_unique<std::vector<std::string>>(move(letters));
-  auto vi = std::make_unique<std::vector<size_t>>(move(nums));
+  auto vs = std::make_unique<std::vector<std::string>>(std::move(letters));
+  auto vi = std::make_unique<std::vector<size_t>>(std::move(nums));
 
   auto sz = vs->size();
 
-  auto vsh = e.put(move(vs));
-  auto vih = e.put(move(vi));
+  auto vsh = e.put(std::move(vs));
+  auto vih = e.put(std::move(vi));
 
   auto asid =
     std::make_unique<art::Assns<std::string, size_t, arttest::AssnTestData>>();
   for (size_t i = 0; i != sz; ++i) {
     asid->addSingle({vsh, sz - i - 1}, {vih, i}, {i, i, "Ethel"});
   }
-  e.put(move(asid));
+  e.put(std::move(asid));
 }
 
 DEFINE_ART_MODULE(arttest::DeferredIsReadyWithAssnsProducer)
