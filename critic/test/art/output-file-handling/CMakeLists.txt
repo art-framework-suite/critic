@@ -255,5 +255,4 @@ cet_test(SwitchOnFileSizeMax_r
   TEST_ARGS
   "../SwitchOnFileSizeMax_w.d/out_1.root"
   "../SwitchOnFileSizeMax_w.d/out_2.root"
-  "../SwitchOnFileSizeMax_w.d/out_3.root"
-  TEST_PROPERTIES DEPENDS SwitchOnFileSizeMax_w)
+  "../SwitchOnFileSizeMax_w.d/out_3.root")
