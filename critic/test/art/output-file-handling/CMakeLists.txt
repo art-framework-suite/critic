@@ -249,11 +249,11 @@ cet_test(SwitchOnFileSizeMax_w HANDBUILT
   TEST_ARGS -c switchOnFileSizeMax_w.fcl
   DATAFILES fcl/switchOnFileSizeMax_w.fcl)
 
-cet_test(SwitchOnFileSizeMax_r HANDBUILT
-  TEST_EXEC file_info_dumper
-  TEST_ARGS --range-of-validity -s
+cet_test(SwitchOnFileSizeMax_r
+  SOURCE switch_on_file_size_max_r.cxx
+  LIBRARIES PRIVATE ROOT::RIO ROOT::Tree
+  TEST_ARGS
   "../SwitchOnFileSizeMax_w.d/out_1.root"
   "../SwitchOnFileSizeMax_w.d/out_2.root"
   "../SwitchOnFileSizeMax_w.d/out_3.root"
-  REF "${CMAKE_CURRENT_SOURCE_DIR}/SwitchOnFileSizeMax-ref.txt"
   TEST_PROPERTIES DEPENDS SwitchOnFileSizeMax_w)
