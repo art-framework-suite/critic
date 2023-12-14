@@ -377,7 +377,7 @@ namespace {
   }
 
 #ifndef ART_TEST_NO_STARTEVENT
-  void
+  [[maybe_unused]] void
   MixFilterTestDetail::startEvent(art::Event const&)
   {
     startEvent_called_ = true;
