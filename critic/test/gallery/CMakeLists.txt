@@ -1,10 +1,5 @@
 cet_test_env_prepend(LD_LIBRARY_PATH $<TARGET_FILE_DIR:gallery::dict>)
-
-cet_test_env_prepend(ROOT_INCLUDE_PATH
-  ${CMAKE_SOURCE_DIR}/critic
-  ${CMAKE_SOURCE_DIR}/gallery
-  ${CMAKE_SOURCE_DIR}/canvas-root-io
-  ${CMAKE_BINARY_DIR}/canvas)
+cet_test_env_prepend(ROOT_INCLUDE_PATH ${canvas_BINARY_DIR})
 
 set(gallery_tests_libraries
   critic_test::CriticTestObjects
