@@ -18,6 +18,7 @@
 #include "cetlib/map_vector.h"
 #include "fhiclcpp/types/Atom.h"
 #include "fhiclcpp/types/OptionalSequence.h"
+#include "range/v3/view.hpp"
 
 #include <algorithm>
 #include <iostream>
@@ -217,7 +218,7 @@ namespace {
     size_t endSubRunCounter_{};
     size_t beginRunCounter_{};
     size_t endRunCounter_{};
-    int currentEvent_{-1};
+    int currentEvent_{};
     bool const testZeroSecondaries_;
     bool const testPtrFailure_;
     bool const testEventOrdering_;
@@ -382,7 +383,6 @@ namespace {
   {
     startEvent_called_ = true;
     eIDs_.reset();
-    ++currentEvent_;
   }
 #endif
 
@@ -395,12 +395,8 @@ namespace {
   void
   MixFilterTestDetail::processEventIDs(art::EventIDSequence const& seq)
   {
-#ifdef ART_TEST_NO_STARTEVENT
-    // Need to deal with this here
-    ++currentEvent_;
-#endif
     processEventIDs_called_ = true;
-    eIDs_.reset(new art::EventIDSequence(seq));
+    eIDs_ = std::make_unique<art::EventIDSequence>(seq);
     if (!testEventOrdering_) {
       return;
     }
@@ -410,6 +406,16 @@ namespace {
       for (auto const& eid : seq) {
         BOOST_TEST_REQUIRE(eid.event() ==
                            currentEvent_ * nSecondaries() + count++);
+      }
+    } break;
+    case art::MixHelper::Mode::RANDOM_OFFSET: {
+      BOOST_TEST_REQUIRE(!seq.empty());
+      // Event numbers must be contiguous, but starting point is random.
+      using namespace ::ranges;
+      auto leftid = seq.front();
+      for (auto const& rightid : subrange(++seq.begin(), seq.end())) {
+        leftid = leftid.next();
+        BOOST_TEST(leftid == rightid);
       }
     } break;
     case art::MixHelper::Mode::RANDOM_REPLACE: {
@@ -449,7 +455,6 @@ namespace {
       uniqueEvents_.insert(allEvents_.cbegin() + checkpoint, allEvents_.cend());
       // Test at end job for no duplicates.
     } break;
-    default:;
     }
   }
 
@@ -479,6 +484,8 @@ namespace {
   void
   MixFilterTestDetail::finalizeEvent(art::Event& e)
   {
+    ++currentEvent_;
+
     e.put(std::make_unique<std::string>("BlahBlahBlah"));
     e.put(std::move(eIDs_));
 #ifndef ART_TEST_NO_STARTEVENT
