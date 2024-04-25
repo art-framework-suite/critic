@@ -4,7 +4,7 @@
 . cet_test_functions.sh
 
 # Use nova instead of art.
-export ART_EXEC=nova
+export ART_EXEC=$1
 
 rm -f out.root cerr.log warnings.log
 

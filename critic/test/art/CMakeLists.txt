@@ -534,6 +534,7 @@ set_tests_properties(issue_0926c_dupes PROPERTIES
   )
 
 cet_test(outputCommand_t.sh PREBUILT
+  TEST_ARGS $<TARGET_FILE:art::art>
   DATAFILES
   fcl/outputCommand_w.fcl
   fcl/outputCommand_r.fcl
@@ -546,6 +547,7 @@ cet_test(NonPersistableProducts_t HANDBUILT
   DATAFILES fcl/non_persistable_products_t.fcl)
 
 cet_test(test_failingProducer_t.sh PREBUILT
+  TEST_ARGS $<TARGET_FILE:art::nova>
   DATAFILES
   fcl/test_failingProducer_w.fcl
   fcl/test_failingProducer_r.fcl
@@ -677,8 +679,8 @@ cet_make_exec(NAME test_dropAllEventsSubruns_verify NO_INSTALL
   SOURCE test_dropAllEventsSubruns_verify.cxx
   LIBRARIES PRIVATE ROOT::Core ROOT::RIO ROOT::Tree)
 
-#test_dropAllEventsSubruns_verify.cxx
 cet_test(test_dropAllEventsSubruns_t.sh PREBUILT
+  TEST_ARGS $<TARGET_FILE:art::art> $<TARGET_FILE:test_dropAllEventsSubruns_verify>
   DATAFILES
   fcl/dropAllEvents_t.fcl
   fcl/dropAllEventsSubruns_t1.fcl
@@ -705,6 +707,7 @@ cet_test(testOutputRanges_dropAllEventsSubruns HANDBUILT
   TEST_PROPERTIES DEPENDS test_dropAllEventsSubruns_t.sh)
 
 cet_test(test_runSubRunNoPut_t.sh PREBUILT
+  TEST_ARGS $<TARGET_FILE:art::art>
   DATAFILES fcl/runSubRunNoPut_t.fcl)
 
 cet_test(simple_01_t HANDBUILT
@@ -720,6 +723,7 @@ cet_test(simple_01_r HANDBUILT
   TEST_PROPERTIES DEPENDS simple_01_t)
 
 cet_test(test_view_01_t.sh PREBUILT
+  TEST_ARGS $<TARGET_FILE:art::art>
   DATAFILES
   fcl/test_view_01a.fcl
   fcl/test_view_01b.fcl
@@ -798,6 +802,7 @@ cet_build_plugin(FindManySpeedTestAnalyzer art::module NO_INSTALL LIBRARIES PRIV
 add_subdirectory(results-products)
 
 cet_test(test_compressed_simple_01_t.sh PREBUILT
+  TEST_ARGS $<TARGET_FILE:art::art>
   DATAFILES
   fcl/test_compressed_simple_01.fcl
   fcl/test_compressed_simple_01r.fcl

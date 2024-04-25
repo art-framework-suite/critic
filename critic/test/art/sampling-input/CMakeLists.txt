@@ -1,8 +1,3 @@
-cet_test_env("ROOT_INCLUDE_PATH=${PROJECT_BINARY_DIR}:${PROJECT_SOURCE_DIR}:$ENV{ROOT_INCLUDE_PATH}")
-cet_test_env("LD_LIBRARY_PATH=$<TARGET_FILE_DIR:critic_test_art_sampling-input_dict>:\
-$<IF:$<PLATFORM_ID:Darwin>,$ENV{DYLD_LIBRARY_PATH},$ENV{LD_LIBRARY_PATH}>\
-")
-
 cet_build_plugin(SamplingAnalyzer art::module NO_INSTALL ALLOW_UNDERSCORES)
 
 art_dictionary(DICTIONARY_LIBRARIES PRIVATE art_test::TestObjects NO_INSTALL)

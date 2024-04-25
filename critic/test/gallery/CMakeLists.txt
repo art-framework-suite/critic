@@ -1,7 +1,5 @@
-cet_test_env("ROOT_INCLUDE_PATH=${PROJECT_BINARY_DIR}:${PROJECT_SOURCE_DIR}:$ENV{ROOT_INCLUDE_PATH}")
-cet_test_env("LD_LIBRARY_PATH=$<TARGET_FILE_DIR:critic_test_CriticTestObjects>:\
-$<IF:$<PLATFORM_ID:Darwin>,$ENV{DYLD_LIBRARY_PATH},$ENV{LD_LIBRARY_PATH}>\
-")
+cet_test_env_prepend(LD_LIBRARY_PATH $<TARGET_FILE_DIR:gallery::dict>)
+cet_test_env_prepend(ROOT_INCLUDE_PATH ${canvas_BINARY_DIR})
 
 set(gallery_tests_libraries
   critic_test::CriticTestObjects
@@ -163,7 +161,7 @@ cet_test(gallery_random_io_t
 # Use gallery in interpreted C++ to read output from gallery_makeInput5
 # and gallery_makeInput7.
 cet_test(gallery_t.C HANDBUILT
-  TEST_EXEC root
+  TEST_EXEC root.exe
   TEST_ARGS -b -q -l gallery_t.C
   DATAFILES gallery_t.C
   REQUIRED_FILES

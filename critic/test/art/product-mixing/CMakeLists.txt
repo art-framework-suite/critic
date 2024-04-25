@@ -7,6 +7,7 @@ function(build_mix_filter ART_MFT)
     LIBRARIES PRIVATE
     art::Framework_IO_ProductMix
     art_root_io::art_root_io
+    range-v3::range-v3
     )
   set(DEFINITIONS ${ARGN})
   if (DEFINITIONS)
@@ -141,7 +142,8 @@ cet_test(ProductMix_r1d1 HANDBUILT
 #   RANDOM_LIM_REPLACE (require no dupes within a primary)
 #   RANDOM_LIM_REPLACE (require dupes across a job).
 #   RANDOM_NO_REPLACE
-foreach(test RANGE 1 5)
+#   RANDOM_OFFSET (sequential after first event is randomly selected)
+foreach(test RANGE 1 6)
   cet_test(ProductMix_r1e${test} HANDBUILT
     TEST_EXEC art_ut
     TEST_ARGS -- -c "ProductMix_r1e${test}.fcl"
