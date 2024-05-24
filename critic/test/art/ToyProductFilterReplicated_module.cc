@@ -2,6 +2,8 @@
 #include "art/Framework/Core/ReplicatedFilter.h"
 #include "art/Framework/Principal/fwd.h"
 
+#include <cassert>
+
 using namespace art;
 using namespace std;
 
