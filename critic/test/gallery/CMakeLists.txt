@@ -1,4 +1,4 @@
-cet_test_env_prepend(LD_LIBRARY_PATH $<TARGET_FILE_DIR:gallery::dict>)
+cet_test_env_prepend(ROOT_LIBRARY_PATH $<TARGET_FILE_DIR:gallery::dict>)
 cet_test_env_prepend(ROOT_INCLUDE_PATH ${canvas_BINARY_DIR})
 
 set(gallery_tests_libraries
