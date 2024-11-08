@@ -190,7 +190,9 @@ cet_test(issue_0923_r HANDBUILT
 cet_test(issue_0940_t.sh PREBUILT
   DATAFILES
   fcl/issue_0940.fcl
-  fcl/messageDefaults.fcl)
+  fcl/messageDefaults.fcl
+  cet_test_functions.sh
+)
 
 cet_test(issue_0930_t HANDBUILT
   TEST_EXEC art
@@ -538,7 +540,9 @@ cet_test(outputCommand_t.sh PREBUILT
   DATAFILES
   fcl/outputCommand_w.fcl
   fcl/outputCommand_r.fcl
-  fcl/messageDefaults.fcl)
+  fcl/messageDefaults.fcl
+  cet_test_functions.sh
+)
 
 cet_build_plugin(NonPersistableProducer art::module NO_INSTALL)
 cet_test(NonPersistableProducts_t HANDBUILT
@@ -551,7 +555,9 @@ cet_test(test_failingProducer_t.sh PREBUILT
   DATAFILES
   fcl/test_failingProducer_w.fcl
   fcl/test_failingProducer_r.fcl
-  fcl/messageDefaults.fcl)
+  fcl/messageDefaults.fcl
+  cet_test_functions.sh
+)
 
 foreach(I RANGE 1 2)
   cet_test(exception_multiple_paths_t${I} HANDBUILT
@@ -687,7 +693,9 @@ cet_test(test_dropAllEventsSubruns_t.sh PREBUILT
   fcl/dropAllEventsSubruns_t2.fcl
   fcl/dropAllEvents_r_t.fcl
   fcl/dropAllEventsSubruns_r_t1.fcl
-  fcl/dropAllEventsSubruns_r_t2.fcl)
+  fcl/dropAllEventsSubruns_r_t2.fcl
+  cet_test_functions.sh
+)
 
 set(testOutputRanges_dropAllEventsSubruns_FILES
   "../test_dropAllEventsSubruns_t.sh.d/out_dropAllEvents.root"
@@ -728,7 +736,9 @@ cet_test(test_view_01_t.sh PREBUILT
   fcl/test_view_01a.fcl
   fcl/test_view_01b.fcl
   fcl/simple_01_r.fcl
-  fcl/messageDefaults.fcl)
+  fcl/messageDefaults.fcl
+  cet_test_functions.sh
+)
 
 cet_test(IntProducer_t HANDBUILT
   TEST_EXEC art
@@ -806,7 +816,9 @@ cet_test(test_compressed_simple_01_t.sh PREBUILT
   DATAFILES
   fcl/test_compressed_simple_01.fcl
   fcl/test_compressed_simple_01r.fcl
-  fcl/messageDefaults.fcl)
+  fcl/messageDefaults.fcl
+  cet_test_functions.sh
+)
 
 cet_test(MultiScheduleTransitions_t HANDBUILT
   TEST_EXEC art_ut
