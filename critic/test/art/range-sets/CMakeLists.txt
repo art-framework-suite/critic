@@ -45,6 +45,7 @@ cet_test(RangeSetAggregation_p1_r0 HANDBUILT
   --file-index
   -s "../RangeSetAggregation_p1_w.d/out.root"
   REF "${CMAKE_CURRENT_SOURCE_DIR}/ref/RangeSetAggregation_p1_r0-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
   TEST_PROPERTIES
   DEPENDS RangeSetAggregation_p1_w)
 
@@ -56,6 +57,7 @@ foreach(i RANGE 1 5)
     --file-index
     -s "../RangeSetAggregation_p1_w.d/p_${i}.root"
     REF "${CMAKE_CURRENT_SOURCE_DIR}/ref/RangeSetAggregation_p1_r${i}-ref.txt"
+    OUTPUT_FILTERS cetlib::filter-output
     TEST_PROPERTIES
     DEPENDS RangeSetAggregation_p1_w
     )
@@ -94,6 +96,7 @@ foreach(i RANGE 1 2)
     --file-index
     -s "../RangeSetAggregation_p2a_w${i}.d/q_${i}.root"
     REF "${CMAKE_CURRENT_SOURCE_DIR}/ref/RangeSetAggregation_p2a_r${i}-ref.txt"
+    OUTPUT_FILTERS cetlib::filter-output
     TEST_PROPERTIES
     DEPENDS RangeSetAggregation_p2a_w${i}
     )
@@ -132,6 +135,7 @@ foreach(i RANGE 1 2)
     --file-index
     -s "../RangeSetAggregation_p2b_w${i}.d/q_${i}.root"
     REF "${CMAKE_CURRENT_SOURCE_DIR}/ref/RangeSetAggregation_p2b_r${i}-ref.txt"
+    OUTPUT_FILTERS cetlib::filter-output
     TEST_PROPERTIES
     DEPENDS RangeSetAggregation_p2b_w${i}
     )
@@ -162,6 +166,7 @@ cet_test(RangeSetAggregation_p2c_r HANDBUILT
   -s "../RangeSetAggregation_p2c_w.d/q.root"
   # Should give the same RangeSet results as in test 'p2b_r1'
   REF "${CMAKE_CURRENT_SOURCE_DIR}/ref/RangeSetAggregation_p2c_r-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
   TEST_PROPERTIES
   DEPENDS RangeSetAggregation_p2c_w)
 
@@ -203,6 +208,7 @@ foreach(i RANGE 1 2)
     --file-index
     -s "../RangeSetAggregation_p3a_w${i}.d/r_${i}.root"
     REF "${CMAKE_CURRENT_SOURCE_DIR}/ref/RangeSetAggregation_p3a_r${i}-ref.txt"
+    OUTPUT_FILTERS cetlib::filter-output
     TEST_PROPERTIES
     DEPENDS RangeSetAggregation_p3a_w${i})
 endforeach()

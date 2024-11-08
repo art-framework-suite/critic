@@ -352,7 +352,8 @@ cet_test(BlockingPrescaler_t HANDBUILT
   TEST_ARGS --config BlockingPrescaler_t.fcl
   REF "${CMAKE_CURRENT_SOURCE_DIR}/BlockingPrescaler_t-ref.txt"
   DATAFILES fcl/BlockingPrescaler_t.fcl
-  OUTPUT_FILTERS "filter-updated-summary" "DEFAULT")
+  OUTPUT_FILTERS "filter-updated-summary" cetlib::filter-output
+)
 
 # Test signal handling: specifically, check that whenever a signal is
 # received, the art framework appropriately backs out of the event
@@ -594,13 +595,17 @@ cet_test(Metadata_verify_hr HANDBUILT
   TEST_EXEC sam_metadata_dumper
   TEST_ARGS -H -s ../Metadata_plugin_t.d/out.root
   TEST_PROPERTIES DEPENDS Metadata_plugin_t
-  REF ${CMAKE_CURRENT_SOURCE_DIR}/Metadata_verify_hr-ref.txt)
+  REF ${CMAKE_CURRENT_SOURCE_DIR}/Metadata_verify_hr-ref.txt
+  OUTPUT_FILTERS cetlib::filter-output
+)
 
 cet_test(Metadata_verify_JSON HANDBUILT
   TEST_EXEC sam_metadata_dumper
   TEST_ARGS -s ../Metadata_plugin_t.d/out.root
   TEST_PROPERTIES DEPENDS Metadata_plugin_t
-  REF ${CMAKE_CURRENT_SOURCE_DIR}/Metadata_verify_JSON-ref.txt)
+  REF ${CMAKE_CURRENT_SOURCE_DIR}/Metadata_verify_JSON-ref.txt
+  OUTPUT_FILTERS cetlib::filter-output
+)
 
 cet_test(Assns_w HANDBUILT
   TEST_EXEC art_ut
@@ -629,6 +634,7 @@ foreach(mode IN ITEMS M S P)
     TEST_EXEC config_dumper
     TEST_ARGS -${mode} ../Assns_w.d/out.root
     REF "${CMAKE_CURRENT_SOURCE_DIR}/config_dumper_${mode}_t-ref.txt"
+    OUTPUT_FILTERS cetlib::filter-output
     TEST_PROPERTIES
     DEPENDS Assns_w
     REQUIRED_FILES ../Assns_w.d/out.root)
@@ -678,6 +684,7 @@ cet_test(SelectEventsFromPreviousProcess_EventList_t HANDBUILT
   TEST_EXEC file_info_dumper
   TEST_ARGS --event-list ../SelectEventsFromPreviousProcess_t.d/out.root
   REF "${CMAKE_CURRENT_SOURCE_DIR}/SelectEventsFromPreviousProcess_t-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
   REQUIRED_FILES "../SelectEventsFromPreviousProcess_t.d/out.root"
   TEST_PROPERTIES DEPENDS SelectEventsFromPreviousProcess_t)
 
@@ -712,6 +719,7 @@ cet_test(testOutputRanges_dropAllEventsSubruns HANDBUILT
   --file-index ${testOutputRanges_dropAllEventsSubruns_FILES}
   REQUIRED_FILES ${testOutputRanges_dropAllEventsSubruns_FILES}
   REF "${CMAKE_CURRENT_SOURCE_DIR}/testOutputRanges_dropAllEventsSubRuns-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
   TEST_PROPERTIES DEPENDS test_dropAllEventsSubruns_t.sh)
 
 cet_test(test_runSubRunNoPut_t.sh PREBUILT

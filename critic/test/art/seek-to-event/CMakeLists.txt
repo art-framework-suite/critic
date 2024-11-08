@@ -21,6 +21,7 @@ macro(seekToEventTest NEVENTS)
     TEST_EXEC file_info_dumper
     TEST_ARGS --file-index ../${SeekToEventPrefix}_t.d/out.root
     REF "${CMAKE_CURRENT_SOURCE_DIR}/${SeekToEventPrefix}_verify-ref.txt"
+    OUTPUT_FILTERS cetlib::filter-output
     TEST_PROPERTIES DEPENDS ${SeekToEventPrefix}_t)
 endmacro()
 
@@ -42,4 +43,5 @@ cet_test(SeekToEvent_3_events_verify HANDBUILT
   TEST_EXEC file_info_dumper
   TEST_ARGS --file-index ../SeekToEvent_3_events_t.d/out.root
   REF "${CMAKE_CURRENT_SOURCE_DIR}/SeekToEvent_3_events_verify-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
   TEST_PROPERTIES DEPENDS SeekToEvent_3_events_t)

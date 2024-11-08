@@ -14,14 +14,18 @@ cet_test(SAM_metadata_verify_hr HANDBUILT
   TEST_ARGS -H -s ../SAM_metadata.d/out.root
   REQUIRED_FILES "../SAM_metadata.d/out.root"
   TEST_PROPERTIES DEPENDS SAM_metadata
-  REF "${CMAKE_CURRENT_SOURCE_DIR}/SAM_metadata_verify_hr-ref.txt")
+  REF "${CMAKE_CURRENT_SOURCE_DIR}/SAM_metadata_verify_hr-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
+)
 
 cet_test(SAM_metadata_verify_JSON HANDBUILT
   TEST_EXEC sam_metadata_dumper
   TEST_ARGS -s ../SAM_metadata.d/out.root
   REQUIRED_FILES "../SAM_metadata.d/out.root"
   TEST_PROPERTIES DEPENDS SAM_metadata
-  REF "${CMAKE_CURRENT_SOURCE_DIR}/SAM_metadata_verify_JSON-ref.txt")
+  REF "${CMAKE_CURRENT_SOURCE_DIR}/SAM_metadata_verify_JSON-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
+)
 
 cet_test(SAM_metadataFromInput_01 HANDBUILT
   TEST_EXEC art
@@ -38,7 +42,9 @@ cet_test(SAM_metadataFromInput_01_verify HANDBUILT
   TEST_EXEC sam_metadata_dumper
   TEST_ARGS -H -s ../SAM_metadataFromInput_01.d/out.root
   TEST_PROPERTIES DEPENDS SAM_metadataFromInput_01
-  REF "${CMAKE_CURRENT_SOURCE_DIR}/SAM_metadataFromInput_01_verify-ref.txt")
+  REF "${CMAKE_CURRENT_SOURCE_DIR}/SAM_metadataFromInput_01_verify-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
+)
 
 cet_test(SAM_metadataFromInput_02 HANDBUILT
   TEST_EXEC art
@@ -54,7 +60,9 @@ cet_test(SAM_metadataFromInput_02_verify HANDBUILT
   TEST_EXEC sam_metadata_dumper
   TEST_ARGS -H -s ../SAM_metadataFromInput_02.d/out.root
   TEST_PROPERTIES DEPENDS SAM_metadataFromInput_02
-  REF "${CMAKE_CURRENT_SOURCE_DIR}/SAM_metadataFromInput_02_verify-ref.txt")
+  REF "${CMAKE_CURRENT_SOURCE_DIR}/SAM_metadataFromInput_02_verify-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
+)
 
 cet_test(SAM_metadataFromInput_03 HANDBUILT
   TEST_EXEC art
@@ -71,7 +79,9 @@ cet_test(SAM_metadataFromInput_03_verify HANDBUILT
   TEST_EXEC sam_metadata_dumper
   TEST_ARGS -H -s ../SAM_metadataFromInput_03.d/out.root
   TEST_PROPERTIES DEPENDS SAM_metadataFromInput_03
-  REF "${CMAKE_CURRENT_SOURCE_DIR}/SAM_metadataFromInput_03_verify-ref.txt")
+  REF "${CMAKE_CURRENT_SOURCE_DIR}/SAM_metadataFromInput_03_verify-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
+)
 
 cet_test(SAM_metadataFromInput_conflictingFields HANDBUILT
   TEST_EXEC art

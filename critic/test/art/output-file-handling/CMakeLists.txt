@@ -49,6 +49,7 @@ foreach(source IN ITEMS EmptyEvent RootInput)
     ${OutputFilePath}/out_r2_sr0_e3.root
     ${OutputFilePath}/out_r2_sr0_e4.root
     REF "${CMAKE_CURRENT_SOURCE_DIR}/MultiOutput_FileIndexCheck_Event_t-ref.txt"
+    OUTPUT_FILTERS cetlib::filter-output
     TEST_PROPERTIES DEPENDS MultiOutputProducer${source}_w
     )
 
@@ -64,6 +65,7 @@ foreach(source IN ITEMS EmptyEvent RootInput)
     ${OutputFilePath}/out_r1_sr1_1.root
     ${OutputFilePath}/out_r2_sr0_1.root
     REF "${CMAKE_CURRENT_SOURCE_DIR}/MultiOutput_FileIndexCheck_SubRun_t-ref.txt"
+    OUTPUT_FILTERS cetlib::filter-output
     TEST_PROPERTIES DEPENDS MultiOutputProducer${source}_w
     )
 
@@ -78,6 +80,7 @@ foreach(source IN ITEMS EmptyEvent RootInput)
     ${OutputFilePath}/out_r1_1.root
     ${OutputFilePath}/out_r2_1.root
     REF "${CMAKE_CURRENT_SOURCE_DIR}/MultiOutput_FileIndexCheck_Run_t-ref.txt"
+    OUTPUT_FILTERS cetlib::filter-output
     TEST_PROPERTIES DEPENDS MultiOutputProducer${source}_w
     )
 
@@ -91,6 +94,7 @@ foreach(source IN ITEMS EmptyEvent RootInput)
     --file-index
     ${OutputFilePath}/out.root
     REF "${CMAKE_CURRENT_SOURCE_DIR}/MultiOutput_FileIndexCheck_t-ref.txt"
+    OUTPUT_FILTERS cetlib::filter-output
     TEST_PROPERTIES DEPENDS MultiOutputProducer${source}_w
     )
 
@@ -120,6 +124,7 @@ cet_test(MultiOutput_FileIndexCheck_InputFile_t HANDBUILT
   ${InputFilePath}/out_1.root
   ${InputFilePath}/out_2.root
   REF "${CMAKE_CURRENT_SOURCE_DIR}/MultiOutput_FileIndexCheck_InputFile_t-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
   TEST_PROPERTIES DEPENDS MultiInput_SwitchOutputOnNewInput_w)
 
 ## =============================================================
@@ -163,6 +168,7 @@ cet_test(MultiOutput_FileIndexCheck_InputFile_t2 HANDBUILT
   ${InputFilePath}/out_6.root
   ${InputFilePath}/out_7.root
   REF "${CMAKE_CURRENT_SOURCE_DIR}/MultiOutput_FileIndexCheck_InputFile_t2-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
   TEST_PROPERTIES DEPENDS MultiInput_SwitchOutputOnNewInput_w2)
 
 ## =============================================================
@@ -197,6 +203,7 @@ cet_test(MultiInputConcatenate_FileIndexCheck_t HANDBUILT
   TEST_EXEC file_info_dumper
   TEST_ARGS --range-of-validity --file-index ../MultiInputConcatenate_t.d/out.root
   REF "${CMAKE_CURRENT_SOURCE_DIR}/MultiInputConcatenate_FileIndexCheck_t-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
   TEST_PROPERTIES DEPENDS MultiInputConcatenate_t)
 
 ## =============================================================
@@ -216,6 +223,7 @@ cet_test(DelaySwitchToSubRunBoundary_FileIndexCheck_t HANDBUILT
   "../DelaySwitchToSubRunBoundary_w.d/out_1.root"
   "../DelaySwitchToSubRunBoundary_w.d/out_2.root"
   REF "${CMAKE_CURRENT_SOURCE_DIR}/DelaySwitchToSubRunBoundary_FileIndexCheck_t-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
   TEST_PROPERTIES DEPENDS DelaySwitchToSubRunBoundary_w)
 
 ## =============================================================
@@ -237,6 +245,7 @@ cet_test(SwitchOnTwoConditions_FileIndexCheck_t HANDBUILT
   "../SwitchOnTwoConditions_w.d/out_r2_1.root"
   "../SwitchOnTwoConditions_w.d/out_r2_2.root"
   REF "${CMAKE_CURRENT_SOURCE_DIR}/SwitchOnTwoConditions-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
   TEST_PROPERTIES DEPENDS SwitchOnTwoConditions_w)
 
 ## =============================================================

@@ -80,6 +80,7 @@ cet_test(ToyRawInput_OutputCheck_t_01 HANDBUILT
   --file-index
   "../ToyRawInput_t_01.d/out.root"
   REF "${CMAKE_CURRENT_SOURCE_DIR}/ToyRawInput_t_01-ref.txt"
+  OUTPUT_FILTERS cetlib::filter-output
   TEST_PROPERTIES
   DEPENDS ToyRawInput_t_01)
 
