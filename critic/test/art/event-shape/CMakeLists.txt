@@ -107,11 +107,11 @@ cet_test(ES_ws02 HANDBUILT
 cet_test(ES_r01 HANDBUILT
   TEST_EXEC art
   TEST_ARGS -c ES_r01.fcl ../ES_ws01.d/ES_ws01.root ../ES_ws02.d/ES_ws02.root
-  DATAFILES fcl/ES_r01.fcl)
+  DATAFILES fcl/ES_r01.fcl
+  TEST_PROPERTIES DEPENDS "ES_ws01;ES_ws02")
 
 cet_test(ES_r02 HANDBUILT
   TEST_EXEC art
   TEST_ARGS -c ES_r02.fcl ../ES_ws01.d/ES_ws01.root ../ES_ws02.d/ES_ws02.root
-  DATAFILES fcl/ES_r02.fcl)
-
-set_tests_properties(ES_r01 ES_r01 PROPERTIES DEPENDS "ES_ws01;ES_ws02")
+  DATAFILES fcl/ES_r02.fcl
+  TEST_PROPERTIES DEPENDS "ES_ws01;ES_ws02")
