@@ -1,3 +1,5 @@
+include(CetCMakeLibrary)
+
 cet_make_library(SOURCE LiteAssnTestData.cc LitePtrTestProduct.cc
   LIBRARIES PUBLIC art_test::TestObjects canvas::canvas
 )
