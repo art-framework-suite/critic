@@ -25,7 +25,7 @@ namespace arttest {
 
   private:
     void
-    analyze(const Event&) override
+    analyze(Event const&) override
     {
       ++total_;
     }

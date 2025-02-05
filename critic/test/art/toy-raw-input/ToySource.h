@@ -39,7 +39,7 @@ public:
 
 protected:
   // Helper function to throw an exception with the appropriate text.
-  [[noreturn]] static void throw_exception_from(const char* funcname);
+  [[noreturn]] static void throw_exception_from(char const* funcname);
 
   using vv_t = std::vector<std::tuple<int, int, int>>;
   using iter = vv_t::const_iterator;

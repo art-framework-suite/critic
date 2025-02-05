@@ -19,7 +19,7 @@ public:
   explicit AssnsMultipleProduces(Parameters const&);
 
 private:
-  void produce(art::Event&) override{};
+  void produce(art::Event&) override {};
 };
 
 using product_t = art::Assns<std::size_t, std::string>;

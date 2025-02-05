@@ -40,7 +40,7 @@ namespace {
     {}
 
   private:
-    void analyze(art::Event const&) override{};
+    void analyze(art::Event const&) override {};
 
     void
     beginJob() override

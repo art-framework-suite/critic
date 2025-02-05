@@ -29,7 +29,7 @@ public:
   explicit HMRunProdProducer(fhicl::ParameterSet const& p);
 
 private:
-  void produce(art::Event&) override{};
+  void produce(art::Event&) override {};
   void endSubRun(art::SubRun& sr) override;
   void endRun(art::Run& r) override;
 

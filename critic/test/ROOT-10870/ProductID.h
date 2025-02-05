@@ -39,7 +39,8 @@ namespace r10870 {
       return value_;
     }
 
-    constexpr operator std::size_t() const noexcept
+    constexpr
+    operator std::size_t() const noexcept
     {
       return static_cast<std::size_t>(value_);
     }

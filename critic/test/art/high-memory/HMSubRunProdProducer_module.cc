@@ -27,7 +27,7 @@ public:
   explicit HMSubRunProdProducer(fhicl::ParameterSet const&);
 
 private:
-  void produce(art::Event&) override{};
+  void produce(art::Event&) override {};
   void endSubRun(art::SubRun& sr) override;
 };
 

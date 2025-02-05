@@ -124,7 +124,7 @@ arttest::ToySource::readNext(art::RunPrincipal const* const inR,
 }
 
 void
-arttest::ToySource::throw_exception_from(const char* funcname)
+arttest::ToySource::throw_exception_from(char const* funcname)
 {
   throw art::Exception(art::errors::OtherArt)
     << "Expected exception from DETAIL::" << funcname << '\n';
