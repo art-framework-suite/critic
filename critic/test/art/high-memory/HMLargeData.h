@@ -2,6 +2,7 @@
 #define critic_test_art_high_memory_HMLargeData_h
 
 #include <cassert>
+#include <utility>
 #include <vector>
 
 namespace arttest {
@@ -36,7 +37,7 @@ arttest::HMLargeData::operator+=(HMLargeData const& other)
 void
 arttest::HMLargeData::aggregate(HMLargeData const& other)
 {
-  (void)operator+=(other);
+  std::ignore = operator+=(other);
 }
 
 constexpr size_t
